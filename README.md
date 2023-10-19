@@ -1,1 +1,1 @@
-# edu-crm-frontend
+# Educational CRM
