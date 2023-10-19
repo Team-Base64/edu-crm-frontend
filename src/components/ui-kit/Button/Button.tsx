@@ -6,29 +6,31 @@ const stylesSize = {
     s: styles['Button--size-s'],
     m: styles['Button--size-m'],
     l: styles['Button--size-l'],
+    undefined: '',
 };
 
 const stylesMode = {
     primary: styles['Button--mode-primary'],
     secondary: styles['Button--mode-secondary'],
     link: styles['Button--mode-link'],
+    undefined: '',
 };
 
 interface ButtonProps extends UiComponentProps {
-    mode: 'primary' | 'secondary' | 'link';
+    mode: 'primary' | 'secondary' | 'link' | 'undefined';
 }
 
 const Button: React.FC<ButtonProps> = ({
-    mode,
+    mode = 'undefined',
     onClick,
     children,
-    size = 'm',
+    size = 'undefined',
     classes= '',
 }) => {
     return (
         <button
             onClick={onClick}
-            className={[classes, styles.Button, stylesMode[mode], stylesSize[size]].join(' ')}
+            className={[styles.Button, stylesMode[mode], stylesSize[size], classes].join(' ')}
         >
             {children}
         </button>

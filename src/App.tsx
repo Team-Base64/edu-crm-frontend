@@ -3,7 +3,7 @@ import Button from './components/ui-kit/Button/Button.tsx';
 function App() {
     return (
         <>
-            <Button mode={'primary'} onClick={()=> alert('lol')}>
+            <Button mode={'primary'} onClick={()=> alert('lol')} classes={styles.try}>
                 <p>
                     adasdaasdasd
                 </p>
