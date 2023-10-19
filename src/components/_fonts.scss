@@ -1,0 +1,10 @@
+@mixin default-font {
+  font-family: Roboto, sans-serif;
+  //font-display: swap;
+}
+
+@mixin default-weight {
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+}

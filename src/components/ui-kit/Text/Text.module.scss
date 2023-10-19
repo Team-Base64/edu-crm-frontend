@@ -1,0 +1,21 @@
+@use "../../variables" as const;
+@use "../../fonts" as fonts;
+
+.Text {
+  @include fonts.default-font;
+  @include fonts.default-weight;
+}
+
+.Text--size-l {
+  font-size: 20px;
+}
+
+.Text--size-m {
+  font-size: 16px;
+}
+
+.Text--size-s {
+  font-size: 12px;
+}
+
+

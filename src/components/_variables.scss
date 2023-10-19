@@ -1,0 +1,34 @@
+/* colors */
+
+// accent
+$color-accent-bright: #FF8A00;
+$color-accent-default: #FDAD01;
+$color-accent-light: #FFEECB;
+$color-accent-super-light: rgba(255, 242, 229, 0.25);
+
+// background
+$color-bg-bright: rgba(255, 242, 229, 0.25);
+$color-bg-default: #F9F9F9;
+$color-bg-light: #FFF;
+
+// text
+$color-text-default: #333;
+$color-text-light: #888;
+
+// result colors
+$color-success: #68B684;
+$color-fail: rgba(214, 46, 46, 0.75);
+
+/* shadows */
+
+/* border-radius */
+$border-radius-default: 16px;
+
+/* space? */
+$space-tiny: 2px;
+$space-small: 4px;
+$space-smaller: 8px;
+$space-default: 16px;
+$space-bigger: 24px;
+$space-big: 32px;
+$space-huge: 64px;

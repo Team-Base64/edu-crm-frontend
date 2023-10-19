@@ -1,0 +1,37 @@
+@use "../../variables" as const;
+
+.Button {
+  display: flex;
+  border: none;
+  border-radius: const.$border-radius-default;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+.Button--size-l {
+  padding: const.$space-default const.$space-bigger const.$space-default const.$space-bigger;
+  gap: const.$space-smaller;
+}
+
+.Button--size-m {
+  padding: const.$space-smaller const.$space-default const.$space-smaller const.$space-default;
+  gap: const.$space-smaller;
+}
+
+.Button--size-s {
+  padding: const.$space-small const.$space-smaller const.$space-small const.$space-smaller;
+  gap: const.$space-small;
+}
+
+.Button--mode-primary {
+  background-color: const.$color-accent-default;
+}
+
+.Button--mode-secondary {
+  background-color: const.$color-accent-light;
+}
+
+.Button--mode-link {
+  background-color: inherit;
+}
