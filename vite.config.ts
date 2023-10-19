@@ -17,7 +17,6 @@ export default defineConfig({
         devSourcemap: true,
         transformer: 'postcss',
         modules: {
-            // generateScopedName: ((name: string, filename: string, css: string) => name),
             localsConvention: 'dashes'
         }
     },
