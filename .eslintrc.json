@@ -3,6 +3,14 @@
     "browser": true,
     "es2021": true
   },
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "react-refresh",
+    "prettier",
+    "@typescript-eslint",
+    "eslint-plugin-tsdoc",
+    "react"
+  ],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
@@ -12,13 +20,6 @@
     "google",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime"
-  ],
-  "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "react-refresh",
-    "prettier",
-    "@typescript-eslint",
-    "eslint-plugin-tsdoc"
   ],
   "parserOptions": {
     "ecmaVersion": 13,
@@ -35,6 +36,7 @@
     "@typescript-eslint/no-non-null-assertion": "off",
     "tsdoc/syntax": "warn",
     "valid-jsdoc": "off",
+    "max-len": "off",
     "react/no-children-prop": "off"
   },
   "settings": {
