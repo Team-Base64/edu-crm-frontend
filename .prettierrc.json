@@ -4,7 +4,6 @@
   "singleQuote": true,
   "tabWidth": 4,
   "arrowParens": "always",
-  "useTabs": true,
   "bracketSpacing": true,
   "singleAttributePerLine": true,
   "overrides": [
