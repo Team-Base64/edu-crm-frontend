@@ -16,8 +16,8 @@ export default defineConfig({
     css: {
         devSourcemap: true,
         transformer: 'postcss',
-        modules: {
-            localsConvention: 'dashes',
-        },
+        // modules: {
+        //     localsConvention: 'dashes',
+        // },
     },
 });
