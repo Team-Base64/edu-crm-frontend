@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
     "paths": {
       "@components/*": ["components/*"],
       "@ui-kit/*": ["ui-kit/*"]

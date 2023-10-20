@@ -6,6 +6,7 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
     "plugin:react-hooks/recommended",
     "prettier",
     "google",
@@ -26,20 +27,15 @@
   "rules": {
     "prettier/prettier": "error",
     "react-refresh/only-export-components": "warn",
-//    "semi": ["error", "always"],
-//    "quotes": ["error", "single"],
     "indent": "off",
     "object-curly-spacing": "off",
-//    "no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
     "no-duplicate-imports": "error",
-//    "linebreak-style": "off",
     "@typescript-eslint/no-empty-function": "warn",
     "@typescript-eslint/no-explicit-any": "warn",
     "@typescript-eslint/no-non-null-assertion": "off",
     "tsdoc/syntax": "warn",
     "valid-jsdoc": "off",
     "react/no-children-prop": "off"
-//    "max-len": ["error", { "code": 105 }]
   },
   "settings": {
     "react": {
