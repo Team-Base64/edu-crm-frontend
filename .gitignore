@@ -1,7 +1,7 @@
-.vs
-.idea
 node_modules
-.vite
-dev-dist
 dist
-coverage
+
+# Editor directories and files
+.vscode
+.idea
+.vs

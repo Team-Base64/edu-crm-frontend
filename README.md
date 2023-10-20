@@ -1,1 +1,2 @@
-# Educational CRM
+# EDU CRM
+## Front-end repo
