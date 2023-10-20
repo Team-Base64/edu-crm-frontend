@@ -1,0 +1,37 @@
+@use "../variables" as vars;
+
+.Button {
+  display: flex;
+  border: none;
+  border-radius: vars.$border-radius-default;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+
+  &--size-l {
+    padding: vars.$space-default vars.$space-bigger vars.$space-default vars.$space-bigger;
+    gap: vars.$space-smaller;
+  }
+
+  &--size-m {
+    padding: vars.$space-smaller vars.$space-default vars.$space-smaller vars.$space-default;
+    gap: vars.$space-smaller;
+  }
+
+  &--size-s {
+    padding: vars.$space-small vars.$space-smaller vars.$space-small vars.$space-smaller;
+    gap: vars.$space-small;
+  }
+
+  &--mode-primary {
+    background-color: vars.$color-accent-default;
+  }
+
+  &--mode-secondary {
+    background-color: vars.$color-accent-light;
+  }
+
+  &--mode-link {
+    background-color: inherit;
+  }
+}

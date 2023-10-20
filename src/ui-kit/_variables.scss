@@ -1,0 +1,34 @@
+/* colors */
+
+// accent
+$color-accent-bright: var(--color-accent-bright);
+$color-accent-default: var(--color-accent-default);
+$color-accent-light: var(--color-accent-light);
+$color-accent-super-light: var(--color-accent-super-light);
+
+// background
+$color-bg-bright: var(--color-bg-bright);
+$color-bg-default: var(--color-bg-default);
+$color-bg-light: var(--color-bg-light);
+
+// text
+$color-text-default: var(--color-text-default);
+$color-text-light : var(--color-text-light);
+
+// result colors
+$color-success : var(--color-success);
+$color-fail: var(--color-fail);
+
+/* shadows */
+
+/* border-radius */
+$border-radius-default: var(--border-radius-default);
+
+/* space? */
+$space-tiny: var(--space-tiny);
+$space-small: var(--space-small);
+$space-smaller: var(--space-smaller);
+$space-default: var(--space-default);
+$space-bigger: var(--space-bigger);
+$space-big: var(--space-big);
+$space-huge: var(--space-huge);
