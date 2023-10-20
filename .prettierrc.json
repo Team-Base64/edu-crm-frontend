@@ -4,7 +4,7 @@
   "singleQuote": true,
   "printWidth": 105,
   "tabWidth": 4,
-  "arrowParens": "avoid",
+  "arrowParens": "always",
   "overrides": [
     {
       "files": "*.scss",
