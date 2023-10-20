@@ -27,7 +27,6 @@
     "@vitejs/plugin-react-swc": "^3.3.2",
     "browserslist": "^4.22.1",
     "eslint": "^8.45.0",
-    "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-config-recommended": "^4.1.0",
     "eslint-plugin-prettier": "^5.0.1",
