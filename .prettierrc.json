@@ -2,9 +2,11 @@
   "semi": true,
   "trailingComma": "all",
   "singleQuote": true,
-  "printWidth": 105,
   "tabWidth": 4,
   "arrowParens": "always",
+  "useTabs": true,
+  "bracketSpacing": true,
+  "singleAttributePerLine": true,
   "overrides": [
     {
       "files": "*.scss",
