@@ -1,5 +1,9 @@
 .app {
- display: flex;
+  display: flex;
   flex-direction: column;
   gap: 20px;
+
+  &__container {
+    border: 1px solid lightgray;
+  }
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import Button from '@ui-kit/Button/Button';
 import styles from './App.module.scss';
 import Text from '@ui-kit/Text/Text';
+import Container from '@ui-kit/Container/Container';
 const App: React.FC = () => {
     return (
         <div className={styles.app}>
@@ -21,6 +22,24 @@ const App: React.FC = () => {
                 p1 test
             </Text>
             <Text type={'p2'}>p2 test</Text>
+            <Container
+                direction={'horizontal'}
+                gap={'l'}
+                classes={styles.app__container}
+            >
+                <div>Elem 1</div>
+                <div>Elem 2</div>
+                <div>Elem 3</div>
+            </Container>
+            <Container
+                direction={'vertical'}
+                gap={'s'}
+                classes={styles.app__container}
+            >
+                <div>Elem 1</div>
+                <div>Elem 2</div>
+                <div>Elem 3</div>
+            </Container>
         </div>
     );
 };

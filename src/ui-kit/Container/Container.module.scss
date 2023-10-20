@@ -1,0 +1,27 @@
+%container {
+  display: flex;
+}
+
+.vertical {
+  @extend %container;
+  flex-direction: column;
+}
+
+.horizontal {
+  @extend %container;
+}
+
+.s {
+  gap: 8px;
+}
+
+.m {
+  gap: 16px;
+}
+
+.l {
+  gap: 32px;
+}
+
+
+
