@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "paths": {
-      "@components/*": ["components/*"],
-      "@ui-kit/*": ["ui-kit/*"]
+      "@components/*": ["src/components/*"],
+      "@ui-kit/*": ["src/ui-kit/*"]
     },
     "target": "ES2020",
     "useDefineForClassFields": true,
