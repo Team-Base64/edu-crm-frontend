@@ -1,42 +1,45 @@
 import React from 'react';
 import styles from './Button.module.scss';
-import { UiComponentProps } from '@ui-kit/interfaces';
+import { UiComponentProps, UiComponentPropsMap } from '@ui-kit/interfaces';
 
-const btnSize = {
-    s: styles.ButtonSizeS,
-    m: styles.ButtonSizeM,
-    l: styles.ButtonSizeL,
+const btnSize: UiComponentPropsMap = {
+    s: styles.small,
+    m: styles.medium,
+    l: styles.large,
 };
 export type ButtonSize = keyof typeof btnSize;
 
-const btnType = {
-    primary: styles.ButtonModePrimary,
-    secondary: styles.ButtonModeSecondary,
-    link: styles.ButtonModeLink,
+const btnType: UiComponentPropsMap = {
+    primary: styles.primary,
+    secondary: styles.secondary,
+    link: styles.link,
 };
 export type ButtonType = keyof typeof btnType;
 
 interface ButtonProps extends UiComponentProps {
-    type: ButtonType;
-    size: ButtonSize;
+    type?: ButtonType;
+    size?: ButtonSize;
+    disabled?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
-    type,
+    type = 'primary',
     onClick,
     children,
-    size,
+    size = 'm',
     classes = '',
+    disabled = false,
 }) => {
     return (
         <button
             onClick={onClick}
             className={[
-                styles.Button,
-                classes,
-                btnSize[size],
+                styles.button,
                 btnType[type],
+                btnSize[size],
+                classes,
             ].join(' ')}
+            disabled={disabled}
         >
             {children}
         </button>

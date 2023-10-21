@@ -1,4 +1,52 @@
 :root {
+  // Button
+  --ui-kit-btn-font-weight: 700;
+
+
+  --ui-kit-btn-primary-bg-default: #FF8A00;
+  --ui-kit-btn-primary-font-color: white;
+  --ui-kit-btn-primary-bg-hover: #ff9f34;
+  --ui-kit-btn-primary-border-color-focus: #b26201;
+  --ui-kit-btn-primary-bg-active: #ffaa52;
+  --ui-kit-btn-primary-bg-disabled: gray;
+
+  --ui-kit-btn-secondary-border-color-default: #FF8A00;
+  --ui-kit-btn-secondary-font-color: #FF8A00;
+  --ui-kit-btn-secondary-bg-hover: #ffaa52;
+  --ui-kit-btn-secondary-border-color-focus: #ff9f34;
+  --ui-kit-btn-secondary-bg-active: #f6ad63;
+  --ui-kit-btn-secondary-font-color-disabled: gray;
+  --ui-kit-btn-secondary-border-color-disabled: gray;
+
+  --ui-kit-btn-link-font-color: #FF8A00;
+  --ui-kit-btn-link-bg-hover: #ffaa52;
+  --ui-kit-btn-link-border-color-focus: #ff9f34;
+  --ui-kit-btn-link-font-color-active: #ffaa52;
+  --ui-kit-btn-link-font-color-disabled: gray;
+  // End button
+
+  // Padding
+  --ui-kit-padding-t-b-small: 4px;
+  --ui-kit-padding-l-r-small: 8px;
+  --ui-kit-padding-t-b-medium: 8px;
+  --ui-kit-padding-l-r-medium: 16px;
+  --ui-kit-padding-t-b-large: 16px;
+  --ui-kit-padding-l-r-large: 32px;
+
+  // Gap
+  --ui-kit-gap-small: 4px;
+  --ui-kit-gap-medium: 8px;
+  --ui-kit-gap-large: 16px;
+
+  // Border
+  --ui-kit-border-width-bold: 4px;
+  --ui-kit-border-width-default: 2px;
+
+  --ui-kit-border-radius-small: 8px;
+  --ui-kit-border-radius-medium: 12px;
+  --ui-kit-border-radius-large: 16px;
+
+
   /* colors */
 
   // accent

@@ -1,0 +1,25 @@
+@use "sass:map";
+$show-var-list-to-console: false;
+$vars: ();
+
+@function getVar($parts...) {
+  $prefix: --ui-kit;
+  $resultCssVar: $prefix;
+
+  @each $part in $parts {
+    $resultCssVar: $resultCssVar + '-' + $part;
+  }
+
+  $vars: map.set($vars, $resultCssVar, none) !global;
+
+  @if $show-var-list-to-console {
+    @debug '-';
+    @debug '-';
+    @debug '-';
+    @debug '-';
+    @debug map.keys($vars);
+  }
+
+  @return var($resultCssVar);
+}
+
