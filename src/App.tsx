@@ -3,6 +3,7 @@ import Button from '@ui-kit/Button/Button';
 import styles from './App.module.scss';
 import Text from '@ui-kit/Text/Text';
 import Container from '@ui-kit/Container/Container';
+import Input from '@ui-kit/Input/Input';
 
 const App: React.FC = () => {
     return (
@@ -19,6 +20,38 @@ const App: React.FC = () => {
             <Button size={'s'}>Test S</Button>
             <Button size={'m'}>Test M</Button>
             <Button size={'l'}>Test L</Button>
+            <br />
+            Test Input
+            <br />
+            <Input
+                label={'Title Default'}
+                placeholder={'Placeholder example'}
+            />
+            <Input
+                label={'Title Error'}
+                errorHint={'error message example'}
+                placeholder={'Placeholder example'}
+            />
+            <Input
+                label={'Title Success'}
+                placeholder={'Placeholder example'}
+                success
+            />
+            <Input
+                label={'Title Small'}
+                placeholder={'Placeholder example'}
+                sizeType={'s'}
+            />
+            <Input
+                label={'Title Medium'}
+                sizeType={'m'}
+                placeholder={'Placeholder example'}
+            />
+            <Input
+                label={'Title Large'}
+                placeholder={'Placeholder example'}
+                sizeType={'l'}
+            />
             <br />
             Test Headers:
             <br />

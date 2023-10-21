@@ -25,6 +25,37 @@
   --ui-kit-btn-link-font-color-disabled: gray;
   // End button
 
+  //Input
+  --ui-kit-input-bg-disabled: lightgray;
+  --ui-kit-input-bg-default: inherit;
+  --ui-kit-input-bg-hover: inherit;
+  --ui-kit-input-bg-focus: inherit;
+  --ui-kit-input-bg-error: inherit;
+  --ui-kit-input-bg-success: inherit;
+
+  --ui-kit-input-outline-color: gray;
+  --ui-kit-input-outline-color-disabled: lightgray;
+  --ui-kit-input-outline-color-focus: #b26201;
+  --ui-kit-input-outline-color-error: red;
+  --ui-kit-input-outline-color-success: green;
+  --ui-kit-input-outline-color-hover: inherit;
+
+  --ui-kit-input-text-color-disabled: gray;
+
+  --ui-kit-input-title-font-size-small: 20px;
+  --ui-kit-input-title-font-size-medium: 24px;
+  --ui-kit-input-title-font-size-large: 28px;
+
+  --ui-kit-input-font-size-large: 24px;
+  --ui-kit-input-font-size-medium: 20px;
+  --ui-kit-input-font-size-small: 16px;
+
+  --ui-kit-input-error-hint-font-size-large: 20px;
+  --ui-kit-input-error-hint-font-size-medium: 16px;
+  --ui-kit-input-error-hint-font-size-small: 14px;
+
+  //End input
+
   // Padding
   --ui-kit-padding-t-b-small: 4px;
   --ui-kit-padding-l-r-small: 8px;
