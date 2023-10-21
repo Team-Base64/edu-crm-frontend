@@ -1,15 +1,15 @@
 import React from 'react';
 import styles from './Button.module.scss';
-import { UiComponentProps, UiComponentPropsMap } from '@ui-kit/interfaces';
+import { UiComponentProps } from '@ui-kit/interfaces';
 
-const btnSize: UiComponentPropsMap = {
+const btnSize = {
     s: styles.small,
     m: styles.medium,
     l: styles.large,
 };
 export type ButtonSize = keyof typeof btnSize;
 
-const btnType: UiComponentPropsMap = {
+const btnType = {
     primary: styles.primary,
     secondary: styles.secondary,
     link: styles.link,

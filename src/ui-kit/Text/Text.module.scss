@@ -1,17 +1,20 @@
-.h1 {
-  color: red;
-}
+@use '../functions' as *;
 
-.h2 {
-  color: blue;
+// h1 - h6
+@for $i from 1 through 6 {
+  $tag: h#{$i};
+  .#{$tag} {
+    font-size: getVar(font, size, $tag);
+  }
 }
 
 .p {
-
+  font-size: getVar(font, size, p);
 }
 
-.p2 {
 
+.p2 {
+  font-size: getVar(font, size, p2);
 }
 
 .bold {

@@ -1,16 +1,20 @@
 import React, { HTMLAttributes } from 'react';
-import { UiComponentProps, UiComponentPropsMap } from '@ui-kit/interfaces';
+import { UiComponentProps } from '@ui-kit/interfaces';
 import styles from './Text.module.scss';
 
 const textType = {
-    h1: styles.h1,
+    h1: styles.h1, // No suggestions due to @for in scss
     h2: styles.h2,
+    h3: styles.h3,
+    h4: styles.h4,
+    h5: styles.h5,
+    h6: styles.h6,
     p: styles.p,
     p2: styles.p2, // React error here: no tag p2
 };
 export type TextType = keyof typeof textType;
 
-const textWeight: UiComponentPropsMap = {
+const textWeight = {
     regular: styles.regular,
     bold: styles.bold,
 };
@@ -23,7 +27,7 @@ interface TextProps extends UiComponentProps {
 
 const Text: React.FC<TextProps> = ({
     type,
-    weight = styles.regular,
+    weight = 'regular',
     classes = '',
     children,
     onClick,
