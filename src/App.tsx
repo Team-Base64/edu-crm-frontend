@@ -51,18 +51,20 @@ const App: React.FC = () => {
             <br />
             Test Containers
             <br />
+            Hor gap = medium
             <Container
                 direction={'horizontal'}
-                gap={'l'}
+                gap={'m'}
                 classes={styles.app__container}
             >
                 <div>Elem 1</div>
                 <div>Elem 2</div>
                 <div>Elem 3</div>
             </Container>
+            Vert gap = large
             <Container
                 direction={'vertical'}
-                gap={'s'}
+                gap={'l'}
                 classes={styles.app__container}
             >
                 <div>Elem 1</div>

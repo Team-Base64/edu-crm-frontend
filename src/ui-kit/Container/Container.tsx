@@ -9,9 +9,9 @@ const containerDirection = {
 export type ContainerDirection = keyof typeof containerDirection;
 
 const containerGap = {
-    s: styles.s,
-    m: styles.m,
-    l: styles.l,
+    s: styles.containerGapSmall,
+    m: styles.containerGapMedium,
+    l: styles.containerGapLarge,
 };
 export type ContainerGap = keyof typeof containerGap;
 
@@ -30,9 +30,10 @@ const Container: React.FC<ContainerProps> = ({
     return (
         <div
             className={[
-                classes,
+                styles.container,
                 containerDirection[direction],
                 containerGap[gap],
+                classes,
             ].join(' ')}
             onClick={onClick}
         >
