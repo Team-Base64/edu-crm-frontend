@@ -4,10 +4,35 @@ import styles from './App.module.scss';
 import Text from '@ui-kit/Text/Text';
 import Container from '@ui-kit/Container/Container';
 import Input from '@ui-kit/Input/Input';
+import Icon from '@ui-kit/Icon/Icon';
 
 const App: React.FC = () => {
     return (
         <div className={styles.app}>
+            <br />
+            Test Icons
+            <br />
+            <Icon name={'homeLine'} />
+            <Icon name={'layoutLine'} />
+            <Icon name={'chatLine'} />
+            <Icon name={'calendarLine'} />
+            <Icon name={'settingsLine'} />
+            <Icon name={'logoutLine'} />
+            <br />
+            Test Icon sizes
+            <br />
+            <Icon
+                name={'settingsLine'}
+                size={'small'}
+            />
+            <Icon
+                name={'settingsLine'}
+                size={'medium'}
+            />
+            <Icon
+                name={'settingsLine'}
+                size={'large'}
+            />
             <br />
             Test button types:
             <br />

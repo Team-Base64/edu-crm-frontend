@@ -1,0 +1,16 @@
+@use '../functions' as *;
+
+.small {
+  width: getVar(icon, size, small);
+  height: getVar(icon, size, small);
+}
+
+.medium {
+  width: getVar(icon, size, medium);
+  height: getVar(icon, size, medium);
+}
+
+.large {
+  width: getVar(icon, size, large);
+  height: getVar(icon, size, large);
+}

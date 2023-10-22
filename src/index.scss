@@ -1,5 +1,5 @@
 @use 'styles/variables';
 
-body * {
+body *:not(svg path) {
   all: unset;
 }
