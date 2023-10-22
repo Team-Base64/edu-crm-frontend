@@ -34,6 +34,22 @@ const App: React.FC = () => {
                 size={'large'}
             />
             <br />
+            Test Icon coloring
+            <br />
+            <Icon
+                name={'settingsLine'}
+                size={'large'}
+                color={'red'}
+            />
+            <br />
+            Test Icon Clickable
+            <br />
+            <Icon
+                name={'settingsLine'}
+                size={'large'}
+                onClick={() => {}}
+            />
+            <br />
             Test button types:
             <br />
             <Button>Test Primary</Button>

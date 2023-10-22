@@ -14,3 +14,7 @@
   width: getVar(icon, size, large);
   height: getVar(icon, size, large);
 }
+
+.clickable {
+  cursor: pointer;
+}

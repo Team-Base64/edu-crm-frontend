@@ -32,12 +32,19 @@ const Icon: React.FC<IconProps> = ({
     color = 'black',
     background = 'none',
     size = 'medium',
+    onClick,
+    classes,
 }) => {
     const SelectedIcon = iconName[name];
 
     return (
         <SelectedIcon
-            className={iconSize[size]}
+            onClick={onClick}
+            className={[
+                iconSize[size],
+                onClick ? styles.clickable : '',
+                classes,
+            ].join(' ')}
             style={{
                 fill: color,
                 background: background,
