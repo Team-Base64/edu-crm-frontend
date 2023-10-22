@@ -5,10 +5,30 @@ import Text from '@ui-kit/Text/Text';
 import Container from '@ui-kit/Container/Container';
 import Input from '@ui-kit/Input/Input';
 import Icon from '@ui-kit/Icon/Icon';
+import Avatar from '@ui-kit/Avatar/Avatar';
 
 const App: React.FC = () => {
+    const man_photo_src =
+        'https://flirtic.com/media/photos/1/e/7/1e733948480.jpg';
+    const man_2 =
+        'https://i.pinimg.com/736x/04/40/ae/0440ae4c93dcea46323ace9051185636--face-photography-my-fashion.jpg';
     return (
         <div className={styles.app}>
+            <br />
+            Test Avatarr
+            <br />
+            <Avatar
+                src={man_photo_src}
+                size={'small'}
+            />
+            <Avatar
+                src={man_2}
+                size={'medium'}
+            />
+            <Avatar
+                src={man_2}
+                size={'large'}
+            />
             <br />
             Test Icons
             <br />

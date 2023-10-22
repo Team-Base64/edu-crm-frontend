@@ -1,0 +1,61 @@
+@use '../functions' as *;
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  $outline-width: getVar(border, width, default);
+  outline: $outline-width solid getVar(avatar, border, color);
+  outline-offset: calc(0px - $outline-width);
+  border-radius: 50%;
+
+
+  //&::after {
+  // position: relative;
+  //  top: 0;
+  //  left: 0;
+  //  z-index: 2;
+  //  width: 100%;
+  //  height: 100%;
+  //  background-color: gray;
+  //  content: "dwa";
+  //}
+
+  &.small {
+    width: getVar(avatar, size, small);
+    height: getVar(avatar, size, small);
+  }
+
+  &.medium {
+    width: getVar(avatar, size, medium);
+    height: getVar(avatar, size, medium);
+  }
+
+  &.large {
+    width: getVar(avatar, size, large);
+    height: getVar(avatar, size, large);
+  }
+
+
+  &__image {
+
+    object-fit: contain;
+
+
+    &--unload {
+      background-color: gray;
+    }
+
+    &--landscape {
+      height: 100%;
+      width: auto;
+    }
+
+    &--portrait {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
