@@ -12,12 +12,23 @@ const App: React.FC = () => {
             <br />
             Test Icons
             <br />
-            <Icon name={'homeLine'} />
-            <Icon name={'layoutLine'} />
-            <Icon name={'chatLine'} />
-            <Icon name={'calendarLine'} />
-            <Icon name={'settingsLine'} />
-            <Icon name={'logoutLine'} />
+            <Container direction={'horizontal'}>
+                <Icon name={'homeLine'} />
+                <Icon name={'layoutLine'} />
+                <Icon name={'chatLine'} />
+                <Icon name={'calendarLine'} />
+                <Icon name={'settingsLine'} />
+                <Icon name={'logoutLine'} />
+                <Icon name={'archiveLine'} />
+                <Icon name={'chatRightFill'} />
+                <Icon name={'chatSend'} />
+                <Icon name={'pencilLine'} />
+                <Icon name={'addLine'} />
+                <Icon name={'arrowRight'} />
+                <Icon name={'closeCircle'} />
+                <Icon name={'copyLine'} />
+                <Icon name={'deleteBinLine'} />
+            </Container>
             <br />
             Test Icon sizes
             <br />

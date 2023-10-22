@@ -10,6 +10,15 @@ const iconName = {
     logoutLine: Icons.LogoutLine,
     chatLine: Icons.ChatLine,
     layoutLine: Icons.LayoutLine,
+    archiveLine: Icons.ArchiveLine,
+    chatRightFill: Icons.ChatRightFill,
+    chatSend: Icons.ChatSendFill,
+    pencilLine: Icons.PencilLine,
+    addLine: Icons.AddLine,
+    arrowRight: Icons.ArrowRight,
+    closeCircle: Icons.CloseCircle,
+    copyLine: Icons.CopyLine,
+    deleteBinLine: Icons.DeleteBinLine,
 };
 export type IconName = keyof typeof iconName;
 
