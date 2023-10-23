@@ -6,14 +6,38 @@ import Container from '@ui-kit/Container/Container';
 import Input from '@ui-kit/Input/Input';
 import Icon from '@ui-kit/Icon/Icon';
 import Avatar from '@ui-kit/Avatar/Avatar';
+import MessageItem from '@components/MessageItem/MessageItem';
+import SendMessageArea from '@components/SendMessageArea/SendMessageArea.tsx';
 
 const App: React.FC = () => {
+    const short_msg = 'Hello world!';
+    const long_msg =
+        'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века.';
     const man_photo_src =
         'https://flirtic.com/media/photos/1/e/7/1e733948480.jpg';
     const man_2 =
         'https://i.pinimg.com/736x/04/40/ae/0440ae4c93dcea46323ace9051185636--face-photography-my-fashion.jpg';
     return (
         <div className={styles.app}>
+            <br />
+            Test Message item
+            <br />
+            <MessageItem
+                isMine={false}
+                text={short_msg}
+                time={'18:09'}
+                authorAvatarSrc={man_photo_src}
+            />
+            <MessageItem
+                isMine={true}
+                text={long_msg}
+                time={'18:09'}
+                authorAvatarSrc={man_photo_src}
+            />
+            <SendMessageArea
+                id={'SendMessageArea'}
+                name={'SendMessageArea'}
+            ></SendMessageArea>
             <br />
             Test Avatarr
             <br />
