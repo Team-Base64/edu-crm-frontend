@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Button from '@ui-kit/Button/Button';
 import styles from './App.module.scss';
 import Text from '@ui-kit/Text/Text';
@@ -13,8 +13,6 @@ const App: React.FC = () => {
         'https://flirtic.com/media/photos/1/e/7/1e733948480.jpg';
     const man_2 =
         'https://i.pinimg.com/736x/04/40/ae/0440ae4c93dcea46323ace9051185636--face-photography-my-fashion.jpg';
-
-    // const [webSocket] = useState(new WebSocket(url, protocols));
 
     return (
         <div className={styles.app}>

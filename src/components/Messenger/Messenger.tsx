@@ -12,7 +12,7 @@ interface SendMessageAreaProps extends UiComponentProps {}
 const Messenger: React.FC<SendMessageAreaProps> = () => {
     const webSocket = useRef<WebSocket>(null);
 
-    const [messages, setMessanges] = useState([
+    const [messages, setMessages] = useState([
         {
             isMine: false,
             text: short_msg,
@@ -43,11 +43,11 @@ const Messenger: React.FC<SendMessageAreaProps> = () => {
         conn.onmessage = function (evt) {
             const socketMessages = evt.data.split('\n');
             console.log(socketMessages);
-            setMessanges([
+            setMessages([
                 ...messages,
                 {
                     isMine: false,
-                    text: socketMessages[0],
+                    text: socketMessages[0].text,
                     time: '18:10',
                     authorAvatarSrc: man_photo_src,
                 },
@@ -60,7 +60,7 @@ const Messenger: React.FC<SendMessageAreaProps> = () => {
         return () => {
             conn.close();
         };
-    }, []);
+    }, [messages]);
     return (
         <>
             {messageBlock}
