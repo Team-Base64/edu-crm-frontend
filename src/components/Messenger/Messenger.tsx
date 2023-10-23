@@ -41,13 +41,13 @@ const Messenger: React.FC<SendMessageAreaProps> = () => {
         const conn = new WebSocket('ws://' + '127.0.0.1:8081' + '/ws');
 
         conn.onmessage = function (evt) {
-            const messages = evt.data.split('\n');
-            console.log(messages);
+            const socketMessages = evt.data.split('\n');
+            console.log(socketMessages);
             setMessanges([
                 ...messages,
                 {
                     isMine: false,
-                    text: messages[0],
+                    text: socketMessages[0],
                     time: '18:10',
                     authorAvatarSrc: man_photo_src,
                 },
