@@ -23,6 +23,8 @@ const App: React.FC = () => {
             Test Avatarr
             <Messenger></Messenger>
             <br />
+            <Messenger></Messenger>
+            <br />
             <Avatar
                 src={man_photo_src}
                 size={'small'}
