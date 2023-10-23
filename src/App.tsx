@@ -7,6 +7,7 @@ import Input from '@ui-kit/Input/Input';
 import Icon from '@ui-kit/Icon/Icon';
 import Avatar from '@ui-kit/Avatar/Avatar';
 import MessageItem from '@components/MessageItem/MessageItem';
+import Chat from '@components/Chat/Chat';
 
 const App: React.FC = () => {
     const short_msg = 'Hello world!';
@@ -18,6 +19,10 @@ const App: React.FC = () => {
         'https://i.pinimg.com/736x/04/40/ae/0440ae4c93dcea46323ace9051185636--face-photography-my-fashion.jpg';
     return (
         <div className={styles.app}>
+            <br />
+            Test Chat
+            <br />
+            <Chat id={1} />
             <br />
             Test Message item
             <br />
