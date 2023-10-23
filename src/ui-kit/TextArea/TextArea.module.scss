@@ -8,7 +8,7 @@
 
   &--border {
     border-radius: getVar(border, radius, large);
-    border: 1px solid getVar(input, border, color);
+    border: 1px solid getVar(input, outline, color);
   }
 }
 

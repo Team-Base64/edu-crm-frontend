@@ -1,21 +1,27 @@
 import Container from '@ui-kit/Container/Container.tsx';
 import TextArea from '@ui-kit/TextArea/TextArea.tsx';
-import React, { ChangeEventHandler, useRef, useState } from 'react';
+import React, { ChangeEventHandler, useState } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import Button from '@ui-kit/Button/Button.tsx';
 import Icon from '@ui-kit/Icon/Icon.tsx';
 import styles from './SendMessageArea.module.scss';
 
-interface SendMessageArea extends UiComponentProps {
+interface SendMessageAreaProps extends UiComponentProps {
     id: string;
     name: string;
+    onMessageSend: () => void;
 }
 
-const SendMessageArea: React.FC<SendMessageArea> = ({ id, name }) => {
+const SendMessageArea: React.FC<SendMessageAreaProps> = ({
+    id,
+    name,
+    onMessageSend,
+}) => {
     const [message, setMessage] = useState('');
 
     const handleClick = () => {
         console.log(message);
+        onMessageSend();
     };
     const handleMessageChange: ChangeEventHandler<HTMLTextAreaElement> = (
         event,
@@ -34,7 +40,10 @@ const SendMessageArea: React.FC<SendMessageArea> = ({ id, name }) => {
                 rows={4}
                 onChange={handleMessageChange}
             ></TextArea>
-            <Button onClick={handleClick}>
+            <Button
+                onClick={handleClick}
+                type={'link'}
+            >
                 <Icon
                     name={'chatSend'}
                     classes={styles.sendMessageArea__button}
