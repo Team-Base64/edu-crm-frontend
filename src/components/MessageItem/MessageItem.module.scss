@@ -1,0 +1,37 @@
+.message-item {
+  align-items: flex-end;
+
+  &.mine {
+    flex-direction: row-reverse !important;
+  }
+
+  &-author {
+    &__avatar {
+
+    }
+  }
+
+  &-content {
+    align-items: flex-end;
+
+    background-color: gray;
+    padding: 16px 16px;
+    border-radius: 8px;
+
+    &.mine {
+      background-color: #FDAD01;
+    }
+
+
+    &__text {
+
+    }
+
+    &__time {
+
+    }
+  }
+
+
+}
+
