@@ -1,10 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import webSocketReducer from './features/webSocket/webSocketSlice.ts';
 import { chatApi } from './services/chat.ts';
 
 export const store = configureStore({
     reducer: {
-        webSocket: webSocketReducer,
         [chatApi.reducerPath]: chatApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
