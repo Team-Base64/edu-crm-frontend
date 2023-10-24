@@ -1,33 +1,33 @@
 import MessageItem from '@components/MessageItem/MessageItem.tsx';
 import SendMessageArea from '@components/SendMessageArea/SendMessageArea.tsx';
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
-
-const short_msg = 'Hello world!';
-const long_msg =
-    'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века.';
-const man_photo_src = 'https://flirtic.com/media/photos/1/e/7/1e733948480.jpg';
-
+import { useGetMessagesQuery } from '../../services/chat.ts';
+import Container from '@ui-kit/Container/Container.tsx';
+import styles from './Messenger.module.scss';
 interface SendMessageAreaProps extends UiComponentProps {}
+
+export type ChatMessage = {
+    isMine: boolean;
+    text: string;
+    time: string;
+    authorAvatarSrc: string;
+    id?: number;
+};
 const Messenger: React.FC<SendMessageAreaProps> = () => {
-    const webSocket = useRef<WebSocket>(null);
+    // const webSocket = useRef<WebSocket>(null);
 
-    const [messages, setMessages] = useState([
-        {
-            isMine: false,
-            text: short_msg,
-            time: '18:09',
-            authorAvatarSrc: man_photo_src,
-        },
-        {
-            isMine: true,
-            text: long_msg,
-            time: '18:09',
-            authorAvatarSrc: man_photo_src,
-        },
-    ]);
+    const { data, isLoading, isSuccess, isError, error } =
+        useGetMessagesQuery('ws');
+    console.log(
+        data?.messages,
+        `isLoading: ${isLoading}`,
+        `isSuccess: ${isSuccess}`,
+        `isError: ${isError}`,
+        `error: ${error}`,
+    );
 
-    const messageBlock = messages.map((message, key: number) => (
+    const messageBlock = data?.messages.map((message, key: number) => (
         <MessageItem
             isMine={message.isMine}
             text={message.text}
@@ -37,33 +37,17 @@ const Messenger: React.FC<SendMessageAreaProps> = () => {
         />
     ));
 
-    useEffect(() => {
-        const conn = new WebSocket('ws://' + '127.0.0.1:8081' + '/ws');
-
-        conn.onmessage = function (evt) {
-            const socketMessages = evt.data.split('\n');
-            console.log(socketMessages);
-            setMessages([
-                ...messages,
-                {
-                    isMine: false,
-                    text: socketMessages[0].text,
-                    time: '18:10',
-                    authorAvatarSrc: man_photo_src,
-                },
-            ]);
-        };
-
-        // @ts-ignore
-        webSocket.current = conn;
-
-        return () => {
-            conn.close();
-        };
-    }, [messages]);
     return (
-        <>
-            {messageBlock}
+        <Container
+            direction={'vertical'}
+            classes={styles.chat}
+        >
+            <Container
+                direction={'vertical'}
+                classes={styles.messageContainer}
+            >
+                {messageBlock}
+            </Container>
             <SendMessageArea
                 id={'SendMessageArea'}
                 name={'SendMessageArea'}
@@ -71,7 +55,7 @@ const Messenger: React.FC<SendMessageAreaProps> = () => {
                     console.log('send');
                 }}
             ></SendMessageArea>
-        </>
+        </Container>
     );
 };
 

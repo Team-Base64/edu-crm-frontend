@@ -28,7 +28,6 @@ const TextArea: React.FC<TextAreaProps> = ({
     border,
     rows,
     onChange,
-    ...rest
 }) => {
     return (
         <>
@@ -42,7 +41,6 @@ const TextArea: React.FC<TextAreaProps> = ({
                 defaultValue={textareaText}
                 rows={rows}
                 onChange={onChange}
-                {...rest}
             ></textarea>
         </>
     );
