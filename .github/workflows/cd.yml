@@ -1,0 +1,13 @@
+name: CD
+on:
+  push:
+
+
+jobs:
+ test:
+   runs-on: [ ubuntu-latest ]
+   steps:
+     - name: Run smoke tests
+       if: contains(github.event.head_commit.message, '[DEPLOY]')
+       run: |
+         echo 'Running smoke tests!'
