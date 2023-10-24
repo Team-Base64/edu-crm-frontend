@@ -1,6 +1,6 @@
 import { MessageEvent, WebSocketServer } from 'ws';
 import { ChatMessage } from '../src/components/Messenger/Messenger';
-import { Channel } from '../src/services/chat';
+import { Channel } from '../src/services/api';
 
 const webSocketServer = new WebSocketServer({
     port: 8081,
@@ -19,6 +19,7 @@ const messages: netChatMessage[] = [
         time: '18:09',
         authorAvatarSrc: man_photo_src,
         channel: 'chat',
+        id: 1,
     },
     {
         isMine: true,
@@ -26,6 +27,7 @@ const messages: netChatMessage[] = [
         time: '18:10',
         authorAvatarSrc: man_photo_src,
         channel: 'chat',
+        id: 2,
     },
 ];
 
@@ -41,8 +43,11 @@ webSocketServer.on('connection', (socket) => {
         message.isMine = Math.random() > 0.5;
         message.time = new Date().getTime().toString();
         message.text = `hello! me: ${message.isMine}`;
+        message.id = Number(
+            new Date().getTime().toString().at(-1) ?? Math.random(),
+        );
         socket.send(JSON.stringify(message));
-    }, 10000);
+    }, 1000);
 });
 
 console.log('starting sw server mock');

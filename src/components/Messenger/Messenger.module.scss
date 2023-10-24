@@ -1,8 +1,20 @@
 .chat {
-  max-height: 512px;
+  height: calc(100vh - 2 * 16px);
+  margin: 16px 32px;
 }
 
 .message-container {
   overflow-y: scroll;
-  //height: 60vh;
+  scrollbar-width: thin;
+  //scrollbar-color: var(--background-color);
+  scrollbar-gutter: stable;
+}
+
+.message-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.message-container::-webkit-scrollbar-thumb {
+  background-color: slategray;
+  border-radius: var(--inner-border-radius)
 }

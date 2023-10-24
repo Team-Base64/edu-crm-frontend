@@ -1,11 +1,11 @@
 import MessageItem from '@components/MessageItem/MessageItem.tsx';
 import SendMessageArea from '@components/SendMessageArea/SendMessageArea.tsx';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import {
     useGetMessagesQuery,
     useSendMessageMutation,
-} from '../../services/chat.ts';
+} from '../../services/api.ts';
 import Container from '@ui-kit/Container/Container.tsx';
 import styles from './Messenger.module.scss';
 interface SendMessageAreaProps extends UiComponentProps {}
@@ -21,34 +21,46 @@ const Messenger: React.FC<SendMessageAreaProps> = () => {
     const { data, isLoading, isSuccess, isError, error } =
         useGetMessagesQuery('chat');
 
-    console.log(
-        data?.messages,
-        `isLoading: ${isLoading}`,
-        `isSuccess: ${isSuccess}`,
-        `isError: ${isError}`,
-        `error: ${error}`,
-    );
+    // console.log(
+    //     data?.messages,
+    //     `isLoading: ${isLoading}`,
+    //     `isSuccess: ${isSuccess}`,
+    //     `isError: ${isError}`,
+    //     `error: ${error}`,
+    // );
 
     const [sendMessage] = useSendMessageMutation();
 
-    const messageBlock = data?.messages.map((message, key: number) => (
+    const messageBlock = data?.messages.map((message) => (
         <MessageItem
             isMine={message.isMine}
             text={message.text}
             time={message.time}
             authorAvatarSrc={message.authorAvatarSrc}
-            key={key.toString() + new Date()}
+            key={message.time}
         />
     ));
+
+    const messagesRef = useRef<HTMLElement>(null);
+
+    useEffect(() => {
+        if (messagesRef.current instanceof HTMLElement) {
+            messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+        } else {
+            console.error('wrong element type');
+        }
+    });
 
     return (
         <Container
             direction={'vertical'}
             classes={styles.chat}
         >
+            {/*// to do: make List component*/}
             <Container
                 direction={'vertical'}
                 classes={styles.messageContainer}
+                containerRef={messagesRef}
             >
                 {messageBlock}
             </Container>
@@ -56,8 +68,14 @@ const Messenger: React.FC<SendMessageAreaProps> = () => {
                 id={'SendMessageArea'}
                 name={'SendMessageArea'}
                 onMessageSend={(text: string) => {
-                    console.log('send');
-                    sendMessage({ message: text });
+                    sendMessage({
+                        message: {
+                            isMine: true,
+                            text,
+                            time: new Date().toString(),
+                            authorAvatarSrc: 'string',
+                        },
+                    });
                 }}
             ></SendMessageArea>
         </Container>

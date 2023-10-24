@@ -3,12 +3,16 @@ import { ChatMessage } from '@components/Messenger/Messenger.tsx';
 
 export type Channel = 'general' | 'chat';
 
-let ws: WebSocket;
+let ws: WebSocket | null = null;
 const getSocket = () => {
     if (!ws) {
         ws = new WebSocket('ws://' + '127.0.0.1:8081' + `/ws`);
     }
     return ws;
+};
+
+const resetSocket = () => {
+    ws = null;
 };
 export const chatApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: '/' }),
@@ -36,7 +40,7 @@ export const chatApi = createApi({
 
                     socket.onopen = () => {
                         console.log('open');
-                        ws.send(JSON.stringify({ status: 'conn' }));
+                        socket.send(JSON.stringify({ status: 'conn' }));
                     };
 
                     socket.onmessage = (event: MessageEvent) => {
@@ -55,15 +59,17 @@ export const chatApi = createApi({
                 // cacheEntryRemoved will resolve when the cache subscription is no longer active
                 await cacheEntryRemoved;
                 // perform cleanup steps once the `cacheEntryRemoved` promise resolves
+                socket.onclose = resetSocket;
                 socket.close();
             },
         }),
-        sendMessage: build.mutation<unknown, { message: string }>({
+        sendMessage: build.mutation<unknown, { message: ChatMessage }>({
             query({ message }) {
                 const socket = getSocket();
                 socket.send(JSON.stringify({ message }));
                 return JSON.stringify({ message });
             },
+            async onCacheEntryAdded(message, { updateCachedData, cacheDataLoaded, cacheEntryRemoved })
         }),
     }),
 });

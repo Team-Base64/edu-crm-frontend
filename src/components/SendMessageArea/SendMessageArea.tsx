@@ -21,7 +21,7 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
 
     const handleClick = () => {
         console.log(message);
-        onMessageSend(message);
+        console.log(onMessageSend(message));
     };
     const handleMessageChange: ChangeEventHandler<HTMLTextAreaElement> = (
         event,

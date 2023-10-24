@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import Container from '@ui-kit/Container/Container';
 import Avatar from '@ui-kit/Avatar/Avatar';
 import styles from './MessageItem.module.scss';
+import PropTypes from 'prop-types';
 
 interface MessageItemProps extends UiComponentProps {
     id?: number;
@@ -13,14 +14,14 @@ interface MessageItemProps extends UiComponentProps {
     authorId?: number;
 }
 
-const MessageItem: React.FC<MessageItemProps> = ({
+const MessageItem: React.FC<MessageItemProps> = memo(function MessageItem({
     id,
     text,
     time,
     isMine,
     authorAvatarSrc,
     // authorId,
-}) => {
+}) {
     return (
         <Container
             key={id}
@@ -48,6 +49,11 @@ const MessageItem: React.FC<MessageItemProps> = ({
             </Container>
         </Container>
     );
-};
+});
+
+// MessageItem.propTypes = {
+//     id: PropTypes.string,
+//
+// };
 
 export default MessageItem;

@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { chatApi } from './services/chat.ts';
+import { chatApi } from './services/api.ts';
 
 export const store = configureStore({
     reducer: {

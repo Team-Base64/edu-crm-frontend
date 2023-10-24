@@ -18,6 +18,7 @@ export type ContainerGap = keyof typeof containerGap;
 interface ContainerProps extends UiComponentProps {
     direction?: ContainerDirection;
     gap?: ContainerGap;
+    containerRef?: React.Ref<HTMLDivElement>;
 }
 
 const Container: React.FC<ContainerProps> = ({
@@ -26,6 +27,7 @@ const Container: React.FC<ContainerProps> = ({
     onClick,
     children,
     classes,
+    containerRef,
 }) => {
     return (
         <div
@@ -36,6 +38,7 @@ const Container: React.FC<ContainerProps> = ({
                 classes,
             ].join(' ')}
             onClick={onClick}
+            ref={containerRef}
         >
             {children}
         </div>
