@@ -1,4 +1,4 @@
-import { WebSocketServer } from 'ws';
+import { MessageEvent, WebSocketServer } from 'ws';
 import { ChatMessage } from '../src/components/Messenger/Messenger';
 import { Channel } from '../src/services/chat';
 
@@ -30,23 +30,19 @@ const messages: netChatMessage[] = [
 ];
 
 webSocketServer.on('connection', (socket) => {
-    socket.on('message', (message) => {
-        console.log('Received a message from the client', message);
-    });
-
-    // messages.forEach((message) => {
-    //     socket.send(JSON.stringify(message));
-    // });
+    socket.onmessage = (event: MessageEvent) => {
+        const data = JSON.parse(event.data.toString());
+        console.log('Received a message from the client: ', data);
+    };
 
     const message = messages[0];
-    message.id = 0;
 
     setInterval(() => {
         message.isMine = Math.random() > 0.5;
         message.time = new Date().getTime().toString();
         message.text = `hello! me: ${message.isMine}`;
         socket.send(JSON.stringify(message));
-    }, 3000);
+    }, 10000);
 });
 
 console.log('starting sw server mock');

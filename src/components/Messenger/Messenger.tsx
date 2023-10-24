@@ -2,7 +2,10 @@ import MessageItem from '@components/MessageItem/MessageItem.tsx';
 import SendMessageArea from '@components/SendMessageArea/SendMessageArea.tsx';
 import React from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
-import { useGetMessagesQuery } from '../../services/chat.ts';
+import {
+    useGetMessagesQuery,
+    useSendMessageMutation,
+} from '../../services/chat.ts';
 import Container from '@ui-kit/Container/Container.tsx';
 import styles from './Messenger.module.scss';
 interface SendMessageAreaProps extends UiComponentProps {}
@@ -15,10 +18,9 @@ export type ChatMessage = {
     id?: number;
 };
 const Messenger: React.FC<SendMessageAreaProps> = () => {
-    // const webSocket = useRef<WebSocket>(null);
-
     const { data, isLoading, isSuccess, isError, error } =
         useGetMessagesQuery('chat');
+
     console.log(
         data?.messages,
         `isLoading: ${isLoading}`,
@@ -26,6 +28,8 @@ const Messenger: React.FC<SendMessageAreaProps> = () => {
         `isError: ${isError}`,
         `error: ${error}`,
     );
+
+    const [sendMessage] = useSendMessageMutation();
 
     const messageBlock = data?.messages.map((message, key: number) => (
         <MessageItem
@@ -51,8 +55,9 @@ const Messenger: React.FC<SendMessageAreaProps> = () => {
             <SendMessageArea
                 id={'SendMessageArea'}
                 name={'SendMessageArea'}
-                onMessageSend={() => {
+                onMessageSend={(text: string) => {
                     console.log('send');
+                    sendMessage({ message: text });
                 }}
             ></SendMessageArea>
         </Container>

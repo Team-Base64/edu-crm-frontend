@@ -9,7 +9,7 @@ import styles from './SendMessageArea.module.scss';
 interface SendMessageAreaProps extends UiComponentProps {
     id: string;
     name: string;
-    onMessageSend: () => void;
+    onMessageSend: (text: string) => void;
 }
 
 const SendMessageArea: React.FC<SendMessageAreaProps> = ({
@@ -21,7 +21,7 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
 
     const handleClick = () => {
         console.log(message);
-        onMessageSend();
+        onMessageSend(message);
     };
     const handleMessageChange: ChangeEventHandler<HTMLTextAreaElement> = (
         event,
