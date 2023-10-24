@@ -69,7 +69,7 @@ export const chatApi = createApi({
                 socket.send(JSON.stringify({ message }));
                 return JSON.stringify({ message });
             },
-            async onCacheEntryAdded(message, { updateCachedData, cacheDataLoaded, cacheEntryRemoved })
+            // async onCacheEntryAdded(message, { updateCachedData, cacheDataLoaded, cacheEntryRemoved })
         }),
     }),
 });
