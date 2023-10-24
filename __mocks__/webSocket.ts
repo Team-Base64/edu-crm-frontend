@@ -1,5 +1,6 @@
 import { WebSocketServer } from 'ws';
 import { ChatMessage } from '../src/components/Messenger/Messenger';
+import { Channel } from '../src/services/chat';
 
 const webSocketServer = new WebSocketServer({
     port: 8081,
@@ -7,18 +8,24 @@ const webSocketServer = new WebSocketServer({
 
 const man_photo_src = 'https://flirtic.com/media/photos/1/e/7/1e733948480.jpg';
 
-const messages: ChatMessage[] = [
+interface netChatMessage extends ChatMessage {
+    channel: Channel;
+}
+
+const messages: netChatMessage[] = [
     {
         isMine: false,
         text: '',
         time: '18:09',
         authorAvatarSrc: man_photo_src,
+        channel: 'chat',
     },
     {
         isMine: true,
         text: '',
         time: '18:10',
         authorAvatarSrc: man_photo_src,
+        channel: 'chat',
     },
 ];
 

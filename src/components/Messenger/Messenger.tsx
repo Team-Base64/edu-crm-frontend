@@ -18,7 +18,7 @@ const Messenger: React.FC<SendMessageAreaProps> = () => {
     // const webSocket = useRef<WebSocket>(null);
 
     const { data, isLoading, isSuccess, isError, error } =
-        useGetMessagesQuery('ws');
+        useGetMessagesQuery('chat');
     console.log(
         data?.messages,
         `isLoading: ${isLoading}`,

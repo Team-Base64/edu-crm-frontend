@@ -1,13 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { ChatMessage } from '@components/Messenger/Messenger.tsx';
 
-export type Channel = 'general' | 'ws';
+export type Channel = 'general' | 'chat';
 
 export const chatApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: '/' }),
     tagTypes: ['ChatMessage'],
-    // refetchOnFocus: true,
-    // refetchOnReconnect: true,
+    refetchOnFocus: true,
+    refetchOnReconnect: true,
     endpoints: (build) => ({
         getMessages: build.query<{ messages: ChatMessage[] }, Channel>({
             queryFn() {
@@ -31,12 +31,10 @@ export const chatApi = createApi({
 
                     ws.onmessage = (event: MessageEvent) => {
                         const data = JSON.parse(event.data);
-                        // if (data.channel !== arg) return;
-                        // console.log(data);
+                        if (data.channel !== arg) return;
 
                         updateCachedData((draft) => {
                             draft.messages.push(data);
-                            // console.log(draft);
                         });
                     };
                 } catch {
