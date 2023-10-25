@@ -42,11 +42,23 @@ webSocketServer.on('connection', (socket) => {
     setInterval(() => {
         message.isMine = false;
         message.time = new Date().getTime().toString();
-        message.text = `hello! me: ${Math.random() > 0.5}`;
+        message.text = `1 hello! me: ${Math.random() > 0.5}`;
         message.channel = `chat`;
         message.id = Number(
             new Date().getTime().toString().at(-1) ?? Math.random(),
         );
+        message.chatid = 1;
+        socket.send(JSON.stringify(message));
+    }, 1000);
+    setInterval(() => {
+        message.isMine = false;
+        message.time = new Date().getTime().toString();
+        message.text = `2 hello! me: ${Math.random() > 0.5}`;
+        message.channel = `chat`;
+        message.id = Number(
+            new Date().getTime().toString().at(-1) ?? Math.random(),
+        );
+        message.chatid = 2;
         socket.send(JSON.stringify(message));
     }, 1000);
 });

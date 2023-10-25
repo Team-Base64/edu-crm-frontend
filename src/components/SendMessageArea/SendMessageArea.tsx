@@ -35,7 +35,6 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
 
     useEffect(() => {
         if (textAreaRef.current instanceof HTMLTextAreaElement) {
-            console.log(`chatArea/${id}`);
             textAreaRef.current.value =
                 localStorage.getItem(`chatArea/${id}`) ?? '';
         } else {

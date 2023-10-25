@@ -10,9 +10,12 @@ import {
 import Container from '@ui-kit/Container/Container.tsx';
 import styles from './Messenger.module.scss';
 import { useAppDispatch } from '../../app/hooks.ts';
+import MessageSelector from '@components/MessageSelector/MessageSelector.tsx';
 interface SendMessageAreaProps extends UiComponentProps {
     chatid: number;
 }
+
+const man_photo_src = 'https://flirtic.com/media/photos/1/e/7/1e733948480.jpg';
 
 export type ChatMessage = {
     isMine: boolean;
@@ -20,13 +23,20 @@ export type ChatMessage = {
     time: string;
     authorAvatarSrc: string;
     id?: number;
+    chatid?: number;
 };
 const Messenger: React.FC<SendMessageAreaProps> = ({ chatid }) => {
     const dispatch = useAppDispatch();
-    const { data, isLoading, isSuccess, isError, error } =
-        useGetMessagesQuery(`chat`);
+    const { data, isLoading, isSuccess, isError, error } = useGetMessagesQuery({
+        channel: 'chat',
+        chatid,
+    });
 
-    console.log(`chat`);
+    // if (isSuccess) {
+    const dataMessages = data?.messages.filter(
+        (message) => message.chatid === chatid,
+    );
+    // }
 
     // console.log(
     //     data?.messages,
@@ -37,7 +47,7 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid }) => {
     // );
     const [sendMessage] = useSendMessageMutation();
 
-    const messageBlock = data?.messages.map((message, index) => (
+    const messageBlock = dataMessages?.map((message, index) => (
         <MessageItem
             isMine={message.isMine}
             text={message.text}
@@ -59,44 +69,51 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid }) => {
     });
 
     return (
-        <Container
-            direction={'vertical'}
-            classes={styles.chat}
-        >
-            {/* to do: List component*/}
+        <Container direction={'horizontal'}>
+            <MessageSelector></MessageSelector>
             <Container
                 direction={'vertical'}
-                classes={styles.messageContainer}
-                containerRef={messagesRef}
+                classes={styles.chat}
             >
-                {isLoading && <span>loading...</span>}
-                {isSuccess && messageBlock}
-                {isError && <span>{error.toString()}</span>}
-            </Container>
-            <SendMessageArea
-                id={chatid.toString()}
-                name={'SendMessageArea'}
-                onMessageSend={(text: string) => {
-                    const message = {
-                        isMine: true,
-                        text,
-                        time: new Date().toString(),
-                        authorAvatarSrc: 'string',
-                    };
-                    sendMessage({
-                        message: {
-                            chatid: 1,
-                            text: text,
-                        },
-                    });
+                {/* to do: List component*/}
+                <Container
+                    direction={'vertical'}
+                    classes={styles.messageContainer}
+                    containerRef={messagesRef}
+                >
+                    {isLoading && <span>loading...</span>}
+                    {isSuccess && messageBlock}
+                    {isError && <span>{error.toString()}</span>}
+                </Container>
+                <SendMessageArea
+                    id={chatid.toString()}
+                    name={'SendMessageArea'}
+                    onMessageSend={(text: string) => {
+                        const message = {
+                            isMine: true,
+                            text,
+                            time: new Date().toString(),
+                            authorAvatarSrc: man_photo_src,
+                        };
+                        sendMessage({
+                            message: {
+                                chatid: 1,
+                                text: text,
+                            },
+                        });
 
-                    dispatch(
-                        util.updateQueryData('getMessages', 'chat', (draft) => {
-                            draft.messages.push(message);
-                        }),
-                    );
-                }}
-            ></SendMessageArea>
+                        dispatch(
+                            util.updateQueryData(
+                                'getMessages',
+                                'chat',
+                                (draft) => {
+                                    draft.messages.push(message);
+                                },
+                            ),
+                        );
+                    }}
+                ></SendMessageArea>
+            </Container>
         </Container>
     );
 };

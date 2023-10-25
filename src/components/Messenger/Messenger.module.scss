@@ -1,6 +1,7 @@
 .chat {
   height: calc(100vh - 2 * 16px);
   margin: 16px 32px;
+  flex-grow: 1;
 }
 
 .message-container {

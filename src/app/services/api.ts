@@ -1,7 +1,18 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { ChatMessage } from '@components/Messenger/Messenger.tsx';
 
+const man_photo_src = 'https://flirtic.com/media/photos/1/e/7/1e733948480.jpg';
+
 export type Channel = 'general' | 'chat';
+
+type messageWS = {
+    channel: Channel;
+    chatid: number;
+};
+
+type chatType = {
+    chatid: number;
+};
 
 let ws: WebSocket | null = null;
 const getSocket = () => {
@@ -20,13 +31,14 @@ export const chatApi = createApi({
     refetchOnFocus: true,
     refetchOnReconnect: true,
     endpoints: (build) => ({
-        getMessages: build.query<{ messages: ChatMessage[] }, Channel>({
+        getMessages: build.query<{ messages: ChatMessage[] }, messageWS>({
             queryFn() {
                 return { data: { messages: [] } };
             },
+            // transformResponse
             // providesTags: ['ChatMessage'],
             async onCacheEntryAdded(
-                channel,
+                { channel, chatid },
                 { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
             ) {
                 const socket = getSocket();
@@ -39,15 +51,21 @@ export const chatApi = createApi({
                     // if it is a message and for the appropriate channel,
                     // update our query result with the received message
 
-                    socket.onopen = () => {
-                        console.log('open, channel: ', channel);
-                    };
+                    // socket.onopen = () => {
+                    //     console.log('open, channel: ', channel);
+                    // };
 
                     socket.onmessage = (event: MessageEvent) => {
                         const data = JSON.parse(event.data);
-                        if (data.channel !== channel) return;
+                        if (
+                            data.channel !== channel &&
+                            data.message.chatid !== chatid
+                        ) {
+                            return;
+                        }
 
                         updateCachedData((draft) => {
+                            data.authorAvatarSrc = man_photo_src;
                             draft.messages.push(data);
                         });
                     };
@@ -75,7 +93,44 @@ export const chatApi = createApi({
             },
             // invalidatesTags: ['ChatMessage'],
         }),
+        getChats: build.query<{ chats: chatType[] }, unknown>({
+            query: () => ({ url: 'chats', method: 'GET' }),
+            // providesTags: ['ChatMessage'],
+            async onCacheEntryAdded(
+                _,
+                {
+                    updateCachedData,
+                    cacheDataLoaded,
+                    getState,
+                    cacheEntryRemoved,
+                },
+            ) {
+                try {
+                    // wait for the initial query to resolve before proceeding
+                    await cacheDataLoaded;
+
+                    console.log(getState);
+
+                    updateCachedData(() => {
+                        // console.log(getState);
+                        // draft.messages.push(data);
+                    });
+                } catch {
+                    console.error('error sw');
+                    // no-op in case `cacheEntryRemoved` resolves before `cacheDataLoaded`,
+                    // in which case `cacheDataLoaded` will throw
+                }
+                // cacheEntryRemoved will resolve when the cache subscription is no longer active
+                await cacheEntryRemoved;
+                // perform cleanup steps once the `cacheEntryRemoved` promise resolves
+            },
+        }),
     }),
 });
 
-export const { useGetMessagesQuery, useSendMessageMutation, util } = chatApi;
+export const {
+    useGetMessagesQuery,
+    useSendMessageMutation,
+    useGetChatsQuery,
+    util,
+} = chatApi;
