@@ -41,7 +41,6 @@ export const chatApi = createApi({
 
                     socket.onopen = () => {
                         console.log('open');
-                        socket.send(JSON.stringify({ status: 'conn' }));
                     };
 
                     socket.onmessage = (event: MessageEvent) => {
