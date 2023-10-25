@@ -6,12 +6,12 @@ import Button from '@ui-kit/Button/Button.tsx';
 
 interface MessageSelectDialogItemProps extends UiComponentProps {
     name: string;
-    selectDialog: MouseEventHandler<Element>;
+    selectDialog?: MouseEventHandler<Element>;
 }
 
 const MessageSelectDialogItem: React.FC<MessageSelectDialogItemProps> = ({
     name,
-    selectDialog,
+    selectDialog = undefined,
 }) => {
     return (
         <Container direction={'vertical'}>

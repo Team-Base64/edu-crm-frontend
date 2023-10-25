@@ -2,6 +2,7 @@ import React from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import Container from '@ui-kit/Container/Container.tsx';
 import { useGetChatsQuery } from '../../app/services/api.ts';
+import MessageSelectDialogItem from '@components/MessageSelectDioalogItem/MessageSelectDialogItem.tsx';
 
 interface MessageSelectorProps extends UiComponentProps {}
 
@@ -17,7 +18,13 @@ const MessageSelector: React.FC<MessageSelectorProps> = () => {
     );
     return (
         <Container>
-            {/*<MessageSelectDialogItem name={'123'}></MessageSelectDialogItem>*/}
+            {isSuccess && (
+                <MessageSelectDialogItem
+                    name={data?.toString()}
+                ></MessageSelectDialogItem>
+            )}
+            {isError && <p>error</p>}
+            {isLoading && <p>loading...</p>}
         </Container>
     );
 };
