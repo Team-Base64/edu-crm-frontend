@@ -32,6 +32,8 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid }) => {
         chatid,
     });
 
+    console.log(data?.messages);
+
     // if (isSuccess) {
     const dataMessages = data?.messages.filter(
         (message) => message.chatid === chatid,
@@ -92,6 +94,8 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid }) => {
                         text,
                         time: new Date().toString(),
                         authorAvatarSrc: man_photo_src,
+                        channel: 'chat',
+                        chatid,
                     };
                     sendMessage({
                         message: {

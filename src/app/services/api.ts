@@ -39,7 +39,7 @@ export const chatApi = createApi({
                 return { data: { messages: [] } };
             },
             // transformResponse
-            // providesTags: ['ChatMessage'],
+            providesTags: ['ChatMessage'],
             async onCacheEntryAdded(
                 { channel, chatid },
                 { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
@@ -57,6 +57,7 @@ export const chatApi = createApi({
                     // socket.onopen = () => {
                     //     console.log('open, channel: ', channel);
                     // };
+                    // console.log(data);
 
                     socket.onmessage = (event: MessageEvent) => {
                         const data = JSON.parse(event.data);
