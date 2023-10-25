@@ -14,7 +14,7 @@ const MessageSelector: React.FC<MessageSelectorProps> = () => {
         `isLoading: ${isLoading}`,
         `isSuccess: ${isSuccess}`,
         `isError: ${isError}`,
-        `error: ${error}`,
+        `error: ${JSON.stringify(error)}`,
     );
     return (
         <Container>
