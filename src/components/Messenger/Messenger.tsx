@@ -62,7 +62,7 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid }) => {
             direction={'vertical'}
             classes={styles.chat}
         >
-            {/*// to do: make List component*/}
+            {/* to do: List component*/}
             <Container
                 direction={'vertical'}
                 classes={styles.messageContainer}
