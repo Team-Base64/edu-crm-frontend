@@ -11,12 +11,14 @@ export type AvatarSize = keyof typeof avatarSizes;
 
 interface AvatarProps extends UiComponentProps {
     src: string;
+    alt: string;
     size?: AvatarSize;
 }
 
 const Avatar: React.FC<AvatarProps> = ({
     src,
     size = 'medium',
+    alt,
     onClick,
     classes,
 }) => {
@@ -42,6 +44,7 @@ const Avatar: React.FC<AvatarProps> = ({
                 onClick={onClick}
                 className={[styles.avatar__image].join(' ')}
                 onLoad={handleLoad}
+                alt={alt}
             />
         </div>
     );

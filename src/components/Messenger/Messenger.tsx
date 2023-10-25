@@ -33,13 +33,14 @@ const Messenger: React.FC<SendMessageAreaProps> = () => {
     // );
     const [sendMessage] = useSendMessageMutation();
 
-    const messageBlock = data?.messages.map((message) => (
+    const messageBlock = data?.messages.map((message, index) => (
         <MessageItem
             isMine={message.isMine}
             text={message.text}
             time={message.time}
             authorAvatarSrc={message.authorAvatarSrc}
-            key={message.time}
+            key={message.time + index}
+            alt={'avatar of' + message.isMine ? 'teacher' : 'student'}
         />
     ));
 

@@ -10,6 +10,7 @@ interface MessageItemProps extends UiComponentProps {
     time: string;
     isMine: boolean;
     authorAvatarSrc: string;
+    alt: string;
     authorId?: number;
 }
 
@@ -19,6 +20,7 @@ const MessageItem: React.FC<MessageItemProps> = memo(function MessageItem({
     time,
     isMine,
     authorAvatarSrc,
+    alt,
     // authorId,
 }) {
     return (
@@ -34,6 +36,7 @@ const MessageItem: React.FC<MessageItemProps> = memo(function MessageItem({
                 <Avatar
                     classes={styles.messageItemAuthor__avatar}
                     src={authorAvatarSrc}
+                    alt={alt}
                 ></Avatar>
             </Container>
             <Container
