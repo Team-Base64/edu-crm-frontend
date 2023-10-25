@@ -6,8 +6,10 @@ import Container from '@ui-kit/Container/Container.tsx';
 
 const App: React.FC = () => {
     const [chatID, setChatID] = useState<number>(-1);
+
     return (
         <div className={styles.app}>
+            <p>chat: {chatID}</p>
             <Container direction={'horizontal'}>
                 <MessageSelector setChatID={setChatID}></MessageSelector>
                 <Messenger chatid={chatID}></Messenger>
