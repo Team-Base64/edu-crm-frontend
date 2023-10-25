@@ -3,7 +3,6 @@ import { UiComponentProps } from '@ui-kit/interfaces';
 import Container from '@ui-kit/Container/Container';
 import Avatar from '@ui-kit/Avatar/Avatar';
 import styles from './MessageItem.module.scss';
-import PropTypes from 'prop-types';
 
 interface MessageItemProps extends UiComponentProps {
     id?: number;
@@ -50,10 +49,5 @@ const MessageItem: React.FC<MessageItemProps> = memo(function MessageItem({
         </Container>
     );
 });
-
-// MessageItem.propTypes = {
-//     id: PropTypes.string,
-//
-// };
 
 export default MessageItem;

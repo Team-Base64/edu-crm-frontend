@@ -1,6 +1,6 @@
 import { MessageEvent, WebSocketServer } from 'ws';
 import { ChatMessage } from '../src/components/Messenger/Messenger';
-import { Channel } from '../src/services/api';
+import { Channel } from '../src/app/services/api';
 
 const webSocketServer = new WebSocketServer({
     port: 8081,
@@ -47,7 +47,7 @@ webSocketServer.on('connection', (socket) => {
             new Date().getTime().toString().at(-1) ?? Math.random(),
         );
         socket.send(JSON.stringify(message));
-    }, 1000);
+    }, 10000);
 });
 
 console.log('starting sw server mock');

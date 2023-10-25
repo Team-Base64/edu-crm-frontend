@@ -6,8 +6,8 @@
 .message-container {
   overflow-y: scroll;
   scrollbar-width: thin;
-  //scrollbar-color: var(--background-color);
   scrollbar-gutter: stable;
+  flex-grow: 1;
 }
 
 .message-container::-webkit-scrollbar {

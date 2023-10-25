@@ -20,7 +20,6 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
     const [message, setMessage] = useState('');
 
     const handleClick = () => {
-        console.log(message);
         console.log(onMessageSend(message));
     };
     const handleMessageChange: ChangeEventHandler<HTMLTextAreaElement> = (

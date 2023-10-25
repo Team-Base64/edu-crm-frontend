@@ -2,9 +2,10 @@
 
 .message-item {
   align-items: flex-end;
+  margin: 8px 16px;
 
   &.mine {
-    flex-direction: row-reverse !important;
+    flex-direction: row-reverse;
   }
 
   &-author {
@@ -21,7 +22,7 @@
     border-radius: 8px;
 
     &.mine {
-      background-color: #FDAD01;
+      background-color: var(--color-accent-light);
     }
 
 

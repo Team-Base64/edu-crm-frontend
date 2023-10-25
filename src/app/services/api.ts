@@ -24,6 +24,7 @@ export const chatApi = createApi({
             queryFn() {
                 return { data: { messages: [] } };
             },
+            // providesTags: ['ChatMessage'],
             async onCacheEntryAdded(
                 channel,
                 { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
@@ -69,9 +70,10 @@ export const chatApi = createApi({
                 socket.send(JSON.stringify({ message }));
                 return JSON.stringify({ message });
             },
+            // invalidatesTags: ['ChatMessage'],
             // async onCacheEntryAdded(message, { updateCachedData, cacheDataLoaded, cacheEntryRemoved })
         }),
     }),
 });
 
-export const { useGetMessagesQuery, useSendMessageMutation } = chatApi;
+export const { useGetMessagesQuery, useSendMessageMutation, util } = chatApi;

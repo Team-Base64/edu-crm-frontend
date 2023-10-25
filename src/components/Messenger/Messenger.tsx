@@ -5,9 +5,11 @@ import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import {
     useGetMessagesQuery,
     useSendMessageMutation,
-} from '../../services/api.ts';
+    util,
+} from '../../app/services/api.ts';
 import Container from '@ui-kit/Container/Container.tsx';
 import styles from './Messenger.module.scss';
+import { useAppDispatch } from '../../app/hooks.ts';
 interface SendMessageAreaProps extends UiComponentProps {}
 
 export type ChatMessage = {
@@ -18,6 +20,7 @@ export type ChatMessage = {
     id?: number;
 };
 const Messenger: React.FC<SendMessageAreaProps> = () => {
+    const dispatch = useAppDispatch();
     const { data, isLoading, isSuccess, isError, error } =
         useGetMessagesQuery('chat');
 
@@ -28,7 +31,6 @@ const Messenger: React.FC<SendMessageAreaProps> = () => {
     //     `isError: ${isError}`,
     //     `error: ${error}`,
     // );
-
     const [sendMessage] = useSendMessageMutation();
 
     const messageBlock = data?.messages.map((message) => (
@@ -41,7 +43,7 @@ const Messenger: React.FC<SendMessageAreaProps> = () => {
         />
     ));
 
-    const messagesRef = useRef<HTMLElement>(null);
+    const messagesRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (messagesRef.current instanceof HTMLElement) {
@@ -62,20 +64,25 @@ const Messenger: React.FC<SendMessageAreaProps> = () => {
                 classes={styles.messageContainer}
                 containerRef={messagesRef}
             >
-                {messageBlock}
+                {isSuccess && messageBlock}
             </Container>
             <SendMessageArea
                 id={'SendMessageArea'}
                 name={'SendMessageArea'}
                 onMessageSend={(text: string) => {
-                    sendMessage({
-                        message: {
-                            isMine: true,
-                            text,
-                            time: new Date().toString(),
-                            authorAvatarSrc: 'string',
-                        },
-                    });
+                    const message = {
+                        isMine: true,
+                        text,
+                        time: new Date().toString(),
+                        authorAvatarSrc: 'string',
+                    };
+                    sendMessage({ message });
+
+                    dispatch(
+                        util.updateQueryData('getMessages', 'chat', (draft) => {
+                            draft.messages.push(message);
+                        }),
+                    );
                 }}
             ></SendMessageArea>
         </Container>
