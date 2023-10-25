@@ -16,15 +16,12 @@ type chatType = {
 
 let ws: WebSocket | null = null;
 const getSocket = () => {
-    if (!ws) {
+    if (!ws || !ws.OPEN) {
         ws = new WebSocket('ws://' + '127.0.0.1:8081' + `/ws`);
     }
     return ws;
 };
 
-const resetSocket = () => {
-    ws = null;
-};
 export const chatApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://127.0.0.1:8080/api/',
@@ -54,21 +51,18 @@ export const chatApi = createApi({
                     // if it is a message and for the appropriate channel,
                     // update our query result with the received message
 
-                    // socket.onopen = () => {
-                    //     console.log('open, channel: ', channel);
-                    // };
-                    // console.log(data);
-
                     socket.onmessage = (event: MessageEvent) => {
                         const data = JSON.parse(event.data);
                         if (
-                            data.channel !== channel &&
-                            data.message.chatid !== chatid
+                            data.channel !== channel
+                            // data.message.chatid !== chatid
                         ) {
+                            console.warn(data.channel, channel);
                             return;
                         }
 
                         updateCachedData((draft) => {
+                            console.log(chatid);
                             data.authorAvatarSrc = man_photo_src;
                             draft.messages.push(data);
                         });
@@ -81,7 +75,6 @@ export const chatApi = createApi({
                 // cacheEntryRemoved will resolve when the cache subscription is no longer active
                 await cacheEntryRemoved;
                 // perform cleanup steps once the `cacheEntryRemoved` promise resolves
-                socket.onclose = resetSocket;
                 socket.close();
             },
         }),

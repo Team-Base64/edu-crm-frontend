@@ -23,6 +23,7 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
         if (textAreaRef.current instanceof HTMLTextAreaElement) {
             onMessageSend(textAreaRef.current.value);
             textAreaRef.current.value = '';
+            localStorage.setItem(`chatArea/${id}`, '');
         } else {
             console.error('textAreaRef ref/ element not found');
         }
