@@ -28,7 +28,7 @@ const resetSocket = () => {
 export const chatApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://127.0.0.1:8080/api/',
-        mode: 'no-cors',
+        mode: 'cors',
     }),
     tagTypes: ['ChatMessage'],
     refetchOnFocus: true,
@@ -99,34 +99,34 @@ export const chatApi = createApi({
         getChats: build.query<{ chats: chatType[] }, unknown>({
             query: () => ({ url: 'chats', method: 'GET' }),
             // providesTags: ['ChatMessage'],
-            async onCacheEntryAdded(
-                _,
-                {
-                    updateCachedData,
-                    cacheDataLoaded,
-                    getState,
-                    cacheEntryRemoved,
-                },
-            ) {
-                try {
-                    // wait for the initial query to resolve before proceeding
-                    await cacheDataLoaded;
-
-                    console.log(getState);
-
-                    updateCachedData(() => {
-                        // console.log(getState);
-                        // draft.messages.push(data);
-                    });
-                } catch {
-                    console.error('error sw');
-                    // no-op in case `cacheEntryRemoved` resolves before `cacheDataLoaded`,
-                    // in which case `cacheDataLoaded` will throw
-                }
-                // cacheEntryRemoved will resolve when the cache subscription is no longer active
-                await cacheEntryRemoved;
-                // perform cleanup steps once the `cacheEntryRemoved` promise resolves
-            },
+            // async onCacheEntryAdded(
+            //     _,
+            //     {
+            //         updateCachedData,
+            //         cacheDataLoaded,
+            //         getState,
+            //         cacheEntryRemoved,
+            //     },
+            // ) {
+            //     try {
+            //         // wait for the initial query to resolve before proceeding
+            //         await cacheDataLoaded;
+            //
+            //         console.log(getState);
+            //
+            //         updateCachedData(() => {
+            //             // console.log(getState);
+            //             // draft.messages.push(getState?.chats);
+            //         });
+            //     } catch {
+            //         console.error('error sw');
+            //         // no-op in case `cacheEntryRemoved` resolves before `cacheDataLoaded`,
+            //         // in which case `cacheDataLoaded` will throw
+            //     }
+            //     // cacheEntryRemoved will resolve when the cache subscription is no longer active
+            //     await cacheEntryRemoved;
+            //     // perform cleanup steps once the `cacheEntryRemoved` promise resolves
+            // },
         }),
     }),
 });

@@ -15,7 +15,10 @@ const MessageSelectDialogItem: React.FC<MessageSelectDialogItemProps> = ({
 }) => {
     return (
         <Container direction={'vertical'}>
-            <Button onClick={selectDialog}>
+            <Button
+                type={'link'}
+                onClick={selectDialog}
+            >
                 <Text type={'h3'}>{name}</Text>
             </Button>
         </Container>

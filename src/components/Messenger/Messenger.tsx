@@ -69,51 +69,48 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid }) => {
     });
 
     return (
-        <Container direction={'horizontal'}>
-            <MessageSelector></MessageSelector>
+        <Container
+            direction={'vertical'}
+            classes={styles.chat}
+        >
+            {/* to do: List component*/}
             <Container
                 direction={'vertical'}
-                classes={styles.chat}
+                classes={styles.messageContainer}
+                containerRef={messagesRef}
             >
-                {/* to do: List component*/}
-                <Container
-                    direction={'vertical'}
-                    classes={styles.messageContainer}
-                    containerRef={messagesRef}
-                >
-                    {isLoading && <span>loading...</span>}
-                    {isSuccess && messageBlock}
-                    {isError && <span>{error.toString()}</span>}
-                </Container>
-                <SendMessageArea
-                    id={chatid.toString()}
-                    name={'SendMessageArea'}
-                    onMessageSend={(text: string) => {
-                        const message = {
-                            isMine: true,
-                            text,
-                            time: new Date().toString(),
-                            authorAvatarSrc: man_photo_src,
-                        };
-                        sendMessage({
-                            message: {
-                                chatid: 1,
-                                text: text,
-                            },
-                        });
-
-                        dispatch(
-                            util.updateQueryData(
-                                'getMessages',
-                                'chat',
-                                (draft) => {
-                                    draft.messages.push(message);
-                                },
-                            ),
-                        );
-                    }}
-                ></SendMessageArea>
+                {isLoading && <span>loading...</span>}
+                {isSuccess && messageBlock}
+                {isError && <span>{error.toString()}</span>}
             </Container>
+            <SendMessageArea
+                id={chatid.toString()}
+                name={'SendMessageArea'}
+                onMessageSend={(text: string) => {
+                    const message = {
+                        isMine: true,
+                        text,
+                        time: new Date().toString(),
+                        authorAvatarSrc: man_photo_src,
+                    };
+                    sendMessage({
+                        message: {
+                            chatid: 1,
+                            text: text,
+                        },
+                    });
+
+                    dispatch(
+                        util.updateQueryData(
+                            'getMessages',
+                            { channel: 'chat', chatid },
+                            (draft) => {
+                                draft.messages.push(message);
+                            },
+                        ),
+                    );
+                }}
+            ></SendMessageArea>
         </Container>
     );
 };
