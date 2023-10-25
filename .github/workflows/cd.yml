@@ -21,4 +21,4 @@ jobs:
       - run: npm ci
       - run: npm run build
       # Deploy
-      - run: cd dist && rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . ${{ secrets.USERNAME }}@${{ secrets.HOST }}:/var/www/${{ secrets.HOST }}html/
+      - run: cd dist && rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . ${{ secrets.USERNAME }}@${{ secrets.HOST }}:/var/www/${{ secrets.HOST }}/html/
