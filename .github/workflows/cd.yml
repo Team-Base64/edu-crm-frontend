@@ -1,0 +1,24 @@
+name: CD
+on:
+  push:
+
+jobs:
+  deploy:
+    if: contains(github.event.head_commit.message, '[DEPLOY]')
+    runs-on: [ ubuntu-22.04 ]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: 'npm'
+      # Setup key
+      - run: set -eu
+      - run: mkdir "$HOME/.ssh"
+      - run: echo "${{ secrets.SSH_KEY }}" > "$HOME/.ssh/key"
+      - run: chmod 600 "$HOME/.ssh/key"
+      # Build
+      - run: npm ci
+      - run: npm run build
+      # Deploy
+      - run: cd dist && rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . ubuntu@educrm.us.to:/var/www/educrm.us.to/html/
