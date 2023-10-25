@@ -76,7 +76,12 @@ const Messenger: React.FC<SendMessageAreaProps> = () => {
                         time: new Date().toString(),
                         authorAvatarSrc: 'string',
                     };
-                    sendMessage({ message });
+                    sendMessage({
+                        message: {
+                            chatID: 1,
+                            text: text,
+                        },
+                    });
 
                     dispatch(
                         util.updateQueryData('getMessages', 'chat', (draft) => {

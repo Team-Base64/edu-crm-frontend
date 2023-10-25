@@ -64,10 +64,14 @@ export const chatApi = createApi({
                 socket.close();
             },
         }),
-        sendMessage: build.mutation<unknown, { message: ChatMessage }>({
+        // sendMessage: build.mutation<unknown, { message: ChatMessage }>({
+        sendMessage: build.mutation<
+            unknown,
+            { message: { text: string; chatID: number } }
+        >({
             query({ message }) {
                 const socket = getSocket();
-                socket.send(JSON.stringify({ message }));
+                socket.send(JSON.stringify(message));
                 return JSON.stringify({ message });
             },
             // invalidatesTags: ['ChatMessage'],
