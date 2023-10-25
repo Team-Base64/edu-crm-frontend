@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { ChatMessage } from '@components/Messenger/Messenger.tsx';
 
-export type Channel = 'general' | 'chat';
+export type Channel = string;
 
 let ws: WebSocket | null = null;
 const getSocket = () => {
@@ -74,7 +74,6 @@ export const chatApi = createApi({
                 return JSON.stringify({ message });
             },
             // invalidatesTags: ['ChatMessage'],
-            // async onCacheEntryAdded(message, { updateCachedData, cacheDataLoaded, cacheEntryRemoved })
         }),
     }),
 });

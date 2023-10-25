@@ -10,7 +10,9 @@ import {
 import Container from '@ui-kit/Container/Container.tsx';
 import styles from './Messenger.module.scss';
 import { useAppDispatch } from '../../app/hooks.ts';
-interface SendMessageAreaProps extends UiComponentProps {}
+interface SendMessageAreaProps extends UiComponentProps {
+    chatid: number;
+}
 
 export type ChatMessage = {
     isMine: boolean;
@@ -19,10 +21,11 @@ export type ChatMessage = {
     authorAvatarSrc: string;
     id?: number;
 };
-const Messenger: React.FC<SendMessageAreaProps> = () => {
+const Messenger: React.FC<SendMessageAreaProps> = ({ chatid }) => {
     const dispatch = useAppDispatch();
-    const { data, isLoading, isSuccess, isError, error } =
-        useGetMessagesQuery('chat');
+    const { data, isLoading, isSuccess, isError, error } = useGetMessagesQuery(
+        `chat/${chatid}`,
+    );
 
     // console.log(
     //     data?.messages,
@@ -65,10 +68,12 @@ const Messenger: React.FC<SendMessageAreaProps> = () => {
                 classes={styles.messageContainer}
                 containerRef={messagesRef}
             >
+                {isLoading && <span>loading...</span>}
                 {isSuccess && messageBlock}
+                {isError && <span>{error.toString()}</span>}
             </Container>
             <SendMessageArea
-                id={'SendMessageArea'}
+                id={chatid.toString()}
                 name={'SendMessageArea'}
                 onMessageSend={(text: string) => {
                     const message = {
