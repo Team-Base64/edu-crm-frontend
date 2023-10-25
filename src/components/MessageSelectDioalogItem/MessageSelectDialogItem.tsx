@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from 'react';
+import React from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import Container from '@ui-kit/Container/Container.tsx';
 import Text from '@ui-kit/Text/Text.tsx';
@@ -6,12 +6,12 @@ import Button from '@ui-kit/Button/Button.tsx';
 
 interface MessageSelectDialogItemProps extends UiComponentProps {
     name: string;
-    selectDialog?: MouseEventHandler<Element>;
+    selectDialog: () => void;
 }
 
 const MessageSelectDialogItem: React.FC<MessageSelectDialogItemProps> = ({
     name,
-    selectDialog = undefined,
+    selectDialog,
 }) => {
     return (
         <Container direction={'vertical'}>

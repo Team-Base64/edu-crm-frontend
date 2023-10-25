@@ -5,7 +5,7 @@ import MessageSelector from '@components/MessageSelector/MessageSelector.tsx';
 import Container from '@ui-kit/Container/Container.tsx';
 
 const App: React.FC = () => {
-    const [chatID, setChatID] = useState(1);
+    const [chatID, setChatID] = useState<number>(-1);
     return (
         <div className={styles.app}>
             <Container direction={'horizontal'}>

@@ -10,7 +10,6 @@ import {
 import Container from '@ui-kit/Container/Container.tsx';
 import styles from './Messenger.module.scss';
 import { useAppDispatch } from '../../app/hooks.ts';
-import MessageSelector from '@components/MessageSelector/MessageSelector.tsx';
 interface SendMessageAreaProps extends UiComponentProps {
     chatid: number;
 }

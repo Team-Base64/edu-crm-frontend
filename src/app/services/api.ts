@@ -98,6 +98,7 @@ export const chatApi = createApi({
         }),
         getChats: build.query<{ chats: chatType[] }, unknown>({
             query: () => ({ url: 'chats', method: 'GET' }),
+
             // providesTags: ['ChatMessage'],
             // async onCacheEntryAdded(
             //     _,

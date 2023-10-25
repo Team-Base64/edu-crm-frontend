@@ -11,6 +11,13 @@ interface MessageSelectorProps extends UiComponentProps {
 const MessageSelector: React.FC<MessageSelectorProps> = ({ setChatID }) => {
     const { data, isLoading, isSuccess, isError, error } =
         useGetChatsQuery(null);
+    // const { data, isLoading, isSuccess, isError, error } = {
+    //     data: { chats: [{ chatid: 1 }, { chatid: 2 }] },
+    //     isLoading: false,
+    //     isSuccess: true,
+    //     isError: false,
+    //     error: undefined,
+    // };
     console.log(
         data,
         `isLoading: ${isLoading}`,
@@ -23,7 +30,7 @@ const MessageSelector: React.FC<MessageSelectorProps> = ({ setChatID }) => {
         <MessageSelectDialogItem
             name={chat.chatid.toString()}
             key={chat.chatid}
-            onClick={() => setChatID(chat.chatid)}
+            selectDialog={() => setChatID(chat.chatid)}
         ></MessageSelectDialogItem>
     ));
 
