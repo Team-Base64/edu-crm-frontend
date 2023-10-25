@@ -1,6 +1,5 @@
 import React from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
-import Container from '@ui-kit/Container/Container.tsx';
 import Text from '@ui-kit/Text/Text.tsx';
 import Button from '@ui-kit/Button/Button.tsx';
 
@@ -14,14 +13,13 @@ const MessageSelectDialogItem: React.FC<MessageSelectDialogItemProps> = ({
     selectDialog,
 }) => {
     return (
-        <Container direction={'vertical'}>
-            <Button
-                type={'link'}
-                onClick={selectDialog}
-            >
-                <Text type={'h3'}>{name}</Text>
-            </Button>
-        </Container>
+        <Button
+            type={'link'}
+            onClick={selectDialog}
+            size={'l'}
+        >
+            <Text type={'h3'}>{name}</Text>
+        </Button>
     );
 };
 

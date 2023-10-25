@@ -9,15 +9,15 @@ interface MessageSelectorProps extends UiComponentProps {
 }
 
 const MessageSelector: React.FC<MessageSelectorProps> = ({ setChatID }) => {
-    // const { data, isLoading, isSuccess, isError, error } =
-    //     useGetChatsQuery(null);
-    const { data, isLoading, isSuccess, isError, error } = {
-        data: { chats: [{ chatid: 1 }, { chatid: 2 }] },
-        isLoading: false,
-        isSuccess: true,
-        isError: false,
-        error: undefined,
-    };
+    const { data, isLoading, isSuccess, isError, error } =
+        useGetChatsQuery(null);
+    // const { data, isLoading, isSuccess, isError, error } = {
+    //     data: { chats: [{ chatid: 1 }, { chatid: 2 }] },
+    //     isLoading: false,
+    //     isSuccess: true,
+    //     isError: false,
+    //     error: undefined,
+    // };
     console.log(
         data,
         `isLoading: ${isLoading}`,
@@ -35,7 +35,7 @@ const MessageSelector: React.FC<MessageSelectorProps> = ({ setChatID }) => {
     ));
 
     return (
-        <Container>
+        <Container direction={'vertical'}>
             {isSuccess && dialogList}
             {isError && <p>error</p>}
             {isLoading && <p>loading...</p>}
