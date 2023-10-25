@@ -40,14 +40,14 @@ webSocketServer.on('connection', (socket) => {
     const message = messages[0];
 
     setInterval(() => {
-        message.isMine = Math.random() > 0.5;
+        message.isMine = false;
         message.time = new Date().getTime().toString();
-        message.text = `hello! me: ${message.isMine}`;
+        message.text = `hello! me: ${Math.random() > 0.5}`;
         message.id = Number(
             new Date().getTime().toString().at(-1) ?? Math.random(),
         );
         socket.send(JSON.stringify(message));
-    }, 10000);
+    }, 5000);
 });
 
 console.log('starting sw server mock');
