@@ -79,7 +79,7 @@ const Messenger: React.FC<SendMessageAreaProps> = () => {
                     };
                     sendMessage({
                         message: {
-                            chatID: 1,
+                            chatid: 1,
                             text: text,
                         },
                     });

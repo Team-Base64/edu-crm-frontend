@@ -67,7 +67,7 @@ export const chatApi = createApi({
         // sendMessage: build.mutation<unknown, { message: ChatMessage }>({
         sendMessage: build.mutation<
             unknown,
-            { message: { text: string; chatID: number } }
+            { message: { text: string; chatid: number } }
         >({
             query({ message }) {
                 const socket = getSocket();
