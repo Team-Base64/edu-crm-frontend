@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { ChatMessage } from '@components/Messenger/Messenger.tsx';
 
-export type Channel = string;
+export type Channel = 'general' | 'chat';
 
 let ws: WebSocket | null = null;
 const getSocket = () => {
@@ -40,7 +40,7 @@ export const chatApi = createApi({
                     // update our query result with the received message
 
                     socket.onopen = () => {
-                        console.log('open');
+                        console.log('open, channel: ', channel);
                     };
 
                     socket.onmessage = (event: MessageEvent) => {

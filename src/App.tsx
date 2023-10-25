@@ -6,7 +6,6 @@ const App: React.FC = () => {
     return (
         <div className={styles.app}>
             <Messenger chatid={1}></Messenger>
-            <Messenger chatid={2}></Messenger>
         </div>
     );
 };

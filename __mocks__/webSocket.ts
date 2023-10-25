@@ -43,11 +43,12 @@ webSocketServer.on('connection', (socket) => {
         message.isMine = false;
         message.time = new Date().getTime().toString();
         message.text = `hello! me: ${Math.random() > 0.5}`;
+        message.channel = `chat`;
         message.id = Number(
             new Date().getTime().toString().at(-1) ?? Math.random(),
         );
         socket.send(JSON.stringify(message));
-    }, 5000);
+    }, 1000);
 });
 
 console.log('starting sw server mock');

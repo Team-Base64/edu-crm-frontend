@@ -23,9 +23,10 @@ export type ChatMessage = {
 };
 const Messenger: React.FC<SendMessageAreaProps> = ({ chatid }) => {
     const dispatch = useAppDispatch();
-    const { data, isLoading, isSuccess, isError, error } = useGetMessagesQuery(
-        `chat/${chatid}`,
-    );
+    const { data, isLoading, isSuccess, isError, error } =
+        useGetMessagesQuery(`chat`);
+
+    console.log(`chat`);
 
     // console.log(
     //     data?.messages,
