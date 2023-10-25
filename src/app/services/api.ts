@@ -26,7 +26,10 @@ const resetSocket = () => {
     ws = null;
 };
 export const chatApi = createApi({
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8080/api/' }),
+    baseQuery: fetchBaseQuery({
+        baseUrl: 'http://localhost:8080/api/',
+        mode: 'no-cors',
+    }),
     tagTypes: ['ChatMessage'],
     refetchOnFocus: true,
     refetchOnReconnect: true,
