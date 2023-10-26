@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { chatApi } from './services/api.ts';
+import { apiSlice } from './features/api/apiSlice.ts';
 
 export const store = configureStore({
     reducer: {
-        [chatApi.reducerPath]: chatApi.reducer,
+        [apiSlice.reducerPath]: apiSlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(chatApi.middleware),
+        getDefaultMiddleware().concat(apiSlice.middleware),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

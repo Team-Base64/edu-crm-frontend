@@ -8,12 +8,14 @@
   "type": "module",
   "scripts": {
     "start": "vite",
+    "start:mock": "export NODE_ENV=mock && vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
     "preview": "vite preview",
     "getcssvars": "sass ./src/ui-kit/devGetVariables.scss /tmp/app/c.css",
-    "start:socketMock": " npx ts-node --esm __mocks__/webSocket.ts "
+    "start:socketMock": " npx ts-node --esm __mocks__/webSocket.ts ",
+    "init:msw": "npx msw init __mocks__/"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
@@ -38,6 +40,7 @@
     "eslint-plugin-react-refresh": "^0.4.3",
     "eslint-plugin-tsdoc": "^0.2.17",
     "mock-socket": "^9.3.1",
+    "msw": "^2.0.0",
     "prettier": "3.0.3",
     "sass": "^1.69.4",
     "ts-node": "^10.9.1",
@@ -47,5 +50,8 @@
     "vite-plugin-svgr": "^4.1.0",
     "vite-tsconfig-paths": "^4.2.1",
     "ws": "^8.14.2"
+  },
+  "msw": {
+    "workerDirectory": ""
   }
 }

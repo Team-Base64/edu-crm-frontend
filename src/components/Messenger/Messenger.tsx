@@ -2,14 +2,15 @@ import MessageItem from '@components/MessageItem/MessageItem.tsx';
 import SendMessageArea from '@components/SendMessageArea/SendMessageArea.tsx';
 import React, { useEffect, useRef } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
-import {
-    useGetMessagesQuery,
-    useSendMessageMutation,
-    util,
-} from '../../app/services/api.ts';
 import Container from '@ui-kit/Container/Container.tsx';
 import styles from './Messenger.module.scss';
-import { useAppDispatch } from '../../app/hooks.ts';
+import { useAppDispatch } from '../../app/hooks/baseHooks.ts';
+import {
+    messagesApi,
+    useGetLiveMessagesQuery,
+    useSendMessageMutation,
+} from '../../app/features/api/chat/messageSlice.ts';
+
 interface SendMessageAreaProps extends UiComponentProps {
     chatid: number;
 }
@@ -26,13 +27,11 @@ export type ChatMessage = {
 };
 const Messenger: React.FC<SendMessageAreaProps> = ({ chatid }) => {
     const dispatch = useAppDispatch();
-    console.log('chatid: ' + chatid);
-    const { data, isLoading, isSuccess, isError, error } = useGetMessagesQuery({
-        channel: 'chat',
-        chatid,
-    });
-
-    console.log(data?.messages);
+    const { data, isLoading, isSuccess, isError, error } =
+        useGetLiveMessagesQuery({
+            channel: 'chat',
+            chatid,
+        });
 
     // if (isSuccess) {
     const dataMessages = data?.messages.filter(
@@ -105,8 +104,8 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid }) => {
                     });
 
                     dispatch(
-                        util.updateQueryData(
-                            'getMessages',
+                        messagesApi.util.updateQueryData(
+                            'getLiveMessages',
                             { channel: 'chat', chatid },
                             (draft) => {
                                 draft.messages.push(message);

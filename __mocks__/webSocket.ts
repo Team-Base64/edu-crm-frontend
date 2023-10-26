@@ -1,35 +1,9 @@
 import { MessageEvent, WebSocketServer } from 'ws';
-import { ChatMessage } from '../src/components/Messenger/Messenger';
-import { Channel } from '../src/app/services/api';
+import { messagesMock } from './constMocks.ts';
 
 const webSocketServer = new WebSocketServer({
     port: 8081,
 });
-
-const man_photo_src = 'https://flirtic.com/media/photos/1/e/7/1e733948480.jpg';
-
-interface netChatMessage extends ChatMessage {
-    channel: Channel;
-}
-
-const messages: netChatMessage[] = [
-    {
-        isMine: false,
-        text: '',
-        time: '18:09',
-        authorAvatarSrc: man_photo_src,
-        channel: 'chat',
-        id: 1,
-    },
-    {
-        isMine: true,
-        text: '',
-        time: '18:10',
-        authorAvatarSrc: man_photo_src,
-        channel: 'chat',
-        id: 2,
-    },
-];
 
 webSocketServer.on('connection', (socket) => {
     socket.onmessage = (event: MessageEvent) => {
@@ -37,7 +11,7 @@ webSocketServer.on('connection', (socket) => {
         console.log('Received a message from the client: ', data);
     };
 
-    const message = messages[0];
+    const message = messagesMock[0];
 
     setInterval(() => {
         message.isMine = false;

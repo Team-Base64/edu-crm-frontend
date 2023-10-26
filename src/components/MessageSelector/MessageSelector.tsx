@@ -1,8 +1,8 @@
 import React from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import Container from '@ui-kit/Container/Container.tsx';
-import { useGetChatsQuery } from '../../app/services/api.ts';
 import MessageSelectDialogItem from '@components/MessageSelectDioalogItem/MessageSelectDialogItem.tsx';
+import { useGetChatsQuery } from '../../app/features/api/chat/dialogSlice.ts';
 
 interface MessageSelectorProps extends UiComponentProps {
     setChatID: (chatID: number) => void;
@@ -11,20 +11,14 @@ interface MessageSelectorProps extends UiComponentProps {
 const MessageSelector: React.FC<MessageSelectorProps> = ({ setChatID }) => {
     const { data, isLoading, isSuccess, isError, error } =
         useGetChatsQuery(null);
-    // const { data, isLoading, isSuccess, isError, error } = {
-    //     data: { chats: [{ chatid: 1 }, { chatid: 2 }] },
-    //     isLoading: false,
-    //     isSuccess: true,
-    //     isError: false,
-    //     error: undefined,
-    // };
-    console.log(
-        data,
-        `isLoading: ${isLoading}`,
-        `isSuccess: ${isSuccess}`,
-        `isError: ${isError}`,
-        `error: ${JSON.stringify(error)}`,
-    );
+
+    // console.log(
+    //     data,
+    //     `isLoading: ${isLoading}`,
+    //     `isSuccess: ${isSuccess}`,
+    //     `isError: ${isError}`,
+    //     `error: ${JSON.stringify(error)}`,
+    // );
 
     const dialogList = data?.chats.map((chat) => (
         <MessageSelectDialogItem
@@ -37,7 +31,7 @@ const MessageSelector: React.FC<MessageSelectorProps> = ({ setChatID }) => {
     return (
         <Container direction={'vertical'}>
             {isSuccess && dialogList}
-            {isError && <p>error</p>}
+            {isError && <p>{JSON.stringify(error)}</p>}
             {isLoading && <p>loading...</p>}
         </Container>
     );
