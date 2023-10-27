@@ -1,0 +1,14 @@
+.viewer {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+
+  width: 1000px;
+  height: 800px;
+
+ &__image {
+   //width: 100%;
+   //height: 100%;
+ }
+}
