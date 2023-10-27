@@ -1,0 +1,28 @@
+@use '../functions' as *;
+
+.container {
+  display: flex;
+
+  &.vertical {
+    flex-direction: column;
+  }
+
+  &.horizontal {
+    flex-direction: row;
+  }
+
+  &--gap {
+    &-small {
+      gap: getVar(gap, small);
+    }
+
+    &-medium {
+      gap: getVar(gap, medium);
+
+    }
+
+    &-large {
+      gap: getVar(gap, large);
+    }
+  }
+}

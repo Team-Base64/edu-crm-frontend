@@ -1,0 +1,136 @@
+:root {
+  // Button
+  --ui-kit-btn-font-weight: 700;
+
+  --ui-kit-btn-primary-bg-default: #FF8A00;
+  --ui-kit-btn-primary-font-color: white;
+  --ui-kit-btn-primary-bg-hover: #ff9f34;
+  --ui-kit-btn-primary-border-color-focus: #b26201;
+  --ui-kit-btn-primary-bg-active: #ffaa52;
+  --ui-kit-btn-primary-bg-disabled: gray;
+
+  --ui-kit-btn-secondary-border-color-default: #FF8A00;
+  --ui-kit-btn-secondary-font-color: #FF8A00;
+  --ui-kit-btn-secondary-bg-hover: #ffaa52;
+  --ui-kit-btn-secondary-border-color-focus: #ff9f34;
+  --ui-kit-btn-secondary-bg-active: #f6ad63;
+  --ui-kit-btn-secondary-font-color-disabled: gray;
+  --ui-kit-btn-secondary-border-color-disabled: gray;
+
+  --ui-kit-btn-link-font-color: #FF8A00;
+  --ui-kit-btn-link-bg-hover: #ffaa52;
+  --ui-kit-btn-link-border-color-focus: #ff9f34;
+  --ui-kit-btn-link-font-color-active: #ffaa52;
+  --ui-kit-btn-link-font-color-disabled: gray;
+
+  // End button
+
+  //Input
+  --ui-kit-input-bg-disabled: lightgray;
+  --ui-kit-input-bg-default: inherit;
+  --ui-kit-input-bg-hover: inherit;
+  --ui-kit-input-bg-focus: inherit;
+  --ui-kit-input-bg-error: inherit;
+  --ui-kit-input-bg-success: inherit;
+
+  --ui-kit-input-outline-color: gray;
+  --ui-kit-input-outline-color-disabled: lightgray;
+  --ui-kit-input-outline-color-focus: #b26201;
+  --ui-kit-input-outline-color-error: red;
+  --ui-kit-input-outline-color-success: green;
+  --ui-kit-input-outline-color-hover: inherit;
+
+  --ui-kit-input-text-color-disabled: gray;
+
+  --ui-kit-input-title-font-size-small: 20px;
+  --ui-kit-input-title-font-size-medium: 24px;
+  --ui-kit-input-title-font-size-large: 28px;
+
+  --ui-kit-input-font-size-large: 24px;
+  --ui-kit-input-font-size-medium: 20px;
+  --ui-kit-input-font-size-small: 16px;
+
+  --ui-kit-input-error-hint-font-size-large: 20px;
+  --ui-kit-input-error-hint-font-size-medium: 16px;
+  --ui-kit-input-error-hint-font-size-small: 14px;
+
+  //End input
+
+  //Icon
+  --ui-kit-icon-size-small: 16px ;
+  --ui-kit-icon-size-medium: 20px ;
+  --ui-kit-icon-size-large: 24px ;
+
+  //Avatar
+  --ui-kit-avatar-size-small: 32px;
+  --ui-kit-avatar-size-medium: 48px;
+  --ui-kit-avatar-size-large: 64px;
+  --ui-kit-avatar-border-color: gray;
+
+  // Padding
+  --ui-kit-padding-t-b-small: 4px;
+  --ui-kit-padding-l-r-small: 8px;
+  --ui-kit-padding-t-b-medium: 8px;
+  --ui-kit-padding-l-r-medium: 16px;
+  --ui-kit-padding-t-b-large: 16px;
+  --ui-kit-padding-l-r-large: 32px;
+
+  // Gap
+  --ui-kit-gap-small: 4px;
+  --ui-kit-gap-medium: 8px;
+  --ui-kit-gap-large: 16px;
+
+  // Border
+  --ui-kit-border-width-bold: 4px;
+  --ui-kit-border-width-default: 2px;
+
+  --ui-kit-border-radius-small: 8px;
+  --ui-kit-border-radius-medium: 12px;
+  --ui-kit-border-radius-large: 16px;
+
+  // Font
+  --ui-kit-font-size-h1: 64px;
+  --ui-kit-font-size-h2: 48px;
+  --ui-kit-font-size-h3: 32px;
+  --ui-kit-font-size-h4: 20px;
+  --ui-kit-font-size-h5: 16px;
+  --ui-kit-font-size-h6: 12px;
+  --ui-kit-font-size-p: 16px;
+  --ui-kit-font-size-p2: 12px;
+
+  /* colors */
+
+  // accent
+  --color-accent-bright: #FF8A00;
+  --color-accent-default: #FDAD01;
+  --color-accent-light: #FFEECB;
+  --color-accent-super-light: rgba(255, 242, 229, 0.25);
+
+  // background
+  --color-bg-bright: rgba(255, 242, 229, 0.25);
+  --color-bg-default: #F9F9F9;
+  --color-bg-light: #FFF;
+  --color-bg-dark-light: rgba(244, 244, 244, 0.5);
+
+  // text
+  --color-text-default: #333;
+  --color-text-light: #888;
+
+  // result colors
+  --color-success: #68B684;
+  --color-fail: rgba(214, 46, 46, 0.75);
+
+  /* shadows */
+
+  /* border-radius */
+  --border-radius-default: 16px;
+
+  /* space? */
+  --space-tiny: 2px;
+  --space-small: 4px;
+  --space-smaller: 8px;
+  --space-default: 16px;
+  --space-bigger: 24px;
+  --space-big: 32px;
+  --space-huge: 64px;
+}

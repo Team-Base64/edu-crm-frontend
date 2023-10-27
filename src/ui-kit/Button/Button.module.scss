@@ -1,0 +1,112 @@
+@use "../functions" as *;
+@use 'sass:math';
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  border: none;
+
+  background-color: inherit;
+
+  font-weight: getVar(btn, font, weight);
+
+  &.primary {
+    background-color: getVar(btn, primary, bg, default);
+    color: getVar(btn, primary, font, color);
+
+    &:hover {
+      background-color: getVar(btn, primary, bg, hover);
+    }
+
+    &:focus-visible {
+      $border-radius: getVar(border, width, bold);
+      outline: $border-radius solid getVar(btn, primary, border, color, focus);
+      outline-offset: calc(0px - $border-radius);
+    }
+
+    &:active {
+      background-color: getVar(btn, primary, bg, active);
+    }
+
+    &:disabled {
+      background-color: getVar(btn, primary, bg, disabled);
+    }
+  }
+
+  &.secondary {
+    background: none;
+    $border-radius: getVar(border, width, default);
+    outline: $border-radius solid getVar(btn, secondary, border, color, default);
+    outline-offset: calc(0px - $border-radius);
+    color: getVar(btn, secondary, font, color);
+
+    &:hover {
+      background-color: getVar(btn, secondary, bg, hover);
+    }
+
+    &:focus-visible {
+      $border-radius: getVar(border, width, bold) ;
+      outline: $border-radius solid getVar(btn, secondary, border, color, focus);
+      outline-offset: calc(0px - $border-radius);
+    }
+
+    &:active {
+      background-color: getVar(btn, secondary, bg, active);
+    }
+
+    &:disabled {
+      color: getVar(btn, secondary, font, color, disabled);
+      outline: getVar(border, width, default) solid getVar(btn, secondary, border, color, disabled);
+      outline-offset: - getVar(border, width, default);
+    }
+  }
+
+  &.link {
+    background: none;
+    border: none;
+    color: getVar(btn, link, font, color);
+
+    &:hover {
+      background-color: getVar(btn, link, bg, hover);
+    }
+
+    &:focus-visible {
+      $border-radius: getVar(border, width, bold);
+
+      border-radius: 0;
+      border-bottom: $border-radius solid getVar(btn, link, border, color, focus);
+      margin-bottom: calc(0px - $border-radius);
+    }
+
+    &:active {
+      color: getVar(btn, link, font, color, active);
+    }
+
+    &:disabled {
+      color: getVar(btn, link, font, color, disabled);
+    }
+  }
+
+  &.small {
+    gap: getVar(gap, small);
+    padding: getVar(padding, t, b, small) getVar(padding, l, r, small);
+    border-radius: getVar(border, radius, small);
+  }
+
+  &.medium {
+    gap: getVar(gap, medium);
+    padding: getVar(padding, t, b, medium) getVar(padding, l, r, medium);
+    border-radius: getVar(border, radius, medium);
+
+  }
+
+  &.large {
+    gap: getVar(gap, large);
+    padding: getVar(padding, t, b, large) getVar(padding, l, r, large);
+    border-radius: getVar(border, radius, large);
+  }
+
+}

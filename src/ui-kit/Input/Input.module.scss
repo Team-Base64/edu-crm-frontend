@@ -1,0 +1,115 @@
+@use '../functions' as *;
+
+.container {
+  $border-width: getVar(border, width, default);
+  outline: $border-width solid getVar(input, outline, color);
+  outline-offset: 0px - $border-width;
+
+  background-color: getVar(input, bg, default);
+
+  justify-content: space-between;
+  align-items: center;
+
+  &:hover {
+    //background-color: getVar(input, bg, hover);
+    //outline-color: getVar(input, outline, color, hover);
+  }
+
+  &:disabled {
+    background-color: getVar(input, bg, disabled);
+    outline-color: getVar(input, outline, color, disabled);
+  }
+
+  &:disabled .title {
+    color: getVar(input, text, color, disabled);
+  }
+
+  &:disabled .error-hint {
+    display: none;
+  }
+
+  &:has(.input:focus-visible) {
+    background-color: getVar(input, bg, focus);
+    outline-color: getVar(input, outline, color, focus);
+  }
+
+  &--error {
+    background-color: getVar(input, bg, error);
+    outline-color: getVar(input, outline, color, error);
+  }
+
+  &--success {
+    background-color: getVar(input, bg, success);
+    outline-color: getVar(input, outline, color, success);
+  }
+}
+
+.input {
+  width: 100%;
+}
+
+.error-hint {
+  color: red;
+}
+
+.large {
+  & .container {
+    border-radius: getVar(border, radius, large);
+    padding: 0 getVar(padding, l, r, large);
+  }
+
+  & .title {
+    font-size: getVar(input, title, font-size, large);
+  }
+
+  & .error-hint {
+    font-size: getVar(input, error-hint, font-size, large);
+  }
+
+  & .input {
+    padding: getVar(padding, t, b, large) 0;
+    font-size: getVar(input, font-size, large);
+  }
+}
+
+.medium {
+  & .container {
+    border-radius: getVar(border, radius, medium);
+    padding: 0 getVar(padding, l, r, medium);
+  }
+
+  & .title {
+    font-size: getVar(input, title, font-size, medium);
+  }
+
+  & .error-hint {
+    font-size: getVar(input, error-hint, font-size, medium);
+  }
+
+  & .input {
+  padding: getVar(padding, t, b, medium) 0;
+  font-size: getVar(input, font-size, medium);
+  }
+}
+
+.small {
+
+  & .container {
+    border-radius: getVar(border, radius, small);
+    padding: 0 getVar(padding, l, r, small);
+  }
+
+  & .title {
+    font-size: getVar(input, title, font-size,  small);
+  }
+
+  & .error-hint {
+    font-size: getVar(input, error-hint, font-size,  small);
+  }
+
+  & .input {
+    font-size: getVar(input, font-size,  small);
+    padding: getVar(padding, t, b, small) 0;
+  }
+}
+

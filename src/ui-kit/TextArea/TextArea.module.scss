@@ -1,0 +1,15 @@
+@use '../functions' as *;
+
+.textarea {
+  width: 100%;
+  padding: 16px 8px;
+  overflow-x: hidden;
+  resize: none;
+
+  &--border {
+    border-radius: getVar(border, radius, large);
+    border: 1px solid getVar(input, outline, color);
+  }
+}
+
+

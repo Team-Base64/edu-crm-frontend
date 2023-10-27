@@ -1,4 +1,9 @@
 .app {
-  &__primary { background-color: white; };
-  background-color: slategray;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &__container {
+    border: 1px solid lightgray;
+  }
 }

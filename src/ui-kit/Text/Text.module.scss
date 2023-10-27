@@ -1,0 +1,26 @@
+@use '../functions' as *;
+
+// h1 - h6
+@for $i from 1 through 6 {
+  $tag: h#{$i};
+  .#{$tag} {
+    font-size: getVar(font, size, $tag);
+  }
+}
+
+.p {
+  font-size: getVar(font, size, p);
+}
+
+
+.p2 {
+  font-size: getVar(font, size, p2);
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.regular {
+  font-weight: 400;
+}
