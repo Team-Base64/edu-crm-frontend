@@ -4,9 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import Container from '@ui-kit/Container/Container.tsx';
 import styles from './Messenger.module.scss';
-import { useAppDispatch } from '../../app/hooks/baseHooks.ts';
 import {
-    messagesApi,
     useGetLiveMessagesQuery,
     useSendMessageMutation,
 } from '../../app/features/api/chat/messageSlice.ts';
@@ -14,8 +12,6 @@ import {
 interface SendMessageAreaProps extends UiComponentProps {
     chatid: number;
 }
-
-const man_photo_src = 'https://flirtic.com/media/photos/1/e/7/1e733948480.jpg';
 
 export type ChatMessage = {
     isMine: boolean;
@@ -26,29 +22,15 @@ export type ChatMessage = {
     chatid?: number;
 };
 const Messenger: React.FC<SendMessageAreaProps> = ({ chatid }) => {
-    const dispatch = useAppDispatch();
     const { data, isLoading, isSuccess, isError, error } =
         useGetLiveMessagesQuery({
             channel: 'chat',
             chatid,
         });
 
-    // if (isSuccess) {
-    const dataMessages = data?.messages.filter(
-        (message) => message.chatid === chatid,
-    );
-    // }
-
-    // console.log(
-    //     data?.messages,
-    //     `isLoading: ${isLoading}`,
-    //     `isSuccess: ${isSuccess}`,
-    //     `isError: ${isError}`,
-    //     `error: ${error}`,
-    // );
     const [sendMessage] = useSendMessageMutation();
 
-    const messageBlock = dataMessages?.map((message, index) => (
+    const messageBlock = data?.messages[chatid]?.map((message, index) => (
         <MessageItem
             isMine={message.isMine}
             text={message.text}
@@ -87,32 +69,14 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid }) => {
             <SendMessageArea
                 id={chatid.toString()}
                 name={'SendMessageArea'}
-                onMessageSend={(text: string) => {
-                    const message = {
-                        isMine: true,
-                        text,
-                        time: new Date().toString(),
-                        authorAvatarSrc: man_photo_src,
-                        channel: 'chat',
-                        chatid,
-                    };
+                onMessageSend={(text: string) =>
                     sendMessage({
                         message: {
                             chatid,
                             text: text,
                         },
-                    });
-
-                    dispatch(
-                        messagesApi.util.updateQueryData(
-                            'getLiveMessages',
-                            { channel: 'chat', chatid },
-                            (draft) => {
-                                draft.messages.push(message);
-                            },
-                        ),
-                    );
-                }}
+                    })
+                }
             ></SendMessageArea>
         </Container>
     );

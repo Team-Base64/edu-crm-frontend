@@ -10,9 +10,10 @@ const defaultHeaders = {
 };
 
 export const chatHandlers = [
-    http.get(`${apiPaths.basePath}${apiPaths.chats}:id`, () => {
+    http.get(`${apiPaths.basePath}${apiPaths.chats}:id`, ({ params }) => {
+        const { id } = params;
         return HttpResponse.json(
-            { messages: messagesMock },
+            { messages: [messagesMock[Number(id) === 1 ? 0 : 1]] },
             {
                 status: 200,
                 headers: { ...defaultHeaders },
@@ -28,4 +29,6 @@ export const chatHandlers = [
     ),
 
     http.get('https://flirtic.com/media/photos/*', () => passthrough()),
+
+    http.get('/src/*', () => passthrough()),
 ];

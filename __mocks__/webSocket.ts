@@ -23,7 +23,7 @@ webSocketServer.on('connection', (socket) => {
         );
         message.chatid = 1;
         socket.send(JSON.stringify(message));
-    }, 5000);
+    }, 3000);
     setInterval(() => {
         message.isMine = false;
         message.time = new Date().getTime().toString();
@@ -34,7 +34,7 @@ webSocketServer.on('connection', (socket) => {
         );
         message.chatid = 2;
         socket.send(JSON.stringify(message));
-    }, 5000);
+    }, 3000);
 });
 
 console.log('starting sw server mock');

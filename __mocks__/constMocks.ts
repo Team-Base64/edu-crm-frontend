@@ -15,7 +15,7 @@ export const messagesMock: netChatMessage[] = [
         time: '18:09',
         authorAvatarSrc: man_photo_src,
         channel: 'chat',
-        id: 1,
+        chatid: 1,
     },
     {
         isMine: true,
@@ -23,6 +23,6 @@ export const messagesMock: netChatMessage[] = [
         time: '18:10',
         authorAvatarSrc: man_photo_src,
         channel: 'chat',
-        id: 2,
+        chatid: 2,
     },
 ];

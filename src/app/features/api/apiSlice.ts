@@ -24,5 +24,6 @@ export const apiSlice = createApi({
     tagTypes: ['ChatMessage'],
     refetchOnFocus: true,
     refetchOnReconnect: true,
+    // refetchOnMountOrArgChange: true,
     endpoints: () => ({}),
 });
