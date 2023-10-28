@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Button.module.scss';
 import { UiComponentProps } from '@ui-kit/interfaces';
+import { noop } from '../../app/consts.ts';
 
 const btnSize = {
     s: styles.small,
@@ -30,9 +31,11 @@ const Button: React.FC<ButtonProps> = ({
     classes = '',
     disabled = false,
 }) => {
+    console.log(disabled);
+
     return (
         <button
-            onClick={onClick}
+            onClick={disabled ? noop : onClick}
             className={[
                 styles.button,
                 btnType[type],

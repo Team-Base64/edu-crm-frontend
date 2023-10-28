@@ -19,7 +19,8 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
 }) => {
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-    const handleClick = () => {
+    const handleClick = (event: React.MouseEvent) => {
+        event.preventDefault();
         if (textAreaRef.current instanceof HTMLTextAreaElement) {
             onMessageSend(textAreaRef.current.value);
             textAreaRef.current.value = '';
@@ -45,25 +46,33 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
 
     return (
         <Container>
-            <TextArea
-                name={name}
-                spellcheck={true}
-                id={id}
-                textareaText={''}
-                border={'border'}
-                rows={4}
-                onChange={handleMessageChange}
-                textAreaRef={textAreaRef}
-            ></TextArea>
-            <Button
-                onClick={handleClick}
-                type={'link'}
+            <form
+                className={styles.form}
+                name={'sendMessage form'}
+                method={'post'}
             >
-                <Icon
-                    name={'chatSend'}
-                    classes={styles.sendMessageArea__button}
-                />
-            </Button>
+                <TextArea
+                    name={name}
+                    spellcheck={true}
+                    id={id}
+                    textareaText={''}
+                    border={'border'}
+                    rows={4}
+                    onChange={handleMessageChange}
+                    textAreaRef={textAreaRef}
+                ></TextArea>
+
+                <Button
+                    onClick={handleClick}
+                    type={'link'}
+                    disabled={!textAreaRef.current?.value}
+                >
+                    <Icon
+                        name={'chatSend'}
+                        classes={styles.sendMessageArea__button}
+                    />
+                </Button>
+            </form>
         </Container>
     );
 };

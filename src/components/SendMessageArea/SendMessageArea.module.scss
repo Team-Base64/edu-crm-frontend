@@ -1,5 +1,10 @@
 @use "../../ui-kit/functions" as *;
 
+.form {
+  all: inherit;
+  flex-grow: 1;
+}
+
 .send-message-area {
   &__button {
     height: 24px;
