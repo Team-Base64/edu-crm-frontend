@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useState } from 'react';
+import React, { useCallback, useEffect, useId, useState } from 'react';
 import styles from './Overlay.module.scss';
 import Button from '@ui-kit/Button/Button';
 import Container from '@ui-kit/Container/Container';
@@ -56,7 +56,7 @@ const Overlay: React.FC<OverpayProps> = ({
         }
     }, [id, prevState, isShowning]);
 
-    const handleKeydown = (e: KeyboardEvent) => {
+    const handleKeydown = useCallback((e: KeyboardEvent) => {
         const { code } = e;
         if (code === 'Escape') {
             if (overlays.length) {
@@ -66,7 +66,7 @@ const Overlay: React.FC<OverpayProps> = ({
                 return;
             }
         }
-    };
+    }, []);
 
     useEffect(() => {
         document.addEventListener('keydown', handleKeydown);
