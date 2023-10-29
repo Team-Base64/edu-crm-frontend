@@ -42,6 +42,9 @@ const Overlay: React.FC<OverpayProps> = ({
             setTimeout(() => {
                 setState('opened');
                 overlays.push(id);
+               if(!document.body.classList.contains(styles.noscroll)){
+                    document.body.classList.add(styles.noscroll);
+               }
             }, ANIMATION_TIME_MS);
             return;
         }
@@ -51,6 +54,9 @@ const Overlay: React.FC<OverpayProps> = ({
             setTimeout(() => {
                 setState('closed');
                 overlays.pop();
+                if(overlays.length < 1){
+                    document.body.classList.remove(styles.noscroll);
+                }
             }, ANIMATION_TIME_MS);
             return;
         }
