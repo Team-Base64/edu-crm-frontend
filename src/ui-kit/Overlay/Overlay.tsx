@@ -1,97 +1,87 @@
-import React, {
-    MouseEvent,
-    useCallback,
-    useEffect,
-    useRef,
-    useState,
-} from 'react';
+import React, { useEffect, useId, useState } from 'react';
 import styles from './Overlay.module.scss';
 import Button from '@ui-kit/Button/Button';
 import Container from '@ui-kit/Container/Container';
 import Icon from '@ui-kit/Icon/Icon';
-interface OverpayProps {
-    isOpen: boolean;
-    closeOverlay: () => void;
 
+interface OverpayProps {
+    isShowning: boolean;
+    closeOverlay: () => void;
     children?: React.ReactNode;
 }
 
 const overlayStateStyle = {
-    open: styles.open,
+    opened: styles.opened,
     closed: styles.closed,
     opening: styles.opening,
     closing: styles.closing,
-    hidden: styles.hidden,
 };
+
 type OverlayState = keyof typeof overlayStateStyle;
 
-const DEFAULT_ANIMATION_TIME_MS = 500;
+const ANIMATION_TIME_MS = 490;
+
+const overlays: string[] = [];
 
 const Overlay: React.FC<OverpayProps> = ({
-    isOpen,
+    isShowning,
     closeOverlay,
     children,
 }) => {
     const [state, setState] = useState<OverlayState>('closed');
-    const prevState_ref = useRef<OverlayState>('closed');
+    const [prevState, setPrevState] = useState<OverlayState>('closed');
+    const id = useId();
 
     useEffect(() => {
-        prevState_ref.current = state;
+        setPrevState(state);
     }, [state]);
 
     useEffect(() => {
-        if (isOpen && prevState_ref.current !== 'open') {
+        if (isShowning && prevState !== 'opened' && prevState !== 'opening') {
             setState('opening');
-            document.body.classList.add(styles.noscroll);
             setTimeout(() => {
-                setState('open');
-            }, DEFAULT_ANIMATION_TIME_MS);
+                setState('opened');
+                overlays.push(id);
+            }, ANIMATION_TIME_MS);
             return;
         }
-        if (!isOpen && prevState_ref.current !== 'closed') {
+
+        if (!isShowning && prevState !== 'closed' && prevState !== 'closing') {
             setState('closing');
-            document.body.classList.remove(styles.noscroll);
             setTimeout(() => {
                 setState('closed');
-            }, DEFAULT_ANIMATION_TIME_MS);
+                overlays.pop();
+            }, ANIMATION_TIME_MS);
+            return;
         }
-    }, [isOpen]);
+    }, [id, prevState, isShowning]);
 
-    const handleKeydown = useCallback((e: KeyboardEvent) => {
-        console.log(e.target);
-        e.stopPropagation();
+    const handleKeydown = (e: KeyboardEvent) => {
         const { code } = e;
         if (code === 'Escape') {
-            closeOverlay();
+            if (overlays.length) {
+                if (id === overlays[overlays.length - 1]) {
+                    closeOverlay();
+                }
+                return;
+            }
         }
-        // e.stopPropagation();
-    }, []);
-
-    const handleCloseEvent = useCallback(
-        (e: MouseEvent) => {
-            e.stopPropagation();
-            e.preventDefault();
-            closeOverlay();
-        },
-        [closeOverlay],
-    );
+    };
 
     useEffect(() => {
         document.addEventListener('keydown', handleKeydown);
-        return () => {
-            document.removeEventListener('keydown', handleKeydown);
-        };
-    }, []);
+        return () => document.removeEventListener('keydown', handleKeydown);
+    }, [handleKeydown]);
 
     return (
         <Container
             direction={'vertical'}
             classes={[styles.overlay, overlayStateStyle[state]].join(' ')}
-            onClick={handleCloseEvent}
+            onClick={closeOverlay}
         >
             <Button
                 type={'link'}
-                onClick={handleCloseEvent}
+                onClick={closeOverlay}
                 classes={styles.closeButton}
             >
                 <Icon

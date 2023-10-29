@@ -32,11 +32,10 @@ $duration: 0.5s;
 
   }
 
-  &.open {
+  &.opened {
     opacity: 1;
   }
 
-  &.hidden,
   &.closed {
     opacity: 0;
     display: none;
