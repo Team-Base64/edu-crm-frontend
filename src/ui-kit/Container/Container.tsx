@@ -5,20 +5,32 @@ import styles from './Container.module.scss';
 const containerDirection = {
     vertical: styles.vertical,
     horizontal: styles.horizontal,
+    grid: styles.grid,
 };
-export type ContainerDirection = keyof typeof containerDirection;
+type ContainerDirection = keyof typeof containerDirection;
 
 const containerGap = {
     s: styles.containerGapSmall,
     m: styles.containerGapMedium,
     l: styles.containerGapLarge,
+    '': '',
 };
-export type ContainerGap = keyof typeof containerGap;
+type ContainerGap = keyof typeof containerGap;
+
+const layoutType = {
+    defaultBase: styles.containerLayoutBaseDefault,
+    base: styles.containerLayoutBase,
+    sub: styles.containerLayoutSub,
+    '': '',
+};
+
+type LayoutType = keyof typeof layoutType;
 
 interface ContainerProps extends UiComponentProps {
     direction?: ContainerDirection;
     gap?: ContainerGap;
     containerRef?: React.Ref<HTMLDivElement>;
+    layout?: LayoutType;
 }
 
 const Container: React.FC<ContainerProps> = ({
@@ -28,6 +40,7 @@ const Container: React.FC<ContainerProps> = ({
     children,
     classes,
     containerRef,
+    layout = '',
 }) => {
     return (
         <div
@@ -36,6 +49,7 @@ const Container: React.FC<ContainerProps> = ({
                 containerDirection[direction],
                 containerGap[gap],
                 classes,
+                layoutType[layout],
             ].join(' ')}
             onClick={onClick}
             ref={containerRef}

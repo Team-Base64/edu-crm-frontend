@@ -5,3 +5,5 @@ export const apiPaths = {
 };
 
 export const noop = () => {};
+
+export const maxLengthOfMessage = 4096;

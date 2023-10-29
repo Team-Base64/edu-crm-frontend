@@ -1,5 +1,5 @@
 import { MessageEvent, WebSocketServer } from 'ws';
-import { messagesMock } from './constMocks.ts';
+import { messagesMock } from './const/constMocks.ts';
 
 const webSocketServer = new WebSocketServer({
     port: 8081,
@@ -15,7 +15,7 @@ webSocketServer.on('connection', (socket) => {
 
     setInterval(() => {
         message.isMine = false;
-        message.time = new Date().getTime().toString();
+        message.date = new Date().toISOString();
         message.text = `1 hello! me: ${Math.random() > 0.5}`;
         message.channel = `chat`;
         message.id = Number(
@@ -26,7 +26,7 @@ webSocketServer.on('connection', (socket) => {
     }, 3000);
     setInterval(() => {
         message.isMine = false;
-        message.time = new Date().getTime().toString();
+        message.date = new Date().toISOString();
         message.text = `2 hello! me: ${Math.random() > 0.5}`;
         message.channel = `chat`;
         message.id = Number(

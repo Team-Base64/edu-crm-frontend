@@ -5,6 +5,7 @@ import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import Button from '@ui-kit/Button/Button.tsx';
 import Icon from '@ui-kit/Icon/Icon.tsx';
 import styles from './SendMessageArea.module.scss';
+import { maxLengthOfMessage } from '../../app/consts.ts';
 
 interface SendMessageAreaProps extends UiComponentProps {
     id: string;
@@ -45,7 +46,7 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
     });
 
     return (
-        <Container>
+        <Container classes={styles.sendMessageArea}>
             <form
                 className={styles.form}
                 name={'sendMessage form'}
@@ -60,6 +61,7 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
                     rows={4}
                     onChange={handleMessageChange}
                     textAreaRef={textAreaRef}
+                    maxLength={maxLengthOfMessage}
                 ></TextArea>
 
                 <Button

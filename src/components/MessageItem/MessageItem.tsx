@@ -3,6 +3,7 @@ import { UiComponentProps } from '@ui-kit/interfaces';
 import Container from '@ui-kit/Container/Container';
 import Avatar from '@ui-kit/Avatar/Avatar';
 import styles from './MessageItem.module.scss';
+import Text from '@ui-kit/Text/Text.tsx';
 
 interface MessageItemProps extends UiComponentProps {
     id?: number;
@@ -11,7 +12,6 @@ interface MessageItemProps extends UiComponentProps {
     isMine: boolean;
     authorAvatarSrc: string;
     alt: string;
-    authorId?: number;
 }
 
 const MessageItem: React.FC<MessageItemProps> = memo(function MessageItem({
@@ -21,7 +21,6 @@ const MessageItem: React.FC<MessageItemProps> = memo(function MessageItem({
     isMine,
     authorAvatarSrc,
     alt,
-    // authorId,
 }) {
     return (
         <Container
@@ -39,16 +38,28 @@ const MessageItem: React.FC<MessageItemProps> = memo(function MessageItem({
                     alt={alt}
                 ></Avatar>
             </Container>
-            <Container
-                classes={[
+            <div
+                className={[
                     styles.messageItemContent,
                     isMine ? styles.mine : '',
                 ].join(' ')}
-                direction={'horizontal'}
             >
-                <div className={styles.messageItemContent__text}>{text}</div>
-                <div className={styles.messageItemContent__time}>{time}</div>
-            </Container>
+                <Text
+                    type={'p'}
+                    size={1}
+                    classes={styles.messageItemContent__text}
+                >
+                    {text}
+                </Text>
+                <Text
+                    type={'p'}
+                    size={2}
+                    classes={styles.messageItemContent__time}
+                    color={'light'}
+                >
+                    {time}
+                </Text>
+            </div>
         </Container>
     );
 });

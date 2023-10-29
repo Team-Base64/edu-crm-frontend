@@ -21,7 +21,6 @@ export const apiSlice = createApi({
         baseUrl: apiPaths.basePath,
         mode: 'cors',
     }),
-    tagTypes: ['ChatMessage'],
     refetchOnFocus: true,
     refetchOnReconnect: true,
     // refetchOnMountOrArgChange: true,

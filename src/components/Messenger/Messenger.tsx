@@ -13,13 +13,16 @@ interface SendMessageAreaProps extends UiComponentProps {
     chatid: number;
 }
 
-export type ChatMessage = {
+export type ChatMessageType = {
     isMine: boolean;
     text: string;
-    time: string;
-    authorAvatarSrc: string;
-    id?: number;
-    chatid?: number;
+    date: string;
+    id: number;
+    chatid: number;
+    user: {
+        name: string;
+        avatar: string;
+    };
 };
 const Messenger: React.FC<SendMessageAreaProps> = ({ chatid }) => {
     const { data, isLoading, isSuccess, isError, error } =
@@ -30,16 +33,19 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid }) => {
 
     const [sendMessage] = useSendMessageMutation();
 
-    const messageBlock = data?.messages[chatid]?.map((message, index) => (
-        <MessageItem
-            isMine={message.isMine}
-            text={message.text}
-            time={message.time}
-            authorAvatarSrc={message.authorAvatarSrc}
-            key={message.time + index}
-            alt={'avatar of' + message.isMine ? 'teacher' : 'student'}
-        />
-    ));
+    const messageBlock = data?.messages[chatid]?.map((message, index) => {
+        const date = new Date(message.date);
+        return (
+            <MessageItem
+                isMine={message.isMine}
+                text={message.text}
+                time={`${date.getUTCDate()}:${date.getUTCDate()}`}
+                authorAvatarSrc={message.user.avatar}
+                key={message.date + index}
+                alt={'avatar of' + message.isMine ? 'teacher' : 'student'}
+            />
+        );
+    });
 
     const messagesRef = useRef<HTMLDivElement>(null);
 
@@ -54,9 +60,9 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid }) => {
     return (
         <Container
             direction={'vertical'}
-            classes={styles.chat}
+            classes={styles.messenger}
+            layout={'defaultBase'}
         >
-            {/* to do: List component*/}
             <Container
                 direction={'vertical'}
                 classes={styles.messageContainer}

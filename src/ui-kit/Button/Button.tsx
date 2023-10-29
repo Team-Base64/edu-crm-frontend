@@ -31,8 +31,6 @@ const Button: React.FC<ButtonProps> = ({
     classes = '',
     disabled = false,
 }) => {
-    console.log(disabled);
-
     return (
         <button
             onClick={disabled ? noop : onClick}

@@ -12,6 +12,7 @@ interface TextAreaProps extends UiComponentProps {
     onChange: ChangeEventHandler<HTMLTextAreaElement>;
     labelText?: string;
     textAreaRef: React.Ref<HTMLTextAreaElement>;
+    maxLength: number;
 }
 
 const borderType = {
@@ -30,6 +31,7 @@ const TextArea: React.FC<TextAreaProps> = ({
     rows,
     onChange,
     textAreaRef,
+    maxLength,
 }) => {
     return (
         <>
@@ -43,6 +45,7 @@ const TextArea: React.FC<TextAreaProps> = ({
                 defaultValue={textareaText}
                 rows={rows}
                 onChange={onChange}
+                maxLength={maxLength}
                 ref={textAreaRef}
             ></textarea>
         </>

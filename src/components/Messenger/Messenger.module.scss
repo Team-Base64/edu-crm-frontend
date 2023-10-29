@@ -1,6 +1,4 @@
-.chat {
-  height: calc(100vh - 2 * 16px);
-  margin: 16px 32px;
+.messenger {
   flex-grow: 1;
 }
 
@@ -16,6 +14,6 @@
 }
 
 .message-container::-webkit-scrollbar-thumb {
-  background-color: slategray;
+  background-color: var(--color-bg-dark-light);
   border-radius: var(--border-radius-default);
 }

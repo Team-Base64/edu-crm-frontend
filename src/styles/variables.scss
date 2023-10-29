@@ -18,7 +18,7 @@
   --ui-kit-btn-secondary-border-color-disabled: gray;
 
   --ui-kit-btn-link-font-color: #FF8A00;
-  --ui-kit-btn-link-bg-hover: #ffaa52;
+  --ui-kit-btn-link-bg-hover: rgba(230, 230, 230, 0.5);
   --ui-kit-btn-link-border-color-focus: #ff9f34;
   --ui-kit-btn-link-font-color-active: #ffaa52;
   --ui-kit-btn-link-font-color-disabled: gray;
@@ -109,7 +109,7 @@
   // background
   --color-bg-bright: rgba(255, 242, 229, 0.25);
   --color-bg-default: #F9F9F9;
-  --color-bg-light: #FFF;
+  --color-bg-light: rgba(255, 254, 254, 0.9);
   --color-bg-dark-light: rgba(244, 244, 244, 0.5);
 
   // text
@@ -120,10 +120,14 @@
   --color-success: #68B684;
   --color-fail: rgba(214, 46, 46, 0.75);
 
+  /* hover */
+  --color-hover: rgba(230, 230, 230, 0.5);;
+
   /* shadows */
 
   /* border-radius */
   --border-radius-default: 16px;
+  --border-radius-inner: 8px;
 
   /* space? */
   --space-tiny: 2px;

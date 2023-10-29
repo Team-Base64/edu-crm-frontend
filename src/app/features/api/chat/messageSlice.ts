@@ -1,4 +1,4 @@
-import { ChatMessage } from '@components/Messenger/Messenger.tsx';
+import { ChatMessageType } from '@components/Messenger/Messenger.tsx';
 import { apiSlice, getSocket, messageWS } from '../apiSlice.ts';
 import { apiPaths } from '../../../consts.ts';
 
@@ -7,21 +7,19 @@ const man_photo_src = 'https://flirtic.com/media/photos/1/e/7/1e733948480.jpg';
 type chatMessageType = { text: string; chatid: number };
 
 interface apiChatMessageType {
-    messages: { [index: string]: ChatMessage[] };
+    messages: { [index: string]: ChatMessageType[] };
     wasFetched: { [index: string]: boolean };
 }
 
 export const messagesApi = apiSlice.injectEndpoints({
     endpoints: (build) => ({
         getLiveMessages: build.query<apiChatMessageType, messageWS>({
-            // getLiveMessages: build.query<{ messages: ChatMessage[] }, messageWS>({
             query: ({ chatid }) => ({
                 url: `${apiPaths.chats}${chatid}`,
                 method: 'GET',
             }),
-            providesTags: ['ChatMessage'],
             transformResponse(
-                baseQueryReturnValue: { messages: ChatMessage[] },
+                baseQueryReturnValue: { messages: ChatMessageType[] },
                 _,
                 arg,
             ) {
@@ -106,14 +104,17 @@ export const messagesApi = apiSlice.injectEndpoints({
                         'getLiveMessages',
                         { channel: 'chat', chatid: message.chatid },
                         (draft) => {
-                            // fix backend api
                             draft.messages[message.chatid] = [
                                 ...(draft.messages[message.chatid] ?? []),
                                 {
-                                    time: new Date().toString(),
-                                    authorAvatarSrc: man_photo_src,
+                                    date: new Date().toISOString(),
+                                    user: {
+                                        avatar: man_photo_src,
+                                        name: 'User store',
+                                    },
                                     isMine: true,
                                     ...message,
+                                    id: 10,
                                 },
                             ];
                         },
@@ -130,7 +131,6 @@ export const messagesApi = apiSlice.injectEndpoints({
                      */
                 }
             },
-            // invalidatesTags: ['ChatMessage'],
         }),
     }),
 });
