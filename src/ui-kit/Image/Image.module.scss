@@ -1,4 +1,15 @@
-.image {
-  object-fit: contain;
-}
+.wrapper {
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
 
+  & .image {
+    object-fit: contain;
+    width: 100%;
+    // margin: auto;
+  }
+
+  & .info {
+    margin: auto;
+  }
+}

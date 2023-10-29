@@ -30,27 +30,24 @@ const Image: React.FC<ImageProps> = ({
 
     useEffect(() => {
         setState(ImageState.loading);
-    }, [src]);
-
+    }, [src, setState]);
 
     const handleLoad = useCallback(() => {
-        console.log('Loaded');
         setState(ImageState.loaded);
         onLoad?.();
     }, [setState, onLoad]);
 
     const handleError = useCallback(() => {
-        console.log('NOT Loaded');
         setState(ImageState.error);
         onError?.();
-    }, []);
+    }, [setState, onError]);
     return (
-        <>
-            {state === ImageState.loading && <Spinner />}
-            {state === ImageState.error && <div>Error</div>}
+        <div className={[classes, styles.wrapper].join(' ')}>
+            {state === ImageState.loading && <Spinner classes={styles.info} />}
+            {state === ImageState.error && <div className={styles.info}>Error</div>}
             <img
                 ref={imgRef}
-                className={[styles.image, classes].join(' ')}
+                className={styles.image}
                 style={{ display: state === ImageState.loaded ? 'block' : 'none' }}
                 onClick={onClick}
                 onLoad={handleLoad}
@@ -58,7 +55,7 @@ const Image: React.FC<ImageProps> = ({
                 src={src}
                 alt={alt ? alt : ''}
             />
-        </>
+        </div>
     );
 };
 
