@@ -12,8 +12,19 @@ import Avatar from '@ui-kit/Avatar/Avatar';
 import ClassMemberItem from '@components/ClassMemberItem/ClassMemberItem';
 import HomeworkSolutionItem from '@components/HomeworkSolutionItem/HomeworkSolutionItem';
 import HomeworkItem from '@components/HomeworkItem/HomeworkItem';
+import AnnounceCard from '@components/AnnounceCard/AnnounceCard';
 
 const App: React.FC = () => {
+    const lorem = `Lorem Ipsum is simply dummy text of the printing and typesetting
+ industry. Lorem Ipsum has been the industry's standard dummy
+ text ever since the 1500s, when an unknown printer took a galley
+ of type and scrambled it to make a type specimen book. It has
+ survived not only five centuries, but also the leap into
+ electronic typesetting, remaining essentially unchanged. It was
+ popularised in the 1960s with the release of Letraset sheets
+ containing Lorem Ipsum passages, and more recently with desktop
+ publishing software like Aldus PageMaker including versions of
+ Lorem Ipsum.`;
     const [chatID, setChatID] = useState<number>(1);
     const [overlState, setOverlState] = useState<boolean>(false);
     const [overlState2, setOverlState2] = useState<boolean>(false);
@@ -27,6 +38,16 @@ const App: React.FC = () => {
     ];
     return (
         <div className={styles.app}>
+            <AnnounceCard
+                firstName='George'
+                lastName='Illarionov'
+                avatarSrc={imgs[0]}
+                time={Date.now() - 1000}
+                text={lorem}
+                onEdit={() => console.log('edit')}
+                onDelete={() => console.log('delete')}
+            />
+
             <HomeworkItem
                 title='Домашнее задание'
                 description='Описание домашего задания афцфьафцлалфцал лфц ал'
