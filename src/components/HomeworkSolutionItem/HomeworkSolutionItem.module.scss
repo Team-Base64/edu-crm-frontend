@@ -1,0 +1,53 @@
+.card {
+    padding: 8px 16px;
+    border-radius: 8px;
+    background-color: white;
+    justify-content: space-between;
+
+
+
+    & .profile {
+        overflow: hidden;
+        justify-self: flex-start;
+
+
+        & .avatar {
+            flex-grow: 0;
+            flex-shrink: 0;
+        }
+
+        & .name {
+            color: black;
+            text-wrap: nowrap;
+        }
+
+
+        & .title {
+            color: gray
+        }
+
+        
+    }
+    & .state {
+        text-wrap: nowrap;
+        margin: auto 0;
+        &.notPass {
+            color: gray;
+        }
+
+        &.pass {
+            color: green;
+        }
+
+        &.passDelay {
+            color: red;
+        }
+    }
+  
+
+    & .btn {
+        & .icon {
+            fill: orange;
+        }
+    }
+}
