@@ -1,6 +1,6 @@
 import Container from '@ui-kit/Container/Container.tsx';
 import TextArea from '@ui-kit/TextArea/TextArea.tsx';
-import React, { ChangeEventHandler, useEffect, useRef } from 'react';
+import React, { ChangeEventHandler, useEffect, useRef, useState } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import Button from '@ui-kit/Button/Button.tsx';
 import Icon from '@ui-kit/Icon/Icon.tsx';
@@ -67,7 +67,7 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
                 <Button
                     onClick={handleClick}
                     type={'link'}
-                    disabled={!textAreaRef.current?.value}
+                    // disabled={!textAreaValue}
                 >
                     <Icon
                         name={'chatSend'}

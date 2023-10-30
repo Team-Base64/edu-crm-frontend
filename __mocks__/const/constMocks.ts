@@ -21,10 +21,6 @@ export const messagesMock: netChatMessage[] = [
         ismine: false,
         text: middleLongTextMock,
         date: new Date().toISOString(),
-        user: {
-            name: 'Manu Muller',
-            avatar: man_photo_src,
-        },
         channel: 'chat',
         chatid: 1,
         id: 1,
@@ -36,10 +32,6 @@ export const messagesMock: netChatMessage[] = [
         channel: 'chat',
         chatid: 2,
         id: 2,
-        user: {
-            name: 'Viktor Ziko',
-            avatar: man_photo_src,
-        },
     },
 ];
 
