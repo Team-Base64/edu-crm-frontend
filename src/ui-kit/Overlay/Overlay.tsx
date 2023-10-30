@@ -42,9 +42,9 @@ const Overlay: React.FC<OverpayProps> = ({
             setTimeout(() => {
                 setState('opened');
                 overlays.push(id);
-               if(!document.body.classList.contains(styles.noscroll)){
+                if (!document.body.classList.contains(styles.noscroll)) {
                     document.body.classList.add(styles.noscroll);
-               }
+                }
             }, ANIMATION_TIME_MS);
             return;
         }
@@ -54,7 +54,7 @@ const Overlay: React.FC<OverpayProps> = ({
             setTimeout(() => {
                 setState('closed');
                 overlays.pop();
-                if(overlays.length < 1){
+                if (overlays.length < 1) {
                     document.body.classList.remove(styles.noscroll);
                 }
             }, ANIMATION_TIME_MS);
@@ -62,17 +62,20 @@ const Overlay: React.FC<OverpayProps> = ({
         }
     }, [id, prevState, isShowning]);
 
-    const handleKeydown = useCallback((e: KeyboardEvent) => {
-        const { code } = e;
-        if (code === 'Escape') {
-            if (overlays.length) {
-                if (id === overlays[overlays.length - 1]) {
-                    closeOverlay();
+    const handleKeydown = useCallback(
+        (e: KeyboardEvent) => {
+            const { code } = e;
+            if (code === 'Escape') {
+                if (overlays.length) {
+                    if (id === overlays[overlays.length - 1]) {
+                        closeOverlay();
+                    }
+                    return;
                 }
-                return;
             }
-        }
-    }, []);
+        },
+        [closeOverlay, id],
+    );
 
     useEffect(() => {
         document.addEventListener('keydown', handleKeydown);
