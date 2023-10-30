@@ -12,6 +12,7 @@ interface TextAreaProps extends UiComponentProps {
     onChange: ChangeEventHandler<HTMLTextAreaElement>;
     labelText?: string;
     textAreaRef: React.Ref<HTMLTextAreaElement>;
+    placeholder ?:string;
 }
 
 const borderType = {
@@ -30,7 +31,8 @@ const TextArea: React.FC<TextAreaProps> = ({
     rows,
     onChange,
     textAreaRef,
-    classes
+    classes,
+    placeholder = ''
 }) => {
     return (
         <>
@@ -45,6 +47,7 @@ const TextArea: React.FC<TextAreaProps> = ({
                 rows={rows}
                 onChange={onChange}
                 ref={textAreaRef}
+                placeholder={placeholder}
             ></textarea>
         </>
     );
