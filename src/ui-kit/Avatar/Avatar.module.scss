@@ -26,24 +26,12 @@
     height: getVar(avatar, size, large);
   }
 
+  & img {
+    object-fit: cover;
+  }
 
   &__image {
-
-    object-fit: contain;
-
-
-    &--unload {
-      background-color: gray;
-    }
-
-    &--landscape {
-      height: 100%;
-      width: auto;
-    }
-
-    &--portrait {
-      width: 100%;
-      height: auto;
-    }
+    height: 100%;
+    width: 100%;
   }
 }
