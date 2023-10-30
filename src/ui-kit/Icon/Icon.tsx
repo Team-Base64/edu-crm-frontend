@@ -58,9 +58,9 @@ const Icon: React.FC<IconProps> = ({
                 classes,
             ].join(' ')}
             // style={{
-                // fill: color,
-                // background: background,
-                // stroke: stroke,
+            // fill: color,
+            // background: background,
+            // stroke: stroke,
             // }}
         ></SelectedIcon>
     );

@@ -39,10 +39,10 @@ const App: React.FC = () => {
     ];
     return (
         <div className={styles.app}>
-            <AnnounceCreateField avatarSrc={imgs[0]}/>
+            <AnnounceCreateField avatarSrc={imgs[0]} />
             <AnnounceCard
-                firstName='George'
-                lastName='Illarionov'
+                firstName="George"
+                lastName="Illarionov"
                 avatarSrc={imgs[0]}
                 time={Date.now() - 1000}
                 text={lorem}
@@ -51,46 +51,45 @@ const App: React.FC = () => {
             />
 
             <HomeworkItem
-                title='Домашнее задание'
-                description='Описание домашего задания афцфьафцлалфцал лфц ал'
+                title="Домашнее задание"
+                description="Описание домашего задания афцфьафцлалфцал лфц ал"
                 deadlineTime={Date.now() - 1000000}
             />
 
             <HomeworkItem
-                title='Домашнее задание'
-                description='Описание домашего задания афцфьафцлалфцал лфц ал'
+                title="Домашнее задание"
+                description="Описание домашего задания афцфьафцлалфцал лфц ал"
                 deadlineTime={Date.now() + 1000000}
             />
             <ClassMemberItem
-                firstName='George'
-                lastName='Illarionov'
+                firstName="George"
+                lastName="Illarionov"
                 avatarSrc={imgs[0]}
-                role='Ученик'
+                role="Ученик"
                 onClick={() => console.log('card')}
                 onMessageClick={() => console.log('msg')}
-
             />
 
             <HomeworkSolutionItem
-                firstName='George'
-                lastName='Illarionov'
+                firstName="George"
+                lastName="Illarionov"
                 avatarSrc={imgs[0]}
-                homeworkTitle='HW1'
+                homeworkTitle="HW1"
                 deadlineTime={Date.now()}
             />
             <HomeworkSolutionItem
-                firstName='George'
-                lastName='Illarionov'
+                firstName="George"
+                lastName="Illarionov"
                 avatarSrc={imgs[0]}
-                homeworkTitle='HW1'
+                homeworkTitle="HW1"
                 deadlineTime={Date.now()}
                 passTime={Date.now() - 10}
             />
             <HomeworkSolutionItem
-                firstName='George'
-                lastName='Illarionov'
+                firstName="George"
+                lastName="Illarionov"
                 avatarSrc={imgs[0]}
-                homeworkTitle='HW1'
+                homeworkTitle="HW1"
                 deadlineTime={Date.now()}
                 passTime={Date.now() + 10000000000}
             />
