@@ -21,6 +21,7 @@ const MessageSelectDialogItem: React.FC<MessageSelectDialogItemProps> = ({
             type={'link'}
             onClick={selectDialog}
             size={'l'}
+            border={''}
             classes={styles.messageSelectDialogItem}
         >
             <Avatar
@@ -38,6 +39,7 @@ const MessageSelectDialogItem: React.FC<MessageSelectDialogItemProps> = ({
                 <Text
                     type={'p'}
                     size={2}
+                    color={'light'}
                     classes={styles.messageSelectDialogItemTextMessage}
                 >
                     {data.lastmessage.text}
@@ -45,6 +47,7 @@ const MessageSelectDialogItem: React.FC<MessageSelectDialogItemProps> = ({
                 <Text
                     type={'p'}
                     size={2}
+                    color={'light'}
                     classes={styles.messageSelectDialogItemTextDate}
                 >
                     {getDialogDate(data.lastmessage.date)}

@@ -1,7 +1,7 @@
 @use '../functions' as *;
 
 .text {
-  font-family: 'Roboto', sans-serif;
+  font-family: getVar(font, type, default);
 }
 
 // h1 - h6

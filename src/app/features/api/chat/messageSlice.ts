@@ -15,7 +15,7 @@ export const messagesApi = apiSlice.injectEndpoints({
     endpoints: (build) => ({
         getLiveMessages: build.query<apiChatMessageType, messageWS>({
             query: ({ chatid }) => ({
-                url: `${apiPaths.chats}${chatid}`,
+                url: `${apiPaths.chats}/${chatid}`,
                 method: 'GET',
             }),
             transformResponse(

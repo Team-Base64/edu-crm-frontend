@@ -7,7 +7,7 @@ import {
 } from '../const/constMocks.ts';
 
 export const chatHandlers = [
-    http.get(`${apiPaths.basePath}${apiPaths.chats}:id`, ({ params }) => {
+    http.get(`${apiPaths.basePath}/${apiPaths.chats}:id`, ({ params }) => {
         const { id } = params;
         return HttpResponse.json(
             { messages: [messagesMock[Number(id) === 1 ? 0 : 1]] },
@@ -18,7 +18,7 @@ export const chatHandlers = [
         );
     }),
 
-    http.get(apiPaths.basePath + apiPaths.chats, () =>
+    http.get(`${apiPaths.basePath}/${apiPaths.chats}`, () =>
         HttpResponse.json(
             { chats: dialogListMock },
             { status: 200, headers: { ...defaultHeadersMock } },

@@ -8,19 +8,28 @@ const btnSize = {
     m: styles.medium,
     l: styles.large,
 };
-export type ButtonSize = keyof typeof btnSize;
+type ButtonSize = keyof typeof btnSize;
 
 const btnType = {
     primary: styles.primary,
     secondary: styles.secondary,
     link: styles.link,
 };
-export type ButtonType = keyof typeof btnType;
+type ButtonType = keyof typeof btnType;
+
+const borderButtonType = {
+    s: styles.buttonBorderSmall,
+    m: styles.buttonBorderMedium,
+    l: styles.buttonBorderLarge,
+    '': '',
+};
+type BorderButtonType = keyof typeof borderButtonType;
 
 interface ButtonProps extends UiComponentProps {
     type?: ButtonType;
     size?: ButtonSize;
     disabled?: boolean;
+    border?: BorderButtonType;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -29,6 +38,7 @@ const Button: React.FC<ButtonProps> = ({
     children,
     size = 'm',
     classes = '',
+    border = 'm',
     disabled = false,
 }) => {
     return (
@@ -38,6 +48,7 @@ const Button: React.FC<ButtonProps> = ({
                 styles.button,
                 btnType[type],
                 btnSize[size],
+                borderButtonType[border],
                 classes,
             ].join(' ')}
             disabled={disabled}

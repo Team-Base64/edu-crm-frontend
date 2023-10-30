@@ -3,6 +3,8 @@ import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import Container from '@ui-kit/Container/Container.tsx';
 import MessageSelectDialogItem from '@components/MessageSelectDioalogItem/MessageSelectDialogItem.tsx';
 import { useGetChatsQuery } from '../../app/features/api/chat/dialogSlice.ts';
+import { SearchDialogList } from '@components/SearchDialogList/SearchDialogList.tsx';
+import styles from './MessageSelector.module.scss';
 
 interface MessageSelectorProps extends UiComponentProps {
     setChatID: (chatID: number) => void;
@@ -24,7 +26,9 @@ const MessageSelector: React.FC<MessageSelectorProps> = ({ setChatID }) => {
         <Container
             direction={'vertical'}
             layout={'base'}
+            classes={styles.messageSelector}
         >
+            <SearchDialogList></SearchDialogList>
             {isSuccess && dialogList}
             {isError && <p>{JSON.stringify(error)}</p>}
             {isLoading && <p>loading...</p>}

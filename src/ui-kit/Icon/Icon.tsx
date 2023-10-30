@@ -19,6 +19,7 @@ const iconName = {
     closeCircle: Icons.CloseCircle,
     copyLine: Icons.CopyLine,
     deleteBinLine: Icons.DeleteBinLine,
+    searchIcon: Icons.SearchIcon,
 };
 export type IconName = keyof typeof iconName;
 

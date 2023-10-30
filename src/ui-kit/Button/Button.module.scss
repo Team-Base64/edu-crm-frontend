@@ -23,8 +23,7 @@
 
     &:focus-visible {
       $border-radius: getVar(border, width, bold);
-      outline: $border-radius solid getVar(btn, primary, border, color, focus);
-      outline-offset: calc(0px - $border-radius);
+      border: $border-radius solid getVar(btn, primary, border, color, focus);
     }
 
     &:active {
@@ -39,8 +38,7 @@
   &.secondary {
     background: none;
     $border-radius: getVar(border, width, default);
-    outline: $border-radius solid getVar(btn, secondary, border, color, default);
-    outline-offset: calc(0px - $border-radius);
+    border: $border-radius solid getVar(btn, secondary, border, color, default);
     color: getVar(btn, secondary, font, color);
 
     &:hover {
@@ -49,8 +47,7 @@
 
     &:focus-visible {
       $border-radius: getVar(border, width, bold) ;
-      outline: $border-radius solid getVar(btn, secondary, border, color, focus);
-      outline-offset: calc(0px - $border-radius);
+      border: $border-radius solid getVar(btn, secondary, border, color, focus);
     }
 
     &:active {
@@ -59,8 +56,7 @@
 
     &:disabled {
       color: getVar(btn, secondary, font, color, disabled);
-      outline: getVar(border, width, default) solid getVar(btn, secondary, border, color, disabled);
-      outline-offset: - getVar(border, width, default);
+      border: getVar(border, width, default) solid getVar(btn, secondary, border, color, disabled);
     }
   }
 
@@ -70,7 +66,7 @@
     color: getVar(btn, link, font, color);
 
     &:hover {
-      border-radius: 0;
+      //border-radius: 16px;
       background-color: getVar(btn, link, bg, hover);
     }
 
@@ -93,21 +89,32 @@
 
   &.small {
     gap: getVar(gap, small);
-    padding: getVar(padding, t, b, small) getVar(padding, l, r, small);
-    border-radius: getVar(border, radius, small);
+    padding: getVar(padding, t, b, small) getVar(padding, l, r, medium);
   }
 
   &.medium {
     gap: getVar(gap, medium);
     padding: getVar(padding, t, b, medium) getVar(padding, l, r, medium);
-    border-radius: getVar(border, radius, medium);
 
   }
 
   &.large {
     gap: getVar(gap, large);
     padding: getVar(padding, t, b, large) getVar(padding, l, r, large);
-    border-radius: getVar(border, radius, large);
+  }
+
+  &--border {
+    &--small {
+      border-radius: getVar(border, radius, small);
+    }
+
+    &--medium {
+      border-radius: getVar(border, radius, medium);
+    }
+
+    &--large {
+      border-radius: getVar(border, radius, large);
+    }
   }
 
 }

@@ -13,3 +13,4 @@ export { default as ArrowRight } from './system_arrow-right-s-line.svg?react';
 export { default as CloseCircle } from './system_close-circle-line.svg?react';
 export { default as CopyLine } from './system_copy_line.svg?react';
 export { default as DeleteBinLine } from './system_delete-bin-line.svg?react';
+export { default as SearchIcon } from './buisness_search-icon.svg?react';
