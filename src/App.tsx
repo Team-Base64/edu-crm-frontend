@@ -43,6 +43,9 @@ const App: React.FC = () => {
                 lastName='Illarionov'
                 avatarSrc={imgs[0]}
                 role='Ученик'
+                onClick={() => console.log('card')}
+                onMessageClick={() => console.log('msg')}
+
             />
 
             <HomeworkSolutionItem

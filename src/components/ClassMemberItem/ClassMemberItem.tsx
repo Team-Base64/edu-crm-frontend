@@ -3,7 +3,7 @@ import Button from "@ui-kit/Button/Button";
 import Container from "@ui-kit/Container/Container";
 import Icon from "@ui-kit/Icon/Icon";
 import { UiComponentProps } from "@ui-kit/interfaces";
-import React from "react";
+import React, { useCallback } from "react";
 import Text from "@ui-kit/Text/Text";
 
 import styles from './ClassMemberItem.module.scss';
@@ -18,6 +18,10 @@ interface ClassMemberItemProps extends UiComponentProps {
 }
 
 const ClassMemberItem: React.FC<ClassMemberItemProps> = ({ firstName, lastName, avatarSrc, role, onMessageClick, onClick, classes }) => {
+    const handleChatClick = useCallback((e : React.MouseEvent) => {
+        e.stopPropagation();
+        onMessageClick?.();
+    }, [onMessageClick]);
 
     return (
         <Container classes={[styles.card, classes].join(' ')} direction="horizontal" onClick={onClick}>
@@ -28,7 +32,7 @@ const ClassMemberItem: React.FC<ClassMemberItemProps> = ({ firstName, lastName, 
                     <Text classes={[styles.role, styles.text].join(' ')} type="p2" weight="regular">{role}</Text>
                 </Container>
             </Container>
-            <Button classes={styles.btn} onClick={onMessageClick}
+            <Button classes={styles.btn} onClick={handleChatClick}
                 type="link">
                 <Icon classes={styles.icon} name="chatRightFill" />
             </Button>
