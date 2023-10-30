@@ -25,8 +25,8 @@ const HomeworkSolutionItem: React.FC<HomeworkSolutionItemProps> = ({ firstName, 
     console.log(styles);
     if(passTime) {
         const date = new Date(passTime);
-        stateStr = ['Сдано', date.getDay(), date.getMonth()].join(' ');
-
+        date.toLocaleDateString();
+        stateStr = 'Сдано '+ date.toLocaleDateString('ru-RU').slice(0, -5);
         if(passTime <= deadlineTime){
             stateClassName = styles.pass;
         } else {
