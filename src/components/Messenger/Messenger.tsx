@@ -14,15 +14,11 @@ interface SendMessageAreaProps extends UiComponentProps {
 }
 
 export type ChatMessageType = {
-    isMine: boolean;
+    ismine: boolean;
     text: string;
     date: string;
     id: number;
     chatid: number;
-    user: {
-        name: string;
-        avatar: string;
-    };
 };
 const Messenger: React.FC<SendMessageAreaProps> = ({ chatid }) => {
     const { data, isLoading, isSuccess, isError, error } =
@@ -37,12 +33,10 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid }) => {
         const date = new Date(message.date);
         return (
             <MessageItem
-                isMine={message.isMine}
+                isMine={message.ismine}
                 text={message.text}
                 time={`${date.getUTCDate()}:${date.getUTCDate()}`}
-                authorAvatarSrc={message.user.avatar}
                 key={message.date + index}
-                alt={'avatar of' + message.isMine ? 'teacher' : 'student'}
             />
         );
     });

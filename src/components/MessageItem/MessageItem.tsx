@@ -1,7 +1,6 @@
 import React, { memo } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import Container from '@ui-kit/Container/Container';
-import Avatar from '@ui-kit/Avatar/Avatar';
 import styles from './MessageItem.module.scss';
 import Text from '@ui-kit/Text/Text.tsx';
 
@@ -10,8 +9,6 @@ interface MessageItemProps extends UiComponentProps {
     text: string;
     time: string;
     isMine: boolean;
-    authorAvatarSrc: string;
-    alt: string;
 }
 
 const MessageItem: React.FC<MessageItemProps> = memo(function MessageItem({
@@ -19,8 +16,6 @@ const MessageItem: React.FC<MessageItemProps> = memo(function MessageItem({
     text,
     time,
     isMine,
-    authorAvatarSrc,
-    alt,
 }) {
     return (
         <Container
@@ -28,16 +23,6 @@ const MessageItem: React.FC<MessageItemProps> = memo(function MessageItem({
             classes={[styles.messageItem, isMine ? styles.mine : ''].join(' ')}
             direction={'horizontal'}
         >
-            <Container
-                direction={'vertical'}
-                classes={styles.messageItemAuthor}
-            >
-                <Avatar
-                    classes={styles.messageItemAuthor__avatar}
-                    src={authorAvatarSrc}
-                    alt={alt}
-                ></Avatar>
-            </Container>
             <div
                 className={[
                     styles.messageItemContent,
@@ -60,6 +45,7 @@ const MessageItem: React.FC<MessageItemProps> = memo(function MessageItem({
                     {time}
                 </Text>
             </div>
+            <div className={styles.polygon}></div>
         </Container>
     );
 });

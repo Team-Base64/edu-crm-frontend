@@ -14,7 +14,7 @@ webSocketServer.on('connection', (socket) => {
     const message = messagesMock[0];
 
     setInterval(() => {
-        message.isMine = false;
+        message.ismine = false;
         message.date = new Date().toISOString();
         message.text = `1 hello! me: ${Math.random() > 0.5}`;
         message.channel = `chat`;
@@ -25,7 +25,7 @@ webSocketServer.on('connection', (socket) => {
         socket.send(JSON.stringify(message));
     }, 3000);
     setInterval(() => {
-        message.isMine = false;
+        message.ismine = false;
         message.date = new Date().toISOString();
         message.text = `2 hello! me: ${Math.random() > 0.5}`;
         message.channel = `chat`;

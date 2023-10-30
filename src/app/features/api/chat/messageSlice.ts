@@ -112,7 +112,7 @@ export const messagesApi = apiSlice.injectEndpoints({
                                         avatar: man_photo_src,
                                         name: 'User store',
                                     },
-                                    isMine: true,
+                                    ismine: true,
                                     ...message,
                                     id: 10,
                                 },

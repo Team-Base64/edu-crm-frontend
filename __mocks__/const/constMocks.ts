@@ -18,7 +18,7 @@ export interface netChatMessage extends ChatMessageType {
 
 export const messagesMock: netChatMessage[] = [
     {
-        isMine: false,
+        ismine: false,
         text: middleLongTextMock,
         date: new Date().toISOString(),
         user: {
@@ -30,7 +30,7 @@ export const messagesMock: netChatMessage[] = [
         id: 1,
     },
     {
-        isMine: true,
+        ismine: true,
         text: 'msg 2',
         date: new Date().toISOString(),
         channel: 'chat',
