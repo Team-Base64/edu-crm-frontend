@@ -6,15 +6,15 @@ import Spinner from '@ui-kit/Spinner/Spinner';
 interface ImageProps extends UiComponentProps {
     src: string;
     alt?: string;
-    onLoad?: () => any;
-    onError?: () => any;
-    imgRef?: React.LegacyRef<HTMLImageElement>;
+    onLoad?: () => void;
+    onError?: () => void;
+    // imgRef?: React.LegacyRef<HTMLImageElement>;
 }
 
 enum ImageState {
     loading,
     loaded,
-    error
+    error,
 }
 
 const Image: React.FC<ImageProps> = ({
@@ -24,7 +24,7 @@ const Image: React.FC<ImageProps> = ({
     onLoad,
     onError,
     classes,
-    imgRef,
+    // imgRef,
 }) => {
     const [state, setState] = useState<ImageState>(ImageState.loading);
 
@@ -44,11 +44,15 @@ const Image: React.FC<ImageProps> = ({
     return (
         <div className={[classes, styles.wrapper].join(' ')}>
             {state === ImageState.loading && <Spinner classes={styles.info} />}
-            {state === ImageState.error && <div className={styles.info}>Error</div>}
+            {state === ImageState.error && (
+                <div className={styles.info}>Error</div>
+            )}
             <img
-                ref={imgRef}
+                // ref={imgRef}
                 className={styles.image}
-                style={{ display: state === ImageState.loaded ? 'block' : 'none' }}
+                style={{
+                    display: state === ImageState.loaded ? 'block' : 'none',
+                }}
                 onClick={onClick}
                 onLoad={handleLoad}
                 onError={handleError}
