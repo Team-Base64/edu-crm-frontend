@@ -49,19 +49,15 @@ export const dialogListMock: dialogSelectType[] = [
         name: 'Ziko Anvo',
         cover: man_photo_src,
         isread: true,
-        lastmessage: {
-            text: 'longask dnkasndns andkjsdjnandkasndn asndkasstring',
-            date: new Date().toISOString(),
-        },
+        text: 'longask dnkasndns andkjsdjnandkasndn asndkasstring',
+        date: new Date().toISOString(),
     },
     {
         chatid: 2,
         name: 'Martha Bennet',
         cover: man_photo_src,
         isread: false,
-        lastmessage: {
-            text: 'long asndkasstring',
-            date: new Date().toISOString(),
-        },
+        text: 'long asndkasstring',
+        date: new Date().toISOString(),
     },
 ];

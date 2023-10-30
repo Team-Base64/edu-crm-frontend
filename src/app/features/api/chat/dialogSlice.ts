@@ -6,10 +6,8 @@ export type dialogSelectType = {
     name: string;
     cover: string;
     isread: boolean;
-    lastmessage: {
-        text: string;
-        date: string;
-    };
+    text: string;
+    date: string;
 };
 export const dialogApi = apiSlice.injectEndpoints({
     endpoints: (build) => ({

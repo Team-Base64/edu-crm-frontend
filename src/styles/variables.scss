@@ -25,7 +25,7 @@
 
   // End button
 
-  //Input
+  // Input
   --ui-kit-input-bg-disabled: lightgray;
   --ui-kit-input-bg-default: inherit;
   --ui-kit-input-bg-hover: inherit;
@@ -54,14 +54,22 @@
   --ui-kit-input-error-hint-font-size-medium: 16px;
   --ui-kit-input-error-hint-font-size-small: 14px;
 
-  //End input
+  // End input
 
-  //Icon
-  --ui-kit-icon-size-small: 16px ;
-  --ui-kit-icon-size-medium: 20px ;
-  --ui-kit-icon-size-large: 24px ;
+  // Splitter
 
-  //Avatar
+  --ui-kit-splitter-thinkness-small: 0.5px;
+  --ui-kit-splitter-thinkness-default: 1px;
+  --ui-kit-splitter-thinkness-large: 2px;
+
+  // End splitter
+
+  // Icon
+  --ui-kit-icon-size-small: 16px;
+  --ui-kit-icon-size-medium: 20px;
+  --ui-kit-icon-size-large: 24px;
+
+  // Avatar
   --ui-kit-avatar-size-small: 32px;
   --ui-kit-avatar-size-medium: 48px;
   --ui-kit-avatar-size-large: 64px;

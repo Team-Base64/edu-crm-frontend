@@ -42,7 +42,7 @@ const MessageSelectDialogItem: React.FC<MessageSelectDialogItemProps> = ({
                     color={'light'}
                     classes={styles.messageSelectDialogItemTextMessage}
                 >
-                    {data.lastmessage.text}
+                    {data.text}
                 </Text>
                 <Text
                     type={'p'}
@@ -50,7 +50,7 @@ const MessageSelectDialogItem: React.FC<MessageSelectDialogItemProps> = ({
                     color={'light'}
                     classes={styles.messageSelectDialogItemTextDate}
                 >
-                    {getDialogDate(data.lastmessage.date)}
+                    {getDialogDate(data.date)}
                 </Text>
             </div>
         </Button>
