@@ -30,6 +30,7 @@ const TextArea: React.FC<TextAreaProps> = ({
     rows,
     onChange,
     textAreaRef,
+    classes
 }) => {
     return (
         <>
@@ -39,7 +40,7 @@ const TextArea: React.FC<TextAreaProps> = ({
                 name={name}
                 spellCheck={spellcheck}
                 id={id}
-                className={[styles.textarea, borderType[border]].join(' ')}
+                className={[styles.textarea, borderType[border], classes].join(' ')}
                 defaultValue={textareaText}
                 rows={rows}
                 onChange={onChange}

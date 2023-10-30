@@ -13,6 +13,7 @@ import ClassMemberItem from '@components/ClassMemberItem/ClassMemberItem';
 import HomeworkSolutionItem from '@components/HomeworkSolutionItem/HomeworkSolutionItem';
 import HomeworkItem from '@components/HomeworkItem/HomeworkItem';
 import AnnounceCard from '@components/AnnounceCard/AnnounceCard';
+import AnnounceCreateField from '@components/AnnounceCreateField/AnnounceCreateField';
 
 const App: React.FC = () => {
     const lorem = `Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -38,6 +39,7 @@ const App: React.FC = () => {
     ];
     return (
         <div className={styles.app}>
+            <AnnounceCreateField avatarSrc={imgs[0]}/>
             <AnnounceCard
                 firstName='George'
                 lastName='Illarionov'
