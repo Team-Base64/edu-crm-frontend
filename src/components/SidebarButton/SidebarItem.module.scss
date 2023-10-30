@@ -1,0 +1,18 @@
+.item {
+    & .button {
+        flex-direction: column;
+        gap: 4px;
+
+        & .icon {
+            fill: black;
+        }
+
+        & .title {
+            color: black;
+        }
+    
+        &:hover{
+            background: #ffa50040;
+        }
+    }
+}
