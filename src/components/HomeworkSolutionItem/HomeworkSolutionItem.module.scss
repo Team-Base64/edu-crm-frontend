@@ -4,33 +4,33 @@
     background-color: white;
     justify-content: space-between;
 
+    & .wrapper {
+        min-width: 0;
+    }
 
+    & .avatar {
+        flex-grow: 0;
+        flex-shrink: 0;
+    }
 
-    & .profile {
+    & .text {
         overflow: hidden;
-        justify-self: flex-start;
+        text-wrap: nowrap;
+        text-overflow: ellipsis;
 
-
-        & .avatar {
-            flex-grow: 0;
-            flex-shrink: 0;
-        }
-
-        & .name {
+        &.name {
             color: black;
-            text-wrap: nowrap;
         }
-
 
         & .title {
             color: gray
         }
-
-        
     }
+
     & .state {
         text-wrap: nowrap;
         margin: auto 0;
+
         &.notPass {
             color: gray;
         }
@@ -43,7 +43,7 @@
             color: red;
         }
     }
-  
+
 
     & .btn {
         & .icon {

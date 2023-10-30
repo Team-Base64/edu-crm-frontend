@@ -21,11 +21,11 @@ const ClassMemberItem: React.FC<ClassMemberItemProps> = ({ firstName, lastName, 
 
     return (
         <Container classes={[styles.card, classes].join(' ')} direction="horizontal" onClick={onClick}>
-            <Container classes={styles.profile} direction="horizontal">
+            <Container classes={styles.wrapper} direction="horizontal">
             <Avatar classes={styles.avatar} src={avatarSrc} alt={firstName + 'avatar'} />
-                <Container direction="vertical">
-                    <Text classes={styles.name} type="h6" weight="bold">{firstName} {lastName}</Text>
-                    <Text classes={styles.role} type="p2" weight="regular">{role}</Text>
+                <Container classes={styles.wrapper} direction="vertical">
+                    <Text classes={[styles.name, styles.text].join(' ')} type="h6" weight="bold">{firstName} {lastName}</Text>
+                    <Text classes={[styles.role, styles.text].join(' ')} type="p2" weight="regular">{role}</Text>
                 </Container>
             </Container>
             <Button classes={styles.btn} onClick={onMessageClick}

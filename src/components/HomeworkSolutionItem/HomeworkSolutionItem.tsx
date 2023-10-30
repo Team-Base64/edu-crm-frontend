@@ -22,7 +22,6 @@ const HomeworkSolutionItem: React.FC<HomeworkSolutionItemProps> = ({ firstName, 
     let stateClassName = styles.notPass;
     let stateStr = 'Не сдано';
 
-    console.log(styles);
     if(passTime) {
         const date = new Date(passTime);
         date.toLocaleDateString();
@@ -36,11 +35,11 @@ const HomeworkSolutionItem: React.FC<HomeworkSolutionItemProps> = ({ firstName, 
 
     return (
         <Container classes={[styles.card, classes].join(' ')} direction="horizontal" onClick={onClick}>
-            <Container classes={styles.profile} direction="horizontal">
+            <Container classes={styles.wrapper} direction="horizontal">
                 <Avatar classes={styles.avatar} src={avatarSrc} alt={firstName + 'avatar'} />
-                <Container direction="vertical">
-                    <Text classes={styles.name} type="h6" weight="bold">{firstName} {lastName}</Text>
-                    <Text classes={styles.title} type="p2" weight="regular">{homeworkTitle}</Text>
+                <Container classes={styles.wrapper} direction="vertical">
+                    <Text classes={[styles.text, styles.name].join(' ')} type="h6" weight="bold">{firstName} {lastName}</Text>
+                    <Text classes={[styles.text, styles.title].join(' ')} type="p2" weight="regular">{homeworkTitle}</Text>
                 </Container>
             </Container>
             <Container direction="horizontal">
