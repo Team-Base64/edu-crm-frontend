@@ -1,15 +1,21 @@
 .viewer {
   align-items: center;
-  justify-content: stretch;
-  // background-color: red;
 
-  & .image {
+  & .content {
+    display: flex;
     width: 100%;
+    height: 100%;
+    justify-content: center;
+
+    & img {
+      object-fit: contain;
+    }
   }
 
   & .nav-btn {
     width: min-content;
-    &:hover{
+
+    &:hover {
       // background: none;
     }
   }
