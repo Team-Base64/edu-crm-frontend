@@ -1,0 +1,35 @@
+.card {
+    padding: 8px 16px;
+    border-radius: 8px;
+    background-color: white;
+    justify-content: space-between;
+
+
+
+    & .profile {
+        overflow: hidden;
+        justify-self: flex-start;
+
+
+        & .avatar {
+            flex-grow: 0;
+            flex-shrink: 0;
+        }
+
+        & .name {
+            color: black;
+            text-wrap: nowrap;
+        }
+
+
+        & .role {
+            color: gray
+        }
+    }
+
+    & .btn {
+        & .icon {
+            fill: orange;
+        }
+    }
+}
