@@ -6,6 +6,7 @@
       "@ui-kit/*": ["ui-kit/*"],
       "@hoc/*": ["hoc/*"],
       "@pages/*": ["pages/*"],
+      "@helpers/*": ["helpers/*"],
     },
     "target": "ES2020",
     "useDefineForClassFields": true,
