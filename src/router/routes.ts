@@ -1,4 +1,4 @@
-import asStrings from "@helpers/AsStrings";
+import asStrings from '@helpers/AsStrings';
 
 const AppRoutes = asStrings({
     base: '/',

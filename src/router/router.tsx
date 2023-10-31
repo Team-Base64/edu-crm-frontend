@@ -6,9 +6,9 @@ import NotFoundPage from '@pages/NotFound.page';
 import TestPage from '@pages/Test.page';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import  AppRoutes  from './routes';
+import AppRoutes from './routes';
 
-const AppRouter : React.FC = () => {
+const AppRouter: React.FC = () => {
     return (
         <Routes>
             <Route path={AppRoutes.base}>
@@ -42,6 +42,6 @@ const AppRouter : React.FC = () => {
             </Route>
         </Routes>
     );
-}
+};
 
 export default AppRouter;
