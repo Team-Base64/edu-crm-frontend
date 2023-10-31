@@ -3,7 +3,9 @@
     "baseUrl": "./src",
     "paths": {
       "@components/*": ["components/*"],
-      "@ui-kit/*": ["ui-kit/*"]
+      "@ui-kit/*": ["ui-kit/*"],
+      "@hoc/*": ["hoc/*"],
+      "@pages/*": ["pages/*"],
     },
     "target": "ES2020",
     "useDefineForClassFields": true,
