@@ -1,18 +1,49 @@
-.item {
-    & .button {
-        flex-direction: column;
-        gap: 4px;
+.li {
+    display: flex;
+    align-self: stretch;
 
-        & .icon {
-            fill: black;
-        }
+    &:has(.active) {
+        margin-left: -2px; // IMPORTANT!!! 
+        border-left: 2px solid orange; 
+    }
+}
 
-        & .title {
-            color: black;
-        }
-    
-        &:hover{
-            background: #ffa50040;
+.a {
+    display: flex;
+    flex: 0 0 100%;
+
+}
+
+.button {
+    flex-direction: column;
+    flex-shrink: 0;
+    flex-grow: 1;
+
+    & .icon,
+    .title {
+        color: black;
+        fill: black;
+    }
+
+    &:hover {
+        background: none !important;
+
+        & .icon,
+        .title {
+            color: gray;
+            fill: gray;
         }
     }
+
+    // & .icon {
+    //     fill: black;
+    // }
+
+    // & .title {
+    //     color: black;
+    // }
+
+    // &:hover {
+    //     background: #ffa50040;
+    // }
 }

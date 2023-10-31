@@ -1,19 +1,20 @@
 .sidebar {
-    height: 100vh;
+    height: 100%;
     width: fit-content;
     justify-content: space-between;
     overflow-y: scroll;
 
+    background-color: white;
+    border-radius: 8px;
 
     &::-webkit-scrollbar {
         display: none;
     }
 
-    background-color: white;
-    border-radius: 8px;
 
     .group {
         padding: 16px 8px;
+        align-items: center;
         gap: 4px;
     }
 }
