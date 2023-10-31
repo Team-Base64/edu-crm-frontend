@@ -2,8 +2,10 @@ import { UiComponentProps } from '@ui-kit/interfaces';
 import styles from './Sidebar.module.scss';
 import Container from '@ui-kit/Container/Container';
 import SidebarButton from '@components/SidebarButton/SidebarButton';
+import config from './SidebarConfig';
 
-interface SidebarProps extends UiComponentProps {}
+interface SidebarProps extends UiComponentProps {
+}
 
 const Sidebar: React.FC<SidebarProps> = () => {
     return (
@@ -11,36 +13,22 @@ const Sidebar: React.FC<SidebarProps> = () => {
             classes={styles.sidebar}
             direction="vertical"
         >
-            <Container
-                classes={styles.group}
-                direction="vertical"
-            >
-                <SidebarButton
-                    title="tes23232t"
-                    iconName="homeLine"
-                    path="/test"
-                />
-                <SidebarButton
-                    title="test"
-                    iconName="homeLine"
-                    path="/test2"
-                />
-                <SidebarButton
-                    title="home"
-                    iconName="homeLine"
-                    path="/"
-                />
-            </Container>
-            <Container
-                classes={styles.group}
-                direction="vertical"
-            >
-                <SidebarButton
-                    title="login"
-                    iconName="homeLine"
-                    path="/login"
-                />
-            </Container>
+            {
+                config.map(group => (
+                    <Container
+                        classes={styles.group}
+                        direction="vertical"
+                    >
+                        {group.map(({ title, path, iconName }) => (
+                            <SidebarButton
+                                title={title}
+                                iconName={iconName}
+                                path={path}
+                            />
+                        ))}
+                    </Container>
+                ))
+            }
         </Container>
     );
 };
