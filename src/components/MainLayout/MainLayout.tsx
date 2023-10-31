@@ -1,20 +1,18 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom';
 import styles from './MainLayout.module.scss';
+import Sidebar from '@components/Sidebar/Sidebar';
 
 const MainLayout: React.FC = () => {
-
     return (
         <div className={styles.mainLayout}>
             <nav>
-                navbar
+                <Sidebar />
             </nav>
             <main>
-                content: 
                 <Outlet />
             </main>
-
         </div>
     );
-}
+};
 
 export default MainLayout;
