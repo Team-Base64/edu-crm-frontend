@@ -3,6 +3,7 @@ import Icon, { IconName, IconSize } from '@ui-kit/Icon/Icon';
 import Text from '@ui-kit/Text/Text';
 import styles from './SidebarItem.module.scss';
 import { NavLink } from 'react-router-dom';
+import React from 'react';
 
 interface SidebarButtonProps {
     iconName: IconName;
@@ -10,6 +11,7 @@ interface SidebarButtonProps {
     path: string;
     btnSize?: ButtonSize;
     iconSize?: IconSize;
+    dangerous?: boolean;
 }
 
 const SidebarButton: React.FC<SidebarButtonProps> = ({
@@ -18,6 +20,7 @@ const SidebarButton: React.FC<SidebarButtonProps> = ({
     title,
     iconName,
     path,
+    dangerous = false,
 }) => {
     return (
         <li className={styles.li}>
@@ -29,7 +32,10 @@ const SidebarButton: React.FC<SidebarButtonProps> = ({
             >
                 <Button
                     size={btnSize}
-                    classes={styles.button}
+                    classes={[
+                        dangerous ? styles.dangerous : '',
+                        styles.button,
+                    ].join(' ')}
                     type="link"
                 >
                     <Icon

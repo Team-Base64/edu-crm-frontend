@@ -34,16 +34,10 @@
             fill: gray;
         }
     }
-
-    // & .icon {
-    //     fill: black;
-    // }
-
-    // & .title {
-    //     color: black;
-    // }
-
-    // &:hover {
-    //     background: #ffa50040;
-    // }
+    &:hover.dangerous {
+        & .icon, .title {
+            fill: red;
+            color: red;
+        }
+    }
 }
