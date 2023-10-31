@@ -1,0 +1,22 @@
+.main-layout {
+    height: 100vh;
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+
+    display: flex;
+    gap: 8px;
+
+    nav {
+        height: 100%;
+    }
+
+    main {
+        flex-grow: 1;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
