@@ -1,3 +1,4 @@
+import AppRoutes from '@router/routes';
 import { IconName } from '@ui-kit/Icon/Icon';
 
 type SidebarItem = {
@@ -16,39 +17,39 @@ const config: SidebarConfig = [
         {
             title: 'Главная',
             iconName: 'homeLine',
-            path: '/home',
+            path: AppRoutes.base,
         },
         {
             title: 'Календарь',
             iconName: 'calendarLine',
-            path: '/sheduler',
+            path: AppRoutes.calendar,
         },
         {
             title: 'Классы',
             iconName: 'layoutLine',
-            path: '/classes',
+            path: AppRoutes.classes,
         },
         {
             title: 'Сообщения',
             iconName: 'chatLine',
-            path: '/messenger',
+            path: AppRoutes.messenger,
         },
         {
             title: 'Настройки',
             iconName: 'settingsLine',
-            path: '/settings',
+            path: AppRoutes.settings,
         },
         {
             title: 'Тестовая',
             iconName: 'settingsLine',
-            path: '/test',
+            path: AppRoutes.test,
         },
     ],
     [
         {
             title: 'Выйти',
             iconName: 'logoutLine',
-            path: '/login',
+            path: AppRoutes.logout,
             dangerous: true,
         },
     ],
