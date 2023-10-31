@@ -10,15 +10,37 @@ import { Route, Routes } from 'react-router-dom';
 const App: React.FC = () => {
     return (
         <Routes>
-            <Route path='/'>
+            <Route path="/">
                 {/* Public */}
-                <Route index element={<LandingPage/>}/>
-                <Route path='login' element={<LoginPage />} />
-                <Route path='*' element={<NotFoundPage />} />
-                
+                <Route
+                    index
+                    element={<LandingPage />}
+                />
+                <Route
+                    path="login"
+                    element={<LoginPage />}
+                />
+                <Route
+                    path="*"
+                    element={<NotFoundPage />}
+                />
+
                 {/* Private */}
-                <Route element={<RequireAuth><MainLayout/></RequireAuth>}>
-                    <Route path='test' element={<TestPage/>}/>
+                <Route
+                    element={
+                        <RequireAuth>
+                            <MainLayout />
+                        </RequireAuth>
+                    }
+                >
+                    <Route
+                        path="test"
+                        element={<TestPage />}
+                    />
+                    <Route
+                        path="test2"
+                        element={<TestPage />}
+                    />
                 </Route>
             </Route>
         </Routes>
