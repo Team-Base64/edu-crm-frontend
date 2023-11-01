@@ -20,6 +20,7 @@ const iconName = {
     copyLine: Icons.CopyLine,
     deleteBinLine: Icons.DeleteBinLine,
     searchIcon: Icons.SearchIcon,
+    loading: Icons.Loading,
 };
 export type IconName = keyof typeof iconName;
 
@@ -30,15 +31,17 @@ const iconSize = {
 };
 export type IconSize = keyof typeof iconSize;
 
-interface IconProps extends UiComponentProps {
+export interface IconProps extends UiComponentProps {
     name: IconName;
     color?: string;
+    stroke?: string;
     background?: string;
     size?: IconSize;
 }
 
 const Icon: React.FC<IconProps> = ({
     name,
+    stroke = 'black',
     color = 'black',
     background = 'none',
     size = 'medium',
@@ -58,6 +61,7 @@ const Icon: React.FC<IconProps> = ({
             style={{
                 fill: color,
                 background: background,
+                stroke: stroke,
             }}
         ></SelectedIcon>
     );
