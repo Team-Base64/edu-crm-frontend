@@ -1,7 +1,6 @@
-import React, { ChangeEvent, ChangeEventHandler, useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useId, useRef } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import styles from '@ui-kit/TextArea/TextArea.module.scss';
-import { delay } from 'msw';
 
 interface TextAreaProps extends UiComponentProps {
     name?: string;
@@ -11,9 +10,10 @@ interface TextAreaProps extends UiComponentProps {
     border?: BorderType;
     labelText?: string;
     autoResize?: boolean;
-    minRows ?: number;
-    maxRows ?: number;
+    minRows?: number;
+    maxRows?: number;
     onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+    textareaRef?: React.RefObject<HTMLTextAreaElement>;
 }
 
 const borderType = {
@@ -33,11 +33,11 @@ const TextArea: React.FC<TextAreaProps> = ({
     minRows = 1,
     maxRows = 10,
     onChange,
+    textareaRef = useRef<HTMLTextAreaElement>(null),
     classes,
 }) => {
 
     const id = useId();
-    const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     useEffect(() => {
         resizeTextarea();
@@ -53,7 +53,7 @@ const TextArea: React.FC<TextAreaProps> = ({
 
         area.style.height = minRows * lineHeight + 'px';
         if (area === document.activeElement) {
-            area.style.height = Math.min(area.scrollHeight, lineHeight * maxRows)  + 'px';
+            area.style.height = Math.min(area.scrollHeight, lineHeight * maxRows) + 'px';
         }
     }
 
