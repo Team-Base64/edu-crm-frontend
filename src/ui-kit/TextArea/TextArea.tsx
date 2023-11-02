@@ -33,18 +33,15 @@ const TextArea: React.FC<TextAreaProps> = ({
     minRows = 1,
     maxRows = 10,
     onChange,
-    textareaRef = useRef<HTMLTextAreaElement>(null),
+    textareaRef,
     classes,
 }) => {
-
     const id = useId();
 
-    useEffect(() => {
-        resizeTextarea();
-    }, [textareaRef]);
+    textareaRef = useRef<HTMLTextAreaElement>(null);
 
     const resizeTextarea = () => {
-        const area = textareaRef.current;
+        const area = textareaRef?.current;
         if (!autoResize || !area) {
             return;
         }
@@ -53,14 +50,19 @@ const TextArea: React.FC<TextAreaProps> = ({
 
         area.style.height = minRows * lineHeight + 'px';
         if (area === document.activeElement) {
-            area.style.height = Math.min(area.scrollHeight, lineHeight * maxRows) + 'px';
+            area.style.height =
+                Math.min(area.scrollHeight, lineHeight * maxRows) + 'px';
         }
-    }
+    };
+
+    useEffect(() => {
+        resizeTextarea();
+    });
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         resizeTextarea();
         onChange?.(e);
-    }
+    };
 
     return (
         <>

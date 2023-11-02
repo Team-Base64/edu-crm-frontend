@@ -40,9 +40,7 @@ const AppRouter: React.FC = () => {
                         path={AppRoutes.test}
                         element={<TestPage />}
                     />
-                    <Route
-                        path={AppRoutes.classes}
-                    >
+                    <Route path={AppRoutes.classes}>
                         <Route
                             index
                             element={<ClassesPage />}

@@ -22,8 +22,13 @@ const Sidebar: React.FC<SidebarProps> = () => {
                             direction="vertical"
                         >
                             {group.map(
-                                ({ title, path, iconName, dangerous }, item_idx) => (
-                                    <React.Fragment key={`${id}-item-${group_idx}-${item_idx}`}>
+                                (
+                                    { title, path, iconName, dangerous },
+                                    item_idx,
+                                ) => (
+                                    <React.Fragment
+                                        key={`${id}-item-${group_idx}-${item_idx}`}
+                                    >
                                         <SidebarButton
                                             title={title}
                                             iconName={iconName}

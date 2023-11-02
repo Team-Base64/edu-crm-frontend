@@ -4,7 +4,6 @@ import Icon from '@ui-kit/Icon/Icon';
 import TextArea from '@ui-kit/TextArea/TextArea';
 import React from 'react';
 import styles from './AnnounceCreateField.module.scss';
-import { Form } from 'react-router-dom';
 
 interface AnnounceCreateFieldProps {
     avatarSrc: string;
@@ -12,7 +11,7 @@ interface AnnounceCreateFieldProps {
 }
 
 const AnnounceCreateField: React.FC<AnnounceCreateFieldProps> = ({
-    submit,
+    // submit,
     avatarSrc,
 }) => {
     return (
@@ -29,7 +28,8 @@ const AnnounceCreateField: React.FC<AnnounceCreateFieldProps> = ({
                 name="announce"
                 spellcheck={true}
                 placeholder={'Напишите что-нибудь всему классу...'}
-                textareaText={'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio corporis fugit vel ipsum ullam dolorem perspiciatis, explicabo sed eius consectetur quia non? Quisquam distinctio animi doloribus, fuga quis laudantium. Eligendi!            '
+                textareaText={
+                    'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio corporis fugit vel ipsum ullam dolorem perspiciatis, explicabo sed eius consectetur quia non? Quisquam distinctio animi doloribus, fuga quis laudantium. Eligendi!            '
                 }
                 border={'noBroder'}
                 autoResize={true}

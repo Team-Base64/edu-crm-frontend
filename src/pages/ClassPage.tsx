@@ -7,8 +7,13 @@ const ClassPage: React.FC = () => {
 
     const id = Number(params.id);
 
-    if(isNaN(id)){
-        return <Navigate to='/page404' state={{from: location}}/>
+    if (isNaN(id)) {
+        return (
+            <Navigate
+                to="/page404"
+                state={{ from: location }}
+            />
+        );
     }
 
     return (
