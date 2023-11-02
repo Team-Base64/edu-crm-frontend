@@ -1,18 +1,19 @@
-import React, { ChangeEventHandler } from 'react';
+import React, { ChangeEvent, ChangeEventHandler, useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import styles from '@ui-kit/TextArea/TextArea.module.scss';
+import { delay } from 'msw';
 
 interface TextAreaProps extends UiComponentProps {
-    name: string;
-    spellcheck: boolean;
-    id: string;
-    textareaText: string;
-    border: BorderType;
-    rows: number;
-    onChange: ChangeEventHandler<HTMLTextAreaElement>;
-    labelText?: string;
-    textAreaRef: React.Ref<HTMLTextAreaElement>;
+    name?: string;
+    textareaText?: string;
     placeholder?: string;
+    spellcheck?: boolean;
+    border?: BorderType;
+    labelText?: string;
+    autoResize?: boolean;
+    minRows ?: number;
+    maxRows ?: number;
+    onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 const borderType = {
@@ -22,34 +23,61 @@ const borderType = {
 type BorderType = keyof typeof borderType;
 
 const TextArea: React.FC<TextAreaProps> = ({
-    labelText = '',
     name,
-    spellcheck,
-    id,
     textareaText,
-    border,
-    rows,
+    placeholder,
+    labelText,
+    spellcheck,
+    border = 'noBroder',
+    autoResize = false,
+    minRows = 1,
+    maxRows = 10,
     onChange,
-    textAreaRef,
     classes,
-    placeholder = '',
 }) => {
+
+    const id = useId();
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+    useEffect(() => {
+        resizeTextarea();
+    }, [textareaRef]);
+
+    const resizeTextarea = () => {
+        const area = textareaRef.current;
+        if (!autoResize || !area) {
+            return;
+        }
+
+        const lineHeight = parseInt(window.getComputedStyle(area).lineHeight);
+
+        area.style.height = minRows * lineHeight + 'px';
+        if (area === document.activeElement) {
+            area.style.height = Math.min(area.scrollHeight, lineHeight * maxRows)  + 'px';
+        }
+    }
+
+    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        resizeTextarea();
+        onChange?.(e);
+    }
+
     return (
         <>
-            {labelText && <label htmlFor={id}>labelText</label>}
-
+            {labelText && <label htmlFor={id}>{labelText}</label>}
             <textarea
+                id={id}
+                ref={textareaRef}
                 name={name}
                 spellCheck={spellcheck}
-                id={id}
+                defaultValue={textareaText}
+                placeholder={placeholder}
+                onChange={handleChange}
+                onFocusCapture={resizeTextarea}
+                onBlur={resizeTextarea}
                 className={[styles.textarea, borderType[border], classes].join(
                     ' ',
                 )}
-                defaultValue={textareaText}
-                rows={rows}
-                onChange={onChange}
-                ref={textAreaRef}
-                placeholder={placeholder}
             ></textarea>
         </>
     );
