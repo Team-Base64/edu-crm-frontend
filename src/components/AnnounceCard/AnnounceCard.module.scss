@@ -7,16 +7,13 @@
 .header {
     justify-content: space-between;
     border-bottom: 1px solid black;
-    padding-bottom: 5px;
+    padding-bottom: 4px;
     align-items: center;
 
     & .info {
         align-items: center;
         & .date {
             color: gray;
-        }
-
-        & .name {
         }
     }
 }

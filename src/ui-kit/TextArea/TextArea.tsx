@@ -18,7 +18,7 @@ interface TextAreaProps extends UiComponentProps {
 
 const borderType = {
     border: styles.textareaBorder,
-    noBroder: '',
+    noBorder: '',
 };
 type BorderType = keyof typeof borderType;
 
@@ -28,7 +28,7 @@ const TextArea: React.FC<TextAreaProps> = ({
     placeholder,
     labelText,
     spellcheck,
-    border = 'noBroder',
+    border = 'noBorder',
     autoResize = false,
     minRows = 1,
     maxRows = 10,

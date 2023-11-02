@@ -54,7 +54,7 @@ const Overlay: React.FC<OverpayProps> = ({
             setTimeout(() => {
                 setState('closed');
                 overlays.pop();
-                if (overlays.length < 1) {
+                if (!overlays.length) {
                     document.body.classList.remove(styles.noscroll);
                 }
             }, ANIMATION_TIME_MS);
@@ -65,12 +65,9 @@ const Overlay: React.FC<OverpayProps> = ({
     const handleKeydown = useCallback(
         (e: KeyboardEvent) => {
             const { code } = e;
-            if (code === 'Escape') {
-                if (overlays.length) {
-                    if (id === overlays[overlays.length - 1]) {
-                        closeOverlay();
-                    }
-                    return;
+            if (code === 'Escape' && overlays) {
+                if (id === overlays.at(-1)) {
+                    closeOverlay();
                 }
             }
         },

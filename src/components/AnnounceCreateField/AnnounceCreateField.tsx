@@ -22,6 +22,7 @@ const AnnounceCreateField: React.FC<AnnounceCreateFieldProps> = ({
             <Avatar
                 classes={styles.avatar}
                 src={avatarSrc}
+                alt="Your avatar"
             />
             <TextArea
                 classes={styles.area}
@@ -31,7 +32,7 @@ const AnnounceCreateField: React.FC<AnnounceCreateFieldProps> = ({
                 textareaText={
                     'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio corporis fugit vel ipsum ullam dolorem perspiciatis, explicabo sed eius consectetur quia non? Quisquam distinctio animi doloribus, fuga quis laudantium. Eligendi!            '
                 }
-                border={'noBroder'}
+                border={'noBorder'}
                 autoResize={true}
             />
             <Icon

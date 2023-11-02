@@ -3,7 +3,7 @@ import Container from '@ui-kit/Container/Container';
 import Icon from '@ui-kit/Icon/Icon';
 import Text from '@ui-kit/Text/Text';
 import { UiComponentProps } from '@ui-kit/interfaces';
-import React, { useCallback } from 'react';
+import React from 'react';
 
 import styles from './AnnounceCard.module.scss';
 
@@ -28,21 +28,15 @@ const AnnounceCard: React.FC<AnnounceCardProps> = ({
     time,
     text,
 }) => {
-    const handleEdit = useCallback(
-        (e: React.MouseEvent) => {
-            e.stopPropagation();
-            onEdit?.();
-        },
-        [onEdit],
-    );
+    const handleEdit = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        onEdit?.();
+    };
 
-    const handleDelete = useCallback(
-        (e: React.MouseEvent) => {
-            e.stopPropagation();
-            onDelete?.();
-        },
-        [onDelete],
-    );
+    const handleDelete = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        onDelete?.();
+    };
 
     return (
         <Container

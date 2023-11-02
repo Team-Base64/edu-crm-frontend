@@ -66,6 +66,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ src, classes }) => {
                 <Image
                     classes={styles.image}
                     src={src[index]}
+                    alt={`image-${index}`}
                 />
             </div>
             <Button

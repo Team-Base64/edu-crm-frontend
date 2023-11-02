@@ -5,7 +5,7 @@ import Spinner from '@ui-kit/Spinner/Spinner';
 
 interface ImageProps extends UiComponentProps {
     src: string;
-    alt?: string;
+    alt: string;
     onLoad?: () => void;
     onError?: () => void;
     // imgRef?: React.LegacyRef<HTMLImageElement>;
@@ -57,7 +57,7 @@ const Image: React.FC<ImageProps> = ({
                 onLoad={handleLoad}
                 onError={handleError}
                 src={src}
-                alt={alt ? alt : ''}
+                alt={alt}
             />
         </div>
     );
