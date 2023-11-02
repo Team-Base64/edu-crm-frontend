@@ -1,12 +1,12 @@
 import React from 'react';
 
-const TestPage: React.FC = () => {
+const ClassesPage: React.FC = () => {
     return (
         <div>
-            <h1>TEST PAGE</h1>
+            <h1>Claseess PAGE</h1>
             <p>IN PROGESS</p>
         </div>
     );
 };
 
-export default TestPage;
+export default ClassesPage;

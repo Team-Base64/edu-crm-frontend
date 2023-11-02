@@ -7,7 +7,8 @@ const AppRoutes = asStrings({
     test: 'test',
 
     calendar: 'calendar',
-    classes: 'class',
+    classes: 'class/*',
+    class: ':id',
     messenger: 'messenger',
     settings: 'settings',
 
