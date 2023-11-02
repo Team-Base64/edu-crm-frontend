@@ -1,6 +1,6 @@
 import Container from '@ui-kit/Container/Container.tsx';
 import TextArea from '@ui-kit/TextArea/TextArea.tsx';
-import React, { ChangeEventHandler, useEffect, useRef } from 'react';
+import React, { ChangeEventHandler, useEffect, useRef, useState } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import Button from '@ui-kit/Button/Button.tsx';
 import Icon from '@ui-kit/Icon/Icon.tsx';
@@ -19,41 +19,41 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
 }) => {
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
+    useEffect(() => {
+        const savedMsg = localStorage.getItem(`chatArea/${id}`) ?? '';
+        if(!textAreaRef.current) return;
+        textAreaRef.current.value = savedMsg;
+    });
+
     const handleClick = () => {
-        if (textAreaRef.current instanceof HTMLTextAreaElement) {
-            onMessageSend(textAreaRef.current.value);
+            if(!textAreaRef.current){
+                return;
+            }
+            onMessageSend( textAreaRef.current.value);
+
             textAreaRef.current.value = '';
             localStorage.setItem(`chatArea/${id}`, '');
-        } else {
-            console.error('textAreaRef ref/ element not found');
-        }
     };
     const handleMessageChange: ChangeEventHandler<HTMLTextAreaElement> = (
         event,
     ) => {
-        localStorage.setItem(`chatArea/${id}`, event.target.value);
+        const val = event.target.value;
+        localStorage.setItem(`chatArea/${id}`, val);
     };
 
-    useEffect(() => {
-        if (textAreaRef.current instanceof HTMLTextAreaElement) {
-            textAreaRef.current.value =
-                localStorage.getItem(`chatArea/${id}`) ?? '';
-        } else {
-            console.error('textAreaRef ref/ element not found');
-        }
-    });
+  
 
     return (
         <Container>
             <TextArea
                 name={name}
                 spellcheck={true}
-                id={id}
                 textareaText={''}
                 border={'border'}
-                rows={4}
+                minRows={4}
+                autoResize={false}
                 onChange={handleMessageChange}
-                textAreaRef={textAreaRef}
+                textareaRef={textAreaRef}
             ></TextArea>
             <Button
                 onClick={handleClick}
