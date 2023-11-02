@@ -62,14 +62,16 @@ const HomeworkSolutionItem: React.FC<HomeworkSolutionItemProps> = ({
                 >
                     <Text
                         classes={[styles.text, styles.name].join(' ')}
-                        type="h6"
+                        type='h'
+                        size={6}
                         weight="bold"
                     >
                         {firstName} {lastName}
                     </Text>
                     <Text
                         classes={[styles.text, styles.title].join(' ')}
-                        type="p2"
+                        type='p'
+                        size={6}
                         weight="regular"
                     >
                         {homeworkTitle}
@@ -78,7 +80,8 @@ const HomeworkSolutionItem: React.FC<HomeworkSolutionItemProps> = ({
             </Container>
             <Container direction="horizontal">
                 <Text
-                    type="p2"
+                    type='p'
+                    size={2}
                     weight="bold"
                     classes={[styles.state, stateClassName].join(' ')}
                 >

@@ -1,14 +1,19 @@
 @use '../functions' as *;
 
 .container {
-  display: flex;
 
   &.vertical {
+    display: flex;
     flex-direction: column;
   }
 
   &.horizontal {
+    display: flex;
     flex-direction: row;
+  }
+
+  &.grid {
+    display: grid;
   }
 
   &--gap {
@@ -23,6 +28,22 @@
 
     &-large {
       gap: getVar(gap, large);
+    }
+  }
+
+  &--layout {
+    &-base {
+      background-color: var(--color-bg-light);
+      border-radius: var(--border-radius-default);
+      &--default{
+        @extend .container--layout-base;
+        padding: getVar(padding, t, b, large) getVar(padding, l, r, large);
+      }
+    }
+
+    &-sub {
+      background-color: var(--color-bg-bright);
+      border-radius: var(--border-radius-default);
     }
   }
 }

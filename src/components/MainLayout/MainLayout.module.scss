@@ -1,24 +1,27 @@
+$padding-tb: 8px;
+$padding-rl: 16px; // TODO
+$gap: 16px;
+
 .main-layout {
-    height: 100vh;
-    width: 100vw;
-    padding: 0;
-    margin: 0;
+    background-color: bisque;
 
+    position: relative;
     display: flex;
-    gap: 8px;
+    align-items: stretch;
 
-    background-color: lightgray;
+    gap: $gap;
 
+    padding: 0 $padding-rl;
+    
     nav {
-        height: 100%;
+        position: sticky;
+        top: 0;
+        padding: $padding-tb 0;
+        height: 100vh;
     }
 
     main {
-        flex-grow: 1;
-        flex-shrink: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
+        padding: $padding-tb 0;
+        width: 100%;
     }
 }
-

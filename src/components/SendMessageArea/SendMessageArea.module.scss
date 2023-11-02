@@ -1,6 +1,13 @@
 @use "../../ui-kit/functions" as *;
 
+.form {
+  all: inherit;
+  flex-grow: 1;
+}
+
 .send-message-area {
+  align-items: flex-end;
+
   &__button {
     height: 24px;
   }

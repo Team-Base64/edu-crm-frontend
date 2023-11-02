@@ -11,6 +11,7 @@
   outline: $outline-width solid getVar(avatar, border, color);
   outline-offset: calc(0px - $outline-width);
   border-radius: 50%;
+  flex-shrink: 0;
 
   &.small {
     width: getVar(avatar, size, small);

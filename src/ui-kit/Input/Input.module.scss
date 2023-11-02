@@ -1,18 +1,15 @@
 @use '../functions' as *;
 
 .container {
-  $border-width: getVar(border, width, default);
-  outline: $border-width solid getVar(input, outline, color);
-  outline-offset: 0px - $border-width;
-
   background-color: getVar(input, bg, default);
+  font-family: getVar(font, type, default);
 
   justify-content: space-between;
   align-items: center;
 
   &:hover {
-    //background-color: getVar(input, bg, hover);
-    //outline-color: getVar(input, outline, color, hover);
+    background-color: getVar(input, bg, hover);
+    border-color: getVar(input, outline, color, hover);
   }
 
   &:disabled {
@@ -35,12 +32,30 @@
 
   &--error {
     background-color: getVar(input, bg, error);
-    outline-color: getVar(input, outline, color, error);
+    border-color: getVar(input, outline, color, error);
   }
 
   &--success {
     background-color: getVar(input, bg, success);
-    outline-color: getVar(input, outline, color, success);
+    border-color: getVar(input, outline, color, success);
+  }
+
+  &--border-thin {
+    $border-width: getVar(border, width, thin);
+    border: $border-width solid getVar(input, outline, color);
+    border-radius: getVar(border, radius, large);
+  }
+
+  &--border-default {
+    $border-width: getVar(border, width, default);
+    border: $border-width solid getVar(input, outline, color);
+    border-radius: getVar(border, radius, large);
+  }
+
+  &--border-thick {
+    $border-width: getVar(border, width, bold);
+    border: $border-width solid getVar(input, outline, color);
+    border-radius: getVar(border, radius, large);
   }
 }
 
@@ -54,7 +69,7 @@
 
 .large {
   & .container {
-    border-radius: getVar(border, radius, large);
+    //border-radius: getVar(border, radius, large);
     padding: 0 getVar(padding, l, r, large);
   }
 
@@ -74,7 +89,7 @@
 
 .medium {
   & .container {
-    border-radius: getVar(border, radius, medium);
+    //border-radius: getVar(border, radius, medium);
     padding: 0 getVar(padding, l, r, medium);
   }
 
@@ -87,28 +102,28 @@
   }
 
   & .input {
-  padding: getVar(padding, t, b, medium) 0;
-  font-size: getVar(input, font-size, medium);
+    padding: getVar(padding, t, b, medium) 0;
+    font-size: getVar(input, font-size, medium);
   }
 }
 
 .small {
 
   & .container {
-    border-radius: getVar(border, radius, small);
-    padding: 0 getVar(padding, l, r, small);
+    //border-radius: getVar(border, radius, small);
+    padding: getVar(padding, t, b, small) getVar(padding, l, r, medium);
   }
 
   & .title {
-    font-size: getVar(input, title, font-size,  small);
+    font-size: getVar(input, title, font-size, small);
   }
 
   & .error-hint {
-    font-size: getVar(input, error-hint, font-size,  small);
+    font-size: getVar(input, error-hint, font-size, small);
   }
 
   & .input {
-    font-size: getVar(input, font-size,  small);
+    font-size: getVar(input, font-size, small);
     padding: getVar(padding, t, b, small) 0;
   }
 }

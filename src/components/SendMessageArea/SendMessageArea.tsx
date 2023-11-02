@@ -25,7 +25,9 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
         textAreaRef.current.value = savedMsg;
     });
 
-    const handleClick = () => {
+    const handleClick = (e: React.MouseEvent) => {
+        e.preventDefault();
+
         if (!textAreaRef.current) {
             return;
         }
@@ -42,26 +44,35 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
     };
 
     return (
-        <Container>
-            <TextArea
-                name={name}
-                spellcheck={true}
-                textareaText={''}
-                border={'border'}
-                minRows={4}
-                autoResize={false}
-                onChange={handleMessageChange}
-                textareaRef={textAreaRef}
-            ></TextArea>
-            <Button
-                onClick={handleClick}
-                type={'link'}
+        <Container classes={styles.sendMessageArea}>
+            <form
+                className={styles.form}
+                name={'sendMessage form'}
+                method={'post'}
+                onSubmit={(e) => e.preventDefault()}
             >
-                <Icon
-                    name={'chatSend'}
-                    classes={styles.sendMessageArea__button}
-                />
-            </Button>
+                <TextArea
+                    name={name}
+                    spellcheck={true}
+                    textareaText={''}
+                    border={'border'}
+                    minRows={1}
+                    maxRows={4}
+                    onChange={handleMessageChange}
+                    textareaRef={textAreaRef}
+                ></TextArea>
+
+                <Button
+                    onClick={handleClick}
+                    type={'link'}
+                    // disabled={!textAreaValue}
+                >
+                    <Icon
+                        name={'chatSend'}
+                        classes={styles.sendMessageArea__button}
+                    />
+                </Button>
+            </form>
         </Container>
     );
 };

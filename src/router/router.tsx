@@ -9,6 +9,7 @@ import { Route, Routes } from 'react-router-dom';
 import AppRoutes from './routes';
 import ClassesPage from '@pages/ClassesPage';
 import ClassPage from '@pages/ClassPage';
+import { Chat } from '@pages/Messenger/Chat';
 
 const AppRouter: React.FC = () => {
     return (
@@ -36,6 +37,10 @@ const AppRouter: React.FC = () => {
                         </RequireAuth>
                     }
                 >
+                    <Route
+                        path={AppRoutes.messenger}
+                        element={<Chat />}
+                    />
                     <Route
                         path={AppRoutes.test}
                         element={<TestPage />}

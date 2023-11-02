@@ -2,32 +2,38 @@ import React, { HTMLAttributes } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import styles from './Text.module.scss';
 
-const textType = {
-    h1: styles.h1, // No suggestions due to @for in scss
-    h2: styles.h2,
-    h3: styles.h3,
-    h4: styles.h4,
-    h5: styles.h5,
-    h6: styles.h6,
-    p: styles.p,
-    p2: styles.p2, // React error here: no tag p2
+const textColor = {
+    default: styles.defaultColor,
+    light: styles.lightColor,
 };
-export type TextType = keyof typeof textType;
+type TextColorType = keyof typeof textColor;
+
+const textType = {
+    h: (size: TextSizeType) => styles[`h${size}`],
+    p: (size: TextSizeType) => styles[`p${size}`],
+};
+type TextType = keyof typeof textType;
+
+type TextSizeType = 1 | 2 | 3 | 4 | 5 | 6;
 
 const textWeight = {
     regular: styles.regular,
     bold: styles.bold,
 };
-export type TextWeight = keyof typeof textWeight;
+type TextWeightType = keyof typeof textWeight;
 
 interface TextProps extends UiComponentProps {
     type: TextType;
-    weight?: TextWeight;
+    size: TextSizeType;
+    weight?: TextWeightType;
+    color?: TextColorType;
 }
 
 const Text: React.FC<TextProps> = ({
     type,
+    size,
     weight = 'regular',
+    color = 'default',
     classes = '',
     children,
     onClick,
@@ -35,9 +41,19 @@ const Text: React.FC<TextProps> = ({
     const props: HTMLAttributes<HTMLElement> = {
         children: children,
         onClick: onClick,
-        className: [textWeight[weight], textType[type], classes].join(' '),
+        className: [
+            textWeight[weight],
+            textType[type].call({}, size),
+            classes,
+            styles.text,
+            textColor[color],
+        ].join(' '),
     };
-    return React.createElement(type, props, children);
+    return React.createElement(
+        type + (type === 'h' ? size : ''),
+        props,
+        children,
+    );
 };
 
 export default Text;

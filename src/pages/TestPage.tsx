@@ -9,6 +9,16 @@ const TestPage: React.FC = () => {
             <p>IN PROGESS</p>
 
             <AnnounceCreateField avatarSrc="" />
+            <AnnounceCreateField avatarSrc="" />
+            <AnnounceCreateField avatarSrc="" />
+            <AnnounceCreateField avatarSrc="" />
+            <AnnounceCreateField avatarSrc="" />
+            <AnnounceCreateField avatarSrc="" />
+            <AnnounceCreateField avatarSrc="" />
+            <AnnounceCreateField avatarSrc="" />
+            <AnnounceCreateField avatarSrc="" />
+            <AnnounceCreateField avatarSrc="" />
+            <AnnounceCreateField avatarSrc="" />
             <SendMessageArea
                 id="gg"
                 name="ggm"

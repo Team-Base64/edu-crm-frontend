@@ -1,12 +1,17 @@
 import { apiSlice } from '../apiSlice.ts';
 import { apiPaths } from '../../../consts.ts';
 
-type chatType = {
+export type dialogSelectType = {
     chatid: number;
+    name: string;
+    cover: string;
+    isread: boolean;
+    text: string;
+    date: string;
 };
 export const dialogApi = apiSlice.injectEndpoints({
     endpoints: (build) => ({
-        getChats: build.query<{ chats: chatType[] }, unknown>({
+        getChats: build.query<{ chats: dialogSelectType[] }, unknown>({
             query: () => ({ url: apiPaths.chats, method: 'GET' }),
         }),
     }),
