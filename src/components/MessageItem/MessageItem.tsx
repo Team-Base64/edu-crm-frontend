@@ -1,17 +1,14 @@
 import React, { memo } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import Container from '@ui-kit/Container/Container';
-import Avatar from '@ui-kit/Avatar/Avatar';
 import styles from './MessageItem.module.scss';
+import Text from '@ui-kit/Text/Text.tsx';
 
 interface MessageItemProps extends UiComponentProps {
     id?: number;
     text: string;
     time: string;
     isMine: boolean;
-    authorAvatarSrc: string;
-    alt: string;
-    authorId?: number;
 }
 
 const MessageItem: React.FC<MessageItemProps> = memo(function MessageItem({
@@ -19,9 +16,6 @@ const MessageItem: React.FC<MessageItemProps> = memo(function MessageItem({
     text,
     time,
     isMine,
-    authorAvatarSrc,
-    alt,
-    // authorId,
 }) {
     return (
         <Container
@@ -29,26 +23,29 @@ const MessageItem: React.FC<MessageItemProps> = memo(function MessageItem({
             classes={[styles.messageItem, isMine ? styles.mine : ''].join(' ')}
             direction={'horizontal'}
         >
-            <Container
-                direction={'vertical'}
-                classes={styles.messageItemAuthor}
-            >
-                <Avatar
-                    classes={styles.messageItemAuthor__avatar}
-                    src={authorAvatarSrc}
-                    alt={alt}
-                ></Avatar>
-            </Container>
-            <Container
-                classes={[
+            <div
+                className={[
                     styles.messageItemContent,
                     isMine ? styles.mine : '',
                 ].join(' ')}
-                direction={'horizontal'}
             >
-                <div className={styles.messageItemContent__text}>{text}</div>
-                <div className={styles.messageItemContent__time}>{time}</div>
-            </Container>
+                <Text
+                    type={'p'}
+                    size={1}
+                    classes={styles.messageItemContent__text}
+                >
+                    {text}
+                </Text>
+                <Text
+                    type={'p'}
+                    size={2}
+                    classes={styles.messageItemContent__time}
+                    color={'light'}
+                >
+                    {time}
+                </Text>
+            </div>
+            <div className={styles.polygon}></div>
         </Container>
     );
 });

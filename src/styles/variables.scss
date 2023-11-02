@@ -18,14 +18,14 @@
   --ui-kit-btn-secondary-border-color-disabled: gray;
 
   --ui-kit-btn-link-font-color: #FF8A00;
-  --ui-kit-btn-link-bg-hover: #ffaa52;
+  --ui-kit-btn-link-bg-hover: rgba(230, 230, 230, 0.5);
   --ui-kit-btn-link-border-color-focus: #ff9f34;
   --ui-kit-btn-link-font-color-active: #ffaa52;
   --ui-kit-btn-link-font-color-disabled: gray;
 
   // End button
 
-  //Input
+  // Input
   --ui-kit-input-bg-disabled: lightgray;
   --ui-kit-input-bg-default: inherit;
   --ui-kit-input-bg-hover: inherit;
@@ -54,14 +54,22 @@
   --ui-kit-input-error-hint-font-size-medium: 16px;
   --ui-kit-input-error-hint-font-size-small: 14px;
 
-  //End input
+  // End input
 
-  //Icon
-  --ui-kit-icon-size-small: 16px ;
-  --ui-kit-icon-size-medium: 20px ;
-  --ui-kit-icon-size-large: 24px ;
+  // Splitter
 
-  //Avatar
+  --ui-kit-splitter-thinkness-small: 0.5px;
+  --ui-kit-splitter-thinkness-default: 1px;
+  --ui-kit-splitter-thinkness-large: 2px;
+
+  // End splitter
+
+  // Icon
+  --ui-kit-icon-size-small: 16px;
+  --ui-kit-icon-size-medium: 20px;
+  --ui-kit-icon-size-large: 24px;
+
+  // Avatar
   --ui-kit-avatar-size-small: 32px;
   --ui-kit-avatar-size-medium: 48px;
   --ui-kit-avatar-size-large: 64px;
@@ -83,6 +91,7 @@
   // Border
   --ui-kit-border-width-bold: 4px;
   --ui-kit-border-width-default: 2px;
+  --ui-kit-border-width-thin: 1px;
 
   --ui-kit-border-radius-small: 8px;
   --ui-kit-border-radius-medium: 12px;
@@ -98,6 +107,8 @@
   --ui-kit-font-size-p: 16px;
   --ui-kit-font-size-p2: 12px;
 
+  --ui-kit-font-type-default: 'Roboto', sans-serif;
+
   /* colors */
 
   // accent
@@ -109,7 +120,7 @@
   // background
   --color-bg-bright: rgba(255, 242, 229, 0.25);
   --color-bg-default: #F9F9F9;
-  --color-bg-light: #FFF;
+  --color-bg-light: rgba(255, 254, 254, 0.9);
   --color-bg-dark-light: rgba(244, 244, 244, 0.5);
 
   // text
@@ -120,10 +131,14 @@
   --color-success: #68B684;
   --color-fail: rgba(214, 46, 46, 0.75);
 
+  /* hover */
+  --color-hover: rgba(230, 230, 230, 0.5);;
+
   /* shadows */
 
   /* border-radius */
   --border-radius-default: 16px;
+  --border-radius-inner: 8px;
 
   /* space? */
   --space-tiny: 2px;

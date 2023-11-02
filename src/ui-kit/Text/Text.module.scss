@@ -1,5 +1,9 @@
 @use '../functions' as *;
 
+.text {
+  font-family: getVar(font, type, default);
+}
+
 // h1 - h6
 @for $i from 1 through 6 {
   $tag: h#{$i};
@@ -23,4 +27,12 @@
 
 .regular {
   font-weight: 400;
+}
+
+.default-color {
+  color: var(--color-text-default);
+}
+
+.light-color {
+  color: var(--color-text-light);
 }
