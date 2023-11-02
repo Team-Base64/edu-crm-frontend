@@ -12,6 +12,8 @@ $gap: 16px;
     gap: $gap;
 
     padding: 0 $padding-rl;
+
+    overflow-x: hidden;
     
     nav {
         position: sticky;
