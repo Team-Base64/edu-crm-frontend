@@ -3,14 +3,14 @@ import Container from '@ui-kit/Container/Container';
 import Icon from '@ui-kit/Icon/Icon';
 import TextArea from '@ui-kit/TextArea/TextArea';
 import React from 'react';
-import styles from './AnnounceCreateField.module.scss';
+import styles from './ClassAnnounceCreateField.module.scss';
 
-interface AnnounceCreateFieldProps {
+interface ClassAnnounceCreateFieldProps {
     avatarSrc: string;
     submit?: (text: string) => void;
 }
 
-const AnnounceCreateField: React.FC<AnnounceCreateFieldProps> = ({
+const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
     // submit,
     avatarSrc,
 }) => {
@@ -18,6 +18,7 @@ const AnnounceCreateField: React.FC<AnnounceCreateFieldProps> = ({
         <Container
             classes={styles.card}
             direction="horizontal"
+            layout='defaultBase'
         >
             <Avatar
                 classes={styles.avatar}
@@ -43,4 +44,4 @@ const AnnounceCreateField: React.FC<AnnounceCreateFieldProps> = ({
     );
 };
 
-export default AnnounceCreateField;
+export default ClassAnnounceCreateField;
