@@ -6,7 +6,7 @@ const App: React.FC = () => {
     return (
         <div className={styles.app}>
             <AppRouter />
-        </div >
+        </div>
     );
 };
 

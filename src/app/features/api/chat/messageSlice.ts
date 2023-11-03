@@ -98,7 +98,10 @@ export const messagesApi = apiSlice.injectEndpoints({
                 socket.send(JSON.stringify(args.message));
                 return { data: [] };
             },
-            async onQueryStarted({ message }, { dispatch /*, queryFulfilled*/ }) {
+            async onQueryStarted(
+                { message },
+                { dispatch /*, queryFulfilled*/ },
+            ) {
                 dispatch(
                     messagesApi.util.updateQueryData(
                         'getLiveMessages',

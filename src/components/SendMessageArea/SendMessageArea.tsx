@@ -1,6 +1,11 @@
 import Container from '@ui-kit/Container/Container.tsx';
 import TextArea from '@ui-kit/TextArea/TextArea.tsx';
-import React, { ChangeEventHandler, useEffect, useRef } from 'react';
+import React, {
+    ChangeEventHandler,
+    KeyboardEventHandler,
+    useEffect,
+    useRef,
+} from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import Button from '@ui-kit/Button/Button.tsx';
 import Icon from '@ui-kit/Icon/Icon.tsx';
@@ -19,6 +24,17 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
 }) => {
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
+    const sendMessage = () => {
+        if (!textAreaRef.current) {
+            return;
+        }
+
+        onMessageSend(textAreaRef.current.value);
+
+        textAreaRef.current.value = '';
+        localStorage.setItem(`chatArea/${id}`, '');
+    };
+
     useEffect(() => {
         const savedMsg = localStorage.getItem(`chatArea/${id}`) ?? '';
         if (!textAreaRef.current) return;
@@ -27,20 +43,22 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
 
     const handleClick = (e: React.MouseEvent) => {
         e.preventDefault();
-
-        if (!textAreaRef.current) {
-            return;
-        }
-        onMessageSend(textAreaRef.current.value);
-
-        textAreaRef.current.value = '';
-        localStorage.setItem(`chatArea/${id}`, '');
+        sendMessage();
     };
+
     const handleMessageChange: ChangeEventHandler<HTMLTextAreaElement> = (
         event,
     ) => {
         const val = event.target.value;
         localStorage.setItem(`chatArea/${id}`, val);
+    };
+
+    const handleAreaKeydown: KeyboardEventHandler<HTMLTextAreaElement> = (
+        e,
+    ) => {
+        if (e.code === 'Enter' && e.ctrlKey) {
+            sendMessage();
+        }
     };
 
     return (
@@ -57,8 +75,10 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
                     textareaText={''}
                     border={'border'}
                     minRows={1}
-                    maxRows={4}
+                    maxRows={5}
+                    autoResize
                     onChange={handleMessageChange}
+                    onKeydown={handleAreaKeydown}
                     textareaRef={textAreaRef}
                 ></TextArea>
 

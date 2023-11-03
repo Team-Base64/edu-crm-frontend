@@ -11,8 +11,14 @@ export const Chat: React.FC = () => {
             direction={'horizontal'}
             classes={styles.chat}
         >
-            <MessageSelector setChatID={setChatID} classes={styles.list}></MessageSelector>
-            <Messenger chatid={chatID} classes={styles.messenger}></Messenger>
+            <MessageSelector
+                setChatID={setChatID}
+                classes={styles.list}
+            ></MessageSelector>
+            <Messenger
+                chatid={chatID}
+                classes={styles.messenger}
+            ></Messenger>
         </Container>
     );
 };

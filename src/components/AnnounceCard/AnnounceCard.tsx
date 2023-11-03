@@ -59,7 +59,7 @@ const AnnounceCard: React.FC<AnnounceCardProps> = ({
                     />
                     <Text
                         classes={[styles.name].join(' ')}
-                        type='h'
+                        type="h"
                         size={6}
                         weight="bold"
                     >
@@ -67,7 +67,7 @@ const AnnounceCard: React.FC<AnnounceCardProps> = ({
                     </Text>
                     <Text
                         classes={[styles.date].join(' ')}
-                        type='p'
+                        type="p"
                         size={2}
                         weight="regular"
                     >

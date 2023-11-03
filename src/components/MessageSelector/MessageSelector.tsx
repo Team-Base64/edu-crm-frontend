@@ -10,7 +10,10 @@ interface MessageSelectorProps extends UiComponentProps {
     setChatID: (chatID: number) => void;
 }
 
-const MessageSelector: React.FC<MessageSelectorProps> = ({ setChatID, classes }) => {
+const MessageSelector: React.FC<MessageSelectorProps> = ({
+    setChatID,
+    classes,
+}) => {
     const { data, isLoading, isSuccess, isError, error } =
         useGetChatsQuery(null);
 

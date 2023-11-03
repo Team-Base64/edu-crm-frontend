@@ -54,7 +54,7 @@ const ClassMemberItem: React.FC<ClassMemberItemProps> = ({
                 >
                     <Text
                         classes={[styles.name, styles.text].join(' ')}
-                        type='h'
+                        type="h"
                         size={6}
                         weight="bold"
                     >
@@ -62,7 +62,7 @@ const ClassMemberItem: React.FC<ClassMemberItemProps> = ({
                     </Text>
                     <Text
                         classes={[styles.role, styles.text].join(' ')}
-                        type='p'
+                        type="p"
                         size={2}
                         weight="regular"
                     >

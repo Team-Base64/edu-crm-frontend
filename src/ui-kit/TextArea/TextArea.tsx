@@ -13,6 +13,7 @@ interface TextAreaProps extends UiComponentProps {
     minRows?: number;
     maxRows?: number;
     onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+    onKeydown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
     textareaRef?: React.RefObject<HTMLTextAreaElement>;
 }
 
@@ -33,12 +34,16 @@ const TextArea: React.FC<TextAreaProps> = ({
     minRows = 1,
     maxRows = 10,
     onChange,
+    onKeydown,
     textareaRef,
     classes,
 }) => {
     const id = useId();
 
-    textareaRef = useRef<HTMLTextAreaElement>(null);
+    //@eslint-ignore
+    if (!textareaRef) {
+        textareaRef = useRef<HTMLTextAreaElement>(null);
+    }
 
     const resizeTextarea = () => {
         const area = textareaRef?.current;
@@ -46,12 +51,23 @@ const TextArea: React.FC<TextAreaProps> = ({
             return;
         }
 
-        const lineHeight = parseInt(window.getComputedStyle(area).lineHeight);
+        const areaStyles = window.getComputedStyle(area);
+        const lineHeight = parseInt(areaStyles.lineHeight);
+        const padding =
+            parseInt(areaStyles.paddingTop) +
+            parseInt(areaStyles.paddingBottom);
+        const border =
+            parseFloat(areaStyles.borderTopWidth) +
+            parseFloat(areaStyles.borderBottomWidth);
 
-        area.style.height = minRows * lineHeight + 'px';
+        area.style.height = border + padding + minRows * lineHeight + 'px';
+
         if (area === document.activeElement) {
             area.style.height =
-                Math.min(area.scrollHeight, lineHeight * maxRows) + 'px';
+                Math.min(
+                    border + area.scrollHeight,
+                    border + padding + lineHeight * maxRows,
+                ) + 'px';
         }
     };
 
@@ -75,6 +91,7 @@ const TextArea: React.FC<TextAreaProps> = ({
                 defaultValue={textareaText}
                 placeholder={placeholder}
                 onChange={handleChange}
+                onKeyDown={onKeydown}
                 onFocusCapture={resizeTextarea}
                 onBlur={resizeTextarea}
                 className={[styles.textarea, borderType[border], classes].join(
