@@ -5,9 +5,9 @@ import Text from '@ui-kit/Text/Text';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import React from 'react';
 
-import styles from './AnnounceCard.module.scss';
+import styles from './ClassAnnounceCard.module.scss';
 
-interface AnnounceCardProps extends UiComponentProps {
+interface ClassAnnounceCardProps extends UiComponentProps {
     firstName: string;
     lastName?: string;
     avatarSrc: string;
@@ -17,7 +17,7 @@ interface AnnounceCardProps extends UiComponentProps {
     text: string;
 }
 
-const AnnounceCard: React.FC<AnnounceCardProps> = ({
+const ClassAnnounceCard: React.FC<ClassAnnounceCardProps> = ({
     classes,
     onClick,
     onDelete,
@@ -42,6 +42,7 @@ const AnnounceCard: React.FC<AnnounceCardProps> = ({
         <Container
             classes={[styles.card, classes].join(' ')}
             direction="vertical"
+            layout='defaultBase'
             onClick={onClick}
         >
             <Container
@@ -111,4 +112,4 @@ const AnnounceCard: React.FC<AnnounceCardProps> = ({
     );
 };
 
-export default AnnounceCard;
+export default ClassAnnounceCard;
