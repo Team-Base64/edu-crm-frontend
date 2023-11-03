@@ -42,7 +42,7 @@ const ClassAnnounceCard: React.FC<ClassAnnounceCardProps> = ({
         <Container
             classes={[styles.card, classes].join(' ')}
             direction="vertical"
-            layout='defaultBase'
+            layout="defaultBase"
             onClick={onClick}
         >
             <Container

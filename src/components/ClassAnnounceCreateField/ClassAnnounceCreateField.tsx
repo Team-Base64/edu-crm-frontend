@@ -18,7 +18,7 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
         <Container
             classes={styles.card}
             direction="horizontal"
-            layout='defaultBase'
+            layout="defaultBase"
         >
             <Avatar
                 classes={styles.avatar}

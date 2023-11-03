@@ -1,9 +1,9 @@
-import { UiComponentProps } from "@ui-kit/interfaces";
-import React, { useId } from "react";
-import styles from './ClassAnnounceList.module.scss';
-import { useGetClassAnnuncementsByIdQuery } from "app/features/api/class/classSlice";
-import ClassAnnounceCard from "@components/ClassAnnounceCard/ClassAnnounceCard";
-import Container from "@ui-kit/Container/Container";
+import { UiComponentProps } from '@ui-kit/interfaces';
+import React, { useId } from 'react';
+// import styles from './ClassAnnounceList.module.scss';
+import { useGetClassAnnuncementsByIdQuery } from 'app/features/api/class/classSlice';
+import ClassAnnounceCard from '@components/ClassAnnounceCard/ClassAnnounceCard';
+import Container from '@ui-kit/Container/Container';
 
 interface ClassAnnounceListProps extends UiComponentProps {
     classId: string | number;
@@ -11,7 +11,9 @@ interface ClassAnnounceListProps extends UiComponentProps {
 
 const ClassAnnounceList: React.FC<ClassAnnounceListProps> = ({ classId }) => {
     const listId = useId();
-    const { data, isError, error } = useGetClassAnnuncementsByIdQuery({ id: classId });
+    const { data, isError, error } = useGetClassAnnuncementsByIdQuery({
+        id: classId,
+    });
 
     if (!data?.announcements || isError) {
         return (
@@ -25,24 +27,25 @@ const ClassAnnounceList: React.FC<ClassAnnounceListProps> = ({ classId }) => {
     const list = data.announcements;
     return (
         <Container
-            direction='vertical'
-            layout='defaultBase'
+            direction="vertical"
+            layout="defaultBase"
         >
             {!list.length && 'EMPTY'}
 
-            {list.length && list.map(({ id, text, time }) => (
-                <React.Fragment key={`${listId}-${id}`}>
-                    <ClassAnnounceCard
-                        firstName="George"
-                        lastName="Illarionov"
-                        avatarSrc=""
-                        text={text}
-                        time={Number(time)}
-                    />
-                </React.Fragment>
-            ))}
+            {list.length &&
+                list.map(({ id, text, time }) => (
+                    <React.Fragment key={`${listId}-${id}`}>
+                        <ClassAnnounceCard
+                            firstName="George"
+                            lastName="Illarionov"
+                            avatarSrc=""
+                            text={text}
+                            time={Number(time)}
+                        />
+                    </React.Fragment>
+                ))}
         </Container>
     );
-}
+};
 
 export default ClassAnnounceList;

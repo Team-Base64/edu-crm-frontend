@@ -1,8 +1,8 @@
-import Container from "@ui-kit/Container/Container";
-import Text from "@ui-kit/Text/Text";
+import Container from '@ui-kit/Container/Container';
+import Text from '@ui-kit/Text/Text';
 
 import styles from './Widget.module.scss';
-import { UiComponentProps } from "@ui-kit/interfaces";
+import { UiComponentProps } from '@ui-kit/interfaces';
 
 interface WidgetProps extends UiComponentProps {
     title: string;
@@ -12,13 +12,29 @@ interface WidgetProps extends UiComponentProps {
     footer?: JSX.Element;
 }
 
-const Widget: React.FC<WidgetProps> = ({ classes, title, nav, children, footer }) => {
-
+const Widget: React.FC<WidgetProps> = ({
+    classes,
+    title,
+    nav,
+    children,
+    footer,
+}) => {
     return (
         <>
-            <Container direction='vertical' layout='defaultBase' classes={[classes].join(' ')}>
-                <Container direction='horizontal' classes={styles.header}>
-                    <Text type="h" size={5} weight='bold'>
+            <Container
+                direction="vertical"
+                layout="defaultBase"
+                classes={[classes].join(' ')}
+            >
+                <Container
+                    direction="horizontal"
+                    classes={styles.header}
+                >
+                    <Text
+                        type="h"
+                        size={5}
+                        weight="bold"
+                    >
                         {title}
                     </Text>
                     {nav}
@@ -28,6 +44,6 @@ const Widget: React.FC<WidgetProps> = ({ classes, title, nav, children, footer }
             </Container>
         </>
     );
-}
+};
 
 export default Widget;

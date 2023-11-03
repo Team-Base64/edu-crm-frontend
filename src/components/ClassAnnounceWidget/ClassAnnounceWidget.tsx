@@ -8,8 +8,9 @@ interface ClassAnnounceWidgetProps extends UiComponentProps {
     classId: number | string;
 }
 
-const ClassAnnounceWidget: React.FC<ClassAnnounceWidgetProps> = ({ classId }) => {
-
+const ClassAnnounceWidget: React.FC<ClassAnnounceWidgetProps> = ({
+    classId,
+}) => {
     return (
         <Container direction="vertical">
             <ClassAnnounceCreateField avatarSrc="" />

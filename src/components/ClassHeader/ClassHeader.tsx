@@ -11,10 +11,15 @@ interface ClassHeaderProps extends UiComponentProps {
 }
 
 const ClassHeader: React.FC<ClassHeaderProps> = ({ classId }) => {
-    const { data, isSuccess } = useGetClassByIdQuery({ id: classId });
+    const { data, isError, error } = useGetClassByIdQuery({ id: classId });
 
-    if (!data?.class) {
-        return <>Error</>;
+    if (!data?.class || isError) {
+        return (
+            <>
+                {isError && JSON.stringify(error)}
+                {!isError && 'Что то не так'}
+            </>
+        );
     }
 
     const { title, description } = data.class;
