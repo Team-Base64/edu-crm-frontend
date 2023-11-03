@@ -4,7 +4,7 @@ export const apiPaths = {
     chats: 'chats',
 
     classes: 'class',
-    class: (id : string | number) => `class/${id}`,
+    class: (id: string | number) => `class/${id}`,
     classNew: `class/new`,
     classStundets: (id: string | number) => `class/${id}/students`,
     classAnnouncements: (id: string | number) => `class/${id}/announcements`,

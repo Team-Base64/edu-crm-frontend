@@ -1,4 +1,4 @@
-import { http, HttpResponse, passthrough } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { apiPaths } from '../../src/app/consts.ts';
 import {
     defaultHeadersMock,
@@ -24,5 +24,4 @@ export const chatHandlers = [
             { status: 200, headers: { ...defaultHeadersMock } },
         ),
     ),
-
 ];

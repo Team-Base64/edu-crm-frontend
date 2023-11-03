@@ -1,4 +1,8 @@
-import { classData, classAnnouncement, classStudent } from 'app/features/api/class/classSlice.ts';
+import {
+    classData,
+    classAnnouncement,
+    classStudent,
+} from 'app/features/api/class/classSlice.ts';
 
 export const classListMock: classData[] = [
     {
@@ -13,13 +17,11 @@ export const classListMock: classData[] = [
     },
 ];
 
-
 export const classNewMock: classData = {
     id: 100,
     title: 'NEW class #100',
     description: 'NEW class desc #100',
-}
-
+};
 
 interface IclassAnnouncementMock {
     [key: number]: classAnnouncement[];
@@ -31,10 +33,9 @@ export const classAnnouncementMock: IclassAnnouncementMock = {
             id: 0,
             text: 'Announce for class 0 #1/1',
             time: Date.now() - 10000,
-        }
+        },
     ],
     1: [
-
         {
             id: 1,
             text: 'Announce for class 1 #1/2',
@@ -68,9 +69,9 @@ export const classAnnouncementMock: IclassAnnouncementMock = {
             id: 6,
             text: 'Announce for class 1 #6/6',
             time: Date.now() - 50000,
-        }
-    ]
-}
+        },
+    ],
+};
 
 export const newAnnounceMock: classAnnouncement = {
     id: 100,
@@ -80,9 +81,10 @@ export const newAnnounceMock: classAnnouncement = {
 
 interface IclassStundetsMock {
     [key: number]: classStudent[];
-};
+}
 
-const avatarSrc = 'https://img.freepik.com/free-photo/beautiful-young-happy-brunette-girl-with-long-hair-posing-outdoors-street-photo-portrait-close-up_1321-50.jpg?w=996&t=st=1699021268~exp=1699021868~hmac=64ec31bcf7dd56bdd7962b0169cec1b5aa8a028e5d9677fb4348a62e78626202';
+const avatarSrc =
+    'https://img.freepik.com/free-photo/beautiful-young-happy-brunette-girl-with-long-hair-posing-outdoors-street-photo-portrait-close-up_1321-50.jpg?w=996&t=st=1699021268~exp=1699021868~hmac=64ec31bcf7dd56bdd7962b0169cec1b5aa8a028e5d9677fb4348a62e78626202';
 
 export const classStundetsMock: IclassStundetsMock = {
     0: [
@@ -91,7 +93,7 @@ export const classStundetsMock: IclassStundetsMock = {
             firstName: 'George',
             lastName: 'Illarionov',
             avatarSrc: avatarSrc,
-        }
+        },
     ],
     1: [
         {
@@ -99,23 +101,18 @@ export const classStundetsMock: IclassStundetsMock = {
             firstName: 'Vlad',
             lastName: 'Pinevich',
             avatarSrc: avatarSrc,
-
         },
         {
             id: 3,
             firstName: 'Leo',
             lastName: 'Pack',
             avatarSrc: avatarSrc,
-
         },
         {
             id: 4,
             firstName: 'George',
             lastName: 'Illarionov',
             avatarSrc: avatarSrc,
-        }
-
-    ]
-}
-
-
+        },
+    ],
+};

@@ -16,7 +16,7 @@ export type classStudent = {
     id: number | string;
     firstName: string;
     lastName: string;
-    avatarSrc : string;
+    avatarSrc: string;
 };
 
 export type classAnnouncement = {
@@ -40,7 +40,10 @@ export const classApi = apiSlice.injectEndpoints({
             },
         }),
 
-        getClassById: build.query<{ class: classData }, { id: string | number }>({
+        getClassById: build.query<
+            { class: classData },
+            { id: string | number }
+        >({
             query: ({ id }) => {
                 return {
                     url: apiPaths.class(id),
@@ -49,8 +52,11 @@ export const classApi = apiSlice.injectEndpoints({
             },
         }),
 
-        createClass: build.query<{class: classData}, {payload: classCreatePayload}>({
-            query: ({payload}) => {
+        createClass: build.query<
+            { class: classData },
+            { payload: classCreatePayload }
+        >({
+            query: ({ payload }) => {
                 return {
                     url: apiPaths.classNew,
                     body: JSON.stringify(payload),
@@ -58,10 +64,12 @@ export const classApi = apiSlice.injectEndpoints({
                 };
             },
         }),
-        
 
-        getClassUsersById: build.query<{students: classStudent[]}, {id: number | string}>({
-            query: ({id}) => {
+        getClassUsersById: build.query<
+            { students: classStudent[] },
+            { id: number | string }
+        >({
+            query: ({ id }) => {
                 console.log(id);
                 return {
                     url: apiPaths.classStundets(id),
@@ -70,8 +78,11 @@ export const classApi = apiSlice.injectEndpoints({
             },
         }),
 
-        getClassAnnuncementsById: build.query<{announcements : classAnnouncement[]}, {id: number | string}>({
-            query: ({id}) => {
+        getClassAnnuncementsById: build.query<
+            { announcements: classAnnouncement[] },
+            { id: number | string }
+        >({
+            query: ({ id }) => {
                 return {
                     url: apiPaths.classAnnouncements(id),
                     method: 'GET',
@@ -79,8 +90,11 @@ export const classApi = apiSlice.injectEndpoints({
             },
         }),
 
-        createClassAnnuncementById: build.query<{announcement : classAnnouncement}, {id: number | string, payload : classCreateAnnouncementPayload}>({
-            query: ({id, payload}) => {
+        createClassAnnuncementById: build.query<
+            { announcement: classAnnouncement },
+            { id: number | string; payload: classCreateAnnouncementPayload }
+        >({
+            query: ({ id, payload }) => {
                 return {
                     url: apiPaths.classAnnouncementsNew(id),
                     body: JSON.stringify(payload),
@@ -91,4 +105,8 @@ export const classApi = apiSlice.injectEndpoints({
     }),
 });
 
-export const { useGetClassByIdQuery, useGetClassUsersByIdQuery, useGetClassAnnuncementsByIdQuery } = classApi;
+export const {
+    useGetClassByIdQuery,
+    useGetClassUsersByIdQuery,
+    useGetClassAnnuncementsByIdQuery,
+} = classApi;
