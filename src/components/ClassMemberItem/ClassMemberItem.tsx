@@ -9,6 +9,7 @@ import Text from '@ui-kit/Text/Text';
 import styles from './ClassMemberItem.module.scss';
 
 interface ClassMemberItemProps extends UiComponentProps {
+    id: string | number;
     firstName: string;
     lastName: string;
     avatarSrc: string;
