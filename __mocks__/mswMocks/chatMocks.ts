@@ -25,5 +25,4 @@ export const chatHandlers = [
         ),
     ),
 
-    http.get('https://flirtic.com/media/photos/*', () => passthrough()),
 ];
