@@ -1,0 +1,22 @@
+.card {
+}
+
+.header {
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+    padding-bottom: 4px;
+    align-items: center;
+
+    & .info {
+        align-items: center;
+        & .date {
+            color: gray;
+        }
+    }
+}
+
+.content {
+    & .text {
+        text-align:justify;
+    }
+}

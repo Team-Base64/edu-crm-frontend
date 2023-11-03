@@ -1,11 +1,20 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import styles from './Image.module.scss';
+import Spinner from '@ui-kit/Spinner/Spinner';
+
 interface ImageProps extends UiComponentProps {
     src: string;
-    alt?: string;
-    onLoad?: () => any;
-    imgRef?: React.LegacyRef<HTMLImageElement>;
+    alt: string;
+    onLoad?: () => void;
+    onError?: () => void;
+    // imgRef?: React.LegacyRef<HTMLImageElement>;
+}
+
+enum ImageState {
+    loading,
+    loaded,
+    error,
 }
 
 const Image: React.FC<ImageProps> = ({
@@ -13,29 +22,44 @@ const Image: React.FC<ImageProps> = ({
     alt,
     onClick,
     onLoad,
+    onError,
     classes,
-    imgRef,
+    // imgRef,
 }) => {
-    const [loading, setLoading] = useState<boolean>(true);
+    const [state, setState] = useState<ImageState>(ImageState.loading);
+
+    useEffect(() => {
+        setState(ImageState.loading);
+    }, [src, setState]);
 
     const handleLoad = useCallback(() => {
-        setLoading(false);
+        setState(ImageState.loaded);
         onLoad?.();
-    }, [loading]);
+    }, [setState, onLoad]);
 
+    const handleError = useCallback(() => {
+        setState(ImageState.error);
+        onError?.();
+    }, [setState, onError]);
     return (
-        <>
-            {loading && <div className={styles.spinner}> Spinner </div>}
+        <div className={[classes, styles.wrapper].join(' ')}>
+            {state === ImageState.loading && <Spinner classes={styles.info} />}
+            {state === ImageState.error && (
+                <div className={styles.info}>Error</div>
+            )}
             <img
-                ref={imgRef}
-                className={[classes].join(' ')}
-                style={loading ? { display: 'none' } : {}}
+                // ref={imgRef}
+                className={styles.image}
+                style={{
+                    display: state === ImageState.loaded ? 'block' : 'none',
+                }}
                 onClick={onClick}
                 onLoad={handleLoad}
+                onError={handleError}
                 src={src}
-                alt={alt ? alt : ''}
+                alt={alt}
             />
-        </>
+        </div>
     );
 };
 

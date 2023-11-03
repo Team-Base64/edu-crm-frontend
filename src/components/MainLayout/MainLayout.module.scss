@@ -1,0 +1,29 @@
+$padding-tb: 8px;
+$padding-rl: 16px; // TODO
+$gap: 16px;
+
+.main-layout {
+    background-color: bisque;
+
+    position: relative;
+    display: flex;
+    align-items: stretch;
+
+    gap: $gap;
+
+    padding: 0 $padding-rl;
+
+    overflow-x: hidden;
+    
+    nav {
+        position: sticky;
+        top: 0;
+        padding: $padding-tb 0;
+        height: 100vh;
+    }
+
+    main {
+        padding: $padding-tb 0;
+        width: 100%;
+    }
+}

@@ -1,11 +1,15 @@
 import Container from '@ui-kit/Container/Container.tsx';
 import TextArea from '@ui-kit/TextArea/TextArea.tsx';
-import React, { ChangeEventHandler, useEffect, useRef, useState } from 'react';
+import React, {
+    ChangeEventHandler,
+    KeyboardEventHandler,
+    useEffect,
+    useRef,
+} from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import Button from '@ui-kit/Button/Button.tsx';
 import Icon from '@ui-kit/Icon/Icon.tsx';
 import styles from './SendMessageArea.module.scss';
-import { maxLengthOfMessage } from '../../app/consts.ts';
 
 interface SendMessageAreaProps extends UiComponentProps {
     id: string;
@@ -20,30 +24,42 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
 }) => {
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-    const handleClick = (event: React.MouseEvent) => {
-        event.preventDefault();
-        if (textAreaRef.current instanceof HTMLTextAreaElement) {
-            onMessageSend(textAreaRef.current.value);
-            textAreaRef.current.value = '';
-            localStorage.setItem(`chatArea/${id}`, '');
-        } else {
-            console.error('textAreaRef ref/ element not found');
+    const sendMessage = () => {
+        if (!textAreaRef.current) {
+            return;
         }
-    };
-    const handleMessageChange: ChangeEventHandler<HTMLTextAreaElement> = (
-        event,
-    ) => {
-        localStorage.setItem(`chatArea/${id}`, event.target.value);
+
+        onMessageSend(textAreaRef.current.value);
+
+        textAreaRef.current.value = '';
+        localStorage.setItem(`chatArea/${id}`, '');
     };
 
     useEffect(() => {
-        if (textAreaRef.current instanceof HTMLTextAreaElement) {
-            textAreaRef.current.value =
-                localStorage.getItem(`chatArea/${id}`) ?? '';
-        } else {
-            console.error('textAreaRef ref/ element not found');
-        }
+        const savedMsg = localStorage.getItem(`chatArea/${id}`) ?? '';
+        if (!textAreaRef.current) return;
+        textAreaRef.current.value = savedMsg;
     });
+
+    const handleClick = (e: React.MouseEvent) => {
+        e.preventDefault();
+        sendMessage();
+    };
+
+    const handleMessageChange: ChangeEventHandler<HTMLTextAreaElement> = (
+        event,
+    ) => {
+        const val = event.target.value;
+        localStorage.setItem(`chatArea/${id}`, val);
+    };
+
+    const handleAreaKeydown: KeyboardEventHandler<HTMLTextAreaElement> = (
+        e,
+    ) => {
+        if (e.code === 'Enter' && e.ctrlKey) {
+            sendMessage();
+        }
+    };
 
     return (
         <Container classes={styles.sendMessageArea}>
@@ -51,17 +67,19 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
                 className={styles.form}
                 name={'sendMessage form'}
                 method={'post'}
+                onSubmit={(e) => e.preventDefault()}
             >
                 <TextArea
                     name={name}
                     spellcheck={true}
-                    id={id}
                     textareaText={''}
                     border={'border'}
-                    rows={4}
+                    minRows={1}
+                    maxRows={5}
+                    autoResize
                     onChange={handleMessageChange}
-                    textAreaRef={textAreaRef}
-                    maxLength={maxLengthOfMessage}
+                    onKeydown={handleAreaKeydown}
+                    textareaRef={textAreaRef}
                 ></TextArea>
 
                 <Button

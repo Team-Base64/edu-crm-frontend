@@ -1,0 +1,14 @@
+$padding-tb: 8px;
+
+.chat {
+  gap: var(--space-bigger);
+  height: calc(100vh - 2 * $padding-tb);
+
+  & .list {
+    flex: 1 1 100px;
+  }
+
+  & .messenger {
+    flex: 2 1 200px;
+  }
+}

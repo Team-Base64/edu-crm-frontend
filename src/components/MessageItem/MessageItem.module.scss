@@ -1,18 +1,44 @@
 @use "../../ui-kit/functions" as *;
 
+$border-radius: var(--border-radius-default);
+
+%polygon {
+  position: absolute;
+  width: calc(2 * $border-radius);
+  height: calc(2 * $border-radius);
+  clip-path: polygon(0% 0%, 50% 0, 100% 100%, 0% 100%);
+  z-index: -1;
+}
+
 .message-item {
+  z-index: 0;
+  position: relative;
   align-items: flex-end;
   margin: 8px 16px;
-  //flex-direction: row-reverse;
+
+  &.mine {
+    & .polygon {
+     @extend %polygon;
+      bottom: 0;
+      right: calc(0px - $border-radius);
+      background-color: var(--color-accent-light);
+    }
+  }
+
+  &:not(.mine) .polygon {
+    @extend %polygon;
+    bottom: 0;
+    left: calc(0px - $border-radius);
+    transform: scale(-1, 1);
+    background-color: var(--color-bg-dark-light);
+  }
 
   &.mine {
     flex-direction: row-reverse;
   }
 
   &-author {
-    &__avatar {
-
-    }
+    &__avatar {}
   }
 
   &-content {
@@ -43,9 +69,12 @@
   }
 }
 
-.polygon {
-  width: 16px;
-  height: 16px;
-  clip-path: polygon(0% 100%, 100% 0%, 100% 100%);
-  background-color: #333333;
-}
+// .polygon {
+
+//   position: absolute;
+//   top: -16px;
+//   width: 16px;
+//   height: 16px;
+//   clip-path: polygon(0% 100%, 100% 0%, 100% 100%);
+//   background-color: #333333;
+// }

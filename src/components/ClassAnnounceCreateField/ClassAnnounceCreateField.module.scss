@@ -1,0 +1,16 @@
+.card {
+    align-items: center;
+
+    & .area {
+        padding: 4px;
+        width: 100%;
+        max-height: 200px;
+    }
+
+    .avatar {
+        flex-grow: 0;
+        flex-shrink: 0;
+        margin-bottom: auto;
+    }
+
+}

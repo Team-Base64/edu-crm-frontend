@@ -33,17 +33,17 @@ export type IconSize = keyof typeof iconSize;
 
 export interface IconProps extends UiComponentProps {
     name: IconName;
-    color?: string;
-    stroke?: string;
-    background?: string;
+    // color?: string;
+    // stroke?: string;
+    // background?: string;
     size?: IconSize;
 }
 
 const Icon: React.FC<IconProps> = ({
     name,
-    stroke = 'black',
-    color = 'black',
-    background = 'none',
+    // stroke = 'black',
+    // color = 'black',
+    // background = 'none',
     size = 'medium',
     onClick,
     classes,
@@ -58,11 +58,11 @@ const Icon: React.FC<IconProps> = ({
                 onClick ? styles.clickable : '',
                 classes,
             ].join(' ')}
-            style={{
-                fill: color,
-                background: background,
-                stroke: stroke,
-            }}
+            // style={{
+            // fill: color,
+            // background: background,
+            // stroke: stroke,
+            // }}
         ></SelectedIcon>
     );
 };

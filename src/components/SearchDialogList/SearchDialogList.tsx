@@ -22,8 +22,8 @@ export const SearchDialogList: React.FC<SearchDialogListProps> = () => {
                 size={'s'}
             >
                 <Icon
+                    classes={styles.icon}
                     name={'searchIcon'}
-                    color={'black'}
                 ></Icon>
             </Button>
         </Container>

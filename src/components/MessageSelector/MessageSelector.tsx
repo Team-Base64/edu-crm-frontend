@@ -10,7 +10,10 @@ interface MessageSelectorProps extends UiComponentProps {
     setChatID: (chatID: number) => void;
 }
 
-const MessageSelector: React.FC<MessageSelectorProps> = ({ setChatID }) => {
+const MessageSelector: React.FC<MessageSelectorProps> = ({
+    setChatID,
+    classes,
+}) => {
     const { data, isLoading, isSuccess, isError, error } =
         useGetChatsQuery(null);
 
@@ -26,7 +29,7 @@ const MessageSelector: React.FC<MessageSelectorProps> = ({ setChatID }) => {
         <Container
             direction={'vertical'}
             layout={'base'}
-            classes={styles.messageSelector}
+            classes={[styles.messageSelector, classes].join(' ')}
         >
             <SearchDialogList></SearchDialogList>
             {isSuccess && dialogList}

@@ -98,7 +98,10 @@ export const messagesApi = apiSlice.injectEndpoints({
                 socket.send(JSON.stringify(args.message));
                 return { data: [] };
             },
-            async onQueryStarted({ message }, { dispatch, queryFulfilled }) {
+            async onQueryStarted(
+                { message },
+                { dispatch /*, queryFulfilled*/ },
+            ) {
                 dispatch(
                     messagesApi.util.updateQueryData(
                         'getLiveMessages',
@@ -108,10 +111,10 @@ export const messagesApi = apiSlice.injectEndpoints({
                                 ...(draft.messages[message.chatid] ?? []),
                                 {
                                     date: new Date().toISOString(),
-                                    user: {
-                                        avatar: man_photo_src,
-                                        name: 'User store',
-                                    },
+                                    // user: {
+                                    //     avatar: man_photo_src,
+                                    //     name: 'User store',
+                                    // },
                                     ismine: true,
                                     ...message,
                                     id: 10,

@@ -1,6 +1,11 @@
 .app {
-  display: flex;
-  flex-direction: row;
-  gap: var(--space-big);
-  margin: var(--space-default);
+    display: block;
+
+    max-width: 100vw;
+    max-height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+
+    background-color: aquamarine;
+    
 }

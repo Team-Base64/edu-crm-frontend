@@ -20,7 +20,7 @@ export type ChatMessageType = {
     id: number;
     chatid: number;
 };
-const Messenger: React.FC<SendMessageAreaProps> = ({ chatid }) => {
+const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
     const { data, isLoading, isSuccess, isError, error } =
         useGetLiveMessagesQuery({
             channel: 'chat',
@@ -54,7 +54,7 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid }) => {
     return (
         <Container
             direction={'vertical'}
-            classes={styles.messenger}
+            classes={[styles.messenger, classes].join(' ')}
             layout={'defaultBase'}
         >
             <Container

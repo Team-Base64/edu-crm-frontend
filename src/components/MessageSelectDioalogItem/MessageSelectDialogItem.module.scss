@@ -1,12 +1,10 @@
 .message-select-dialog-item {
-  width: 256px;
   justify-content: flex-start;
-
-
 
   &:hover {
     background-color: var(--color-bg-dark-light);
   }
+
   &--text {
     display: grid;
     grid-template-columns: 1fr min-content;

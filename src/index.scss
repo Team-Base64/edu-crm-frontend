@@ -2,6 +2,7 @@
 
 body *:not(svg path) {
   all: unset;
+  box-sizing: border-box;
 }
 
 html,

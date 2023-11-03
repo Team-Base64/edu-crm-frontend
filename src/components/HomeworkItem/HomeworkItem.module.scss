@@ -1,0 +1,44 @@
+.card {
+    padding: 8px 16px;
+    border-radius: 8px;
+    background-color: white;
+    justify-content: space-between;
+
+    & .wrapper {
+        min-width: 0;
+    }
+
+    & .text {
+        overflow: hidden;
+        text-wrap: nowrap;
+        text-overflow: ellipsis;
+
+        &.title {
+            color: black;
+        }
+
+        &.description {
+            color: gray
+        }
+    }
+
+    & .state {
+        text-wrap: nowrap;
+        margin: auto 0;
+
+        &.notPass {
+            color: red;
+        }
+
+        &.pass {
+            color: green;
+        }
+    }
+
+
+    & .btn {
+        & .icon {
+            fill: orange;
+        }
+    }
+}

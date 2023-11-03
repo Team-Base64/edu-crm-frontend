@@ -1,3 +1,8 @@
 .message-selector {
   padding: 16px 0;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
