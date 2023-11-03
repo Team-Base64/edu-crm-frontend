@@ -78,7 +78,7 @@ export const classApi = apiSlice.injectEndpoints({
             },
         }),
 
-        getClassAnnuncementsById: build.query<
+        getClassAnnouncementsById: build.query<
             { announcements: classAnnouncement[] },
             { id: number | string }
         >({
@@ -90,7 +90,7 @@ export const classApi = apiSlice.injectEndpoints({
             },
         }),
 
-        createClassAnnuncementById: build.query<
+        createClassAnnouncementById: build.query<
             { announcement: classAnnouncement },
             { id: number | string; payload: classCreateAnnouncementPayload }
         >({
@@ -108,5 +108,5 @@ export const classApi = apiSlice.injectEndpoints({
 export const {
     useGetClassByIdQuery,
     useGetClassUsersByIdQuery,
-    useGetClassAnnuncementsByIdQuery,
+    useGetClassAnnouncementsByIdQuery,
 } = classApi;

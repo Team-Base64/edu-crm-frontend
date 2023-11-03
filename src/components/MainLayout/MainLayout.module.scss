@@ -3,8 +3,6 @@ $padding-rl: 16px; // TODO
 $gap: 16px;
 
 .main-layout {
-    background-color: bisque;
-
     position: relative;
     display: flex;
     align-items: stretch;
@@ -14,7 +12,7 @@ $gap: 16px;
     padding: 0 $padding-rl;
 
     overflow-x: hidden;
-    
+
     nav {
         position: sticky;
         top: 0;
