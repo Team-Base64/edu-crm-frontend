@@ -1,6 +1,5 @@
 .app {
     $max-width: 2160px;
     max-width: $max-width;
-    flex-shrink: 0;
     flex-grow: 1;
 }
