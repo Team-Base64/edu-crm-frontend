@@ -10,16 +10,14 @@ import styles from './ClassMemberItem.module.scss';
 
 interface ClassMemberItemProps extends UiComponentProps {
     id: string | number;
-    firstName: string;
-    lastName: string;
+    name: string;
     avatarSrc: string;
     role: string;
     onMessageClick?: () => void;
 }
 
 const ClassMemberItem: React.FC<ClassMemberItemProps> = ({
-    firstName,
-    lastName,
+    name,
     avatarSrc,
     role,
     onMessageClick,
@@ -47,7 +45,7 @@ const ClassMemberItem: React.FC<ClassMemberItemProps> = ({
                 <Avatar
                     classes={styles.avatar}
                     src={avatarSrc}
-                    alt={firstName + 'avatar'}
+                    alt={name + 'avatar'}
                 />
                 <Container
                     classes={styles.wrapper}
@@ -59,7 +57,7 @@ const ClassMemberItem: React.FC<ClassMemberItemProps> = ({
                         size={6}
                         weight="bold"
                     >
-                        {firstName} {lastName}
+                        {name}
                     </Text>
                     <Text
                         classes={[styles.role, styles.text].join(' ')}
