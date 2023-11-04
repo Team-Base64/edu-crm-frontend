@@ -7,34 +7,53 @@ import React from 'react';
 import Text from '@ui-kit/Text/Text';
 
 import styles from './HomeworkSolutionItem.module.scss';
+import { useGetHomeworkQuery } from 'app/features/api/homework/homeworkSlice';
+import { useGetStudentQuery } from 'app/features/api/student/studentSlice';
 
 interface HomeworkSolutionItemProps extends UiComponentProps {
-    firstName: string;
-    lastName: string;
-    avatarSrc: string;
-    homeworkTitle: string;
+    id: string | number;
+    homeworkId: string | number;
+    studentId: string | number;
     passTime?: number;
-    deadlineTime: number;
 }
 
 const HomeworkSolutionItem: React.FC<HomeworkSolutionItemProps> = ({
-    firstName,
-    lastName,
-    avatarSrc,
-    homeworkTitle,
+    homeworkId,
+    studentId,
     passTime,
-    deadlineTime,
     onClick,
     classes,
 }) => {
-    let stateClassName = styles.notPass;
-    let stateStr = 'Не сдано';
+    // Тут нужно зарефакторить этот кал
 
-    if (passTime) {
+    const homeworkResponse = useGetHomeworkQuery({ id: homeworkId });
+    const homeworkData = homeworkResponse.data?.homework;
+
+    let title = 'Неизвестное дз',
+        deadline_time = undefined;
+    if (homeworkData) {
+        title = homeworkData.title;
+        deadline_time = homeworkData.deadline_time;
+    }
+
+    const studentResponse = useGetStudentQuery({ id: studentId });
+    const studentData = studentResponse.data?.student;
+
+    let avatarSrc = '',
+        name = 'Неизвестный ученик';
+    if (studentData) {
+        avatarSrc = studentData.avatarSrc;
+        name = studentData.name;
+    }
+
+    let stateClassName = styles.notPass;
+    let stateStr = 'Срок не ясен';
+
+    if (passTime && deadline_time) {
         const date = new Date(passTime);
         date.toLocaleDateString();
         stateStr = 'Сдано ' + date.toLocaleDateString('ru-RU').slice(0, -5);
-        if (passTime <= deadlineTime) {
+        if (passTime <= deadline_time) {
             stateClassName = styles.pass;
         } else {
             stateClassName = styles.passDelay;
@@ -54,7 +73,7 @@ const HomeworkSolutionItem: React.FC<HomeworkSolutionItemProps> = ({
                 <Avatar
                     classes={styles.avatar}
                     src={avatarSrc}
-                    alt={firstName + 'avatar'}
+                    alt={name + 'avatar'}
                 />
                 <Container
                     classes={styles.wrapper}
@@ -66,7 +85,7 @@ const HomeworkSolutionItem: React.FC<HomeworkSolutionItemProps> = ({
                         size={6}
                         weight="bold"
                     >
-                        {firstName} {lastName}
+                        {name}
                     </Text>
                     <Text
                         classes={[styles.text, styles.title].join(' ')}
@@ -74,7 +93,7 @@ const HomeworkSolutionItem: React.FC<HomeworkSolutionItemProps> = ({
                         size={6}
                         weight="regular"
                     >
-                        {homeworkTitle}
+                        {title}
                     </Text>
                 </Container>
             </Container>
