@@ -12,7 +12,10 @@ interface ClassMembersWidgetProps extends UiComponentProps {
     classId: string | number;
 }
 
-const ClassMembersWidget: React.FC<ClassMembersWidgetProps> = ({ classId }) => {
+const ClassMembersWidget: React.FC<ClassMembersWidgetProps> = ({
+    classId,
+    classes,
+}) => {
     const [isOverlay, setIsOverlay] = useState<boolean>(false);
 
     const handleShowAll = (e: React.MouseEvent) => {
@@ -65,6 +68,7 @@ const ClassMembersWidget: React.FC<ClassMembersWidgetProps> = ({ classId }) => {
             <Widget
                 title="Участники: "
                 nav={showAllButton}
+                classes={classes}
             >
                 <ClassMemberList
                     classId={classId}
