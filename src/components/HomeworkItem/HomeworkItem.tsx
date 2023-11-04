@@ -8,6 +8,7 @@ import Text from '@ui-kit/Text/Text';
 import styles from './HomeworkItem.module.scss';
 
 interface HomeworkItemProps extends UiComponentProps {
+    id: string | number;
     title: string;
     description?: string;
     deadlineTime: number;
