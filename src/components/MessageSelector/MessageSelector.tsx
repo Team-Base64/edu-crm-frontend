@@ -17,7 +17,7 @@ const MessageSelector: React.FC<MessageSelectorProps> = ({
     const { data, isLoading, isSuccess, isError, error } =
         useGetChatsQuery(null);
 
-    const dialogList = data?.chats.map((chat) => (
+    const dialogList = Object.values(data?.chats ?? {}).map((chat) => (
         <MessageSelectDialogItem
             data={chat}
             key={chat.chatid}

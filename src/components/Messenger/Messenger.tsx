@@ -8,6 +8,7 @@ import {
     useGetLiveMessagesQuery,
     useSendMessageMutation,
 } from '../../app/features/api/chat/messageSlice.ts';
+import { getUTCTime } from '../../utils/common/dateRepresentation.ts';
 
 interface SendMessageAreaProps extends UiComponentProps {
     chatid: number;
@@ -35,7 +36,7 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
             <MessageItem
                 isMine={message.ismine}
                 text={message.text}
-                time={`${date.getUTCDate()}:${date.getUTCDate()}`}
+                time={getUTCTime(date)}
                 key={message.date + index}
             />
         );

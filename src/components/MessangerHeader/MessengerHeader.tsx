@@ -2,18 +2,21 @@ import React from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import Container from '@ui-kit/Container/Container.tsx';
 import Text from '@ui-kit/Text/Text.tsx';
+import { useGetChatsQuery } from '../../app/features/api/chat/dialogSlice.ts';
 
 interface Messenger extends UiComponentProps {
-    title: string;
+    chatid: number;
 }
-export const MessengerHeader: React.FC<Messenger> = ({ title }) => {
+export const MessengerHeader: React.FC<Messenger> = ({ chatid }) => {
+    const { data } = useGetChatsQuery(null);
+
     return (
-        <Container>
+        <Container layout={'defaultBase'}>
             <Text
                 type={'h'}
                 size={3}
             >
-                {title}
+                {data?.chats[chatid].name}
             </Text>
         </Container>
     );

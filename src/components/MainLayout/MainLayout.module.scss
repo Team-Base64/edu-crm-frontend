@@ -3,7 +3,6 @@ $padding-rl: 16px; // TODO
 $gap: 16px;
 
 .main-layout {
-    position: relative;
     display: flex;
     align-items: stretch;
 
@@ -23,5 +22,6 @@ $gap: 16px;
     main {
         padding: $padding-tb 0;
         width: 100%;
+        flex-grow: 1;
     }
 }
