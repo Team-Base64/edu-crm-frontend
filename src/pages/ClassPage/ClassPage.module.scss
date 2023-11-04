@@ -1,0 +1,9 @@
+.widgets {
+    justify-content: stretch;
+    flex-wrap: wrap;
+
+    .widget {
+        flex: 1 1;
+        min-width: 300px;
+    }
+}
