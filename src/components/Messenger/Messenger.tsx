@@ -18,8 +18,9 @@ export type ChatMessageType = {
     ismine: boolean;
     text: string;
     date: string;
-    id: number;
     chatid: number;
+    id?: number;
+    attaches?: string[];
 };
 const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
     const { data, isLoading, isSuccess, isError, error } =
@@ -75,6 +76,8 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
                         message: {
                             chatid,
                             text: text.trim(),
+                            ismine: true,
+                            date: new Date().toISOString(),
                         },
                     })
                 }

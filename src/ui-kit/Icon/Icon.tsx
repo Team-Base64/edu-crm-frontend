@@ -21,6 +21,8 @@ const iconName = {
     deleteBinLine: Icons.DeleteBinLine,
     searchIcon: Icons.SearchIcon,
     loading: Icons.Loading,
+    attachIcon: Icons.AttachIcon,
+    fileIcon: Icons.FileIcon,
 };
 export type IconName = keyof typeof iconName;
 
@@ -28,6 +30,7 @@ const iconSize = {
     small: styles.small,
     medium: styles.medium,
     large: styles.large,
+    '': '',
 };
 export type IconSize = keyof typeof iconSize;
 

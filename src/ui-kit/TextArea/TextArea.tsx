@@ -15,6 +15,7 @@ interface TextAreaProps extends UiComponentProps {
     onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
     onKeydown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
     textareaRef?: React.RefObject<HTMLTextAreaElement>;
+    maxLength?: number;
 }
 
 const borderType = {
@@ -37,6 +38,7 @@ const TextArea: React.FC<TextAreaProps> = ({
     onKeydown,
     textareaRef,
     classes,
+    ...rest
 }) => {
     const id = useId();
 
@@ -97,6 +99,7 @@ const TextArea: React.FC<TextAreaProps> = ({
                 className={[styles.textarea, borderType[border], classes].join(
                     ' ',
                 )}
+                {...rest}
             ></textarea>
         </>
     );

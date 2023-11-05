@@ -1,14 +1,17 @@
 @use "../../ui-kit/functions" as *;
+@use '../../styles/mixins' as mixins;
 
 .form {
-  all: inherit;
-  flex-grow: 1;
+  display: flex;
+  gap: var(--space-bigger);
+  align-items: center;
 }
 
 .send-message-area {
-  align-items: flex-end;
+  @include mixins.default-scrollbar-style;
 
-  &__button {
+  &--button {
     height: 24px;
+    fill: var(--color-text-default);
   }
 }

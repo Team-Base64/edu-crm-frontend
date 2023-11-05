@@ -1,0 +1,16 @@
+.chat-attachment-list {
+  align-items: flex-end;
+
+  &--file-remove {
+    fill: var(--color-text-light);
+    &:hover {
+      fill: var(--color-text-default);
+    }
+  }
+
+  &--file-icon {
+    height: 64px;
+    fill: var(--color-hover);
+    stroke: var(--color-text-default);
+  }
+}

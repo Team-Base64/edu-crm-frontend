@@ -2,11 +2,9 @@ $padding-tb: 8px;
 $chat-list-width: 316px;
 
 .chat {
-  display: grid;
   gap: var(--space-default);
-  height: calc(100vh - 2 * $padding-tb);
   grid-template-columns: $chat-list-width 1fr;
-  grid-template-rows: min-content 1fr;
+  grid-template-rows: 70px calc(100vh - 4 * $padding-tb - 70px);
 
   & .dialog-list {
     grid-row: 1 / 3;

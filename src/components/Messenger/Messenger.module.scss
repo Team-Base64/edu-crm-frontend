@@ -1,19 +1,13 @@
+@use '../../styles/mixins' as mixins;
+
 .messenger {
-  flex-grow: 1;
+
 }
 
 .message-container {
+  @include mixins.default-scrollbar-style;
+
   overflow-y: scroll;
-  scrollbar-width: thin;
-  scrollbar-gutter: stable;
-  flex-grow: 1;
 }
 
-.message-container::-webkit-scrollbar {
-  width: 4px;
-}
 
-.message-container::-webkit-scrollbar-thumb {
-  background-color: var(--color-bg-dark-light);
-  border-radius: var(--border-radius-default);
-}
