@@ -1,10 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
-import apiPaths from '@app/apiPaths';
-console.log('api slice');
+import appPaths from '@app/appPaths';
 
-const apiSlice = createApi({
+const appApi = createApi({
     baseQuery: fetchBaseQuery({
-        baseUrl: apiPaths.basePath,
+        baseUrl: appPaths.basePath,
         mode: 'cors',
     }),
     refetchOnFocus: true,
@@ -12,4 +11,4 @@ const apiSlice = createApi({
     // refetchOnMountOrArgChange: true,
     endpoints: () => ({}),
 });
-export default apiSlice;
+export default appApi;

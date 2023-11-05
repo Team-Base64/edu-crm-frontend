@@ -1,4 +1,4 @@
-import apiSlice from '@app/apiSlice.ts';
+import appApi from '@app/appApi.ts';
 
 import { getSocket, messageWS } from '@app/websocket';
 import {
@@ -10,7 +10,7 @@ import { chatPaths } from '@app/features/chat/chatPaths';
 
 const man_photo_src = 'https://flirtic.com/media/photos/1/e/7/1e733948480.jpg';
 
-export const chatSlice = apiSlice.injectEndpoints({
+export const chatSlice = appApi.injectEndpoints({
     endpoints: (build) => ({
         getLiveMessages: build.query<apiChatMessageType, messageWS>({
             query: ({ chatid }) => ({

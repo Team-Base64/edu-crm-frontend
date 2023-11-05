@@ -1,8 +1,8 @@
-import apiSlice from '@app/apiSlice';
+import appApi from '@app/appApi';
 import { Announcement } from '@app/features/announcement/announcementModel';
 import { announcementPaths } from '@app/features/announcement/announcementPaths';
 
-export const announcementSlice = apiSlice.injectEndpoints({
+export const announcementSlice = appApi.injectEndpoints({
     endpoints: (build) => ({
         getClassAnnouncements: build.query<
             { announcements: Announcement[] },

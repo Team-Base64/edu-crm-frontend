@@ -5,8 +5,9 @@ import { announcementPaths } from '@app/features/announcement/announcementPaths'
 import { homeworkSolutionPaths } from '@app/features/homeworkSolution/homeworkSolutionPaths';
 import { studentPaths } from '@app/features/stundent/studentPaths';
 import { chatPaths } from '@app/features/chat/chatPaths';
+import { teacherPaths } from '@app/features/teacher/teacherPaths';
 
-const apiPaths = {
+const appPaths = {
     origin: 'http://127.0.0.1:8080',
     basePath: `http://127.0.0.1:8080/api/`,
     ...classPaths,
@@ -17,6 +18,7 @@ const apiPaths = {
     ...studentPaths,
     ...dialogPaths,
     ...chatPaths,
+    ...teacherPaths,
 };
 
-export default apiPaths;
+export default appPaths;

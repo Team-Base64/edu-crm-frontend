@@ -1,8 +1,8 @@
-import apiSlice from '@app/apiSlice';
+import appApi from '@app/appApi';
 import { Student } from '@app/features/stundent/stundentModel';
 import { studentPaths } from '@app/features/stundent/studentPaths';
 
-export const stundentSlice = apiSlice.injectEndpoints({
+export const stundentSlice = appApi.injectEndpoints({
     endpoints: (build) => ({
         getStudent: build.query<{ student: Student }, { id: string | number }>({
             query: ({ id }) => {

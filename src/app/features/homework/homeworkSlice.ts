@@ -1,11 +1,11 @@
-import apiSlice from '@app/apiSlice';
+import appApi from '@app/appApi';
 import {
     Homework,
     HomeworkCreatePayload,
 } from '@app/features/homework/homeworkModel';
 import { homeworkPaths } from '@app/features/homework/homeworkPaths';
 
-export const homeworkSlice = apiSlice.injectEndpoints({
+export const homeworkSlice = appApi.injectEndpoints({
     endpoints: (build) => ({
         getHomeworks: build.query<{ homeworks: Homework[] }, unknown>({
             query: () => {
