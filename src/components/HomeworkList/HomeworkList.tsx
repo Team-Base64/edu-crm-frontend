@@ -1,7 +1,7 @@
 import HomeworkItem from '@components/HomeworkItem/HomeworkItem';
 import { UiComponentProps } from '@ui-kit/interfaces';
-import { useGetClassHomeworksQuery } from 'app/features/api/class/classSlice';
 import React, { useId } from 'react';
+import { useGetClassHomeworksQuery } from '@app/features/homework/homeworkSlice';
 // import styles from './HomeworkList.module.scss';
 
 interface HomeworkListProps extends UiComponentProps {

@@ -1,7 +1,7 @@
-import { ChatMessageType } from '../../src/components/Messenger/Messenger.tsx';
-import { Channel } from '../../src/app/features/api/apiSlice';
-import { dialogSelectType } from '../../src/app/features/api/chat/dialogSlice.ts';
+import { Channel } from 'app/websocket';
 import { middleLongTextMock } from './textMocks.ts';
+import { ChatMessageType } from '../../src/app/features/chat/chatModel';
+import { dialogSelectType } from '../../src/app/features/dialog/dialogModel';
 
 export const defaultHeadersMock = {
     'Access-Control-Allow-Credentials': 'true',

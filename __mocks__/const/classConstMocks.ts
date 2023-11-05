@@ -1,4 +1,4 @@
-import { ClassData } from 'app/features/models';
+import { ClassData } from '../../src/app/features/class/classModel';
 
 export const classListMock: ClassData[] = [
     {

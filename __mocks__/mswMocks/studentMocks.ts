@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw';
 
-import { apiPaths } from '../../src/app/consts.js';
+import apiPaths from '../../src/app/apiPaths';
 
 import { defaultHeadersMock } from '../const/constMocks.ts';
 

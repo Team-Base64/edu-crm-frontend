@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Button.module.scss';
 import { UiComponentProps } from '@ui-kit/interfaces';
-import { noop } from '../../app/consts.ts';
+import { noop } from '@app/const/consts.ts';
 
 const btnSize = {
     s: styles.small,

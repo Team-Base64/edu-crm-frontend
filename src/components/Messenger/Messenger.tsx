@@ -7,19 +7,11 @@ import styles from './Messenger.module.scss';
 import {
     useGetLiveMessagesQuery,
     useSendMessageMutation,
-} from '../../app/features/api/chat/messageSlice.ts';
+} from '@app/features/chat/chatSlice.ts';
 
 interface SendMessageAreaProps extends UiComponentProps {
     chatid: number;
 }
-
-export type ChatMessageType = {
-    ismine: boolean;
-    text: string;
-    date: string;
-    id: number;
-    chatid: number;
-};
 const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
     const { data, isLoading, isSuccess, isError, error } =
         useGetLiveMessagesQuery({

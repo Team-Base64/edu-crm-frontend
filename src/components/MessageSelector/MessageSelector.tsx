@@ -2,7 +2,7 @@ import React from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import Container from '@ui-kit/Container/Container.tsx';
 import MessageSelectDialogItem from '@components/MessageSelectDioalogItem/MessageSelectDialogItem.tsx';
-import { useGetChatsQuery } from '../../app/features/api/chat/dialogSlice.ts';
+import { useGetChatsQuery } from '@app/features/dialog/dialogSlice.ts';
 import { SearchDialogList } from '@components/SearchDialogList/SearchDialogList.tsx';
 import styles from './MessageSelector.module.scss';
 

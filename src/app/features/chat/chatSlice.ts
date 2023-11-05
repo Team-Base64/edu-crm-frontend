@@ -1,21 +1,20 @@
-import { ChatMessageType } from '@components/Messenger/Messenger.tsx';
-import { apiSlice, getSocket, messageWS } from '../apiSlice.ts';
-import { apiPaths } from '../../../consts.ts';
+import apiSlice from '@app/apiSlice.ts';
+
+import { getSocket, messageWS } from '@app/websocket';
+import {
+    apiChatMessageType,
+    chatMessageType,
+    ChatMessageType,
+} from '@app/features/chat/chatModel';
+import { chatPaths } from '@app/features/chat/chatPaths';
 
 const man_photo_src = 'https://flirtic.com/media/photos/1/e/7/1e733948480.jpg';
 
-type chatMessageType = { text: string; chatid: number };
-
-interface apiChatMessageType {
-    messages: { [index: string]: ChatMessageType[] };
-    wasFetched: { [index: string]: boolean };
-}
-
-export const messagesApi = apiSlice.injectEndpoints({
+export const chatSlice = apiSlice.injectEndpoints({
     endpoints: (build) => ({
         getLiveMessages: build.query<apiChatMessageType, messageWS>({
             query: ({ chatid }) => ({
-                url: `${apiPaths.chats}/${chatid}`,
+                url: chatPaths.dialog(chatid),
                 method: 'GET',
             }),
             transformResponse(
@@ -103,7 +102,7 @@ export const messagesApi = apiSlice.injectEndpoints({
                 { dispatch /*, queryFulfilled*/ },
             ) {
                 dispatch(
-                    messagesApi.util.updateQueryData(
+                    chatSlice.util.updateQueryData(
                         'getLiveMessages',
                         { channel: 'chat', chatid: message.chatid },
                         (draft) => {
@@ -138,4 +137,4 @@ export const messagesApi = apiSlice.injectEndpoints({
     }),
 });
 
-export const { useGetLiveMessagesQuery, useSendMessageMutation } = messagesApi;
+export const { useGetLiveMessagesQuery, useSendMessageMutation } = chatSlice;

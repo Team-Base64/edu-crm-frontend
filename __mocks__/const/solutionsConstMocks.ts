@@ -1,4 +1,4 @@
-import { HomeworkSolution } from '../../src/app/features/models';
+import { HomeworkSolution } from '../../src/app/features/homeworkSolution/homeworkSolutionModel';
 
 interface IclassSolutionsMock {
     [key: number]: HomeworkSolution[];

@@ -1,16 +1,12 @@
 import { http, HttpResponse } from 'msw';
 
-import { apiPaths } from '../../src/app/consts.js';
+import apiPaths from '../../src/app/apiPaths';
 
 import { defaultHeadersMock } from '../const/constMocks.ts';
-
 import { classListMock } from '../const/classConstMocks.ts';
-
 import { classHomeworksMock } from '../const/homeworkConstMocks.ts';
-
 import { classStudentsMock } from '../const/studentConstMocks.ts';
 import { classSolutionsMock } from '../const/solutionsConstMocks.ts';
-
 import { classAnnouncementsMock } from '../const/announceConstMocks.ts';
 
 export const classHandlers = [
@@ -63,7 +59,7 @@ export const classHandlers = [
 
     // Get class users
     http.get(
-        `${apiPaths.basePath}${apiPaths.classStundets(':id')}`,
+        `${apiPaths.basePath}${apiPaths.classStudents(':id')}`,
         ({ params }) => {
             const { id } = params;
             try {
@@ -144,7 +140,7 @@ export const classHandlers = [
 
     // Get class solutions
     http.get(
-        `${apiPaths.basePath}${apiPaths.classHomeworkSolutions(':id')}`,
+        `${apiPaths.basePath}${apiPaths.classSolutions(':id')}`,
         ({ params }) => {
             const { id } = params;
             try {

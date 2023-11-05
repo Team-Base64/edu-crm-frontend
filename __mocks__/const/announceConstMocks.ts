@@ -1,4 +1,4 @@
-import { Announcement } from '../../src/app/features/models';
+import { Announcement } from '../../src/app/features/announcement/announcementModel';
 
 export const announcesMock: Announcement[] = [
     {

@@ -7,8 +7,8 @@ import React from 'react';
 import Text from '@ui-kit/Text/Text';
 
 import styles from './HomeworkSolutionItem.module.scss';
-import { useGetHomeworkQuery } from 'app/features/api/homework/homeworkSlice';
-import { useGetStudentQuery } from 'app/features/api/student/studentSlice';
+import { useGetHomeworkQuery } from '@app/features/homework/homeworkSlice';
+import { useGetStudentQuery } from '@app/features/stundent/stundentSlice';
 
 interface HomeworkSolutionItemProps extends UiComponentProps {
     id: string | number;

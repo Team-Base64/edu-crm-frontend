@@ -1,4 +1,7 @@
-import { Homework, HomeworkCreatePayload } from 'app/features/models';
+import {
+    Homework,
+    HomeworkCreatePayload,
+} from '../../src/app/features/homework/homeworkModel';
 
 interface IclassHomeworksMock {
     [key: number]: Homework[];
@@ -8,7 +11,7 @@ export const homeworksMock: Homework[] = [
     {
         id: 0,
         class_id: 0,
-        title: 'Homework 0',
+        title: 'HomeworkModel 0',
         description: 'mock homework 0',
         create_time: Date.now() - 10000,
         deadline_time: Date.now() + 10000,
@@ -17,7 +20,7 @@ export const homeworksMock: Homework[] = [
     {
         id: 1,
         class_id: 1,
-        title: 'Homework 1',
+        title: 'HomeworkModel 1',
         description: 'mock homework 1',
         create_time: Date.now() - 10000,
         deadline_time: Date.now() + 10000,
@@ -27,7 +30,7 @@ export const homeworksMock: Homework[] = [
     {
         id: 2,
         class_id: 1,
-        title: 'Homework 2',
+        title: 'HomeworkModel 2',
         description: 'mock homework 2',
         create_time: Date.now() - 5000,
         deadline_time: Date.now() + 20000,
@@ -37,7 +40,7 @@ export const homeworksMock: Homework[] = [
     {
         id: 3,
         class_id: 1,
-        title: 'Homework 3',
+        title: 'HomeworkModel 3',
         description: 'mock homework 3',
         create_time: Date.now() - 2000,
         deadline_time: Date.now() - 100,

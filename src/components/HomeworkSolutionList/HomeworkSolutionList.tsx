@@ -1,7 +1,7 @@
 import HomeworkSolutionItem from '@components/HomeworkSolutionItem/HomeworkSolutionItem';
 import { UiComponentProps } from '@ui-kit/interfaces';
-import { useGetClassSolutionsQuery } from 'app/features/api/class/classSlice';
 import React, { useId } from 'react';
+import { useGetClassSolutionsQuery } from '@app/features/homeworkSolution/homeworkSolutionSlice';
 // import styles from './HomeworkList.module.scss';
 
 interface HomeworkSolutionListProps extends UiComponentProps {
@@ -14,7 +14,9 @@ const HomeworkSolutionList: React.FC<HomeworkSolutionListProps> = ({
     limit,
 }) => {
     const listId = useId();
-    const { data, isError, error } = useGetClassSolutionsQuery({ id: classId });
+    const { data, isError, error } = useGetClassSolutionsQuery({
+        class_id: classId,
+    });
     if (!data?.solutions || isError) {
         return (
             <>
