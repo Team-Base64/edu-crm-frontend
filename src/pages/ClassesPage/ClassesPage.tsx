@@ -7,7 +7,7 @@ import Text from '@ui-kit/Text/Text';
 
 interface ClassesPageProps extends UiComponentProps {}
 
-const ClassesPage: React.FC<ClassesPageProps> = ({}) => {
+const ClassesPage: React.FC<ClassesPageProps> = () => {
     return (
         <>
             <Container

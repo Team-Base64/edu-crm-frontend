@@ -24,7 +24,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     success?: boolean;
     sizeType?: InputSizeType;
     border?: BorderType;
-    classes: string;
+    classes?: string;
 }
 
 const Input: React.FC<InputProps> = ({
