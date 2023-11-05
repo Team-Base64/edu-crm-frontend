@@ -136,10 +136,12 @@ export const messagesApi = apiSlice.injectEndpoints({
         sendChatAttaches: build.mutation<unknown, attachmentsType>({
             query: ({ attaches, message }) => {
                 const formData = new FormData();
-                attaches.forEach((attach) => formData.append('file', attach));
+                // attaches.forEach((attach) => formData.append('file', attach));
+                formData.append('file', attaches[0]);
+                console.log(formData.get('file'));
                 return {
                     url:
-                        `${apiPaths.attach}?chatid=${message.chatid}` +
+                        `http://127.0.0.1:8081/api/${apiPaths.attach}?chatid=${message.chatid}` +
                         (message.text
                             ? `&text=${encodeURI(message.text)}`
                             : ''),

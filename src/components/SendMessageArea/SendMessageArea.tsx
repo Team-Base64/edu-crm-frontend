@@ -45,11 +45,10 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
                 message: {
                     text: textAreaRef.current.value,
                     chatid: Number(id),
-                    ismine: false,
+                    ismine: true,
                     date: new Date().toISOString(),
                 },
             });
-            console.log(attaches);
 
             if (isSuccess) {
                 setAttaches([]);
