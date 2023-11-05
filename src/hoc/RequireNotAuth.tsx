@@ -12,7 +12,9 @@ const RequireNotAuth = (): JSX.Element => {
 
     if (me) {
         return (
-            <Navigate to={fromLocation ? fromLocation.pathname : AppRoutes.classes} />
+            <Navigate
+                to={fromLocation ? fromLocation.pathname : AppRoutes.classes}
+            />
         );
     }
 
