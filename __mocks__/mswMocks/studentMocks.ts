@@ -1,13 +1,13 @@
 import { http, HttpResponse } from 'msw';
 
-import apiPaths from '../../src/app/apiPaths';
+import appPaths from '../../src/app/appPaths';
 
 import { defaultHeadersMock } from '../const/constMocks.ts';
 
 import { studentsMock } from '../const/studentConstMocks.ts';
 
 export const studentHandlers = [
-    http.get(`${apiPaths.basePath}${apiPaths.student(':id')}`, ({ params }) => {
+    http.get(`${appPaths.basePath}${appPaths.student(':id')}`, ({ params }) => {
         const { id } = params;
 
         try {

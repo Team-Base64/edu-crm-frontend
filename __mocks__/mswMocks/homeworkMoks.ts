@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw';
-import apiPaths from '../../src/app/apiPaths';
+import appPaths from '../../src/app/appPaths';
 
 import { defaultHeadersMock } from '../const/constMocks';
 
@@ -8,7 +8,7 @@ import { homeworksMock } from '../const/homeworkConstMocks';
 export const homeworkHandlers = [
     // Get homework
     http.get(
-        `${apiPaths.basePath}${apiPaths.homework(':id')}`,
+        `${appPaths.basePath}${appPaths.homework(':id')}`,
         ({ params }) => {
             const { id } = params;
             try {

@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw';
 
-import apiPaths from '../../src/app/apiPaths';
+import appPaths from '../../src/app/appPaths';
 
 import { defaultHeadersMock } from '../const/constMocks.ts';
 import { classListMock } from '../const/classConstMocks.ts';
@@ -11,7 +11,7 @@ import { classAnnouncementsMock } from '../const/announceConstMocks.ts';
 
 export const classHandlers = [
     // Get class
-    http.get(`${apiPaths.basePath}${apiPaths.class(':id')}`, ({ params }) => {
+    http.get(`${appPaths.basePath}${appPaths.class(':id')}`, ({ params }) => {
         const { id } = params;
         try {
             return HttpResponse.json(
@@ -35,7 +35,7 @@ export const classHandlers = [
     }),
 
     // Get classes
-    http.get(`${apiPaths.basePath}${apiPaths.classes}`, () => {
+    http.get(`${appPaths.basePath}${appPaths.classes}`, () => {
         try {
             return HttpResponse.json(
                 {
@@ -59,7 +59,7 @@ export const classHandlers = [
 
     // Get class users
     http.get(
-        `${apiPaths.basePath}${apiPaths.classStudents(':id')}`,
+        `${appPaths.basePath}${appPaths.classStudents(':id')}`,
         ({ params }) => {
             const { id } = params;
             try {
@@ -86,7 +86,7 @@ export const classHandlers = [
 
     // Get class anoounces
     http.get(
-        `${apiPaths.basePath}${apiPaths.classAnnouncements(':id')}`,
+        `${appPaths.basePath}${appPaths.classAnnouncements(':id')}`,
         ({ params }) => {
             const { id } = params;
             try {
@@ -113,7 +113,7 @@ export const classHandlers = [
 
     // Get class homeworks
     http.get(
-        `${apiPaths.basePath}${apiPaths.classHomeworks(':id')}`,
+        `${appPaths.basePath}${appPaths.classHomeworks(':id')}`,
         ({ params }) => {
             const { id } = params;
             try {
@@ -140,7 +140,7 @@ export const classHandlers = [
 
     // Get class solutions
     http.get(
-        `${apiPaths.basePath}${apiPaths.classSolutions(':id')}`,
+        `${appPaths.basePath}${appPaths.classSolutions(':id')}`,
         ({ params }) => {
             const { id } = params;
             try {

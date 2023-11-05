@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw';
-import apiPaths from '../../src/app/apiPaths';
+import appPaths from '../../src/app/appPaths';
 
 import {
     defaultHeadersMock,
@@ -8,7 +8,7 @@ import {
 } from '../const/constMocks.ts';
 
 export const chatHandlers = [
-    http.get(`${apiPaths.basePath}${apiPaths.dialog(':id')}`, ({ params }) => {
+    http.get(`${appPaths.basePath}${appPaths.dialog(':id')}`, ({ params }) => {
         const { id } = params;
         return HttpResponse.json(
             { messages: [messagesMock[Number(id) === 1 ? 0 : 1]] },
@@ -19,7 +19,7 @@ export const chatHandlers = [
         );
     }),
 
-    http.get(`${apiPaths.basePath}${apiPaths.dialogs}`, () =>
+    http.get(`${appPaths.basePath}${appPaths.dialogs}`, () =>
         HttpResponse.json(
             { chats: dialogListMock },
             { status: 200, headers: { ...defaultHeadersMock } },
