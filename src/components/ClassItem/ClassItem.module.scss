@@ -1,0 +1,17 @@
+.card {
+  justify-content: space-between;
+  min-width: 0;
+  background-color: #fff8eb;
+  cursor: pointer;
+
+  & .wrapper {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  & .text {
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+    overflow: hidden;
+  }
+}

@@ -20,7 +20,7 @@ export const homeworksMock: Homework[] = [
     {
         id: 1,
         class_id: 1,
-        title: 'HomeworkModel 1',
+        title: 'HomeworkModel very very vey long long long title kek lol  1',
         description: 'mock homework 1',
         create_time: Date.now() - 10000,
         deadline_time: Date.now() + 10000,

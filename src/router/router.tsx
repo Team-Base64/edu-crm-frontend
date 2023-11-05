@@ -7,9 +7,9 @@ import TestPage from '@pages/TestPage';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import AppRoutes from './routes';
-import ClassesPage from '@pages/ClassesPage';
 import ClassPage from '@pages/ClassPage/ClassPage';
 import { Chat } from '@pages/MessengerPage/Chat';
+import ClassesPage from '@pages/ClassesPage/ClassesPage';
 
 const AppRouter: React.FC = () => {
     return (

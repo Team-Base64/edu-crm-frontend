@@ -25,6 +25,7 @@ const ClassPage: React.FC = () => {
         <Container
             direction="vertical"
             gap="l"
+            classes={styles.page}
         >
             <ClassHeader classId={id} />
             <Container

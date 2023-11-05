@@ -1,9 +1,15 @@
+.page {
+    overflow-x: hidden;
+    width: 100%;
+}
+
 .widgets {
-    justify-content: stretch;
+    overflow-x: hidden;
     flex-wrap: wrap;
 
     .widget {
         flex: 1 1;
-        min-width: 300px;
+        min-width:  300px;
+        //max-width: 400px;
     }
 }
