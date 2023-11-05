@@ -1,25 +1,22 @@
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { useAppSelector } from '@app/hooks/baseHooks';
+import routes from '@router/routes';
 
-interface Props {
-    children: JSX.Element;
-}
-
-const RequireAuth = ({ children }: Props): JSX.Element => {
+const RequireAuth = (): JSX.Element => {
     const location = useLocation();
 
-    // TODO
-    const auth = true;
-
-    if (!auth) {
+    const { me } = useAppSelector((state) => state.teacherState);
+console.log('req auth ', me, location.state);
+    if (!me) {
         return (
             <Navigate
-                to="/login"
+                to={routes.login}
                 state={{ from: location }}
             />
         );
     }
 
-    return children;
+    return <Outlet />;
 };
 
 export default RequireAuth;
