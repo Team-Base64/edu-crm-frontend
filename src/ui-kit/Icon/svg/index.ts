@@ -15,3 +15,8 @@ export { default as CopyLine } from './system_copy_line.svg?react';
 export { default as DeleteBinLine } from './system_delete-bin-line.svg?react';
 export { default as SearchIcon } from './buisness_search-icon.svg?react';
 export { default as Loading } from './system_loading.svg?react';
+export { default as UserLine } from './user_user-line.svg?react';
+export { default as CloseLine } from './system_close-line.svg?react';
+export { default as EyeLine } from './system_eye-line.svg?react';
+export { default as EyeCrossedLine } from './system_eye-crossed-line.svg?react';
+export { default as LockLine } from './system_lock-line.svg?react';

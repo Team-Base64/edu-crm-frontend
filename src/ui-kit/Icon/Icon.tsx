@@ -21,6 +21,11 @@ const iconName = {
     deleteBinLine: Icons.DeleteBinLine,
     searchIcon: Icons.SearchIcon,
     loading: Icons.Loading,
+    user: Icons.UserLine,
+    close: Icons.CloseLine,
+    eye: Icons.EyeLine,
+    eyeCrossed: Icons.EyeCrossedLine,
+    lock: Icons.LockLine,
 };
 export type IconName = keyof typeof iconName;
 
