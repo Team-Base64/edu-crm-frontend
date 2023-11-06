@@ -8,12 +8,12 @@ const RequireNotAuth = (): JSX.Element => {
 
     const { me } = useAppSelector((state) => state.teacherState);
 
-    console.log('req not auth', me, fromLocation.pathname);
 
     if (me) {
         return (
             <Navigate
                 to={fromLocation ? fromLocation.pathname : AppRoutes.classes}
+                replace
             />
         );
     }
