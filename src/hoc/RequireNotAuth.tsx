@@ -8,7 +8,6 @@ const RequireNotAuth = (): JSX.Element => {
 
     const { me } = useAppSelector((state) => state.teacherState);
 
-
     if (me) {
         return (
             <Navigate

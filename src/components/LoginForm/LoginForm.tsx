@@ -1,17 +1,16 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {UiComponentProps} from '@ui-kit/interfaces';
+import React, { useEffect, useRef, useState } from 'react';
+import { UiComponentProps } from '@ui-kit/interfaces';
 import Input from '@ui-kit/Input/Input';
 import Button from '@ui-kit/Button/Button';
-import {useLoginMutation} from '@app/features/teacher/teacherApi';
-import {useLocation, useNavigate} from 'react-router-dom';
+import { useLoginMutation } from '@app/features/teacher/teacherApi';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Spinner from '@ui-kit/Spinner/Spinner';
 import AppRoutes from '@router/routes';
 import Icon from '@ui-kit/Icon/Icon';
-import Container from "@ui-kit/Container/Container";
-import Text from "@ui-kit/Text/Text";
+import Container from '@ui-kit/Container/Container';
+import Text from '@ui-kit/Text/Text';
 
-interface LoginFormProps extends UiComponentProps {
-}
+interface LoginFormProps extends UiComponentProps {}
 
 const LoginForm: React.FC<LoginFormProps> = () => {
     const navigate = useNavigate();
@@ -20,7 +19,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
     const usernameRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
 
-    const [login, {isLoading, isError, error, isSuccess}] =
+    const [login, { isLoading, isError, error, isSuccess }] =
         useLoginMutation();
 
     const [passwordVisibility, setPasswordVisibily] = useState<
@@ -34,7 +33,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
 
     const fromLocation = location?.state?.from;
     const handleSubmit = () => {
-        login({payload: {username: username, password: password}});
+        login({ payload: { username: username, password: password } });
     };
 
     useEffect(() => {
@@ -50,8 +49,16 @@ const LoginForm: React.FC<LoginFormProps> = () => {
 
     return (
         <>
-            <Container direction={'vertical'} layout={'defaultBase'} gap={'l'}>
-                <Text type={'h'} size={3} weight={'bold'}>
+            <Container
+                direction={'vertical'}
+                layout={'defaultBase'}
+                gap={'l'}
+            >
+                <Text
+                    type={'h'}
+                    size={3}
+                    weight={'bold'}
+                >
                     Пожалуйста, войдите
                 </Text>
                 <form>
@@ -60,7 +67,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
                             inputRef={usernameRef}
                             label={'Имя пользователя'}
                             placeholder={'DEV Любое'}
-                            icon={<Icon name={'user'}/>}
+                            icon={<Icon name={'user'} />}
                             button={
                                 <Icon
                                     name={'close'}
@@ -76,7 +83,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
                             inputRef={passwordRef}
                             label={'Пароль'}
                             placeholder={'DEV пароль 123'}
-                            icon={<Icon name={'lock'}/>}
+                            icon={<Icon name={'lock'} />}
                             button={
                                 <Icon
                                     name={
@@ -98,13 +105,12 @@ const LoginForm: React.FC<LoginFormProps> = () => {
                             type={'text'}
                         />
                     </Container>
-
                 </form>
                 <Button
                     onClick={handleSubmit}
                     disabled={isLoading}
                 >
-                    {isLoading && <Spinner/>}
+                    {isLoading && <Spinner />}
                     Войти
                 </Button>
             </Container>
