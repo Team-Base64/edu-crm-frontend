@@ -4,7 +4,6 @@ import {
     dialogSelectType,
 } from '@app/features/dialog/dialogModel';
 import { dialogPaths } from '@app/features/dialog/dialogPaths';
-import { messageWS } from '@app/websocket.ts';
 
 export const dialogSlice = appApi.injectEndpoints({
     endpoints: (build) => ({
@@ -25,11 +24,13 @@ export const dialogSlice = appApi.injectEndpoints({
 
                 return { dialogs: newDialogs };
             },
-            forceRefetch() {
-                // fix
-                return true;
-            },
         }),
+        // postDialogs: build.mutation<unknown, unknown>({
+        //     queryFn: () => {
+        //         return { data: [] };
+        //     },
+        //     invalidatesTags: ['getDialogs'],
+        // }),
     }),
 });
 
