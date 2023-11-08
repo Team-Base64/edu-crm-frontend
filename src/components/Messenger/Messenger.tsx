@@ -9,6 +9,8 @@ import {
     useSendMessageMutation,
 } from '@app/features/chat/chatSlice.ts';
 import { useGetDialogsQuery } from '@app/features/dialog/dialogSlice.ts';
+import appApi from '@app/appApi.ts';
+import { useAppDispatch } from '@app/hooks/baseHooks.ts';
 
 interface SendMessageAreaProps extends UiComponentProps {
     chatid: number;
@@ -21,10 +23,19 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
         });
 
     const [sendMessage] = useSendMessageMutation();
-
-    const dialogData = useGetDialogsQuery(null);
+    const dispatch = useAppDispatch();
 
     const messageBlock = data?.messages[chatid]?.map((message, index) => {
+        dispatch(
+            appApi.util.updateQueryData(
+                // @ts-ignore
+                'getDialogs',
+                undefined,
+                (draftPosts) => {
+                    return draftPosts;
+                },
+            ),
+        );
         return (
             <MessageItem
                 isMine={message.ismine}
@@ -36,9 +47,9 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
         );
     });
 
-    useGetDialogsQuery(null);
-
     const messagesRef = useRef<HTMLDivElement>(null);
+
+    const dialogData = useGetDialogsQuery(null);
 
     useEffect(() => {
         if (messagesRef.current instanceof HTMLElement) {
