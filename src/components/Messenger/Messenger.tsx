@@ -58,14 +58,14 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
                 containerRef={messagesRef}
             >
                 {isLoading && <span>loading...</span>}
-                {isSuccess && chatid !== -1 && messageBlock}
+                {isSuccess && (chatid !== -1 ? messageBlock : '')}
                 {isError && <span>{error.toString()}</span>}
             </Container>
             <SendMessageArea
                 id={chatid.toString()}
                 name={'SendMessageArea'}
                 onMessageSend={(text: string) => {
-                    if (dialogData.data) {
+                    if (dialogData.data && chatid !== -1) {
                         sendMessage({
                             message: {
                                 chatid,
