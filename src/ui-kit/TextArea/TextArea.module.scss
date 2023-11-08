@@ -6,6 +6,7 @@ $scrollbar-widht: 8px;
 
 .textarea {
   width: 100%;
+  font-family: getVar(font, type, default);
 
   padding: $padding-tb $padding-rl;
   resize: none;
