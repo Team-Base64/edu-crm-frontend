@@ -15,8 +15,6 @@ export const dialogSlice = appApi.injectEndpoints({
                 };
             },
             transformResponse({ dialogs }: { dialogs: dialogSelectType[] }) {
-                console.log('Dialogs transform');
-                console.log(dialogs);
                 const newDialogs: dialogSelectByIDType = {};
 
                 dialogs.forEach((dialog) => {

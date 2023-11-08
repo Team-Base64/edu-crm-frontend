@@ -1,7 +1,6 @@
 import appApi from '@app/appApi';
 import { ClassCreatePayload, ClassData } from '@app/features/class/classModel';
 import { classPaths } from '@app/features/class/classPaths';
-console.log('class clise');
 
 export const classApi = appApi.injectEndpoints({
     endpoints: (build) => ({

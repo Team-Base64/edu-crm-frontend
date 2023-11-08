@@ -13,7 +13,10 @@ import Icon from '@ui-kit/Icon/Icon.tsx';
 import styles from './SendMessageArea.module.scss';
 import { AttachFile } from '@ui-kit/AttachFile/AttachFile.tsx';
 import { ChatAttachmentsList } from '@components/ChatAttachmentsList/ChatAttachmentsList.tsx';
-import { useSendChatAttachesMutation } from '@app/features/chat/chatSlice';
+import {
+    useSendChatAttachesMutation,
+    useSendMessageMutation,
+} from '@app/features/chat/chatSlice';
 
 interface SendMessageAreaProps extends UiComponentProps {
     id: string;
@@ -32,30 +35,58 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
 
     const [isDisabledSend, setIsDisabledSend] = useState(true);
 
-    const [sendAttaches, { isError, error }] = useSendChatAttachesMutation();
+    const [sendAttaches] = useSendChatAttachesMutation();
 
-    const sendMessage = () => {
+    const [sendMessage] = useSendMessageMutation();
+
+    const sendMessageHandler = () => {
         if (!textAreaRef.current) {
             return;
         }
 
+        console.log('attaches', attaches?.toString());
         if (attaches) {
             sendAttaches({
                 attaches,
-                message: {
-                    text: textAreaRef.current.value,
-                    chatid: Number(id),
-                    ismine: true,
-                    date: new Date().toISOString(),
-                },
-            });
-            setAttaches([]);
-            textAreaRef.current.value = '';
+                type: 'chat',
+            })
+                .then((result) => {
+                    if ('data' in result) {
+                        console.log(result.data.file);
 
-            if (isError) {
-                console.error('error: ', error);
-            }
+                        sendMessage({
+                            message: {
+                                text: textAreaRef.current?.value ?? '',
+                                chatid: Number(id),
+                                ismine: true,
+                                date: new Date().toISOString(),
+                                attaches: [result.data.file],
+                            },
+                        });
+                    }
+                })
+                .then(() => {
+                    setAttaches([]);
+                    if (textAreaRef.current) {
+                        textAreaRef.current.value = '';
+                    }
+                })
+                .catch((error) => console.error('sendAttaches: ', error));
+            // console.log('isSuccess', isSuccess, data);
+
+            // if (data) {
+            //     console.log('isSuccess inner');
+            //     sendMessage({
+            //         message: {
+            //             text: textAreaRef.current.value,
+            //             chatid: Number(id),
+            //             ismine: true,
+            //             date: new Date().toISOString(),
+            //         },
+            //     });
+            // }
         } else {
+            setAttaches([]);
             onMessageSend(textAreaRef.current.value);
             textAreaRef.current.value = '';
         }
@@ -72,7 +103,7 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
 
     const handleClick = (e: React.MouseEvent) => {
         e.preventDefault();
-        sendMessage();
+        sendMessageHandler();
     };
 
     const handleMessageChange: ChangeEventHandler<HTMLTextAreaElement> = ({
@@ -86,7 +117,7 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
         event,
     ) => {
         if (event.code === 'Enter' && event.ctrlKey) {
-            sendMessage();
+            sendMessageHandler();
         }
     };
 

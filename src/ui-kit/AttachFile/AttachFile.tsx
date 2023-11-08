@@ -30,7 +30,6 @@ export const AttachFile: React.FC<AttachFileProps> = ({
     };
 
     const handleOnChange = templateHandler.bind(this, (target) => {
-        console.log('asdas');
         setFilesState(Array.from(target.files ?? []));
         target.files = null;
     });

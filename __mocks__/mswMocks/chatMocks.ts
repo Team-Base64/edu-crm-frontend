@@ -4,6 +4,7 @@ import appPaths from '../../src/app/appPaths';
 import {
     defaultHeadersMock,
     dialogListMock,
+    man_photo_src,
     messagesMock,
 } from '../const/constMocks.ts';
 
@@ -23,6 +24,16 @@ export const chatHandlers = [
         HttpResponse.json(
             { dialogs: dialogListMock },
             { status: 200, headers: { ...defaultHeadersMock } },
+        ),
+    ),
+
+    http.post('http://127.0.0.1:8081/apichat/attach?type=chat', () =>
+        HttpResponse.json(
+            { file: man_photo_src },
+            {
+                status: 200,
+                headers: { ...defaultHeadersMock },
+            },
         ),
     ),
 ];

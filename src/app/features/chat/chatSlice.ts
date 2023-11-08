@@ -3,6 +3,7 @@ import appApi from '@app/appApi.ts';
 import { getSocket, messageWS } from '@app/websocket';
 import {
     apiChatMessageType,
+    attachmentRequestReturnType,
     attachmentsType,
     ChatMessageType,
     postChatMessageType,
@@ -126,17 +127,16 @@ export const chatSlice = appApi.injectEndpoints({
                 //}
             },
         }),
-        sendChatAttaches: build.mutation<unknown, attachmentsType>({
-            query: ({ attaches, message }) => {
+        sendChatAttaches: build.mutation<
+            attachmentRequestReturnType,
+            attachmentsType
+        >({
+            query: ({ attaches, type }) => {
                 const formData = new FormData();
                 formData.append('file', attaches[0]);
+
                 return {
-                    url:
-                        // TODO !!!
-                        `http://127.0.0.1:8081/api/attach?chatid=${message.chatid}` +
-                        (message.text
-                            ? `&text=${encodeURI(message.text)}`
-                            : ''),
+                    url: `http://127.0.0.1:8081/apichat/attach?type=${type}`,
                     method: 'POST',
                     body: formData,
                     formData: true,
@@ -145,28 +145,50 @@ export const chatSlice = appApi.injectEndpoints({
                     },
                 };
             },
-            onQueryStarted(
-                { attaches, message },
-                { dispatch /*, queryFulfilled*/ },
-            ) {
-                const UrlAttaches = attaches.map((attach) =>
-                    URL.createObjectURL(attach),
-                );
-                // revokeObjectURL
-                dispatch(
-                    chatSlice.util.updateQueryData(
-                        'getLiveMessages',
-                        { channel: 'chat', chatid: message.chatid },
-                        (draft) => {
-                            message.attaches = UrlAttaches;
-                            draft.messages[message.chatid] = [
-                                ...(draft.messages[message.chatid] ?? []),
-                                message,
-                            ];
-                        },
-                    ),
-                );
-            },
+            // async onQueryStarted(
+            //     { attaches, data, type },
+            //     { dispatch, queryFulfilled /*, queryFulfilled*/ },
+            // ) {
+            //     const UrlAttaches = attaches.map((attach) =>
+            //         URL.createObjectURL(attach),
+            //     );
+            //     // revokeObjectURL
+            //
+            //     switch (type) {
+            //         case 'chat':
+            //             dispatch(
+            //                 chatSlice.useSendMessageMutation
+            //                 chatSlice.util.updateQueryData(
+            //                     'getLiveMessages',
+            //                     { channel: 'chat', chatid: data.chatid },
+            //                     (draft) => {
+            //                         data.attaches = UrlAttaches;
+            //                         draft.messages[data.chatid] = [
+            //                             ...(draft.messages[data.chatid] ?? []),
+            //                             data,
+            //                         ];
+            //                     },
+            //                 ),
+            //             );
+            //             break;
+            //         default:
+            //             console.error(`no handler for type ${type}`);
+            //     }
+            //
+            //     try {
+            //         await queryFulfilled;
+            //
+            //         switch (type) {
+            //             case 'chat':
+            //                 dispatch();
+            //                 break;
+            //             default:
+            //                 console.error(`no handler for type ${type}`);
+            //         }
+            //     } catch {
+            //         // patchResult.undo();
+            //     }
+            // },
         }),
     }),
 });

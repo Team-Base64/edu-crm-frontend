@@ -6,6 +6,7 @@ import Text from '@ui-kit/Text/Text.tsx';
 import { getUTCTime } from '../../utils/common/dateRepresentation.ts';
 import { ChatAttachment } from '@components/ChatAttachment/ChatAttachment.tsx';
 import { noop } from '@app/const/consts.ts';
+import { Link } from 'react-router-dom';
 
 interface MessageItemProps extends UiComponentProps {
     id?: number;
@@ -20,7 +21,7 @@ const MessageItem: React.FC<MessageItemProps> = memo(function MessageItem({
     text,
     time,
     isMine,
-    attaches,
+    attaches = [],
 }) {
     const elementsAttaches = attaches?.map((attachment, index) => {
         return (
@@ -53,6 +54,19 @@ const MessageItem: React.FC<MessageItemProps> = memo(function MessageItem({
                 >
                     {text}
                 </Text>
+                {attaches.length && (
+                    <Text
+                        type={'p'}
+                        size={1}
+                    >
+                        <Link
+                            to={attaches[0]}
+                            className={styles.linkAttachment}
+                        >
+                            {attaches[0]}
+                        </Link>
+                    </Text>
+                )}
                 {elementsAttaches}
                 <Text
                     type={'p'}
