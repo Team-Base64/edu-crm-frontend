@@ -29,7 +29,6 @@ export const dialogSlice = appApi.injectEndpoints({
                 // fix
                 return true;
             },
-            serializeQueryArgs: () => '',
         }),
     }),
 });
