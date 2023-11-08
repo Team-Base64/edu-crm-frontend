@@ -51,7 +51,7 @@ const MessageItem: React.FC<MessageItemProps> = memo(function MessageItem({
                     size={1}
                     classes={styles.messageItemContent__text}
                 >
-                    {text + '\n' + attaches && (attaches?.at(0) ?? '')}
+                    {text}
                 </Text>
                 {elementsAttaches}
                 <Text
