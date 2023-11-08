@@ -45,7 +45,7 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
         }
 
         console.log('attaches', attaches?.toString());
-        if (attaches) {
+        if (attaches?.length) {
             sendAttaches({
                 attaches,
                 type: 'chat',

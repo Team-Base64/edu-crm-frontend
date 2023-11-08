@@ -54,7 +54,7 @@ const MessageItem: React.FC<MessageItemProps> = memo(function MessageItem({
                 >
                     {text}
                 </Text>
-                {attaches.length && (
+                {attaches.length ? (
                     <Text
                         type={'p'}
                         size={1}
@@ -66,8 +66,10 @@ const MessageItem: React.FC<MessageItemProps> = memo(function MessageItem({
                             {attaches[0]}
                         </Link>
                     </Text>
+                ) : (
+                    ''
                 )}
-                {elementsAttaches}
+                {elementsAttaches && elementsAttaches}
                 <Text
                     type={'p'}
                     size={2}

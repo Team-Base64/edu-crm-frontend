@@ -145,50 +145,6 @@ export const chatSlice = appApi.injectEndpoints({
                     },
                 };
             },
-            // async onQueryStarted(
-            //     { attaches, data, type },
-            //     { dispatch, queryFulfilled /*, queryFulfilled*/ },
-            // ) {
-            //     const UrlAttaches = attaches.map((attach) =>
-            //         URL.createObjectURL(attach),
-            //     );
-            //     // revokeObjectURL
-            //
-            //     switch (type) {
-            //         case 'chat':
-            //             dispatch(
-            //                 chatSlice.useSendMessageMutation
-            //                 chatSlice.util.updateQueryData(
-            //                     'getLiveMessages',
-            //                     { channel: 'chat', chatid: data.chatid },
-            //                     (draft) => {
-            //                         data.attaches = UrlAttaches;
-            //                         draft.messages[data.chatid] = [
-            //                             ...(draft.messages[data.chatid] ?? []),
-            //                             data,
-            //                         ];
-            //                     },
-            //                 ),
-            //             );
-            //             break;
-            //         default:
-            //             console.error(`no handler for type ${type}`);
-            //     }
-            //
-            //     try {
-            //         await queryFulfilled;
-            //
-            //         switch (type) {
-            //             case 'chat':
-            //                 dispatch();
-            //                 break;
-            //             default:
-            //                 console.error(`no handler for type ${type}`);
-            //         }
-            //     } catch {
-            //         // patchResult.undo();
-            //     }
-            // },
         }),
     }),
 });
