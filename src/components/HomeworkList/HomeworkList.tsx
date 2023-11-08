@@ -29,7 +29,7 @@ const HomeworkList: React.FC<HomeworkListProps> = ({ classId, limit }) => {
             {list.length &&
                 list
                     .slice(0, limit)
-                    .map(({ id, title, description, deadline_time }) => (
+                    .map(({ id, title, description, deadlineTime: deadline_time }) => (
                         <React.Fragment key={`${listId}-${id}`}>
                             <HomeworkItem
                                 id={id}

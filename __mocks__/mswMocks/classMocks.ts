@@ -92,7 +92,7 @@ export const classHandlers = [
             try {
                 return HttpResponse.json(
                     {
-                        announcements: classAnnouncementsMock[Number(id)],
+                        posts: classAnnouncementsMock[Number(id)],
                     },
                     {
                         status: 200,

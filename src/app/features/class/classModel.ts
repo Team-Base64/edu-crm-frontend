@@ -2,7 +2,7 @@ export type ClassData = {
     id: number | string;
     title: string;
     description?: string;
-    invite_token: string;
+    inviteToken: string;
 };
 
 export type ClassCreatePayload = {

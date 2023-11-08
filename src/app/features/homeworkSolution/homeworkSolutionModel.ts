@@ -1,8 +1,8 @@
 export type HomeworkSolution = {
     id: string | number;
-    homework_id: string | number;
-    student_id: string | number;
-    time: number;
+    hwID: string | number;
+    studentID: string | number;
+    createTime: number;
     text?: string;
-    link_to_file: string; // ‘host/…./file.pdf
+    file: string; // ‘host/…./file.pdf
 };

@@ -72,11 +72,11 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
                     if (dialogData.data && chatid !== -1) {
                         sendMessage({
                             message: {
-                                chatid,
+                                chatID: chatid,
                                 text: text.trim(),
                                 ismine: true,
                                 date: new Date().toISOString(),
-                                socialtype:
+                                socialType:
                                     dialogData.data.dialogs[chatid].socialtype,
                             },
                         });

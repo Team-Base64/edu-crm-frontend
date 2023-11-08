@@ -15,7 +15,7 @@ const ClassAnnounceList: React.FC<ClassAnnounceListProps> = ({ classId }) => {
         class_id: classId,
     });
 
-    if (!data?.announcements || isError) {
+    if (!data?.posts || isError) {
         return (
             <>
                 {isError && JSON.stringify(error)}
@@ -24,7 +24,7 @@ const ClassAnnounceList: React.FC<ClassAnnounceListProps> = ({ classId }) => {
         );
     }
 
-    const list = data.announcements;
+    const list = data.posts;
     return (
         <Container
             direction="vertical"
@@ -33,7 +33,7 @@ const ClassAnnounceList: React.FC<ClassAnnounceListProps> = ({ classId }) => {
             {!list.length && 'EMPTY'}
 
             {list.length &&
-                list.map(({ id, text, time }) => (
+                list.map(({ id, text, createTime: time }) => (
                     <React.Fragment key={`${listId}-${id}`}>
                         <ClassAnnounceCard
                             firstName="George"
