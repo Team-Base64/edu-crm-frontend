@@ -1,14 +1,15 @@
 import MainLayout from '@components/MainLayout/MainLayout';
 import RequireAuth from '@hoc/RequireAuth';
 import LandingPage from '@pages/LandingPage';
-import LoginPage from '@pages/LoginPage';
+import LoginPage from '@pages/LoginPage/LoginPage';
 import NotFoundPage from '@pages/NotFoundPage';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import AppRoutes from './routes';
-import ClassesPage from '@pages/ClassesPage';
 import ClassPage from '@pages/ClassPage/ClassPage';
 import { Chat } from '@pages/MessengerPage/Chat';
+import ClassesPage from '@pages/ClassesPage/ClassesPage';
+import RequireNotAuth from '@hoc/RequireNotAuth';
 
 const AppRouter: React.FC = () => {
     return (
@@ -20,35 +21,34 @@ const AppRouter: React.FC = () => {
                     element={<LandingPage />}
                 />
                 <Route
-                    path={AppRoutes.login}
-                    element={<LoginPage />}
-                />
-                <Route
                     path={AppRoutes.none}
                     element={<NotFoundPage />}
                 />
+                {/* only for unauthorized */}
+                <Route element={<RequireNotAuth />}>
+                    <Route
+                        path={AppRoutes.login}
+                        element={<LoginPage />}
+                    />
+                </Route>
 
                 {/* Private */}
-                <Route
-                    element={
-                        <RequireAuth>
-                            <MainLayout />
-                        </RequireAuth>
-                    }
-                >
-                    <Route
-                        path={AppRoutes.messenger}
-                        element={<Chat />}
-                    />
-                    <Route path={AppRoutes.classes}>
+                <Route element={<RequireAuth />}>
+                    <Route element={<MainLayout />}>
                         <Route
-                            index
-                            element={<ClassesPage />}
+                            path={AppRoutes.messenger}
+                            element={<Chat />}
                         />
-                        <Route
-                            path={AppRoutes.class}
-                            element={<ClassPage />}
-                        />
+                        <Route path={AppRoutes.classes}>
+                            <Route
+                                index
+                                element={<ClassesPage />}
+                            />
+                            <Route
+                                path={AppRoutes.class}
+                                element={<ClassPage />}
+                            />
+                        </Route>
                     </Route>
                 </Route>
             </Route>

@@ -13,7 +13,7 @@ import Icon from '@ui-kit/Icon/Icon.tsx';
 import styles from './SendMessageArea.module.scss';
 import { AttachFile } from '@ui-kit/AttachFile/AttachFile.tsx';
 import { ChatAttachmentsList } from '@components/ChatAttachmentsList/ChatAttachmentsList.tsx';
-import { useSendChatAttachesMutation } from '../../app/features/api/chat/messageSlice.ts';
+import { useSendChatAttachesMutation } from '@app/features/chat/chatSlice';
 
 interface SendMessageAreaProps extends UiComponentProps {
     id: string;

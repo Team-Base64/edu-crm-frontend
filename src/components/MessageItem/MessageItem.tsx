@@ -5,7 +5,7 @@ import styles from './MessageItem.module.scss';
 import Text from '@ui-kit/Text/Text.tsx';
 import { getUTCTime } from '../../utils/common/dateRepresentation.ts';
 import { ChatAttachment } from '@components/ChatAttachment/ChatAttachment.tsx';
-import { noop } from '../../app/consts.ts';
+import { noop } from '@app/const/consts.ts';
 
 interface MessageItemProps extends UiComponentProps {
     id?: number;

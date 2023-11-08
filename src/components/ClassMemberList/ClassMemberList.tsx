@@ -1,7 +1,7 @@
 import ClassMemberItem from '@components/ClassMemberItem/ClassMemberItem';
 import { UiComponentProps } from '@ui-kit/interfaces';
-import { useGetClassUsersByIdQuery } from 'app/features/api/class/classSlice';
 import React, { useId } from 'react';
+import { useGetClassStudentsQuery } from '@app/features/stundent/stundentSlice';
 // import styles from './ClassMemberList.module.scss';
 
 interface ClassMemberListProps extends UiComponentProps {
@@ -14,7 +14,9 @@ const ClassMemberList: React.FC<ClassMemberListProps> = ({
     limit,
 }) => {
     const listId = useId();
-    const { data, isError, error } = useGetClassUsersByIdQuery({ id: classId });
+    const { data, isError, error } = useGetClassStudentsQuery({
+        class_id: classId,
+    });
 
     if (!data?.students || isError) {
         return (
@@ -31,19 +33,16 @@ const ClassMemberList: React.FC<ClassMemberListProps> = ({
             {!list.length && 'EMPTY'}
 
             {list.length &&
-                list
-                    .slice(0, limit)
-                    .map(({ id, firstName, lastName, avatarSrc }) => (
-                        <React.Fragment key={`${listId}-${id}`}>
-                            <ClassMemberItem
-                                id={id}
-                                firstName={firstName}
-                                lastName={lastName}
-                                avatarSrc={avatarSrc}
-                                role="Ученик"
-                            />
-                        </React.Fragment>
-                    ))}
+                list.slice(0, limit).map(({ id, name, avatarSrc }) => (
+                    <React.Fragment key={`${listId}-${id}`}>
+                        <ClassMemberItem
+                            id={id}
+                            name={name}
+                            avatarSrc={avatarSrc}
+                            role="Ученик"
+                        />
+                    </React.Fragment>
+                ))}
         </>
     );
 };

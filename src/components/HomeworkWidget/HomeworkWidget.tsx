@@ -1,45 +1,88 @@
-// import ClassMemberItem from "@components/ClassMemberItem/ClassMemberItem";
-// import { UiComponentProps } from "@ui-kit/interfaces";
-// import { useGetClassUsersByIdQuery } from "app/features/api/class/classSlice";
-// import React, { useId } from "react";
-// import styles from './HomeworkWidget.module.scss';
+import Widget from '@components/Widget/Widget';
+import Button from '@ui-kit/Button/Button';
+import Overlay from '@ui-kit/Overlay/Overlay';
+import { UiComponentProps } from '@ui-kit/interfaces';
+import React, { useState } from 'react';
+import styles from './HomeworkWidget.module.scss';
+import Container from '@ui-kit/Container/Container';
+import Text from '@ui-kit/Text/Text';
+import HomeworkList from '@components/HomeworkList/HomeworkList';
 
-// interface HomeworkListProps extends UiComponentProps {
-//     classId: string | number;
-//     limit?: number;
-// }
+interface ClassHomeworksWidgetProps extends UiComponentProps {
+    classId: string | number;
+}
 
-// const HomeworkList: React.FC<HomeworkListProps> = ({ classId, limit }) => {
-//     const listId = useId();
-//     const { data, isError, error } =
+const ClassHomeworksWidget: React.FC<ClassHomeworksWidgetProps> = ({
+    classId,
+    classes,
+}) => {
+    const [isOverlay, setIsOverlay] = useState<boolean>(false);
 
-//     if (!data?.students || isError) {
-//         return (
-//             <>
-//                 {isError && JSON.stringify(error)}
-//                 {!isError && 'Some error'}
-//             </>
-//         );
-//     }
+    const handleShowAll = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        setIsOverlay(true);
+    };
 
-//     const list = data.students;
-//     return (
-//         <>
-//                 {!list.length && 'EMPTY'}
+    const showAllButton = (
+        <>
+            <Button
+                type="link"
+                size="s"
+                onClick={handleShowAll}
+            >
+                <Text
+                    type="p"
+                    weight="bold"
+                    size={2}
+                    classes={styles.btnShowAll}
+                >
+                    Посмотреть все
+                </Text>
+            </Button>
+        </>
+    );
 
-//             {list.length && list.slice(0, limit).map(({ id, firstName, lastName, avatarSrc }) => (
-//                 <React.Fragment key={`${listId}-${id}`}>
-//                     <ClassMemberItem
-//                         id={id}
-//                         firstName={firstName}
-//                         lastName={lastName}
-//                         avatarSrc={avatarSrc}
-//                         role="Ученик"
-//                     />
-//                 </React.Fragment>
-//             ))}
-//         </>
-//     );
-// }
+    return (
+        <>
+            <Overlay
+                isShowing={isOverlay}
+                closeOverlay={() => setIsOverlay(false)}
+            >
+                <Container
+                    direction="vertical"
+                    layout="defaultBase"
+                >
+                    <Container
+                        layout="defaultBase"
+                        classes={styles.title}
+                    >
+                        <Text
+                            type="h"
+                            size={4}
+                            weight="bold"
+                        >
+                            {'Все домашние задания группы'}
+                        </Text>
+                    </Container>
+                    <HomeworkList
+                        classId={classId}
+                        classes={styles.fullPage}
+                    />
+                </Container>
+            </Overlay>
 
-// export default HomeworkList;
+            <Widget
+                title="Домашние задания: "
+                nav={showAllButton}
+                classes={classes}
+            >
+                <HomeworkList
+                    classId={classId}
+                    limit={2}
+                />
+            </Widget>
+        </>
+    );
+};
+
+export default ClassHomeworksWidget;

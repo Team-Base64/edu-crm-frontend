@@ -2,10 +2,10 @@ import React from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import Text from '@ui-kit/Text/Text.tsx';
 import Button from '@ui-kit/Button/Button.tsx';
-import { dialogSelectType } from '../../app/features/api/chat/dialogSlice.ts';
 import styles from './MessageSelectDialogItem.module.scss';
 import Avatar from '@ui-kit/Avatar/Avatar.tsx';
 import { getDialogDate } from '../../utils/common/dateRepresentation.ts';
+import { dialogSelectType } from '@app/features/dialog/dialogModel';
 
 interface MessageSelectDialogItemProps extends UiComponentProps {
     data: dialogSelectType;

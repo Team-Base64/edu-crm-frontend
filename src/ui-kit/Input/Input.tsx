@@ -25,7 +25,10 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     success?: boolean;
     sizeType?: InputSizeType;
     border?: BorderType;
-    classes: string;
+    classes?: string;
+    icon?: JSX.Element;
+    button?: JSX.Element;
+    inputRef?: React.LegacyRef<HTMLInputElement>;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -36,6 +39,9 @@ const Input: React.FC<InputProps> = ({
     sizeType = 'm',
     border = 'default',
     classes = '',
+    icon,
+    button,
+    inputRef,
     ...rest
 }) => {
     return (
@@ -57,11 +63,14 @@ const Input: React.FC<InputProps> = ({
                         borderType[border],
                     ].join(' ')}
                 >
+                    {icon && icon}
                     <input
+                        ref={inputRef}
                         disabled={disabled || false}
                         className={styles.input}
                         {...rest}
                     />
+                    {button && button}
                 </Container>
                 {errorHint && (
                     <div className={styles.errorHint}>{errorHint}</div>

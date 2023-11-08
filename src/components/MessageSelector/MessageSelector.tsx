@@ -2,9 +2,9 @@ import React from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import Container from '@ui-kit/Container/Container.tsx';
 import MessageSelectDialogItem from '@components/MessageSelectDioalogItem/MessageSelectDialogItem.tsx';
-import { useGetChatsQuery } from '../../app/features/api/chat/dialogSlice.ts';
 import { SearchDialogList } from '@components/SearchDialogList/SearchDialogList.tsx';
 import styles from './MessageSelector.module.scss';
+import { useGetDialogsQuery } from '@app/features/dialog/dialogSlice';
 
 interface MessageSelectorProps extends UiComponentProps {
     setChatID: (chatID: number) => void;
@@ -15,13 +15,13 @@ const MessageSelector: React.FC<MessageSelectorProps> = ({
     classes,
 }) => {
     const { data, isLoading, isSuccess, isError, error } =
-        useGetChatsQuery(null);
+        useGetDialogsQuery(null);
 
-    const dialogList = Object.values(data?.chats ?? {}).map((chat) => (
+    const dialogList = Object.values(data?.dialogs ?? {}).map((dialog) => (
         <MessageSelectDialogItem
-            data={chat}
-            key={chat.chatid}
-            selectDialog={() => setChatID(chat.chatid)}
+            data={dialog}
+            key={dialog.chatid}
+            selectDialog={() => setChatID(dialog.chatid)}
         ></MessageSelectDialogItem>
     ));
 
