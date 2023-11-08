@@ -31,8 +31,8 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
                 // @ts-ignore
                 'getDialogs',
                 undefined,
-                (draftPosts) => {
-                    return draftPosts;
+                () => {
+                    return '';
                 },
             ),
         );
