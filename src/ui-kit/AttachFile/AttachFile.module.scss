@@ -1,0 +1,8 @@
+.attach-file {
+  display: none;
+
+  &--label {
+    fill: var(--color-text-default);
+    cursor: pointer;
+  }
+}

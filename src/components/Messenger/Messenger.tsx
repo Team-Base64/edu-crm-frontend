@@ -17,8 +17,9 @@ export type ChatMessageType = {
     ismine: boolean;
     text: string;
     date: string;
-    id: number;
     chatid: number;
+    id?: number;
+    attaches?: string[];
 };
 const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
     const { data, isLoading, isSuccess, isError, error } =
@@ -30,13 +31,13 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
     const [sendMessage] = useSendMessageMutation();
 
     const messageBlock = data?.messages[chatid]?.map((message, index) => {
-        const date = new Date(message.date);
         return (
             <MessageItem
                 isMine={message.ismine}
                 text={message.text}
-                time={`${date.getUTCDate()}:${date.getUTCDate()}`}
+                time={new Date(message.date)}
                 key={message.date + index}
+                attaches={message.attaches}
             />
         );
     });
@@ -74,6 +75,8 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
                         message: {
                             chatid,
                             text: text.trim(),
+                            ismine: true,
+                            date: new Date().toISOString(),
                         },
                     })
                 }

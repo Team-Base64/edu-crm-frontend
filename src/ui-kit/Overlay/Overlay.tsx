@@ -5,7 +5,7 @@ import Container from '@ui-kit/Container/Container';
 import Icon from '@ui-kit/Icon/Icon';
 
 interface OverpayProps {
-    isShowning: boolean;
+    isShowing: boolean;
     closeOverlay: () => void;
     children?: React.ReactNode;
 }
@@ -24,7 +24,7 @@ const ANIMATION_TIME_MS = 490;
 const overlays: string[] = [];
 
 const Overlay: React.FC<OverpayProps> = ({
-    isShowning,
+    isShowing: isShowing,
     closeOverlay,
     children,
 }) => {
@@ -37,7 +37,7 @@ const Overlay: React.FC<OverpayProps> = ({
     }, [state]);
 
     useEffect(() => {
-        if (isShowning && prevState !== 'opened' && prevState !== 'opening') {
+        if (isShowing && prevState !== 'opened' && prevState !== 'opening') {
             setState('opening');
             setTimeout(() => {
                 setState('opened');
@@ -49,7 +49,7 @@ const Overlay: React.FC<OverpayProps> = ({
             return;
         }
 
-        if (!isShowning && prevState !== 'closed' && prevState !== 'closing') {
+        if (!isShowing && prevState !== 'closed' && prevState !== 'closing') {
             setState('closing');
             setTimeout(() => {
                 setState('closed');
@@ -60,7 +60,7 @@ const Overlay: React.FC<OverpayProps> = ({
             }, ANIMATION_TIME_MS);
             return;
         }
-    }, [id, prevState, isShowning]);
+    }, [id, prevState, isShowing]);
 
     const handleKeydown = useCallback(
         (e: KeyboardEvent) => {
@@ -109,43 +109,3 @@ const Overlay: React.FC<OverpayProps> = ({
 };
 
 export default Overlay;
-
-/*
-
-<div
-            className={[styles.overlay, overlayStateStyle[state]].join(' ')}
-            onClick={() => console.log('cl')}
-        >
-            <Button
-                onClick={closeOverlay}
-                classes={styles.closeButton}
-            >
-                X
-            </Button>
-            <Container
-                direction={'vertical'}
-                classes={styles.content}
-                onClick={(e) => e.stopPropagation()}
-            >
-                {children}
-            </Container>
-        </div>
-
-
-
-
-   const handleKeydown = useCallback((e: KeyboardEvent) => {
-        const { code } = e;
-        if (code === 'Escape') {
-            closeOverlay();
-        }
-    }, []);
-
-    useEffect(() => {
-        document.addEventListener('keydown', handleKeydown);
-        return () => {
-            document.removeEventListener('keydown', handleKeydown);
-        };
-    }, []);
-
- */

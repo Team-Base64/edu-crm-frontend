@@ -1,7 +1,7 @@
 import { UiComponentProps } from '@ui-kit/interfaces';
 import React, { useId } from 'react';
 // import styles from './ClassAnnounceList.module.scss';
-import { useGetClassAnnuncementsByIdQuery } from 'app/features/api/class/classSlice';
+import { useGetClassAnnouncementsByIdQuery } from 'app/features/api/class/classSlice';
 import ClassAnnounceCard from '@components/ClassAnnounceCard/ClassAnnounceCard';
 import Container from '@ui-kit/Container/Container';
 
@@ -11,7 +11,7 @@ interface ClassAnnounceListProps extends UiComponentProps {
 
 const ClassAnnounceList: React.FC<ClassAnnounceListProps> = ({ classId }) => {
     const listId = useId();
-    const { data, isError, error } = useGetClassAnnuncementsByIdQuery({
+    const { data, isError, error } = useGetClassAnnouncementsByIdQuery({
         id: classId,
     });
 
