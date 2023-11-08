@@ -31,7 +31,9 @@ const HomeworkSolutionWidget: React.FC<HomeworkSolutionWidgetProps> = ({
                 classes={styles.btnShowAll}
                 onClick={handleShowAll}
             >
-                Посмотреть все
+                 <Text type='p' weight='bold' size={2} classes={styles.btnShowAll}>
+                    Посмотреть все
+                </Text>
             </Button>
         </>
     );

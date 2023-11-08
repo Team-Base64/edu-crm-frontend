@@ -61,7 +61,7 @@ const ClassAnnounceCard: React.FC<ClassAnnounceCardProps> = ({
                     <Text
                         classes={[styles.name].join(' ')}
                         type="h"
-                        size={6}
+                        size={4}
                         weight="bold"
                     >
                         {firstName + (lastName ? ' ' + lastName : '')}
@@ -69,7 +69,7 @@ const ClassAnnounceCard: React.FC<ClassAnnounceCardProps> = ({
                     <Text
                         classes={[styles.date].join(' ')}
                         type="p"
-                        size={2}
+                        size={1}
                         weight="regular"
                     >
                         {new Date(time).toLocaleString('ru-RU')}

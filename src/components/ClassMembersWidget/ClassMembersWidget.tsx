@@ -31,7 +31,9 @@ const ClassMembersWidget: React.FC<ClassMembersWidgetProps> = ({
                 classes={styles.btnShowAll}
                 onClick={handleShowAll}
             >
-                Посмотреть всех
+                 <Text type='p' weight='bold' size={2} classes={styles.btnShowAll}>
+                    Посмотреть всех
+                </Text>
             </Button>
         </>
     );

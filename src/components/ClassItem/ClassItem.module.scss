@@ -1,7 +1,7 @@
 .card {
   justify-content: space-between;
   min-width: 0;
-  background-color: #fff8eb;
+  background-color: var(--color-accent-super-light);
   cursor: pointer;
 
   & .wrapper {

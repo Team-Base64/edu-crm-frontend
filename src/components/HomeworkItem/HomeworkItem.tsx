@@ -44,7 +44,7 @@ const HomeworkItem: React.FC<HomeworkItemProps> = ({
                 <Text
                     classes={[styles.text, styles.title].join(' ')}
                     type="h"
-                    size={6}
+                    size={5}
                     weight="bold"
                 >
                     {title}
@@ -52,7 +52,7 @@ const HomeworkItem: React.FC<HomeworkItemProps> = ({
                 <Text
                     classes={[styles.text, styles.description].join(' ')}
                     type="p"
-                    size={2}
+                    size={1}
                     weight="regular"
                 >
                     {description}

@@ -82,7 +82,7 @@ const HomeworkSolutionItem: React.FC<HomeworkSolutionItemProps> = ({
                     <Text
                         classes={[styles.text, styles.name].join(' ')}
                         type="h"
-                        size={6}
+                        size={5}
                         weight="bold"
                     >
                         {name}
@@ -90,7 +90,7 @@ const HomeworkSolutionItem: React.FC<HomeworkSolutionItemProps> = ({
                     <Text
                         classes={[styles.text, styles.title].join(' ')}
                         type="p"
-                        size={6}
+                        size={1}
                         weight="regular"
                     >
                         {title}
