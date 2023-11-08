@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import styles from './Chat.module.scss';
 import { MessengerHeader } from '@components/MessangerHeader/MessengerHeader.tsx';
 export const Chat: React.FC = () => {
-    const [chatID, setChatID] = useState<number>(1);
+    const [chatID, setChatID] = useState<number>(-1);
 
     return (
         <Container

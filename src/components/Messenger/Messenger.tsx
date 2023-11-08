@@ -58,7 +58,7 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
                 containerRef={messagesRef}
             >
                 {isLoading && <span>loading...</span>}
-                {isSuccess && messageBlock}
+                {isSuccess && chatid !== -1 && messageBlock}
                 {isError && <span>{error.toString()}</span>}
             </Container>
             <SendMessageArea
