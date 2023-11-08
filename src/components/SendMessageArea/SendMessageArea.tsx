@@ -72,19 +72,6 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
                     }
                 })
                 .catch((error) => console.error('sendAttaches: ', error));
-            // console.log('isSuccess', isSuccess, data);
-
-            // if (data) {
-            //     console.log('isSuccess inner');
-            //     sendMessage({
-            //         message: {
-            //             text: textAreaRef.current.value,
-            //             chatid: Number(id),
-            //             ismine: true,
-            //             date: new Date().toISOString(),
-            //         },
-            //     });
-            // }
         } else {
             setAttaches([]);
             onMessageSend(textAreaRef.current.value);
