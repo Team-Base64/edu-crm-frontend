@@ -33,24 +33,24 @@ const AppRouter: React.FC = () => {
                 </Route>
 
                 {/* Private */}
-                <Route element={<RequireAuth />}>
-                    <Route element={<MainLayout />}>
+                {/*<Route element={<RequireAuth />}>*/}
+                <Route element={<MainLayout />}>
+                    <Route
+                        path={AppRoutes.messenger}
+                        element={<Chat />}
+                    />
+                    <Route path={AppRoutes.classes}>
                         <Route
-                            path={AppRoutes.messenger}
-                            element={<Chat />}
+                            index
+                            element={<ClassesPage />}
                         />
-                        <Route path={AppRoutes.classes}>
-                            <Route
-                                index
-                                element={<ClassesPage />}
-                            />
-                            <Route
-                                path={AppRoutes.class}
-                                element={<ClassPage />}
-                            />
-                        </Route>
+                        <Route
+                            path={AppRoutes.class}
+                            element={<ClassPage />}
+                        />
                     </Route>
                 </Route>
+                {/*</Route>*/}
             </Route>
         </Routes>
     );
