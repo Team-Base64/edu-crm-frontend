@@ -10,9 +10,9 @@ import Icon from '@ui-kit/Icon/Icon';
 import Container from '@ui-kit/Container/Container';
 import Text from '@ui-kit/Text/Text';
 
-interface LoginFormProps extends UiComponentProps { }
+interface LoginFormProps extends UiComponentProps {}
 
-const LoginForm: React.FC<LoginFormProps> = ({classes}) => {
+const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -41,8 +41,8 @@ const LoginForm: React.FC<LoginFormProps> = ({classes}) => {
         login({
             payload: {
                 username: username,
-                password: password
-            }
+                password: password,
+            },
         });
     };
 

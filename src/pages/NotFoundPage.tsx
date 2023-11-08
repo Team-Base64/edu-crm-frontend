@@ -7,14 +7,25 @@ const NotFoundPage: React.FC = () => {
     const fromLocation = useLocation();
     const fromPath = fromLocation?.state?.from.pathname || 'NW';
     return (
-        <Container direction='vertical'>
-            <Text type='h' size={3} weight='bold'>
+        <Container direction="vertical">
+            <Text
+                type="h"
+                size={3}
+                weight="bold"
+            >
                 404 Not Found
             </Text>
-            <Text type='p' size={1} weight='bold'>
+            <Text
+                type="p"
+                size={1}
+                weight="bold"
+            >
                 Maybe page in progress...
             </Text>
-            <div style={{height: '50px', width: '50px'}} className='test'/>
+            <div
+                style={{ height: '50px', width: '50px' }}
+                className="test"
+            />
         </Container>
     );
 };

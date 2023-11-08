@@ -12,7 +12,7 @@ import { chatPaths } from '@app/features/chat/chatPaths';
 const man_photo_src = 'https://flirtic.com/media/photos/1/e/7/1e733948480.jpg';
 
 export const chatSlice = appApi.injectEndpoints({
- endpoints: (build) => ({
+    endpoints: (build) => ({
         getLiveMessages: build.query<apiChatMessageType, messageWS>({
             query: ({ chatid }) => ({
                 url: chatPaths.dialog(chatid),
@@ -132,7 +132,7 @@ export const chatSlice = appApi.injectEndpoints({
                 formData.append('file', attaches[0]);
                 return {
                     url:
-                    // TODO !!!
+                        // TODO !!!
                         `http://127.0.0.1:8081/api/attach?chatid=${message.chatid}` +
                         (message.text
                             ? `&text=${encodeURI(message.text)}`

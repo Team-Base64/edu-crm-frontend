@@ -1,5 +1,8 @@
 import appApi from '@app/appApi.ts';
-import { dialogSelectByIDType, dialogSelectType } from '@app/features/dialog/dialogModel';
+import {
+    dialogSelectByIDType,
+    dialogSelectType,
+} from '@app/features/dialog/dialogModel';
 import { dialogPaths } from '@app/features/dialog/dialogPaths';
 
 export const dialogSlice = appApi.injectEndpoints({
