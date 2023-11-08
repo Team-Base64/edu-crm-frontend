@@ -14,11 +14,11 @@ export const dialogSlice = appApi.injectEndpoints({
                     method: 'GET',
                 };
             },
-            transformResponse({ dialogs }: { dialogs: dialogSelectType[] }) {
+            transformResponse({ chats }: { chats: dialogSelectType[] }) {
                 const newDialogs: dialogSelectByIDType = {};
 
-                dialogs.forEach((dialog) => {
-                    newDialogs[dialog.chatid] = dialog;
+                chats.forEach((chats) => {
+                    newDialogs[chats.chatid] = chats;
                 });
 
                 return { dialogs: newDialogs };
