@@ -17,13 +17,15 @@ const MessageSelector: React.FC<MessageSelectorProps> = ({
     const { data, isLoading, isSuccess, isError, error } =
         useGetDialogsQuery(null);
 
-    const dialogList = Object.values(data?.dialogs ?? {}).map((dialog) => (
-        <MessageSelectDialogItem
-            data={dialog}
-            key={dialog.chatid}
-            selectDialog={() => setChatID(dialog.chatid)}
-        ></MessageSelectDialogItem>
-    ));
+    const dialogList = Object.values(data?.dialogs ?? {})
+        .sort((a, b) => (new Date(a.date) > new Date(b.date) ? 1 : -1))
+        .map((dialog) => (
+            <MessageSelectDialogItem
+                data={dialog}
+                key={dialog.chatid}
+                selectDialog={() => setChatID(dialog.chatid)}
+            ></MessageSelectDialogItem>
+        ));
 
     return (
         <Container
