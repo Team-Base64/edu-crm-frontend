@@ -141,7 +141,7 @@ export const chatSlice = appApi.injectEndpoints({
                     body: formData,
                     formData: true,
                     headers: {
-                        'Content-Type': 'multipart/form-data;',
+                        //'Content-Type': 'multipart/form-data;',
                     },
                 };
             },
