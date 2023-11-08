@@ -2,6 +2,7 @@ import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import React from 'react';
 import Container from '@ui-kit/Container/Container.tsx';
 import { ChatAttachment } from '@components/ChatAttachment/ChatAttachment.tsx';
+import styles from './ChatAttachmentsList.module.scss';
 
 interface ChatAttachmentsListProps extends UiComponentProps {
     useFiles: [
@@ -33,5 +34,13 @@ export const ChatAttachmentsList: React.FC<ChatAttachmentsListProps> = ({
         );
     });
 
-    return <Container direction={'vertical'}>{filesLayout}</Container>;
+    return (
+        <Container
+            direction={'vertical'}
+            classes={filesLayout?.length ? styles.chatAttachList : ''}
+            layout={'sub'}
+        >
+            {filesLayout}
+        </Container>
+    );
 };

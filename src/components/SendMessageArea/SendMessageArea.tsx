@@ -32,7 +32,7 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
 
     const [isDisabledSend, setIsDisabledSend] = useState(true);
 
-    const [sendAttaches, { isSuccess, error }] = useSendChatAttachesMutation();
+    const [sendAttaches, { isError, error }] = useSendChatAttachesMutation();
 
     const sendMessage = () => {
         if (!textAreaRef.current) {
@@ -49,11 +49,10 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
                     date: new Date().toISOString(),
                 },
             });
+            setAttaches([]);
+            textAreaRef.current.value = '';
 
-            if (isSuccess) {
-                setAttaches([]);
-                textAreaRef.current.value = '';
-            } else {
+            if (isError) {
                 console.error('error: ', error);
             }
         } else {
@@ -96,9 +95,6 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
             classes={styles.sendMessageArea}
             direction={'vertical'}
         >
-            <ChatAttachmentsList
-                useFiles={[attaches, setAttaches]}
-            ></ChatAttachmentsList>
             <form
                 className={styles.form}
                 name={'sendMessage form'}
@@ -107,7 +103,7 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
             >
                 <AttachFile
                     setFilesState={setAttaches}
-                    maxFilesToAttach={5}
+                    maxFilesToAttach={1}
                 >
                     <Icon
                         name={'attachIcon'}
@@ -140,6 +136,9 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
                     />
                 </Button>
             </form>
+            <ChatAttachmentsList
+                useFiles={[attaches, setAttaches]}
+            ></ChatAttachmentsList>
         </Container>
     );
 };

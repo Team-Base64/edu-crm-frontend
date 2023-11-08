@@ -18,4 +18,4 @@ export const getUTCDate = (date: Date) =>
     date.toLocaleDateString().replace(date.toLocaleTimeString(), '');
 
 export const getUTCTime = (date: Date) =>
-    `${date.getUTCMinutes()}:${date.getUTCMinutes()}`;
+    `${date.getUTCHours()}:${date.getUTCMinutes()}`;

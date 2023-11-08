@@ -1,6 +1,7 @@
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
-import React from 'react';
+import React, { useRef } from 'react';
 import styles from './AttachFile.module.scss';
+import Button from '@ui-kit/Button/Button.tsx';
 
 interface AttachFileProps extends UiComponentProps {
     setFilesState: React.Dispatch<React.SetStateAction<File[] | undefined>>;
@@ -12,6 +13,7 @@ export const AttachFile: React.FC<AttachFileProps> = ({
     maxFilesToAttach,
     children,
 }) => {
+    const inputRef = useRef<HTMLInputElement>(null);
     const templateHandler = (
         handler: (target: HTMLInputElement) => void,
         { target }: React.FormEvent<HTMLInputElement>,
@@ -19,15 +21,16 @@ export const AttachFile: React.FC<AttachFileProps> = ({
         if (
             target instanceof HTMLInputElement &&
             target.files &&
-            target.files.length < maxFilesToAttach
+            target.files.length <= maxFilesToAttach
         ) {
             handler(target);
         } else {
-            console.warn('too many');
+            console.warn('too many files attached');
         }
     };
 
     const handleOnChange = templateHandler.bind(this, (target) => {
+        console.log('asdas');
         setFilesState(Array.from(target.files ?? []));
         target.files = null;
     });
@@ -38,7 +41,13 @@ export const AttachFile: React.FC<AttachFileProps> = ({
                 htmlFor={'attach-input'}
                 className={styles.attachFileLabel}
             >
-                {children}
+                <Button
+                    type={'link'}
+                    size={'m'}
+                    onClick={() => inputRef.current?.click()}
+                >
+                    {children}
+                </Button>
             </label>
             <input
                 className={styles.attachFile}
@@ -46,8 +55,7 @@ export const AttachFile: React.FC<AttachFileProps> = ({
                 id={'attach-input'}
                 accept={'.pdf, image/*'}
                 onChange={handleOnChange}
-                // onLoad={handleOnLoad}
-                multiple
+                ref={inputRef}
             ></input>
         </>
     );

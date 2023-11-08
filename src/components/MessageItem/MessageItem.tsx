@@ -3,12 +3,16 @@ import { UiComponentProps } from '@ui-kit/interfaces';
 import Container from '@ui-kit/Container/Container';
 import styles from './MessageItem.module.scss';
 import Text from '@ui-kit/Text/Text.tsx';
+import { getUTCTime } from '../../utils/common/dateRepresentation.ts';
+import { ChatAttachment } from '@components/ChatAttachment/ChatAttachment.tsx';
+import { noop } from '../../app/consts.ts';
 
 interface MessageItemProps extends UiComponentProps {
     id?: number;
     text: string;
-    time: string;
+    time: Date;
     isMine: boolean;
+    attaches?: string[];
 }
 
 const MessageItem: React.FC<MessageItemProps> = memo(function MessageItem({
@@ -16,15 +20,28 @@ const MessageItem: React.FC<MessageItemProps> = memo(function MessageItem({
     text,
     time,
     isMine,
+    attaches,
 }) {
+    const elementsAttaches = attaches?.map((attachment, index) => {
+        return (
+            <ChatAttachment
+                file={attachment}
+                key={id + time.toString() + index}
+                onRemoveClick={noop}
+                isStatic={true}
+            ></ChatAttachment>
+        );
+    });
+
     return (
         <Container
             key={id}
             classes={[styles.messageItem, isMine ? styles.mine : ''].join(' ')}
             direction={'horizontal'}
         >
-            <div
-                className={[
+            <Container
+                direction={'grid'}
+                classes={[
                     styles.messageItemContent,
                     isMine ? styles.mine : '',
                 ].join(' ')}
@@ -34,17 +51,18 @@ const MessageItem: React.FC<MessageItemProps> = memo(function MessageItem({
                     size={1}
                     classes={styles.messageItemContent__text}
                 >
-                    {text}
+                    {text + '\n' + attaches && (attaches?.at(0) ?? '')}
                 </Text>
+                {elementsAttaches}
                 <Text
                     type={'p'}
                     size={2}
                     classes={styles.messageItemContent__time}
                     color={'light'}
                 >
-                    {time}
+                    {getUTCTime(time)}
                 </Text>
-            </div>
+            </Container>
             <div className={styles.polygon}></div>
         </Container>
     );
