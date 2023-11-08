@@ -12,7 +12,7 @@ import Text from '@ui-kit/Text/Text';
 
 interface LoginFormProps extends UiComponentProps { }
 
-const LoginForm: React.FC<LoginFormProps> = () => {
+const LoginForm: React.FC<LoginFormProps> = ({classes}) => {
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -63,6 +63,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
                 direction={'vertical'}
                 layout={'defaultBase'}
                 gap={'l'}
+                classes={classes}
             >
                 <Text
                     type={'h'}

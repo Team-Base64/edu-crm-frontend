@@ -5,6 +5,7 @@ $gap: 16px;
 .main-layout {
     display: flex;
     align-items: stretch;
+    flex-grow: 1;
 
     gap: $gap;
 
