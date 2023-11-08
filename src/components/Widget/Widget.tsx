@@ -32,7 +32,7 @@ const Widget: React.FC<WidgetProps> = ({
                 >
                     <Text
                         type="h"
-                        size={5}
+                        size={4}
                         weight="bold"
                     >
                         {title}

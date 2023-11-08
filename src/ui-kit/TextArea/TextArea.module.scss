@@ -15,10 +15,12 @@ $scrollbar-widht: 8px;
   &::-webkit-scrollbar {
     background-color: rgba(0, 0, 0, 0);
     width: $scrollbar-widht;
+    height: $scrollbar-widht;
   }
 
   &::-webkit-scrollbar-button {
     height: 16px;
+    width: 16px;
     background-color: rgba(0, 0, 0, 0);
   }
 

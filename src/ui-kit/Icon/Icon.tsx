@@ -23,6 +23,11 @@ const iconName = {
     loading: Icons.Loading,
     attachIcon: Icons.AttachIcon,
     fileIcon: Icons.FileIcon,
+    user: Icons.UserLine,
+    close: Icons.CloseLine,
+    eye: Icons.EyeLine,
+    eyeCrossed: Icons.EyeCrossedLine,
+    lock: Icons.LockLine,
 };
 export type IconName = keyof typeof iconName;
 

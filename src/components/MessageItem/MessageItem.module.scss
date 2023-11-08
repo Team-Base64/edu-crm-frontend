@@ -7,7 +7,7 @@ $border-radius: var(--border-radius-default);
   width: calc(2 * $border-radius);
   height: calc(2 * $border-radius);
   clip-path: polygon(0% 0%, 50% 0, 100% 100%, 0% 100%);
-  z-index: -1;
+  z-index: 0;
 }
 
 .message-item {
@@ -29,7 +29,7 @@ $border-radius: var(--border-radius-default);
     bottom: 0;
     left: calc(0px - $border-radius);
     transform: scale(-1, 1);
-    background-color: var(--color-bg-dark-light);
+    background-color: var(--color-bg-default);
   }
 
   &.mine {
@@ -47,7 +47,7 @@ $border-radius: var(--border-radius-default);
     align-items: end;
     word-break: break-word;
 
-    background-color: var(--color-bg-dark-light);
+    background-color: var(--color-bg-default);
     padding: 16px 16px;
     border-radius: var(--border-radius-default);
 

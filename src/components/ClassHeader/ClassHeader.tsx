@@ -1,10 +1,10 @@
 import Container from '@ui-kit/Container/Container';
 import Text from '@ui-kit/Text/Text';
 import { UiComponentProps } from '@ui-kit/interfaces';
-import { useGetClassByIdQuery } from 'app/features/api/class/classSlice';
 import React from 'react';
 
 import styles from './ClassHeader.module.scss';
+import { useGetClassByIdQuery } from '@app/features/class/classSlice';
 
 interface ClassHeaderProps extends UiComponentProps {
     classId: string | number;
