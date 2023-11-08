@@ -8,25 +8,25 @@ export const studentsMock: Student[] = [
         id: 0,
         name: 'George Illarionov',
         avatarSrc: avatarSrc,
-        social_network: 'tg',
+        socialType: 'tg',
     },
     {
         id: 1,
         name: 'Vlad Pinevich',
         avatarSrc: avatarSrc,
-        social_network: 'vk',
+        socialType: 'vk',
     },
     {
         id: 2,
         name: 'Leo Pak',
         avatarSrc: avatarSrc,
-        social_network: 'tg',
+        socialType: 'tg',
     },
     {
         id: 3,
         name: 'George Illarionov',
         avatarSrc: avatarSrc,
-        social_network: 'vk',
+        socialType: 'vk',
     },
 ];
 

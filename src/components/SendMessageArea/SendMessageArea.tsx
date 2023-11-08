@@ -58,11 +58,11 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
                         sendMessage({
                             message: {
                                 text: textAreaRef.current?.value ?? '',
-                                chatid: Number(id),
+                                chatID: Number(id),
                                 ismine: true,
                                 date: new Date().toISOString(),
                                 attaches: [result.data.file],
-                                socialtype:
+                                socialType:
                                     dialogData.data.dialogs[Number(id)]
                                         .socialtype,
                             },

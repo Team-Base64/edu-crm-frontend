@@ -22,7 +22,7 @@ export const messagesMock: netChatMessage[] = [
         text: middleLongTextMock,
         date: new Date().toISOString(),
         channel: 'chat',
-        chatid: 1,
+        chatID: 1,
         id: 1,
     },
     {
@@ -30,7 +30,7 @@ export const messagesMock: netChatMessage[] = [
         text: 'msg 2',
         date: new Date().toISOString(),
         channel: 'chat',
-        chatid: 2,
+        chatID: 2,
         id: 2,
     },
 ];

@@ -21,6 +21,7 @@ export const homeworkSlice = appApi.injectEndpoints({
             { id: string | number }
         >({
             query: ({ id }) => {
+                console.log('slice ', id);
                 return {
                     url: homeworkPaths.homework(id),
                     method: 'GET',
