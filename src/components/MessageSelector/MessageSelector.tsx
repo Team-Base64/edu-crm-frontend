@@ -18,7 +18,7 @@ const MessageSelector: React.FC<MessageSelectorProps> = ({
         useGetDialogsQuery(null);
 
     const dialogList = Object.values(data?.dialogs ?? {})
-        .sort((a, b) => (new Date(a.date) > new Date(b.date) ? 1 : -1))
+        .sort((a, b) => (new Date(a.date) < new Date(b.date) ? 1 : -1))
         .map((dialog) => (
             <MessageSelectDialogItem
                 data={dialog}

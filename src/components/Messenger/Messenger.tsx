@@ -9,6 +9,8 @@ import {
     useSendMessageMutation,
 } from '@app/features/chat/chatSlice.ts';
 import { useGetDialogsQuery } from '@app/features/dialog/dialogSlice.ts';
+import { useAppDispatch } from '@app/hooks/baseHooks.ts';
+import appApi from '@app/appApi.ts';
 
 interface SendMessageAreaProps extends UiComponentProps {
     chatid: number;
@@ -35,6 +37,8 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
             />
         );
     });
+
+    useGetDialogsQuery(null);
 
     const messagesRef = useRef<HTMLDivElement>(null);
 

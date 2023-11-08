@@ -24,6 +24,10 @@ export const dialogSlice = appApi.injectEndpoints({
 
                 return { dialogs: newDialogs };
             },
+            forceRefetch() {
+                // fix
+                return true;
+            },
         }),
     }),
 });
