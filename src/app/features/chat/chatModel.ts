@@ -12,6 +12,7 @@ export type ChatMessageType = {
     chatid: number;
     id?: number;
     attaches?: string[];
+    socialtype?: string;
 };
 
 export interface postChatMessageType extends ChatMessageType {

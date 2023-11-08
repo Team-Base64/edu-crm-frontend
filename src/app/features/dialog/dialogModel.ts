@@ -5,6 +5,7 @@ export type dialogSelectType = {
     isread: boolean;
     text: string;
     date: string;
+    socialtype: string;
 };
 
 export interface dialogSelectByIDType {

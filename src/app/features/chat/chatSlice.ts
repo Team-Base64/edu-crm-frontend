@@ -96,6 +96,11 @@ export const chatSlice = appApi.injectEndpoints({
         sendMessage: build.mutation<unknown, { message: postChatMessageType }>({
             queryFn: (args) => {
                 const socket = getSocket();
+                // const state = api.endpoint;
+                // console.log('state', state.api.);
+
+                args.message.chatid;
+                args.message.socialtype;
                 socket.send(JSON.stringify(args.message));
                 return { data: [] };
             },

@@ -43,6 +43,7 @@ export const dialogListMock: dialogSelectType[] = [
         isread: true,
         text: 'longask dnkasndns andkjsdjnandkasndn asndkasstring',
         date: new Date().toISOString(),
+        socialtype: 'tg',
     },
     {
         chatid: 2,
@@ -51,5 +52,6 @@ export const dialogListMock: dialogSelectType[] = [
         isread: false,
         text: 'long asndkasstring',
         date: new Date().toISOString(),
+        socialtype: 'vk',
     },
 ];

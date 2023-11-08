@@ -22,7 +22,7 @@ export const chatHandlers = [
 
     http.get(`${appPaths.basePath}${appPaths.dialogs}`, () =>
         HttpResponse.json(
-            { dialogs: dialogListMock },
+            { chats: dialogListMock },
             { status: 200, headers: { ...defaultHeadersMock } },
         ),
     ),

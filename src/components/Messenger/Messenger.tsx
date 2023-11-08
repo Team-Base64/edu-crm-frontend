@@ -8,6 +8,7 @@ import {
     useGetLiveMessagesQuery,
     useSendMessageMutation,
 } from '@app/features/chat/chatSlice.ts';
+import { useGetDialogsQuery } from '@app/features/dialog/dialogSlice.ts';
 
 interface SendMessageAreaProps extends UiComponentProps {
     chatid: number;
@@ -20,6 +21,8 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
         });
 
     const [sendMessage] = useSendMessageMutation();
+
+    const dialogData = useGetDialogsQuery(null);
 
     const messageBlock = data?.messages[chatid]?.map((message, index) => {
         return (
@@ -61,16 +64,20 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
             <SendMessageArea
                 id={chatid.toString()}
                 name={'SendMessageArea'}
-                onMessageSend={(text: string) =>
-                    sendMessage({
-                        message: {
-                            chatid,
-                            text: text.trim(),
-                            ismine: true,
-                            date: new Date().toISOString(),
-                        },
-                    })
-                }
+                onMessageSend={(text: string) => {
+                    if (dialogData.data) {
+                        sendMessage({
+                            message: {
+                                chatid,
+                                text: text.trim(),
+                                ismine: true,
+                                date: new Date().toISOString(),
+                                socialtype:
+                                    dialogData.data.dialogs[chatid].socialtype,
+                            },
+                        });
+                    }
+                }}
             ></SendMessageArea>
         </Container>
     );

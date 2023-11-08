@@ -17,6 +17,7 @@ import {
     useSendChatAttachesMutation,
     useSendMessageMutation,
 } from '@app/features/chat/chatSlice';
+import { useGetDialogsQuery } from '@app/features/dialog/dialogSlice.ts';
 
 interface SendMessageAreaProps extends UiComponentProps {
     id: string;
@@ -39,6 +40,8 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
 
     const [sendMessage] = useSendMessageMutation();
 
+    const dialogData = useGetDialogsQuery(null);
+
     const sendMessageHandler = () => {
         if (!textAreaRef.current) {
             return;
@@ -51,9 +54,7 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
                 type: 'chat',
             })
                 .then((result) => {
-                    if ('data' in result) {
-                        console.log(result.data.file);
-
+                    if ('data' in result && dialogData.data) {
                         sendMessage({
                             message: {
                                 text: textAreaRef.current?.value ?? '',
@@ -61,6 +62,9 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
                                 ismine: true,
                                 date: new Date().toISOString(),
                                 attaches: [result.data.file],
+                                socialtype:
+                                    dialogData.data.dialogs[Number(id)]
+                                        .socialtype,
                             },
                         });
                     }
