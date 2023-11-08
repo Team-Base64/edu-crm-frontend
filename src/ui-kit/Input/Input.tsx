@@ -14,6 +14,7 @@ const borderType = {
     thin: styles.containerBorderThin,
     default: styles.containerBorderDefault,
     thick: styles.containerBorderThick,
+    none: '',
 };
 
 type BorderType = keyof typeof borderType;

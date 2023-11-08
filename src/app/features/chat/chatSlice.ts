@@ -3,15 +3,16 @@ import appApi from '@app/appApi.ts';
 import { getSocket, messageWS } from '@app/websocket';
 import {
     apiChatMessageType,
-    chatMessageType,
+    attachmentsType,
     ChatMessageType,
+    postChatMessageType,
 } from '@app/features/chat/chatModel';
 import { chatPaths } from '@app/features/chat/chatPaths';
 
 const man_photo_src = 'https://flirtic.com/media/photos/1/e/7/1e733948480.jpg';
 
 export const chatSlice = appApi.injectEndpoints({
-    endpoints: (build) => ({
+ endpoints: (build) => ({
         getLiveMessages: build.query<apiChatMessageType, messageWS>({
             query: ({ chatid }) => ({
                 url: chatPaths.dialog(chatid),
@@ -91,7 +92,7 @@ export const chatSlice = appApi.injectEndpoints({
                 socket.close();
             },
         }),
-        sendMessage: build.mutation<unknown, { message: chatMessageType }>({
+        sendMessage: build.mutation<unknown, { message: postChatMessageType }>({
             queryFn: (args) => {
                 const socket = getSocket();
                 socket.send(JSON.stringify(args.message));
@@ -108,16 +109,7 @@ export const chatSlice = appApi.injectEndpoints({
                         (draft) => {
                             draft.messages[message.chatid] = [
                                 ...(draft.messages[message.chatid] ?? []),
-                                {
-                                    date: new Date().toISOString(),
-                                    // user: {
-                                    //     avatar: man_photo_src,
-                                    //     name: 'User store',
-                                    // },
-                                    ismine: true,
-                                    ...message,
-                                    id: 10,
-                                },
+                                message,
                             ];
                         },
                     ),
@@ -134,7 +126,53 @@ export const chatSlice = appApi.injectEndpoints({
                 //}
             },
         }),
+        sendChatAttaches: build.mutation<unknown, attachmentsType>({
+            query: ({ attaches, message }) => {
+                const formData = new FormData();
+                formData.append('file', attaches[0]);
+                return {
+                    url:
+                    // TODO !!!
+                        `http://127.0.0.1:8081/api/attach?chatid=${message.chatid}` +
+                        (message.text
+                            ? `&text=${encodeURI(message.text)}`
+                            : ''),
+                    method: 'POST',
+                    body: formData,
+                    formData: true,
+                    headers: {
+                        'Content-Type': 'multipart/form-data;',
+                    },
+                };
+            },
+            onQueryStarted(
+                { attaches, message },
+                { dispatch /*, queryFulfilled*/ },
+            ) {
+                const UrlAttaches = attaches.map((attach) =>
+                    URL.createObjectURL(attach),
+                );
+                // revokeObjectURL
+                dispatch(
+                    chatSlice.util.updateQueryData(
+                        'getLiveMessages',
+                        { channel: 'chat', chatid: message.chatid },
+                        (draft) => {
+                            message.attaches = UrlAttaches;
+                            draft.messages[message.chatid] = [
+                                ...(draft.messages[message.chatid] ?? []),
+                                message,
+                            ];
+                        },
+                    ),
+                );
+            },
+        }),
     }),
 });
 
-export const { useGetLiveMessagesQuery, useSendMessageMutation } = chatSlice;
+export const {
+    useGetLiveMessagesQuery,
+    useSendMessageMutation,
+    useSendChatAttachesMutation,
+} = chatSlice;

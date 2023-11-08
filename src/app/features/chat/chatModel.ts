@@ -9,6 +9,16 @@ export type ChatMessageType = {
     ismine: boolean;
     text: string;
     date: string;
-    id: number;
     chatid: number;
+    id?: number;
+    attaches?: string[];
+};
+
+export interface postChatMessageType extends ChatMessageType {
+    // attachments: File[];
+}
+
+export type attachmentsType = {
+    attaches: File[];
+    message: ChatMessageType;
 };

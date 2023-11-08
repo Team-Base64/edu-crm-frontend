@@ -35,7 +35,8 @@
     &-base {
       background-color: var(--color-bg-light);
       border-radius: var(--border-radius-default);
-      &--default{
+
+      &--default {
         @extend .container--layout-base;
         padding: getVar(padding, t, b, large) getVar(padding, l, r, large);
       }

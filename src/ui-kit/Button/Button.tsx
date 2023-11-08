@@ -7,6 +7,7 @@ const btnSize = {
     s: styles.small,
     m: styles.medium,
     l: styles.large,
+    '': '',
 };
 export type ButtonSize = keyof typeof btnSize;
 

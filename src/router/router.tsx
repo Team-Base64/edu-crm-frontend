@@ -3,7 +3,6 @@ import RequireAuth from '@hoc/RequireAuth';
 import LandingPage from '@pages/LandingPage';
 import LoginPage from '@pages/LoginPage/LoginPage';
 import NotFoundPage from '@pages/NotFoundPage';
-import TestPage from '@pages/TestPage';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import AppRoutes from './routes';
@@ -40,10 +39,6 @@ const AppRouter: React.FC = () => {
                             path={AppRoutes.messenger}
                             element={<Chat />}
                         />
-                        <Route
-                            path={AppRoutes.test}
-                            element={<TestPage />}
-                        />
                         <Route path={AppRoutes.classes}>
                             <Route
                                 index
@@ -52,10 +47,6 @@ const AppRouter: React.FC = () => {
                             <Route
                                 path={AppRoutes.class}
                                 element={<ClassPage />}
-                            />
-                            <Route
-                                path={AppRoutes.test}
-                                element={<TestPage />}
                             />
                         </Route>
                     </Route>

@@ -46,8 +46,8 @@ const SidebarButton: React.FC<SidebarButtonProps> = ({
                     <Text
                         classes={styles.title}
                         type="h"
-                        size={6}
-                        weight="bold"
+                        size={5}
+                        weight={'regular'}
                     >
                         {title}
                     </Text>

@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import styles from './MainLayout.module.scss';
 import Sidebar from '@components/Sidebar/Sidebar';
+import React from 'react';
 
 const MainLayout: React.FC = () => {
     return (

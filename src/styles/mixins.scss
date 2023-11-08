@@ -1,0 +1,13 @@
+@mixin default-scrollbar-style {
+  scrollbar-width: thin;
+  scrollbar-gutter: stable;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-text-light);
+    border-radius: var(--border-radius-default);
+  }
+}

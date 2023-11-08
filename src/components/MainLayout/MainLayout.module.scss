@@ -3,9 +3,6 @@ $padding-rl: 16px; // TODO
 $gap: 16px;
 
 .main-layout {
-    background-color: bisque;
-
-    position: relative;
     display: flex;
     align-items: stretch;
 
@@ -27,5 +24,6 @@ $gap: 16px;
         display: flex;
         overflow-x: hidden;
         width: 100%;
+        flex-grow: 1;
     }
 }

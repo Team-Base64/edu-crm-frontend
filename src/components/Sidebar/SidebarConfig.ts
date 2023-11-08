@@ -39,11 +39,6 @@ const config: SidebarConfig = [
             iconName: 'settingsLine',
             path: AppRoutes.settings,
         },
-        {
-            title: 'Тестовая',
-            iconName: 'settingsLine',
-            path: AppRoutes.test,
-        },
     ],
     [
         {

@@ -6,3 +6,7 @@ export type dialogSelectType = {
     text: string;
     date: string;
 };
+
+export interface dialogSelectByIDType {
+    [index: number]: dialogSelectType;
+}

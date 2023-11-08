@@ -39,7 +39,7 @@ const ClassHomeworksWidget: React.FC<ClassHomeworksWidgetProps> = ({
     return (
         <>
             <Overlay
-                isShowning={isOverlay}
+                isShowing={isOverlay}
                 closeOverlay={() => setIsOverlay(false)}
             >
                 <Container

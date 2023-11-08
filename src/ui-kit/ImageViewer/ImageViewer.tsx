@@ -15,8 +15,8 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ src, classes }) => {
     const [rightArrow, setRightArrow] = useState<boolean>(false);
 
     useEffect(() => {
-        setLeftArrow(index > 0 ? true : false);
-        setRightArrow(index < src.length - 1 ? true : false);
+        setLeftArrow(index > 0);
+        setRightArrow(index < src.length - 1);
     }, [src, index, setLeftArrow, setRightArrow]);
 
     const prev = useCallback(() => {
