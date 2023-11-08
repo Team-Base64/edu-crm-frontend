@@ -55,6 +55,7 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
             })
                 .then((result) => {
                     if ('data' in result && dialogData.data) {
+                        console.log('result.data.file: ', result.data.file);
                         sendMessage({
                             message: {
                                 text: textAreaRef.current?.value ?? '',

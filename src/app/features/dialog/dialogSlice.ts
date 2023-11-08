@@ -14,6 +14,7 @@ export const dialogSlice = appApi.injectEndpoints({
                     method: 'GET',
                 };
             },
+            providesTags: ['getDialogs'],
             transformResponse({ chats }: { chats: dialogSelectType[] }) {
                 const newDialogs: dialogSelectByIDType = {};
 

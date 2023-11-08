@@ -104,6 +104,7 @@ export const chatSlice = appApi.injectEndpoints({
                 socket.send(JSON.stringify(args.message));
                 return { data: [] };
             },
+            invalidatesTags: ['getDialogs'],
             async onQueryStarted(
                 { message },
                 { dispatch /*, queryFulfilled*/ },
