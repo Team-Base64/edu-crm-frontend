@@ -4,6 +4,7 @@ import {
     dialogSelectType,
 } from '@app/features/dialog/dialogModel';
 import { dialogPaths } from '@app/features/dialog/dialogPaths';
+import { messageWS } from '@app/websocket.ts';
 
 export const dialogSlice = appApi.injectEndpoints({
     endpoints: (build) => ({
@@ -28,6 +29,7 @@ export const dialogSlice = appApi.injectEndpoints({
                 // fix
                 return true;
             },
+            serializeQueryArgs: () => '',
         }),
     }),
 });
