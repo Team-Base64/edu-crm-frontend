@@ -1,4 +1,4 @@
-import { HomeworkTask } from "@app/features/homework/homeworkModel";
+import { HomeworkTask, HomeworkTaskRaw } from "@app/features/homework/homeworkModel";
 import Button from "@ui-kit/Button/Button";
 import Container from "@ui-kit/Container/Container";
 import Icon from "@ui-kit/Icon/Icon";
@@ -8,7 +8,7 @@ import styles from './HomeworkTask.module.scss';
 
 interface TaskItemProps extends UiComponentProps {
     index: number
-    task: HomeworkTask;
+    task: HomeworkTaskRaw;
     onDelete?: () => void;
 }
 

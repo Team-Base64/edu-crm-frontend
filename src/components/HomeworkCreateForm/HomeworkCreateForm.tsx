@@ -1,5 +1,5 @@
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import Container from '@ui-kit/Container/Container';
 import Input from '@ui-kit/Input/Input';
@@ -10,21 +10,21 @@ import { v4 as uuid } from "uuid";
 import styles from './HomeworkCreateForm.module.scss';
 import Overlay from '@ui-kit/Overlay/Overlay';
 import Widget from '@components/Widget/Widget';
-import { HomeworkTask } from '@app/features/homework/homeworkModel';
+import { HomeworkTask, HomeworkTaskRaw } from '@app/features/homework/homeworkModel';
 import EmptyItem from '@components/EmptyItem/EmptyItem';
 import Text from '@ui-kit/Text/Text';
 import TaskItem from './HomeworkTask';
 import TaskCreateForm from './HomeworkTaskCreateForm';
 import { useCreateHomeworkMutation } from '@app/features/homework/homeworkSlice';
 
-import { useLocation } from 'react-router-dom';
+import { useSendChatAttachesMutation } from '@app/features/chat/chatSlice';
 
 interface HomeworkCreateFormProps extends UiComponentProps {
     onSuccess?: () => void;
     classId: string | number;
 }
 
-interface Item extends HomeworkTask {
+interface Item extends HomeworkTaskRaw {
     uuid: string;
 }
 
@@ -33,11 +33,24 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ classId }) => {
     const [tasks, setTasks] = useState<Item[]>([]);
     const formRef = useRef<HTMLFormElement>(null);
 
+    const [lock, setLock] = useState<boolean>(false);
 
-    const [createHW, { isError, isSuccess, error }] = useCreateHomeworkMutation();
+
+    const [createHW, createStatus] = useCreateHomeworkMutation();
+    const [uploadAttach, uploadStatus] = useSendChatAttachesMutation();
+
+    useEffect(() => {
+        if (createStatus.isLoading || uploadStatus.isLoading) {
+            setLock(true);
+        }
+
+        if (!createStatus.isLoading && !uploadStatus.isLoading) {
+            setLock(false);
+        }
+    }, [createStatus, uploadStatus, setLock]);
 
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const form = formRef.current;
         if (!form) {
             return;
@@ -45,7 +58,7 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ classId }) => {
 
         const title = form.hwTitle.value;
         const descr = form.hwDescr.value;
-        const deadline  : Date= form.hwDeadline.valueAsDate;
+        const deadline: Date = form.hwDeadline.valueAsDate;
 
         if (!title || !deadline) {
             return;
@@ -55,16 +68,35 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ classId }) => {
             return;
         }
 
+
+
+        const loadedTasks: HomeworkTask[] = [];
+
+        for (let t of tasks) {
+            let loaded = { description: t.description, id: t.id, attach: '' };
+
+            if (t.attach) {
+                const resp = await uploadAttach({ type: 'homework', attaches: [t.attach] });
+
+                if ('data' in resp) {
+                    loaded.attach = resp.data.file;
+                }
+            }
+
+            loadedTasks.push(loaded);
+        }
+
+
         createHW({
             payload: {
                 class_id: Number(classId),
                 deadlineTime: deadline.toISOString(),
                 title: title,
                 description: descr,
-                tasks: tasks as HomeworkTask[],
+                tasks: loadedTasks,
             }
         });
-        
+
     }
 
     return (
@@ -73,7 +105,9 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ classId }) => {
                 classes={styles.form}
                 title='Создание Домашнего задания'
                 footer={
-                    <Button onClick={handleSubmit}>
+                    <Button
+                        disabled={lock}
+                        onClick={handleSubmit}>
                         Создать
                     </Button>
                 }
@@ -117,11 +151,16 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ classId }) => {
 
                         </Container>
                         <Container direction='horizontal' classes={styles.contentNav}>
-                            <Button onClick={() => setTaskCreateForm(true)} classes={styles.addBtn}>
+                            <Button
+                                disabled={lock}
+
+                                onClick={() => setTaskCreateForm(true)} classes={styles.addBtn}>
                                 <Icon name='addLine' classes={styles.addBtnIcon} />
                                 Создать задание
                             </Button>
-                            <Button classes={styles.setBtn}>
+                            <Button
+                                disabled={lock}
+                                classes={styles.setBtn}>
                                 <Icon name='layoutLine' classes={styles.setBtnIcon} />
                                 Выбрать задание
                             </Button>

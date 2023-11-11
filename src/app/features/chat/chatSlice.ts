@@ -131,7 +131,7 @@ export const chatSlice = appApi.injectEndpoints({
             },
         }),
         sendChatAttaches: build.mutation<
-            attachmentRequestReturnType,
+            {file : string},
             attachmentsType
         >({
             query: ({ attaches, type }) => {

@@ -1,4 +1,4 @@
-import { HomeworkTask } from "@app/features/homework/homeworkModel";
+import { HomeworkTask, HomeworkTaskRaw } from "@app/features/homework/homeworkModel";
 import { ChatAttachmentsList } from "@components/ChatAttachmentsList/ChatAttachmentsList";
 import Widget from "@components/Widget/Widget";
 import { AttachFile } from "@ui-kit/AttachFile/AttachFile";
@@ -10,7 +10,7 @@ import { UiComponentProps } from "@ui-kit/interfaces";
 import { useRef, useState } from "react";
 
 interface TaskCreateFormProps extends UiComponentProps {
-    addTask: (t: HomeworkTask) => void;
+    addTask: (t: HomeworkTaskRaw) => void;
 }
 
 const TaskCreateForm: React.FC<TaskCreateFormProps> = ({ addTask, classes }) => {
@@ -23,10 +23,10 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({ addTask, classes }) => 
             return;
         }
 
-        const task: HomeworkTask = {
+        const task: HomeworkTaskRaw = {
             description: form.descr.value || '',
             id: -1, // Новая таска
-            attach: attaches && attaches[0] ? attaches[0].webkitRelativePath : '',
+            attach: attaches?.at(0),
         };
         addTask(task);
     }

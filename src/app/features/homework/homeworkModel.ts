@@ -22,3 +22,10 @@ export type HomeworkTask  = {
     description: string;
     attach: string;
 }
+
+
+export type HomeworkTaskRaw  = {
+    id: number,
+    description: string;
+    attach ?: File ;
+}
