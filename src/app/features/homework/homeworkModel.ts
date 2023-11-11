@@ -11,6 +11,14 @@ export type Homework = {
 export type HomeworkCreatePayload = {
     title: string;
     description: string;
-    deadlineTime: number;
+    class_id: number;
+    deadlineTime: string;
+    tasks: HomeworkTask[];
     // payload: Blob
 };
+
+export type HomeworkTask  = {
+    id: number,
+    description: string;
+    attach: string;
+}
