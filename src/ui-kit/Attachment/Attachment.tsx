@@ -1,5 +1,5 @@
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './Attachment.module.scss';
 import Container from '@ui-kit/Container/Container.tsx';
 import Icon from '@ui-kit/Icon/Icon.tsx';

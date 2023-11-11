@@ -11,12 +11,14 @@ import { useAddEventMutation } from '@app/features/calendar/calendarSlice.ts';
 
 interface AddEvenFormProps extends UiComponentProps {
     setIsShowingState: React.Dispatch<React.SetStateAction<boolean>>;
+    calendarRef: React.RefObject<HTMLIFrameElement>;
 }
 
 export type dateInput = null | Date;
 
 export const AddEvenForm: React.FC<AddEvenFormProps> = ({
     setIsShowingState,
+    calendarRef,
 }) => {
     const [title, setTitle] = useState('');
     const [startDate, setStartDate] = useState<dateInput>(null);
@@ -31,15 +33,21 @@ export const AddEvenForm: React.FC<AddEvenFormProps> = ({
             onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
                 event.preventDefault();
                 if (startDate && startTime && endDate && endTime) {
-                    startDate.setTime(startTime.getTime());
-                    endDate.setTime(endTime.getTime());
+                    startDate.setHours(startTime.getHours());
+                    startDate.setMinutes(startTime.getMinutes());
+                    endDate.setHours(endTime.getHours());
+                    endDate.setMinutes(endTime.getMinutes());
+                    console.log(startDate);
                     sendEvent({
                         title,
                         description,
                         startDate: startDate.toISOString(),
                         endDate: endDate.toISOString(),
                     });
+                    calendarRef.current?.contentWindow?.location.reload();
                 }
+                // fix;
+                setIsShowingState(false);
             }}
         >
             <Container

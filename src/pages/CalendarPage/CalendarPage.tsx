@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import styles from './CalendarPage.module.scss';
 import { Calendar } from '@components/Calendar/Calendar.tsx';
@@ -8,15 +8,20 @@ import Container from '@ui-kit/Container/Container.tsx';
 
 interface CalendarPageProps extends UiComponentProps {}
 
-export const CalendarPage: React.FC<CalendarPageProps> = ({}) => {
+export const CalendarPage: React.FC<CalendarPageProps> = () => {
+    const calendarRef = useRef<HTMLIFrameElement>(null);
     return (
         <Container
             direction={'grid'}
             classes={styles.calendarPage}
         >
-            <Calendar classes={styles.calendarPageCalendar}></Calendar>
+            <Calendar
+                classes={styles.calendarPageCalendar}
+                ref={calendarRef}
+            ></Calendar>
             <CalendarControls
                 classes={styles.calendarPageControls}
+                calendarRef={calendarRef}
             ></CalendarControls>
         </Container>
     );
