@@ -7,7 +7,7 @@ export const calendarSlice = appApi.injectEndpoints({
         addEvent: build.mutation<unknown, CalendarEvent>({
             query: (eventData) => {
                 return {
-                    url: calendarPaths.addEvent,
+                    url: `${calendarPaths.base}${calendarPaths.addEvent}`,
                     method: 'POST',
                     body: eventData,
                 };
