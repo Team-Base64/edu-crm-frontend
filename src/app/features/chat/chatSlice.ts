@@ -70,10 +70,7 @@ export const chatSlice = appApi.injectEndpoints({
 
                     socket.onmessage = (event: MessageEvent) => {
                         const data = JSON.parse(event.data);
-                        if (
-                            data.channel !== channel
-                            // data.message.chatid !== chatid
-                        ) {
+                        if (data.channel !== channel) {
                             console.warn(data.channel, channel);
                             return;
                         }

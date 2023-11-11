@@ -1,0 +1,8 @@
+.file-viewer {
+  $file-view-width: 80vw;
+  width: $file-view-width;
+  max-width: 1260px;
+  $file-view-height: 90vh;
+  height: $file-view-height;
+  margin: calc((100vh - $file-view-height) / 8) calc((100vw - $file-view-width) / 2);
+}

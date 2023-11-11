@@ -4,7 +4,7 @@ import Container from '@ui-kit/Container/Container';
 import styles from './MessageItem.module.scss';
 import Text from '@ui-kit/Text/Text.tsx';
 import { getUTCTime } from '../../utils/common/dateRepresentation.ts';
-import { ChatAttachment } from '@components/ChatAttachment/ChatAttachment.tsx';
+import { Attachment } from '@ui-kit/Attachment/Attachment.tsx';
 import { noop } from '@app/const/consts.ts';
 import { Link } from 'react-router-dom';
 
@@ -25,12 +25,12 @@ const MessageItem: React.FC<MessageItemProps> = memo(function MessageItem({
 }) {
     const elementsAttaches = attaches?.map((attachment, index) => {
         return (
-            <ChatAttachment
+            <Attachment
                 file={attachment}
                 key={id + time.toString() + index}
                 onRemoveClick={noop}
                 isStatic={true}
-            ></ChatAttachment>
+            ></Attachment>
         );
     });
 

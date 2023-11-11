@@ -1,7 +1,7 @@
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import React from 'react';
 import Container from '@ui-kit/Container/Container.tsx';
-import { ChatAttachment } from '@components/ChatAttachment/ChatAttachment.tsx';
+import { Attachment } from '@ui-kit/Attachment/Attachment.tsx';
 import styles from './ChatAttachmentsList.module.scss';
 
 interface ChatAttachmentsListProps extends UiComponentProps {
@@ -26,11 +26,11 @@ export const ChatAttachmentsList: React.FC<ChatAttachmentsListProps> = ({
 
     const filesLayout = files?.map((file, index) => {
         return (
-            <ChatAttachment
+            <Attachment
                 onRemoveClick={onRemoveClick.bind(this, index)}
                 key={index + new Date().getUTCSeconds()}
                 file={file}
-            ></ChatAttachment>
+            ></Attachment>
         );
     });
 
