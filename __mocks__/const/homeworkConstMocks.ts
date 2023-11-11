@@ -49,9 +49,10 @@ export const homeworksMock: Homework[] = [
 ];
 
 export const classHomeworksMock: IclassHomeworksMock = {
-    0: [homeworksMock[0]],
+    0: [],
+    1: [homeworksMock[0]],
 
-    1: [homeworksMock[1], homeworksMock[2], homeworksMock[3]],
+    2: [homeworksMock[1], homeworksMock[2], homeworksMock[3]],
 };
 
 export const newHomeworkMock = (

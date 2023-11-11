@@ -1,6 +1,13 @@
 import { Announcement } from '../../src/app/features/announcement/announcementModel';
 
+export const newAnnounceMock: Announcement = {
+    id: 100,
+    text: 'New announce id 100',
+    createTime: Date.now(),
+};
+
 export const announcesMock: Announcement[] = [
+    newAnnounceMock,
     {
         id: 0,
         text: 'Announce for class 0 #1/1',
@@ -47,13 +54,10 @@ interface IclassAnnouncementMock {
 }
 
 export const classAnnouncementsMock: IclassAnnouncementMock = {
-    0: [announcesMock[0]],
+    0: [],
+    1: [announcesMock[1]],
 
-    1: announcesMock.slice(1),
+    2: announcesMock.slice(1),
 };
 
-export const newAnnounceMock: Announcement = {
-    id: 100,
-    text: 'New announce id 100',
-    createTime: Date.now(),
-};
+

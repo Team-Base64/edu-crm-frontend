@@ -37,7 +37,8 @@ export const solutionsMock: HomeworkSolution[] = [
 ];
 
 export const classSolutionsMock: IclassSolutionsMock = {
-    0: [solutionsMock[0]],
+    0: [],
+    1: [solutionsMock[0]],
 
-    1: [solutionsMock[1], solutionsMock[2], solutionsMock[3]],
+    2: [solutionsMock[1], solutionsMock[2], solutionsMock[3]],
 };
