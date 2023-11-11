@@ -34,7 +34,7 @@ const HomeworkSolutionWidget: React.FC<HomeworkSolutionWidgetProps> = ({
                 <Text
                     type="p"
                     weight="bold"
-                    size={2}
+                    size={1}
                     classes={styles.btnShowAll}
                 >
                     Посмотреть все
