@@ -10,6 +10,7 @@ import ClassPage from '@pages/ClassPage/ClassPage';
 import { Chat } from '@pages/MessengerPage/Chat';
 import ClassesPage from '@pages/ClassesPage/ClassesPage';
 import RequireNotAuth from '@hoc/RequireNotAuth';
+import { CalendarPage } from '@pages/CalendarPage/CalendarPage.tsx';
 
 const AppRouter: React.FC = () => {
     return (
@@ -49,6 +50,10 @@ const AppRouter: React.FC = () => {
                             element={<ClassPage />}
                         />
                     </Route>
+                    <Route
+                        path={AppRoutes.calendar}
+                        element={<CalendarPage />}
+                    />
                 </Route>
                 {/*</Route>*/}
             </Route>

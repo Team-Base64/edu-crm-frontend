@@ -1,0 +1,20 @@
+.add-event-form {
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+
+  &--title {
+    grid-column: 1 / 4;
+  }
+
+  &--date {
+    grid-column: 1;
+  }
+
+  &--time {
+    grid-column: 3;
+  }
+
+  &--description {
+    grid-column: 1 / 4;
+  }
+}

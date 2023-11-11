@@ -23,7 +23,6 @@ export const Attachment: React.FC<ChatAttachmentProps> = ({
         onRemoveClick();
     };
 
-    const [linkToFile, setLinkToFile] = useState('');
     const [isOverlay, setOverlayIsShowing] = useState(false);
 
     const getFileName = () => {
@@ -36,13 +35,19 @@ export const Attachment: React.FC<ChatAttachmentProps> = ({
         return '';
     };
 
-    useEffect(() => {
-        if (file instanceof File) {
-            setLinkToFile(URL.createObjectURL(file));
-        }
+    // if (file instanceof File) {
+    //     setLinkToFile(URL.createObjectURL(file));
+    // }
 
-        return () => URL.revokeObjectURL(linkToFile);
-    }, [file, linkToFile]);
+    // useEffect(() => {
+    //     if (file instanceof File) {
+    //         setLinkToFile(URL.createObjectURL(file));
+    //     }
+    //
+    //     return () => URL.revokeObjectURL(linkToFile);
+    // }, [file, linkToFile]);
+    const linkToFile =
+        typeof file === 'string' ? file : URL.createObjectURL(file);
 
     return (
         <Container

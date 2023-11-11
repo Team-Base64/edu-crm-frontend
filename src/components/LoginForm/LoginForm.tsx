@@ -9,6 +9,7 @@ import AppRoutes from '@router/routes';
 import Icon from '@ui-kit/Icon/Icon';
 import Container from '@ui-kit/Container/Container';
 import Text from '@ui-kit/Text/Text';
+import { GoogleOAuth } from '@components/GoogleOAuth/GoogleOAuth.tsx';
 
 interface LoginFormProps extends UiComponentProps {}
 
@@ -22,7 +23,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
     const [login, { isLoading, isError, error, isSuccess }] =
         useLoginMutation();
 
-    const [passwordVisibility, setPasswordVisibily] = useState<
+    const [passwordVisibility, setPasswordVisibility] = useState<
         'password' | 'text'
     >('password');
 
@@ -72,7 +73,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
                 >
                     Пожалуйста, войдите
                 </Text>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <Container direction={'vertical'}>
                         <Input
                             inputRef={usernameRef}
@@ -105,7 +106,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
                                     onClick={() => {
                                         if (!passwordRef.current) return;
 
-                                        setPasswordVisibily((prevState) =>
+                                        setPasswordVisibility((prevState) =>
                                             prevState === 'password'
                                                 ? 'text'
                                                 : 'password',
@@ -117,12 +118,15 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
                         />
                     </Container>
                 </form>
-                <Button
-                    onClick={handleSubmit}
-                    disabled={isLoading}
-                >
+                <GoogleOAuth></GoogleOAuth>
+                <Button disabled={isLoading}>
                     {isLoading && <Spinner />}
-                    Войти
+                    <Text
+                        type={'h'}
+                        size={5}
+                    >
+                        Войти
+                    </Text>
                 </Button>
             </Container>
         </>
