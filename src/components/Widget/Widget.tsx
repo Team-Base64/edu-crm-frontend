@@ -24,6 +24,7 @@ const Widget: React.FC<WidgetProps> = ({
             <Container
                 direction="vertical"
                 layout="defaultBase"
+                gap='l'
                 classes={[classes].join(' ')}
             >
                 <Container

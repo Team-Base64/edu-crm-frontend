@@ -1,6 +1,7 @@
 import React, { useEffect, useId, useRef } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import styles from '@ui-kit/TextArea/TextArea.module.scss';
+import Container from '@ui-kit/Container/Container';
 
 interface TextAreaProps extends UiComponentProps {
     name?: string;
@@ -83,7 +84,7 @@ const TextArea: React.FC<TextAreaProps> = ({
     };
 
     return (
-        <>
+        <Container direction='vertical'>
             {labelText && <label htmlFor={id}>{labelText}</label>}
             <textarea
                 id={id}
@@ -101,7 +102,7 @@ const TextArea: React.FC<TextAreaProps> = ({
                 )}
                 {...rest}
             ></textarea>
-        </>
+        </Container>
     );
 };
 
