@@ -1,0 +1,15 @@
+.task {
+    background-color: var(--color-accent-super-light);
+    position: relative;
+
+}
+
+.btnRemoveIcon {
+    fill: gray;
+}
+
+.btnRemove {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}   
