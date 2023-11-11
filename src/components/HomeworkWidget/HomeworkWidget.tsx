@@ -91,7 +91,7 @@ const ClassHomeworksWidget: React.FC<ClassHomeworksWidgetProps> = ({
             </Overlay>
             {/* CREATE HW FORM */}
             <Overlay isShowing={isCreateForm} closeOverlay={() => setCreateForm(false)}>
-                <HomeworkCreateForm classId={classId} />
+                <HomeworkCreateForm classId={classId} onSuccess={() => setCreateForm(false)} />
             </Overlay>
         </>
     );

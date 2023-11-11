@@ -28,7 +28,7 @@ interface Item extends HomeworkTaskRaw {
     uuid: string;
 }
 
-const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ classId }) => {
+const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ onSuccess, classId }) => {
     const [isTaskCreateFrom, setTaskCreateForm] = useState<boolean>(false);
     const [tasks, setTasks] = useState<Item[]>([]);
     const formRef = useRef<HTMLFormElement>(null);
@@ -102,7 +102,7 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ classId }) => {
                 description: descr,
                 tasks: loadedTasks,
             }
-        });
+        }).then(() => onSuccess?.());
 
     }
 
