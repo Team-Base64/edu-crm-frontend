@@ -1,0 +1,12 @@
+.calendar-page {
+  grid-template-columns: repeat(8, 1fr);
+  height: 100%;
+
+  &--calendar {
+    grid-column: 1 / 6;
+  }
+
+  &--controls {
+    grid-column: 6 / 9;
+  }
+}
