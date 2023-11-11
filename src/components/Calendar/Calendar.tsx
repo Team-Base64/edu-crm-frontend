@@ -3,10 +3,10 @@ import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import styles from './Calendar.module.scss';
 
 interface CalendarProps extends UiComponentProps {
-    ref: React.RefObject<HTMLIFrameElement>;
+    calendarRef: React.RefObject<HTMLIFrameElement>;
 }
 
-export const Calendar: React.FC<CalendarProps> = ({ classes, ref }) => {
+export const Calendar: React.FC<CalendarProps> = ({ classes, calendarRef }) => {
     const timeZone = 'Europe%2FMoscow';
     const showTimeZone = '1';
     const src =
@@ -18,7 +18,7 @@ export const Calendar: React.FC<CalendarProps> = ({ classes, ref }) => {
         <iframe
             src={`https://calendar.google.com/calendar/embed?ctz=${timeZone}&hl=ru&showTz=${showTimeZone}&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=1&showCalendars=0&src=${src}`}
             className={[styles.calendar, classes].join(' ')}
-            ref={ref}
+            ref={calendarRef}
         ></iframe>
     );
 };

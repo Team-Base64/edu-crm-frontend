@@ -17,7 +17,7 @@ export const CalendarPage: React.FC<CalendarPageProps> = () => {
         >
             <Calendar
                 classes={styles.calendarPageCalendar}
-                ref={calendarRef}
+                calendarRef={calendarRef}
             ></Calendar>
             <CalendarControls
                 classes={styles.calendarPageControls}
