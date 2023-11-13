@@ -27,7 +27,7 @@ export const chatHandlers = [
         ),
     ),
 
-    http.post(`${import.meta.env.VITE_BASE_CHAT_PATH}attach?type=chat`, () =>
+    http.post(`${import.meta.env.VITE_BASE_PATH}attach?type=chat`, () =>
         HttpResponse.json(
             { file: man_photo_src },
             {

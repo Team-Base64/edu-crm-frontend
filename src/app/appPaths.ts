@@ -9,7 +9,7 @@ import { teacherPaths } from '@app/features/teacher/teacherPaths';
 
 const appPaths = {
     basePath: import.meta.env.VITE_BASE_PATH,
-    baseChatPath: import.meta.env.VITE_BASE_CHAT_PATH,
+    baseChatPath: import.meta.env.VITE_BASE_PATH,
     ...classPaths,
     ...homeworkPaths,
     ...announcementPaths,
