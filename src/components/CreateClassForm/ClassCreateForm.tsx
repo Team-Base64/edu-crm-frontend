@@ -8,16 +8,16 @@ import Container from '@ui-kit/Container/Container';
 import Text from '@ui-kit/Text/Text';
 import TextArea from '@ui-kit/TextArea/TextArea';
 import { useCreateClassMutation } from '@app/features/class/classSlice';
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styles from './ClassCreateForm.module.scss';
 
 interface ClassCreateFormProps extends UiComponentProps {
     onSuccess?: () => void;
 }
 
-const ClassCreateForm: React.FC<ClassCreateFormProps> = ({ onSuccess, classes }) => {
-    const [createClass, { data, isLoading, isError, error, isSuccess }
-    ] = useCreateClassMutation();
+const ClassCreateForm: React.FC<ClassCreateFormProps> = ({ classes }) => {
+    const [createClass, { data, isLoading, isSuccess }] =
+        useCreateClassMutation();
 
     const navigate = useNavigate();
 
@@ -28,7 +28,7 @@ const ClassCreateForm: React.FC<ClassCreateFormProps> = ({ onSuccess, classes })
         if (isSuccess && data) {
             return navigate(data.class.id.toString());
         }
-    }, [isLoading])
+    }, [isLoading]);
 
     const handleSubmit = () => {
         if (!titleRef.current || !descrRef.current) {
@@ -41,14 +41,13 @@ const ClassCreateForm: React.FC<ClassCreateFormProps> = ({ onSuccess, classes })
             return;
         }
 
-
         createClass({
             payload: {
                 title: title,
                 description: descr,
-            }
+            },
         });
-    }
+    };
 
     return (
         <>
@@ -77,8 +76,8 @@ const ClassCreateForm: React.FC<ClassCreateFormProps> = ({ onSuccess, classes })
                             textareaRef={descrRef}
                             minRows={2}
                             maxRows={6}
-                            border='border'
-                            labelText='Описание'
+                            border="border"
+                            labelText="Описание"
                         />
                     </Container>
                 </form>
@@ -87,7 +86,10 @@ const ClassCreateForm: React.FC<ClassCreateFormProps> = ({ onSuccess, classes })
                     disabled={isLoading}
                 >
                     {isLoading && <Spinner />}
-                    <Icon name='addLine' classes={styles.btnIcon} />
+                    <Icon
+                        name="addLine"
+                        classes={styles.btnIcon}
+                    />
                     Создать
                 </Button>
             </Container>

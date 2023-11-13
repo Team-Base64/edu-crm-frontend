@@ -8,7 +8,6 @@ import { classHomeworksMock } from '../const/homeworkConstMocks.ts';
 import { classStudentsMock } from '../const/studentConstMocks.ts';
 import { classSolutionsMock } from '../const/solutionsConstMocks.ts';
 import { classAnnouncementsMock } from '../const/announceConstMocks.ts';
-import { ClassCreatePayload } from '@app/features/class/classModel.ts';
 
 export const classHandlers = [
     // Get class
@@ -166,24 +165,19 @@ export const classHandlers = [
         },
     ),
 
-    // CreateClass 
-    http.post(`${appPaths.basePath}${appPaths.classCreate}`, async ({ request }) => {
-
-
-
+    // CreateClass
+    http.post(`${appPaths.basePath}${appPaths.classCreate}`, async () => {
         try {
             return HttpResponse.json(
-            {
-               class: classNewMock,
-            },
-            {
-                status: 200,
-                headers: { ...defaultHeadersMock },
-            }
+                {
+                    class: classNewMock,
+                },
+                {
+                    status: 200,
+                    headers: { ...defaultHeadersMock },
+                },
             );
-        }
-        catch (e) {
-
+        } catch (e) {
             console.log(e);
             return HttpResponse.json(
                 {},
@@ -193,5 +187,5 @@ export const classHandlers = [
                 },
             );
         }
-    })
+    }),
 ];

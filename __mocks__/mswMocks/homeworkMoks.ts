@@ -6,22 +6,19 @@ import { defaultHeadersMock } from '../const/constMocks';
 import { homeworksMock } from '../const/homeworkConstMocks';
 
 export const homeworkHandlers = [
-    // create homework 
-    http.post(`${appPaths.basePath}${appPaths.homeworkCreate}`, async ({ request }) => {
-
+    // create homework
+    http.post(`${appPaths.basePath}${appPaths.homeworkCreate}`, async () => {
         try {
             return HttpResponse.json(
-            {
-               homework: homeworksMock[0],
-            },
-            {
-                status: 200,
-                headers: { ...defaultHeadersMock },
-            }
+                {
+                    homework: homeworksMock[0],
+                },
+                {
+                    status: 200,
+                    headers: { ...defaultHeadersMock },
+                },
             );
-        }
-        catch (e) {
-
+        } catch (e) {
             console.log(e);
             return HttpResponse.json(
                 {},

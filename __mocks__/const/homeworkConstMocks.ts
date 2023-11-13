@@ -1,7 +1,8 @@
 import {
     Homework,
     HomeworkCreatePayload,
-} from '../../src/app/features/homework/homeworkModel';
+    HomeworkTask,
+} from '@app/features/homework/homeworkModel.ts';
 
 interface IclassHomeworksMock {
     [key: number]: Homework[];
@@ -58,12 +59,22 @@ export const classHomeworksMock: IclassHomeworksMock = {
 export const newHomeworkMock = (
     class_id: string | number,
     payload: HomeworkCreatePayload,
-): Homework => {
+): {
+    classID: number;
+    deadlineTime: string;
+    file: string;
+    createTime: number;
+    description: string;
+    id: number;
+    title: string;
+    tasks: HomeworkTask[];
+} => {
     return {
         ...payload,
         id: 1000,
         createTime: Date.now(),
-        classID: class_id,
+        classID: Number(class_id),
         file: '',
+        deadlineTime: '',
     };
 };
