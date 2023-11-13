@@ -2,7 +2,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import appApi from './appApi';
 import { teacherSlice } from '@app/features/teacher/teacherSlice';
 
-console.log('store');
 export const store = configureStore({
     reducer: {
         [appApi.reducerPath]: appApi.reducer,

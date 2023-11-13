@@ -18,7 +18,7 @@ export type dateInput = null | Date;
 
 export const AddEvenForm: React.FC<AddEvenFormProps> = ({
     setIsShowingState,
-    calendarRef,
+    // calendarRef,
 }) => {
     const [title, setTitle] = useState('');
     const [startDate, setStartDate] = useState<dateInput>(null);
@@ -44,7 +44,7 @@ export const AddEvenForm: React.FC<AddEvenFormProps> = ({
                         startDate: startDate.toISOString(),
                         endDate: endDate.toISOString(),
                     });
-                    calendarRef.current?.contentWindow?.location.reload();
+                    // calendarRef.current?.src += '';
                 }
                 // fix;
                 setIsShowingState(false);

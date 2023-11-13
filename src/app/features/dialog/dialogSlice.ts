@@ -25,12 +25,6 @@ export const dialogSlice = appApi.injectEndpoints({
                 return { dialogs: newDialogs };
             },
         }),
-        // postDialogs: build.mutation<unknown, unknown>({
-        //     queryFn: () => {
-        //         return { data: [] };
-        //     },
-        //     invalidatesTags: ['getDialogs'],
-        // }),
     }),
 });
 
