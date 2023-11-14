@@ -5,31 +5,48 @@ import Text from "@ui-kit/Text/Text";
 import { UiComponentProps } from "@ui-kit/interfaces";
 import styles from './HomeworkTaskItem.module.scss';
 import { HomeworkTask } from "@app/features/homeworkTask/homeworkTaskModel";
+import CheckBox from "@ui-kit/CheckBox/CheckBox";
+import { useEffect, useState } from "react";
 
 interface HomeworkTaskItemProps extends UiComponentProps {
     title?: string;
     task: HomeworkTask;
-    onDelete?: (id : number) => void;
+    onDelete?: (id: number) => void;
+    onSelect?: (task: HomeworkTask) => void;
+    onDeselect?: (task: HomeworkTask) => void;
 }
 
 
-const HomeworkTaskItem: React.FC<HomeworkTaskItemProps> = ({ task, title, onDelete }) => {
+const HomeworkTaskItem: React.FC<HomeworkTaskItemProps> = ({ task, title, onDeselect, onDelete, onSelect }) => {
     const { id, description } = task;
+    const [state, setState] = useState<boolean>(false);
+    useEffect(() => {
+        if (state) {
+            onSelect?.(task);
+        } else {
+            onDeselect?.(task);
+        }
+    }, [state])
     return (
-        <Container direction='vertical' layout='defaultBase' classes={styles.task}>
-            {title && (
-                <Text type='h' size={5}>
-                    {title}
+        <Container direction='horizontal' layout='defaultBase' classes={styles.task}>
+            {onSelect && (
+                <CheckBox state={[state, setState]} />
+            )}
+            <Container direction='vertical'>
+                {title && (
+                    <Text type='h' size={5}>
+                        {title}
+                    </Text>
+                )}
+                <Text type='p' size={1}>
+                    {description}
                 </Text>
-            )}
-            <Text type='p' size={1}>
-                {description}
-            </Text>
-            {onDelete && (
-                <Button onClick={() => onDelete(id)} type='link' classes={styles.btnRemove}>
-                    <Icon name='close' classes={styles.btnRemoveIcon} />
-                </Button>
-            )}
+                {onDelete && (
+                    <Button onClick={() => onDelete(id)} type='link' classes={styles.btnRemove}>
+                        <Icon name='close' classes={styles.btnRemoveIcon} />
+                    </Button>
+                )}
+            </Container>
         </Container>
     );
 };

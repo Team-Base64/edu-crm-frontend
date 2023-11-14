@@ -15,6 +15,7 @@ import { useCreateHomeworkMutation } from '@app/features/homework/homeworkSlice'
 import HomeworkTaskList from '@components/HomeworkTaskList/HomeworkTaskList';
 import { HomeworkTask } from '@app/features/homeworkTask/homeworkTaskModel';
 import TaskCreateForm from '@components/HomeworkTaskCreateForm/HomeworkTaskCreateForm';
+import HomeworkTaskSelect from '@components/HomeworkTaskSelect/HomeworkTaskSelect';
 
 interface HomeworkCreateFormProps extends UiComponentProps {
     onSubmitSuccess?: () => void;
@@ -26,7 +27,7 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ onSubmitSuccess
     const [tasks, setTasks] = useState<HomeworkTask[]>([]);
 
     const [isTaskCreateFrom, setTaskCreateForm] = useState<boolean>(false);
-    // const [isTaskSelectForm, setTaskSelectForm] = useState<boolean>(false);
+    const [isTaskSelectForm, setTaskSelectForm] = useState<boolean>(false);
 
     const [lock, setLock] = useState<boolean>(false);
 
@@ -76,6 +77,7 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ onSubmitSuccess
             form.hwTitle.value = '';
             form.hwDescr.value = '';
             form.hwDeadline.value = '';
+            setTasks([]);
 
             onSubmitSuccess?.();
         });
@@ -85,6 +87,11 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ onSubmitSuccess
     const handleCreateTaskSuccess = (task: HomeworkTask) => {
         setTasks(prev => [...prev, task]);
         setTaskCreateForm(false);
+    }
+
+    const handleSelectTasks = (selected: HomeworkTask[]) => {
+        setTasks(prev => [...prev, ...selected]);
+        setTaskSelectForm(false);
     }
 
     return (
@@ -123,8 +130,9 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ onSubmitSuccess
                             Список задач:
                         </Text>
                         <Container direction='vertical' classes={styles.list}>
-                            <HomeworkTaskList 
-                            listState={[tasks, setTasks]}
+                            <HomeworkTaskList
+                                listState={[tasks, setTasks]}
+                                allowDelete
                             />
                         </Container>
                         <Container direction='horizontal' classes={styles.contentNav}>
@@ -137,7 +145,9 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ onSubmitSuccess
                             </Button>
                             <Button
                                 disabled={lock}
-                                classes={styles.setBtn}>
+                                classes={styles.setBtn}
+                                onClick={() => setTaskSelectForm(true)}
+                            >
                                 <Icon name='layoutLine' classes={styles.setBtnIcon} />
                                 Выбрать задание
                             </Button>
@@ -147,8 +157,13 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ onSubmitSuccess
             </Widget>
 
             <Overlay isShowing={isTaskCreateFrom} closeOverlay={() => setTaskCreateForm(false)} >
-                <TaskCreateForm 
-                onSubmitSuccess={handleCreateTaskSuccess}
+                <TaskCreateForm
+                    onSubmitSuccess={handleCreateTaskSuccess}
+                />
+            </Overlay>
+            <Overlay isShowing={isTaskSelectForm} closeOverlay={() => setTaskSelectForm(false)} >
+                <HomeworkTaskSelect
+                    onSubmit={handleSelectTasks}
                 />
             </Overlay>
         </>
