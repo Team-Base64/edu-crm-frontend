@@ -5,6 +5,8 @@ import { classHandlers } from './mswMocks/classMocks.ts';
 import { studentHandlers } from './mswMocks/studentMocks.ts';
 import { homeworkHandlers } from './mswMocks/homeworkMoks.ts';
 import { teacherHandlers } from './mswMocks/teacherMocks';
+import { taskHandlers } from './mswMocks/taskMocks.ts';
+
 const handlers = [
     ...chatHandlers,
     ...generalHandlers,
@@ -12,5 +14,7 @@ const handlers = [
     ...studentHandlers,
     ...homeworkHandlers,
     ...teacherHandlers,
+    ...taskHandlers,
+
 ];
 export const worker = setupWorker(...handlers);

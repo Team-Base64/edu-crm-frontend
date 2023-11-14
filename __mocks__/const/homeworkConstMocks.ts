@@ -56,14 +56,16 @@ export const classHomeworksMock: IclassHomeworksMock = {
 };
 
 export const newHomeworkMock = (
-    class_id: string | number,
     payload: HomeworkCreatePayload,
 ): Homework => {
+    const { title, description, classID, deadlineTime } = payload;
     return {
-        ...payload,
         id: 1000,
+        title: title,
+        description: description,
+        classID: classID,
         createTime: Date.now(),
-        classID: class_id,
+        deadlineTime: Date.parse(deadlineTime),
         file: '',
     };
 };

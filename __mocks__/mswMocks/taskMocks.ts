@@ -1,18 +1,16 @@
 import { http, HttpResponse } from 'msw';
 import appPaths from '../../src/app/appPaths';
-
 import { defaultHeadersMock } from '../const/constMocks';
+import { tasksMock } from '../const/taskConstMocks';
 
-import { homeworksMock } from '../const/homeworkConstMocks';
-
-export const homeworkHandlers = [
-    // create homework 
-    http.post(`${appPaths.basePath}${appPaths.homeworkCreate}`, async () => {
-
+export const taskHandlers = [
+    // create task 
+    http.post(`${appPaths.basePath}${appPaths.createTask}`, async ({ request }) => {
+        console.log('CREATE TASK');
         try {
             return HttpResponse.json(
             {
-               homework: homeworksMock[0],
+               id: 100,
             },
             {
                 status: 200,
@@ -32,15 +30,15 @@ export const homeworkHandlers = [
             );
         }
     }),
-    // Get homework
+
+    // Get tasks
     http.get(
-        `${appPaths.basePath}${appPaths.homework(':id')}`,
-        ({ params }) => {
-            const { id } = params;
+        `${appPaths.basePath}${appPaths.tasks}`,
+        () => {
             try {
                 return HttpResponse.json(
                     {
-                        homework: homeworksMock[Number(id)],
+                        tasks: tasksMock,
                     },
                     {
                         status: 200,
