@@ -7,7 +7,8 @@ import Container from '@ui-kit/Container/Container';
 import Icon from '@ui-kit/Icon/Icon';
 import TextArea from '@ui-kit/TextArea/TextArea';
 import { UiComponentProps } from '@ui-kit/interfaces';
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
+import useSendAttaches from '../../hooks/useSendAttaches.ts';
 
 interface TaskCreateFormProps extends UiComponentProps {
     addTask: (t: HomeworkTaskRaw) => void;
@@ -18,7 +19,9 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({
     classes,
 }) => {
     const formRef = useRef<HTMLFormElement>(null);
-    const [attaches, setAttaches] = useState<File[]>();
+    // const [attaches, setAttaches] = useState<File[]>();
+    const { attaches, setAttaches } = useSendAttaches('homework');
+    const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
     const handleSubmit = () => {
         const form = formRef.current;
@@ -35,40 +38,39 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({
     };
 
     return (
-        <>
-            <Widget
-                classes={classes}
-                title="Создание задания"
-                footer={<Button onClick={handleSubmit}>Создать</Button>}
+        <Widget
+            classes={classes}
+            title="Создание задания"
+            footer={<Button onClick={handleSubmit}>Создать</Button>}
+        >
+            <form
+                ref={formRef}
+                onSubmit={(e) => e.preventDefault()}
             >
-                <form
-                    ref={formRef}
-                    onSubmit={(e) => e.preventDefault()}
-                >
-                    <Container>
-                        <AttachFile
-                            setFilesState={setAttaches}
-                            maxFilesToAttach={1}
-                        >
-                            <Icon
-                                name={'attachIcon'}
-                                size={'large'}
-                            />
-                        </AttachFile>
-
-                        <TextArea
-                            labelText="Описание задачи"
-                            placeholder="Опишите суть задачи"
-                            minRows={4}
-                            maxRows={8}
-                            border="border"
-                            name="descr"
+                <Container>
+                    <AttachFile
+                        useFiles={[attaches, setAttaches]}
+                        maxFilesToAttach={1}
+                    >
+                        <Icon
+                            name={'attachIcon'}
+                            size={'large'}
                         />
-                    </Container>
-                    <AttachmentsList useFiles={[attaches, setAttaches]} />
-                </form>
-            </Widget>
-        </>
+                    </AttachFile>
+
+                    <TextArea
+                        labelText="Описание задачи"
+                        placeholder="Опишите суть задачи"
+                        minRows={4}
+                        maxRows={8}
+                        border="border"
+                        name="descr"
+                        textareaRef={textAreaRef}
+                    />
+                </Container>
+                <AttachmentsList useFiles={[attaches, setAttaches]} />
+            </form>
+        </Widget>
     );
 };
 

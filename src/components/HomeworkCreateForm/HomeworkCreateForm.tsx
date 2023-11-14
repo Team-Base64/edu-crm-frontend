@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import Container from '@ui-kit/Container/Container';
@@ -6,11 +5,14 @@ import Input from '@ui-kit/Input/Input';
 import TextArea from '@ui-kit/TextArea/TextArea';
 import Button from '@ui-kit/Button/Button';
 import Icon from '@ui-kit/Icon/Icon';
-import { v4 as uuid } from "uuid";
+import { v4 as uuid } from 'uuid';
 import styles from './HomeworkCreateForm.module.scss';
 import Overlay from '@ui-kit/Overlay/Overlay';
 import Widget from '@components/Widget/Widget';
-import { HomeworkTask, HomeworkTaskRaw } from '@app/features/homework/homeworkModel';
+import {
+    HomeworkTask,
+    HomeworkTaskRaw,
+} from '@app/features/homework/homeworkModel';
 import EmptyItem from '@components/EmptyItem/EmptyItem';
 import Text from '@ui-kit/Text/Text';
 import TaskItem from './HomeworkTask';
@@ -28,16 +30,20 @@ interface Item extends HomeworkTaskRaw {
     uuid: string;
 }
 
-const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ onSuccess, classId }) => {
+const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({
+    onSuccess,
+    classId,
+}) => {
     const [isTaskCreateFrom, setTaskCreateForm] = useState<boolean>(false);
     const [tasks, setTasks] = useState<Item[]>([]);
     const formRef = useRef<HTMLFormElement>(null);
 
     const [lock, setLock] = useState<boolean>(false);
 
-
     const [createHW, createStatus] = useCreateHomeworkMutation();
     const [uploadAttach, uploadStatus] = useSendChatAttachesMutation();
+
+    const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
     useEffect(() => {
         if (createStatus.isLoading || uploadStatus.isLoading) {
@@ -49,7 +55,6 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ onSuccess, clas
         }
     }, [createStatus, uploadStatus, setLock]);
 
-
     const handleSubmit = async () => {
         console.log('Handle submit');
 
@@ -59,7 +64,7 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ onSuccess, clas
         }
 
         const title = form.hwTitle.value;
-        const descr = form.hwDescr.value;
+        const desc = form.hwDescr.value;
         const deadline: Date = form.hwDeadline.valueAsDate;
 
         if (!title || !deadline) {
@@ -67,21 +72,27 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ onSuccess, clas
         }
         console.log('OK');
 
-        if (!descr && !tasks.length) {
+        if (!desc && !tasks.length) {
             return;
         }
 
         console.log('OK 2');
 
-
         const loadedTasks: HomeworkTask[] = [];
         console.log('Load attaches');
 
-        for (let t of tasks) {
-            let loaded = { description: t.description, id: t.id, attach: '' };
+        for (const task of tasks) {
+            const loaded = {
+                description: task.description,
+                id: task.id,
+                attach: '',
+            };
 
-            if (t.attach) {
-                const resp = await uploadAttach({ type: 'homework', attaches: [t.attach] });
+            if (task.attach) {
+                const resp = await uploadAttach({
+                    type: 'homework',
+                    attache: [task.attach],
+                });
 
                 if ('data' in resp) {
                     loaded.attach = resp.data.file;
@@ -99,76 +110,108 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ onSuccess, clas
                 classID: Number(classId),
                 deadlineTime: deadline.toISOString(),
                 title: title,
-                description: descr,
+                description: desc,
                 tasks: loadedTasks,
-            }
+            },
         }).then(() => onSuccess?.());
-
-    }
+    };
 
     return (
         <>
             <Widget
                 classes={styles.form}
-                title='Создание Домашнего задания'
+                title="Создание Домашнего задания"
                 footer={
                     <Button
                         disabled={lock}
-                        onClick={handleSubmit}>
+                        onClick={handleSubmit}
+                    >
                         Создать
                     </Button>
                 }
             >
-                <form ref={formRef} onSubmit={e => e.preventDefault()}>
+                <form
+                    ref={formRef}
+                    onSubmit={(e) => e.preventDefault()}
+                >
                     <Input
-                        name='hwTitle'
-                        label='Заголовок домашнего задания'
-                        placeholder='Например: Повторение '
+                        name="hwTitle"
+                        label="Заголовок домашнего задания"
+                        placeholder="Например: Повторение "
                     />
                     <TextArea
-                        name='hwDescr'
-                        labelText='Описание домашнего задания'
-                        placeholder='Можно оставить пустым'
-                        border='border'
+                        name="hwDescr"
+                        labelText="Описание домашнего задания"
+                        placeholder="Можно оставить пустым"
+                        border="border"
+                        textareaRef={textAreaRef}
                     />
                     <Input
-                        name='hwDeadline'
-                        label='Срок сдачи'
-                        type='date'
+                        name="hwDeadline"
+                        label="Срок сдачи"
+                        type="date"
                     />
 
-                    <Container direction='vertical' classes={styles.content}>
-                        <Text type='h' size={4} weight='bold'>
+                    <Container
+                        direction="vertical"
+                        classes={styles.content}
+                    >
+                        <Text
+                            type="h"
+                            size={4}
+                            weight="bold"
+                        >
                             Список задач:
                         </Text>
-                        <Container direction='vertical' classes={styles.list}>
-                            {!tasks.length ? <EmptyItem /> :
+                        <Container
+                            direction="vertical"
+                            classes={styles.list}
+                        >
+                            {!tasks.length ? (
+                                <EmptyItem />
+                            ) : (
                                 tasks.map((t, i) => (
                                     <React.Fragment key={t.uuid}>
                                         <TaskItem
                                             index={i}
                                             task={t}
                                             onDelete={() => {
-                                                setTasks(prev => prev.filter(item => item.uuid !== t.uuid));
+                                                setTasks((prev) =>
+                                                    prev.filter(
+                                                        (item) =>
+                                                            item.uuid !==
+                                                            t.uuid,
+                                                    ),
+                                                );
                                             }}
                                         />
                                     </React.Fragment>
                                 ))
-                            }
-
+                            )}
                         </Container>
-                        <Container direction='horizontal' classes={styles.contentNav}>
+                        <Container
+                            direction="horizontal"
+                            classes={styles.contentNav}
+                        >
                             <Button
                                 disabled={lock}
-
-                                onClick={() => setTaskCreateForm(true)} classes={styles.addBtn}>
-                                <Icon name='addLine' classes={styles.addBtnIcon} />
+                                onClick={() => setTaskCreateForm(true)}
+                                classes={styles.addBtn}
+                            >
+                                <Icon
+                                    name="addLine"
+                                    classes={styles.addBtnIcon}
+                                />
                                 Создать задание
                             </Button>
                             <Button
                                 disabled={lock}
-                                classes={styles.setBtn}>
-                                <Icon name='layoutLine' classes={styles.setBtnIcon} />
+                                classes={styles.setBtn}
+                            >
+                                <Icon
+                                    name="layoutLine"
+                                    classes={styles.setBtnIcon}
+                                />
                                 Выбрать задание
                             </Button>
                         </Container>
@@ -176,11 +219,16 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ onSuccess, clas
                 </form>
             </Widget>
 
-            <Overlay isShowing={isTaskCreateFrom} closeOverlay={() => setTaskCreateForm(false)} >
-                <TaskCreateForm addTask={(t) => {
-                    setTasks(prev => [...prev, { ...t, uuid: uuid() }]);
-                    setTaskCreateForm(false);
-                }} />
+            <Overlay
+                isShowing={isTaskCreateFrom}
+                closeOverlay={() => setTaskCreateForm(false)}
+            >
+                <TaskCreateForm
+                    addTask={(t) => {
+                        setTasks((prev) => [...prev, { ...t, uuid: uuid() }]);
+                        setTaskCreateForm(false);
+                    }}
+                />
             </Overlay>
         </>
     );

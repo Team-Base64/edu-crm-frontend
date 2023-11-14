@@ -1,7 +1,7 @@
-import React, { useEffect, useId, useRef } from 'react';
+import React, { KeyboardEventHandler, useEffect, useId } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import styles from '@ui-kit/TextArea/TextArea.module.scss';
-import Container from '@ui-kit/Container/Container';
+import { noop } from '@app/const/consts.ts';
 
 interface TextAreaProps extends UiComponentProps {
     name?: string;
@@ -14,8 +14,8 @@ interface TextAreaProps extends UiComponentProps {
     minRows?: number;
     maxRows?: number;
     onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-    onKeydown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
-    textareaRef?: React.RefObject<HTMLTextAreaElement>;
+    onKeydownCallback?: () => void;
+    textareaRef: React.RefObject<HTMLTextAreaElement>;
     maxLength?: number;
 }
 
@@ -36,17 +36,20 @@ const TextArea: React.FC<TextAreaProps> = ({
     minRows = 1,
     maxRows = 10,
     onChange,
-    onKeydown,
+    onKeydownCallback = noop,
     textareaRef,
     classes,
     ...rest
 }) => {
     const id = useId();
 
-    //@eslint-ignore
-    if (!textareaRef) {
-        textareaRef = useRef<HTMLTextAreaElement>(null);
-    }
+    const handleAreaKeydown: KeyboardEventHandler<HTMLTextAreaElement> = (
+        event,
+    ) => {
+        if (event.code === 'Enter' && event.ctrlKey) {
+            onKeydownCallback();
+        }
+    };
 
     const resizeTextarea = () => {
         const area = textareaRef?.current;
@@ -84,8 +87,15 @@ const TextArea: React.FC<TextAreaProps> = ({
     };
 
     return (
-        <Container direction='vertical'>
-            {labelText && <label htmlFor={id}>{labelText}</label>}
+        <>
+            {labelText && (
+                <label
+                    className={styles.textareaContainer}
+                    htmlFor={id}
+                >
+                    {labelText}
+                </label>
+            )}
             <textarea
                 id={id}
                 ref={textareaRef}
@@ -94,7 +104,7 @@ const TextArea: React.FC<TextAreaProps> = ({
                 defaultValue={textareaText}
                 placeholder={placeholder}
                 onChange={handleChange}
-                onKeyDown={onKeydown}
+                onKeyDown={handleAreaKeydown}
                 onFocusCapture={resizeTextarea}
                 onBlur={resizeTextarea}
                 className={[styles.textarea, borderType[border], classes].join(
@@ -102,7 +112,7 @@ const TextArea: React.FC<TextAreaProps> = ({
                 )}
                 {...rest}
             ></textarea>
-        </Container>
+        </>
     );
 };
 

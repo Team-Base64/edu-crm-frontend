@@ -22,21 +22,21 @@ const ClassCreateForm: React.FC<ClassCreateFormProps> = ({ classes }) => {
     const navigate = useNavigate();
 
     const titleRef = useRef<HTMLInputElement>(null);
-    const descrRef = useRef<HTMLTextAreaElement>(null);
+    const descRef = useRef<HTMLTextAreaElement>(null);
 
     useEffect(() => {
         if (isSuccess && data) {
             return navigate(data.class.id.toString());
         }
-    }, [isLoading]);
+    }, [data, isLoading, isSuccess, navigate]);
 
     const handleSubmit = () => {
-        if (!titleRef.current || !descrRef.current) {
+        if (!titleRef.current || !descRef.current) {
             return;
         }
 
         const title = titleRef.current.value;
-        const descr = descrRef.current.value;
+        const descr = descRef.current.value;
         if (!title) {
             return;
         }
@@ -73,7 +73,7 @@ const ClassCreateForm: React.FC<ClassCreateFormProps> = ({ classes }) => {
                             type={'text'}
                         />
                         <TextArea
-                            textareaRef={descrRef}
+                            textareaRef={descRef}
                             minRows={2}
                             maxRows={6}
                             border="border"

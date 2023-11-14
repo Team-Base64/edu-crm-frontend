@@ -2,7 +2,7 @@ import Avatar from '@ui-kit/Avatar/Avatar';
 import Container from '@ui-kit/Container/Container';
 import Icon from '@ui-kit/Icon/Icon';
 import TextArea from '@ui-kit/TextArea/TextArea';
-import React from 'react';
+import React, { useRef } from 'react';
 import styles from './ClassAnnounceCreateField.module.scss';
 
 interface ClassAnnounceCreateFieldProps {
@@ -14,6 +14,8 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
     // submit,
     avatarSrc,
 }) => {
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+
     return (
         <Container
             classes={styles.card}
@@ -26,6 +28,7 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
                 alt="Your avatar"
             />
             <TextArea
+                textareaRef={textareaRef}
                 classes={styles.area}
                 name="announce"
                 spellcheck={true}

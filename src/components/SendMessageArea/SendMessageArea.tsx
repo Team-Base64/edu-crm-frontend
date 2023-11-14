@@ -1,12 +1,6 @@
 import Container from '@ui-kit/Container/Container.tsx';
 import TextArea from '@ui-kit/TextArea/TextArea.tsx';
-import React, {
-    ChangeEventHandler,
-    KeyboardEventHandler,
-    useEffect,
-    useRef,
-    useState,
-} from 'react';
+import React, { ChangeEventHandler, useEffect, useRef, useState } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import Button from '@ui-kit/Button/Button.tsx';
 import Icon from '@ui-kit/Icon/Icon.tsx';
@@ -16,6 +10,7 @@ import { AttachmentsList } from '@ui-kit/AttachmentsList/AttachmentsList.tsx';
 import { useSendMessageMutation } from '@app/features/chat/chatSlice';
 import { useGetDialogsQuery } from '@app/features/dialog/dialogSlice.ts';
 import useSendAttaches from '../../hooks/useSendAttaches.ts';
+import { SerializeAttachesFromBackend } from '../../utils/attaches/attachesSerializers.ts';
 
 interface SendMessageAreaProps extends UiComponentProps {
     id: string;
@@ -38,16 +33,6 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
 
     const { attaches, setAttaches, attachesSendPromise } =
         useSendAttaches('chat');
-
-    const SerializeAttachesFromBackend = (
-        result: Awaited<ReturnType<typeof attachesSendPromise>>,
-    ) =>
-        result.map((value) => {
-            if ('data' in value) {
-                return value.data.file;
-            }
-            throw Error(`error on send attach: ${value}`);
-        });
 
     const sendMessageHandler = () => {
         if (!textAreaRef.current) {
@@ -87,7 +72,6 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
             onMessageSend(textAreaRef.current.value);
             textAreaRef.current.value = '';
         }
-
         localStorage.setItem(`chatArea/${id}`, '');
     };
 
@@ -108,14 +92,6 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
     }) => {
         localStorage.setItem(`chatArea/${id}`, target.value);
         setIsDisabledSend(!target.value && !attaches.length);
-    };
-
-    const handleAreaKeydown: KeyboardEventHandler<HTMLTextAreaElement> = (
-        event,
-    ) => {
-        if (event.code === 'Enter' && event.ctrlKey) {
-            // sendMessageHandler();
-        }
     };
 
     return (
@@ -147,7 +123,7 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
                     maxRows={5}
                     autoResize
                     onChange={handleMessageChange}
-                    onKeydown={handleAreaKeydown}
+                    onKeydownCallback={sendMessageHandler}
                     textareaRef={textAreaRef}
                     maxLength={1500}
                 ></TextArea>
