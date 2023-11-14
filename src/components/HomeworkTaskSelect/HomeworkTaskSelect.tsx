@@ -7,6 +7,8 @@ import Text from '@ui-kit/Text/Text';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import React, { useEffect, useState } from 'react';
 
+import styles from './HomeworkTaskSelect.module.scss';
+
 interface HomeworkTaskSelectProps extends UiComponentProps {
     onSubmit?: (selected: HomeworkTask[]) => void;
 }
@@ -36,18 +38,10 @@ const HomeworkTaskSelect: React.FC<HomeworkTaskSelectProps> = ({ onSubmit }) => 
 
     return (
         <>
-            <Container direction='vertical' layout='defaultBase' gap='l'>
-                <Text type='h' size={4}>
+            <Container direction='vertical' layout='defaultBase' gap='l' classes={styles.widget}>
+                <Text type='h' size={3} weight='bold'>
                     Выберите задания из списка
                 </Text>
-                <Container>
-                    <Button onClick={handleSubmit}>
-                        Ок
-                    </Button>
-                    {/* <Button onClick={handleClear}>
-                        Очистить
-                    </Button> */}
-                </Container>
                 <HomeworkTaskList
                     listState={[list, setList]}
                     onSelect={(t) => {
@@ -57,6 +51,16 @@ const HomeworkTaskSelect: React.FC<HomeworkTaskSelectProps> = ({ onSubmit }) => 
                         setListSelect(p => p.filter(i => i.id !== t.id))
                     }}
                 />
+                <Container classes={styles.nav}>
+                    <Button onClick={handleSubmit}>
+                        <Text type='p' size={1} weight='bold' classes={styles.submit}>
+                            Прикрепить
+                        </Text>
+                    </Button>
+                    {/* <Button onClick={handleClear}>
+                        Очистить
+                    </Button> */}
+                </Container>
             </Container>
 
         </>

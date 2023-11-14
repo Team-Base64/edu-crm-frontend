@@ -96,65 +96,73 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ onSubmitSuccess
 
     return (
         <>
-            <Widget
-                classes={styles.form}
-                title='Создание Домашнего задания'
-                footer={
-                    <Button
-                        disabled={lock}
-                        onClick={handleSubmit}>
-                        Создать
-                    </Button>
-                }
-            >
+            <Container direction='vertical' layout='defaultBase' gap='l' classes={styles.widget}>
+                <Text type='h' size={3} weight='bold'>
+                    {'Новое домашнее задание'}
+                </Text>
                 <form ref={formRef} onSubmit={e => e.preventDefault()}>
-                    <Input
-                        name='hwTitle'
-                        label='Заголовок домашнего задания'
-                        placeholder='Например: Повторение '
-                    />
-                    <TextArea
-                        name='hwDescr'
-                        labelText='Описание домашнего задания'
-                        placeholder='Можно оставить пустым'
-                        border='border'
-                    />
-                    <Input
-                        name='hwDeadline'
-                        label='Срок сдачи'
-                        type='date'
-                    />
+                    <Container direction='vertical' gap='l'>
+                        <Input
+                            name='hwTitle'
+                            label='Заголовок домашнего задания'
+                            placeholder='Например: Повторение '
+                        />
+                        <TextArea
+                            name='hwDescr'
+                            labelText='Описание домашнего задания'
+                            placeholder='Можно оставить пустым'
+                            border='border'
+                        />
+                        <Input
+                            name='hwDeadline'
+                            label='Срок сдачи'
+                            type='date'
+                        />
 
-                    <Container direction='vertical' classes={styles.content}>
-                        <Text type='h' size={4} weight='bold'>
-                            Список задач:
-                        </Text>
-                        <Container direction='vertical' classes={styles.list}>
-                            <HomeworkTaskList
-                                listState={[tasks, setTasks]}
-                                allowDelete
-                            />
-                        </Container>
-                        <Container direction='horizontal' classes={styles.contentNav}>
-                            <Button
-                                disabled={lock}
-
-                                onClick={() => setTaskCreateForm(true)} classes={styles.addBtn}>
-                                <Icon name='addLine' classes={styles.addBtnIcon} />
-                                Создать задание
-                            </Button>
-                            <Button
-                                disabled={lock}
-                                classes={styles.setBtn}
-                                onClick={() => setTaskSelectForm(true)}
-                            >
-                                <Icon name='layoutLine' classes={styles.setBtnIcon} />
-                                Выбрать задание
-                            </Button>
+                        <Container direction='vertical' classes={styles.content}>
+                            <Text type='h' size={4} weight='bold'>
+                                Список задач:
+                            </Text>
+                            <Container direction='vertical' classes={styles.list}>
+                                <HomeworkTaskList
+                                    listState={[tasks, setTasks]}
+                                    allowDelete
+                                />
+                            </Container>
+                            <Container direction='horizontal' classes={styles.contentNav}>
+                                <Button
+                                    disabled={lock}
+                                    onClick={() => setTaskCreateForm(true)}
+                                    classes={styles.addBtn}
+                                >
+                                    <Icon name='addLine' classes={styles.addBtnIcon} />
+                                    <Text type='p' weight='bold' size={1} classes={styles.addBtnText}>
+                                        Новая
+                                    </Text>
+                                </Button>
+                                <Button
+                                    disabled={lock}
+                                    classes={styles.setBtn}
+                                    onClick={() => setTaskSelectForm(true)}
+                                >
+                                    <Icon name='layoutLine' classes={styles.setBtnIcon} />
+                                    <Text type='p' weight='bold' size={1} classes={styles.setBtnText}>
+                                        Выбрать
+                                    </Text>
+                                </Button>
+                            </Container>
                         </Container>
                     </Container>
                 </form>
-            </Widget>
+                <Button
+                    disabled={lock}
+                    onClick={handleSubmit}
+                    >
+                    <Text type='p' weight='bold' size={1} classes={styles.submit}>
+                        Создать
+                    </Text>
+                </Button>
+            </Container>
 
             <Overlay isShowing={isTaskCreateFrom} closeOverlay={() => setTaskCreateForm(false)} >
                 <TaskCreateForm

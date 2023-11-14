@@ -8,6 +8,7 @@ import { HomeworkTask } from "@app/features/homeworkTask/homeworkTaskModel";
 import CheckBox from "@ui-kit/CheckBox/CheckBox";
 import { useEffect, useState } from "react";
 
+
 interface HomeworkTaskItemProps extends UiComponentProps {
     title?: string;
     task: HomeworkTask;
@@ -28,13 +29,13 @@ const HomeworkTaskItem: React.FC<HomeworkTaskItemProps> = ({ task, title, onDese
         }
     }, [state])
     return (
-        <Container direction='horizontal' layout='defaultBase' classes={styles.task}>
+        <Container direction='horizontal' layout='defaultBase' classes={styles.item} gap='l'>
             {onSelect && (
                 <CheckBox state={[state, setState]} />
             )}
             <Container direction='vertical'>
                 {title && (
-                    <Text type='h' size={5}>
+                    <Text type='h' size={4} weight='bold'>
                         {title}
                     </Text>
                 )}

@@ -7,9 +7,12 @@ import { AttachFile } from "@ui-kit/AttachFile/AttachFile";
 import Button from "@ui-kit/Button/Button";
 import Container from "@ui-kit/Container/Container";
 import Icon from "@ui-kit/Icon/Icon";
+import Text from "@ui-kit/Text/Text";
 import TextArea from "@ui-kit/TextArea/TextArea";
 import { UiComponentProps } from "@ui-kit/interfaces";
 import { useEffect, useRef, useState } from "react";
+
+import styles from './HomeworkTaskCreateForm.module.scss';
 
 interface TaskCreateFormProps extends UiComponentProps {
     onSubmitSuccess?: (t: HomeworkTask) => void;
@@ -22,8 +25,8 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({ onSubmitSuccess, classe
     const [createTask, createTaskStatus] = useCreateTaskMutation();
     const [lock, setLock] = useState<boolean>(false);
 
-    useEffect( () => {
-        if(uploadAttachStatus.isLoading || createTaskStatus.isLoading) {
+    useEffect(() => {
+        if (uploadAttachStatus.isLoading || createTaskStatus.isLoading) {
             setLock(true);
         } else {
             setLock(false);
@@ -75,23 +78,25 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({ onSubmitSuccess, classe
 
     return (
         <>
-            <Widget
-                classes={classes}
-                title='Создание задания'
-                footer={
-                    <Button
-                        onClick={handleSubmit}
-                        disabled={lock}
-                    >
-                        Создать
-                    </Button>
-                }
-            >
+            <Container direction='vertical' layout='defaultBase' gap='l' classes={styles.widget}>
+                <Text type='h' size={3} weight='bold'>
+                    Создание задания
+                </Text>
                 <form
                     ref={formRef}
                     onSubmit={(e) => e.preventDefault()}
                 >
-                    <Container>
+                    <Container classes={styles.content}>
+                        <TextArea
+                            classes={styles.area}
+                            labelText='Описание задачи'
+                            placeholder='Опишите суть задачи'
+                            minRows={4}
+                            maxRows={8}
+                            border='border'
+                            name='descr'
+                        />
+
                         <AttachFile
                             setFilesState={setAttaches}
                             maxFilesToAttach={1}
@@ -101,19 +106,18 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({ onSubmitSuccess, classe
                                 size={'large'}
                             />
                         </AttachFile>
-
-                        <TextArea
-                            labelText='Описание задачи'
-                            placeholder='Опишите суть задачи'
-                            minRows={4}
-                            maxRows={8}
-                            border='border'
-                            name='descr'
-                        />
                     </Container>
                     <ChatAttachmentsList useFiles={[attaches, setAttaches]} />
                 </form>
-            </Widget>
+                <Button
+                    onClick={handleSubmit}
+                    disabled={lock}
+                >
+                    <Text type='p' size={1} weight='bold' classes={styles.submitText}>
+                        Создать
+                    </Text>
+                </Button>
+            </Container>
         </>
     );
 }
