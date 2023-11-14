@@ -58,8 +58,10 @@ const ClassHomeworksWidget: React.FC<ClassHomeworksWidgetProps> = ({
                 />
 
                 <Button classes={styles.btnCreate} onClick={() => setCreateForm(true)}>
-                    <Icon  name='addLine' classes={styles.btnCreateIcon} />
-                    Создать
+                    <Icon name='addLine' classes={styles.btnCreateIcon} />
+                    <Text type='p' size={1} weight='bold' classes={styles.btnCreateText}>
+                        Создать
+                    </Text>
                 </Button>
             </Widget>
             {/* FULL PAGE WIGET */}
