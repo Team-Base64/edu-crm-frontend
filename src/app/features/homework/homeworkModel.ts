@@ -1,5 +1,3 @@
-import { HomeworkTask } from "../homeworkTask/homeworkTaskModel";
-
 export type Homework = {
     id: string | number;
     classID: string | number;
@@ -15,5 +13,5 @@ export type HomeworkCreatePayload = {
     description: string;
     classID: number;
     deadlineTime: string;
-    tasks: HomeworkTask[];
+    tasks: number[];
 };

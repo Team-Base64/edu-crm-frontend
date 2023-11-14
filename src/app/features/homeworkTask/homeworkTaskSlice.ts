@@ -1,5 +1,5 @@
 import appApi from '@app/appApi';
-import { HomeworkTask } from './homeworkTaskModel';
+import { HomeworkTask, HomeworkTaskCreatePayload } from './homeworkTaskModel';
 import { homeworkTaskPaths } from './homeworkTaskPaths';
 
 export const homeworkTaskSlice = appApi.injectEndpoints({
@@ -12,9 +12,20 @@ export const homeworkTaskSlice = appApi.injectEndpoints({
                 };
             },
         }),
+
+        createTask: build.mutation<{id: number},{payload: HomeworkTaskCreatePayload}>({
+            query: ({payload}) => {
+                return {
+                    url: homeworkTaskPaths.createTask,
+                    method: 'POST',
+                    body: JSON.stringify(payload),
+                };
+            },
+        }),
     }),
 });
 
 export const {
     useGetTasksQuery,
+    useCreateTaskMutation,
 } = homeworkTaskSlice;

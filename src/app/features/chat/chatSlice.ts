@@ -3,7 +3,6 @@ import appApi from '@app/appApi.ts';
 import { getSocket, messageWS } from '@app/websocket';
 import {
     apiChatMessageType,
-    attachmentRequestReturnType,
     attachmentsType,
     ChatMessageType,
     postChatMessageType,

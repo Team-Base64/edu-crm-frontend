@@ -6,6 +6,7 @@ import { homeworkSolutionPaths } from '@app/features/homeworkSolution/homeworkSo
 import { studentPaths } from '@app/features/stundent/studentPaths';
 import { chatPaths } from '@app/features/chat/chatPaths';
 import { teacherPaths } from '@app/features/teacher/teacherPaths';
+import { homeworkTaskPaths } from './features/homeworkTask/homeworkTaskPaths';
 
 const appPaths = {
     origin: 'http://127.0.0.1:8080',
@@ -19,6 +20,7 @@ const appPaths = {
     ...dialogPaths,
     ...chatPaths,
     ...teacherPaths,
+    ...homeworkTaskPaths,
 };
 
 export default appPaths;

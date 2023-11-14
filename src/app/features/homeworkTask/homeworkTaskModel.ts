@@ -1,12 +1,11 @@
 export type HomeworkTask  = {
-    id: number,
+    id: number;
     description: string;
-    attach: string;
+    attach ?: string;
 }
 
 
-export type HomeworkTaskCreate  = {
-    id: number,
+export type HomeworkTaskCreatePayload  = {
     description: string;
-    attach ?: File ;
+    attach ?: string ;
 }
