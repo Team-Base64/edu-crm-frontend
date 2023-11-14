@@ -6,48 +6,40 @@ import Input from '@ui-kit/Input/Input';
 import TextArea from '@ui-kit/TextArea/TextArea';
 import Button from '@ui-kit/Button/Button';
 import Icon from '@ui-kit/Icon/Icon';
-import { v4 as uuid } from "uuid";
 import styles from './HomeworkCreateForm.module.scss';
 import Overlay from '@ui-kit/Overlay/Overlay';
 import Widget from '@components/Widget/Widget';
-import { HomeworkTask, HomeworkTaskRaw } from '@app/features/homework/homeworkModel';
-import EmptyItem from '@components/EmptyItem/EmptyItem';
 import Text from '@ui-kit/Text/Text';
-import TaskItem from './HomeworkTask';
-import TaskCreateForm from './HomeworkTaskCreateForm';
 import { useCreateHomeworkMutation } from '@app/features/homework/homeworkSlice';
 
-import { useSendChatAttachesMutation } from '@app/features/chat/chatSlice';
+import HomeworkTaskList from '@components/HomeworkTaskList/HomeworkTaskList';
+import { HomeworkTask } from '@app/features/homeworkTask/homeworkTaskModel';
+import TaskCreateForm from '@components/HomeworkTaskCreateForm/HomeworkTaskCreateForm';
 
 interface HomeworkCreateFormProps extends UiComponentProps {
-    onSuccess?: () => void;
+    onSubmitSuccess?: () => void;
     classId: string | number;
 }
 
-interface Item extends HomeworkTaskRaw {
-    uuid: string;
-}
-
-const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ onSuccess, classId }) => {
-    const [isTaskCreateFrom, setTaskCreateForm] = useState<boolean>(false);
-    const [tasks, setTasks] = useState<Item[]>([]);
+const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ onSubmitSuccess, classId }) => {
     const formRef = useRef<HTMLFormElement>(null);
+    const [tasks, setTasks] = useState<HomeworkTask[]>([]);
+
+    const [isTaskCreateFrom, setTaskCreateForm] = useState<boolean>(false);
+    // const [isTaskSelectForm, setTaskSelectForm] = useState<boolean>(false);
 
     const [lock, setLock] = useState<boolean>(false);
 
 
     const [createHW, createStatus] = useCreateHomeworkMutation();
-    const [uploadAttach, uploadStatus] = useSendChatAttachesMutation();
 
     useEffect(() => {
-        if (createStatus.isLoading || uploadStatus.isLoading) {
+        if (createStatus.isLoading) {
             setLock(true);
-        }
-
-        if (!createStatus.isLoading && !uploadStatus.isLoading) {
+        } else {
             setLock(false);
         }
-    }, [createStatus, uploadStatus, setLock]);
+    }, [createStatus, setLock]);
 
 
     const handleSubmit = async () => {
@@ -72,38 +64,27 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ onSuccess, clas
         }
 
         console.log('OK 2');
-
-
-        const loadedTasks: HomeworkTask[] = [];
-        console.log('Load attaches');
-
-        for (let t of tasks) {
-            let loaded = { description: t.description, id: t.id, attach: '' };
-
-            if (t.attach) {
-                const resp = await uploadAttach({ type: 'homework', attaches: [t.attach] });
-
-                if ('data' in resp) {
-                    loaded.attach = resp.data.file;
-                }
-            }
-
-            loadedTasks.push(loaded);
-        }
-
-        console.log('Load done');
-        console.log('Create HW');
-
         createHW({
             payload: {
                 classID: Number(classId),
                 deadlineTime: deadline.toISOString(),
                 title: title,
                 description: descr,
-                tasks: loadedTasks,
+                tasks: tasks.map(t => t.id),
             }
-        }).then(() => onSuccess?.());
+        }).then(() => {
+            form.hwTitle.value = '';
+            form.hwDescr.value = '';
+            form.hwDeadline.value = '';
 
+            onSubmitSuccess?.();
+        });
+
+    }
+
+    const handleCreateTaskSuccess = (task: HomeworkTask) => {
+        setTasks(prev => [...prev, task]);
+        setTaskCreateForm(false);
     }
 
     return (
@@ -142,20 +123,9 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ onSuccess, clas
                             Список задач:
                         </Text>
                         <Container direction='vertical' classes={styles.list}>
-                            {!tasks.length ? <EmptyItem /> :
-                                tasks.map((t, i) => (
-                                    <React.Fragment key={t.uuid}>
-                                        <TaskItem
-                                            index={i}
-                                            task={t}
-                                            onDelete={() => {
-                                                setTasks(prev => prev.filter(item => item.uuid !== t.uuid));
-                                            }}
-                                        />
-                                    </React.Fragment>
-                                ))
-                            }
-
+                            <HomeworkTaskList 
+                            listState={[tasks, setTasks]}
+                            />
                         </Container>
                         <Container direction='horizontal' classes={styles.contentNav}>
                             <Button
@@ -177,10 +147,9 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ onSuccess, clas
             </Widget>
 
             <Overlay isShowing={isTaskCreateFrom} closeOverlay={() => setTaskCreateForm(false)} >
-                <TaskCreateForm addTask={(t) => {
-                    setTasks(prev => [...prev, { ...t, uuid: uuid() }]);
-                    setTaskCreateForm(false);
-                }} />
+                <TaskCreateForm 
+                onSubmitSuccess={handleCreateTaskSuccess}
+                />
             </Overlay>
         </>
     );

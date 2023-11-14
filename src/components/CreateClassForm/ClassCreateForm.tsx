@@ -8,16 +8,15 @@ import Container from '@ui-kit/Container/Container';
 import Text from '@ui-kit/Text/Text';
 import TextArea from '@ui-kit/TextArea/TextArea';
 import { useCreateClassMutation } from '@app/features/class/classSlice';
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styles from './ClassCreateForm.module.scss';
 
 interface ClassCreateFormProps extends UiComponentProps {
     onSuccess?: () => void;
 }
 
-const ClassCreateForm: React.FC<ClassCreateFormProps> = ({ onSuccess, classes }) => {
-    const [createClass, { data, isLoading, isError, error, isSuccess }
-    ] = useCreateClassMutation();
+const ClassCreateForm: React.FC<ClassCreateFormProps> = ({ classes }) => {
+    const [createClass, { data, isLoading, isSuccess }] = useCreateClassMutation();
 
     const navigate = useNavigate();
 

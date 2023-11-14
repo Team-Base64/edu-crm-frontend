@@ -25,10 +25,8 @@ const HomeworkSolutionItem: React.FC<HomeworkSolutionItemProps> = ({
     classes,
 }) => {
     // Тут нужно зарефакторить этот кал
-    console.log(homeworkId);
     const homeworkResponse = useGetHomeworkQuery({ id: homeworkId });
     const homeworkData = homeworkResponse.data?.homework;
-    console.log(homeworkData);
 
     let title = 'Неизвестное дз',
         deadline_time = undefined;
@@ -39,7 +37,6 @@ const HomeworkSolutionItem: React.FC<HomeworkSolutionItemProps> = ({
 
     const studentResponse = useGetStudentQuery({ id: studentId });
     const studentData = studentResponse.data?.student;
-    console.log(studentData);
 
     let avatarSrc = '',
         name = 'Неизвестный ученик';
