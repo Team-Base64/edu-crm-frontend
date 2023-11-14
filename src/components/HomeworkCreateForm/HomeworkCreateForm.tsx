@@ -40,7 +40,8 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({
     const [lock, setLock] = useState<boolean>(false);
 
     const [createHW, createStatus] = useCreateHomeworkMutation();
-    const [uploadAttach, uploadStatus] = useSendChatAttachesMutation();
+    // const [uploadAttach, uploadStatus] = useSendChatAttachesMutation();
+    const [, uploadStatus] = useSendChatAttachesMutation();
 
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -88,14 +89,13 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({
             };
 
             if (task.attach) {
-                const resp = await uploadAttach({
-                    type: 'homework',
-                    attache: [task.attach],
-                });
-
-                if ('data' in resp) {
-                    loaded.attach = resp.data.file;
-                }
+                // const resp = await uploadAttach({
+                //     type: 'homework',
+                //     attache: [task.attach],
+                // });
+                // if ('data' in resp) {
+                //     loaded.attach = resp.data.file;
+                // }
             }
 
             loadedTasks.push(loaded);
