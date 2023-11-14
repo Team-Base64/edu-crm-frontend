@@ -4,14 +4,10 @@ import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import Button from '@ui-kit/Button/Button.tsx';
 import Text from '@ui-kit/Text/Text.tsx';
 import Overlay from '@ui-kit/Overlay/Overlay.tsx';
-import { AddEvenForm } from '@components/AddEventForm/AddEventForm.tsx';
+import { AddEventForm } from '@components/AddEventForm/AddEventForm.tsx';
 
-interface CalendarAddEventProps extends UiComponentProps {
-    calendarRef: React.RefObject<HTMLIFrameElement>;
-}
-export const CalendarAddEvent: React.FC<CalendarAddEventProps> = ({
-    calendarRef,
-}) => {
+interface CalendarAddEventProps extends UiComponentProps {}
+export const CalendarAddEvent: React.FC<CalendarAddEventProps> = ({}) => {
     const [isAddEventWindowShowing, setAddEventWindowShowing] = useState(false);
     return (
         <>
@@ -31,10 +27,9 @@ export const CalendarAddEvent: React.FC<CalendarAddEventProps> = ({
                 isShowing={isAddEventWindowShowing}
                 closeOverlay={() => setAddEventWindowShowing(false)}
             >
-                <AddEvenForm
+                <AddEventForm
                     setIsShowingState={setAddEventWindowShowing}
-                    calendarRef={calendarRef}
-                ></AddEvenForm>
+                ></AddEventForm>
             </Overlay>
         </>
     );

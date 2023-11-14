@@ -4,13 +4,10 @@ import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import Container from '@ui-kit/Container/Container.tsx';
 import { CalendarAddEvent } from '@components/CalendatAddEvent/CalendatAddEvent.tsx';
 
-interface CalendarControlsProps extends UiComponentProps {
-    calendarRef: React.RefObject<HTMLIFrameElement>;
-}
+interface CalendarControlsProps extends UiComponentProps {}
 
 export const CalendarControls: React.FC<CalendarControlsProps> = ({
     classes,
-    calendarRef,
 }) => {
     return (
         <Container
@@ -18,7 +15,7 @@ export const CalendarControls: React.FC<CalendarControlsProps> = ({
             classes={classes}
             direction={'vertical'}
         >
-            <CalendarAddEvent calendarRef={calendarRef}></CalendarAddEvent>
+            <CalendarAddEvent></CalendarAddEvent>
         </Container>
     );
 };

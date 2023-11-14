@@ -15,13 +15,9 @@ export const CalendarPage: React.FC<CalendarPageProps> = () => {
             direction={'grid'}
             classes={styles.calendarPage}
         >
-            <Calendar
-                classes={styles.calendarPageCalendar}
-                ref={calendarRef}
-            ></Calendar>
+            <Calendar classes={styles.calendarPageCalendar}></Calendar>
             <CalendarControls
                 classes={styles.calendarPageControls}
-                calendarRef={calendarRef}
             ></CalendarControls>
         </Container>
     );
