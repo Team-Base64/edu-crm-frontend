@@ -17,15 +17,14 @@ export type HomeworkCreatePayload = {
     // payload: Blob
 };
 
-export type HomeworkTask  = {
-    id: number,
+export type HomeworkTask = {
+    id: number;
     description: string;
     attach: string;
-}
+};
 
-
-export type HomeworkTaskRaw  = {
-    id: number,
+export type HomeworkTaskRaw = {
+    id: number;
     description: string;
-    attach ?: File ;
-}
+    attach?: File;
+};

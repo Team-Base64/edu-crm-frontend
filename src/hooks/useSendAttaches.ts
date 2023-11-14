@@ -1,6 +1,6 @@
-import { useSendChatAttachesMutation } from '@app/features/chat/chatSlice.ts';
-import { AttachmentDestTypes } from '@app/features/chat/chatModel.ts';
 import { useState } from 'react';
+import { useSendChatAttachesMutation } from '@app/features/attaches/attachesSlice.ts';
+import { AttachmentDestTypes } from '@app/features/attaches/attachesModel.ts';
 
 export default function useSendAttaches(type: AttachmentDestTypes) {
     const [sendAttaches] = useSendChatAttachesMutation();

@@ -9,7 +9,7 @@ import Icon from '@ui-kit/Icon/Icon';
 import Overlay from '@ui-kit/Overlay/Overlay';
 import ClassCreateForm from '@components/CreateClassForm/ClassCreateForm';
 
-interface ClassesPageProps extends UiComponentProps { }
+interface ClassesPageProps extends UiComponentProps {}
 
 const ClassesPage: React.FC<ClassesPageProps> = () => {
     const [showCreateForm, setShowCreateForm] = useState<boolean>(false);
@@ -21,7 +21,10 @@ const ClassesPage: React.FC<ClassesPageProps> = () => {
                 layout={'defaultBase'}
                 gap={'l'}
             >
-                <Container direction='horizontal' classes={styles.header}>
+                <Container
+                    direction="horizontal"
+                    classes={styles.header}
+                >
                     <Text
                         type={'h'}
                         size={3}
@@ -29,8 +32,11 @@ const ClassesPage: React.FC<ClassesPageProps> = () => {
                     >
                         Ваши классы:
                     </Text>
-                    <Button onClick={() => setShowCreateForm(true)} >
-                        <Icon name='addLine' classes={styles.btnIcon} />
+                    <Button onClick={() => setShowCreateForm(true)}>
+                        <Icon
+                            name="addLine"
+                            classes={styles.btnIcon}
+                        />
                         Создать
                     </Button>
                 </Container>
@@ -41,8 +47,14 @@ const ClassesPage: React.FC<ClassesPageProps> = () => {
                     <ClassList classes={styles.item} />
                 </Container>
             </Container>
-            <Overlay isShowing={showCreateForm} closeOverlay={() => setShowCreateForm(false)}>
-                <ClassCreateForm classes={styles.createForm} onSuccess={() => setShowCreateForm(false)}/>
+            <Overlay
+                isShowing={showCreateForm}
+                closeOverlay={() => setShowCreateForm(false)}
+            >
+                <ClassCreateForm
+                    classes={styles.createForm}
+                    onSuccess={() => setShowCreateForm(false)}
+                />
             </Overlay>
         </>
     );

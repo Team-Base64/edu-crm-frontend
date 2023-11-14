@@ -24,7 +24,7 @@ const ClassList: React.FC<ClassListProps> = ({ limit, classes }) => {
     const list = data.classes;
     return (
         <>
-            {!list.length && (<EmptyItem/>)}
+            {!list.length && <EmptyItem />}
 
             {list.length &&
                 list.slice(0, limit).map((data) => (

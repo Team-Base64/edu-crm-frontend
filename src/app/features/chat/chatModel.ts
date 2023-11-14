@@ -19,11 +19,4 @@ export interface postChatMessageType extends ChatMessageType {
     // attachments: File[];
 }
 
-export type AttachmentDestTypes = 'chat' | 'homework' | 'solution';
-
-export type attachmentsType = {
-    attache: File;
-    type: AttachmentDestTypes;
-};
-
 export type attachmentRequestReturnType = { file: string };

@@ -21,5 +21,4 @@ export const classListMock: ClassData[] = [
         description: 'Only for dev 2',
         inviteToken: 'dawbdl',
     },
-
 ];

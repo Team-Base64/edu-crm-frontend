@@ -59,5 +59,3 @@ export const classAnnouncementsMock: IclassAnnouncementMock = {
 
     2: announcesMock.slice(1),
 };
-
-

@@ -30,10 +30,18 @@ const HomeworkSolutionList: React.FC<HomeworkSolutionListProps> = ({
     const list = data.solutions;
     return (
         <>
-            {
-                !list.length ? <EmptyItem /> :
-                    list.slice(0, limit)
-                        .map(({ id, createTime: time, studentID: student_id, hwID: homework_id }) => (
+            {!list.length ? (
+                <EmptyItem />
+            ) : (
+                list
+                    .slice(0, limit)
+                    .map(
+                        ({
+                            id,
+                            createTime: time,
+                            studentID: student_id,
+                            hwID: homework_id,
+                        }) => (
                             <React.Fragment key={`${listId}-${id}`}>
                                 <HomeworkSolutionItem
                                     id={id}
@@ -42,8 +50,9 @@ const HomeworkSolutionList: React.FC<HomeworkSolutionListProps> = ({
                                     passTime={time}
                                 />
                             </React.Fragment>
-                        ))
-            }
+                        ),
+                    )
+            )}
         </>
     );
 };

@@ -31,20 +31,24 @@ const ClassAnnounceList: React.FC<ClassAnnounceListProps> = ({ classId }) => {
             direction="vertical"
             layout="defaultBase"
         >
-            {
-                !list.length ? <EmptyItem classes={styles.empty} text='В этом классе пока нет объявлений' /> :
-                    list.map(({ id, text, createTime: time }) => (
-                        <React.Fragment key={`${listId}-${id}`}>
-                            <ClassAnnounceCard
-                                firstName="George"
-                                lastName="Illarionov"
-                                avatarSrc=""
-                                text={text}
-                                time={Number(time)}
-                            />
-                        </React.Fragment>
-                    ))
-            }
+            {!list.length ? (
+                <EmptyItem
+                    classes={styles.empty}
+                    text="В этом классе пока нет объявлений"
+                />
+            ) : (
+                list.map(({ id, text, createTime: time }) => (
+                    <React.Fragment key={`${listId}-${id}`}>
+                        <ClassAnnounceCard
+                            firstName="George"
+                            lastName="Illarionov"
+                            avatarSrc=""
+                            text={text}
+                            time={Number(time)}
+                        />
+                    </React.Fragment>
+                ))
+            )}
         </Container>
     );
 };

@@ -3,14 +3,10 @@ import appApi from '@app/appApi.ts';
 import { getSocket, messageWS } from '@app/websocket';
 import {
     apiChatMessageType,
-    attachmentsType,
     ChatMessageType,
     postChatMessageType,
 } from '@app/features/chat/chatModel';
 import { chatPaths } from '@app/features/chat/chatPaths';
-import appPaths from '@app/appPaths.ts';
-
-const man_photo_src = 'https://flirtic.com/media/photos/1/e/7/1e733948480.jpg';
 
 export const chatSlice = appApi.injectEndpoints({
     endpoints: (build) => ({
@@ -75,7 +71,6 @@ export const chatSlice = appApi.injectEndpoints({
                         }
 
                         updateCachedData((draft) => {
-                            data.authorAvatarSrc = man_photo_src;
                             draft.messages[data.chatid] = [
                                 ...(draft.messages[data.chatid] ?? []),
                                 data,
@@ -126,24 +121,7 @@ export const chatSlice = appApi.injectEndpoints({
                 //}
             },
         }),
-        sendChatAttaches: build.mutation<{ file: string }, attachmentsType>({
-            query: ({ attache, type }) => {
-                const formData = new FormData();
-                formData.append('file', attache);
-
-                return {
-                    url: `${appPaths.baseChatPath}${chatPaths.attach}${type}`,
-                    method: 'POST',
-                    body: formData,
-                    formData: true,
-                };
-            },
-        }),
     }),
 });
 
-export const {
-    useGetLiveMessagesQuery,
-    useSendMessageMutation,
-    useSendChatAttachesMutation,
-} = chatSlice;
+export const { useGetLiveMessagesQuery, useSendMessageMutation } = chatSlice;

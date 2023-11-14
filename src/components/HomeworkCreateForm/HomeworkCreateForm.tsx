@@ -18,8 +18,7 @@ import Text from '@ui-kit/Text/Text';
 import TaskItem from './HomeworkTask';
 import TaskCreateForm from './HomeworkTaskCreateForm';
 import { useCreateHomeworkMutation } from '@app/features/homework/homeworkSlice';
-
-import { useSendChatAttachesMutation } from '@app/features/chat/chatSlice';
+import { useSendChatAttachesMutation } from '@app/features/attaches/attachesSlice.ts';
 
 interface HomeworkCreateFormProps extends UiComponentProps {
     onSuccess?: () => void;
