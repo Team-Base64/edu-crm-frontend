@@ -1,3 +1,5 @@
+import { HomeworkTask } from "../homeworkTask/homeworkTaskModel";
+
 export type Homework = {
     id: string | number;
     classID: string | number;
@@ -14,18 +16,4 @@ export type HomeworkCreatePayload = {
     classID: number;
     deadlineTime: string;
     tasks: HomeworkTask[];
-    // payload: Blob
 };
-
-export type HomeworkTask  = {
-    id: number,
-    description: string;
-    attach: string;
-}
-
-
-export type HomeworkTaskRaw  = {
-    id: number,
-    description: string;
-    attach ?: File ;
-}
