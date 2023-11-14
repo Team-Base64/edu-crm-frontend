@@ -8,10 +8,7 @@ import {
     useGetLiveMessagesQuery,
     useSendMessageMutation,
 } from '@app/features/chat/chatSlice.ts';
-import {
-    useGetDialogsQuery,
-    // usePostDialogsMutation,
-} from '@app/features/dialog/dialogSlice.ts';
+import { useGetDialogsQuery } from '@app/features/dialog/dialogSlice.ts';
 
 interface SendMessageAreaProps extends UiComponentProps {
     chatid: number;
@@ -24,7 +21,6 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
         });
 
     const [sendMessage] = useSendMessageMutation();
-    // const [updChatList] = usePostDialogsMutation();
 
     const messageBlock = data?.messages[chatid]?.map((message, index) => {
         return (

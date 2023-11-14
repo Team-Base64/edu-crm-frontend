@@ -53,7 +53,6 @@ export const chatSlice = appApi.injectEndpoints({
                 `getLiveMessages-${params.queryArgs.channel}`,
             merge: (currentCache, newItems) => {
                 Object.entries(newItems.messages).forEach(([key, newValue]) => {
-                    console.log(newValue, newItems.messages, key);
                     currentCache.messages[key] = [
                         ...newValue,
                         ...(currentCache.messages[key] ?? []),
@@ -93,9 +92,6 @@ export const chatSlice = appApi.injectEndpoints({
         sendMessage: build.mutation<unknown, { message: postChatMessageType }>({
             queryFn: (args) => {
                 const socket = getSocket();
-                // const state = api.endpoint;
-                // console.log('state', state.api.);
-
                 args.message.chatID;
                 args.message.socialType;
                 socket.send(JSON.stringify(args.message));
@@ -131,18 +127,15 @@ export const chatSlice = appApi.injectEndpoints({
             },
         }),
         sendChatAttaches: build.mutation<{ file: string }, attachmentsType>({
-            query: ({ attaches, type }) => {
+            query: ({ attache, type }) => {
                 const formData = new FormData();
-                formData.append('file', attaches[0]);
+                formData.append('file', attache);
 
                 return {
                     url: `${appPaths.baseChatPath}${chatPaths.attach}${type}`,
                     method: 'POST',
                     body: formData,
                     formData: true,
-                    headers: {
-                        //'Content-Type': 'multipart/form-data;',
-                    },
                 };
             },
         }),

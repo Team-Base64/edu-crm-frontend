@@ -12,12 +12,10 @@ import Button from '@ui-kit/Button/Button.tsx';
 import Icon from '@ui-kit/Icon/Icon.tsx';
 import styles from './SendMessageArea.module.scss';
 import { AttachFile } from '@ui-kit/AttachFile/AttachFile.tsx';
-import { ChatAttachmentsList } from '@components/ChatAttachmentsList/ChatAttachmentsList.tsx';
-import {
-    useSendChatAttachesMutation,
-    useSendMessageMutation,
-} from '@app/features/chat/chatSlice';
+import { AttachmentsList } from '@ui-kit/AttachmentsList/AttachmentsList.tsx';
+import { useSendMessageMutation } from '@app/features/chat/chatSlice';
 import { useGetDialogsQuery } from '@app/features/dialog/dialogSlice.ts';
+import useSendAttaches from '../../hooks/useSendAttaches.ts';
 
 interface SendMessageAreaProps extends UiComponentProps {
     id: string;
@@ -32,37 +30,44 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
 }) => {
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-    const [attaches, setAttaches] = useState<File[]>();
-
     const [isDisabledSend, setIsDisabledSend] = useState(true);
-
-    const [sendAttaches] = useSendChatAttachesMutation();
 
     const [sendMessage] = useSendMessageMutation();
 
     const dialogData = useGetDialogsQuery(null);
+
+    const { attaches, setAttaches, attachesSendPromise } =
+        useSendAttaches('chat');
+
+    const SerializeAttachesFromBackend = (
+        result: Awaited<ReturnType<typeof attachesSendPromise>>,
+    ) =>
+        result.map((value) => {
+            if ('data' in value) {
+                return value.data.file;
+            }
+            throw Error(`error on send attach: ${value}`);
+        });
 
     const sendMessageHandler = () => {
         if (!textAreaRef.current) {
             return;
         }
 
-        console.log('attaches', attaches?.toString());
-        if (attaches?.length) {
-            sendAttaches({
-                attaches,
-                type: 'chat',
-            })
+        console.log('attaches count: ', attaches.length);
+        if (attaches.length) {
+            attachesSendPromise()
                 .then((result) => {
-                    if ('data' in result && dialogData.data) {
-                        console.log('result.data.file: ', result.data.file);
+                    console.log('result.data.file: ', result);
+                    const attaches = SerializeAttachesFromBackend(result);
+                    if (dialogData.data) {
                         sendMessage({
                             message: {
                                 text: textAreaRef.current?.value ?? '',
                                 chatID: Number(id),
                                 ismine: true,
                                 date: new Date().toISOString(),
-                                attaches: [result.data.file],
+                                attaches,
                                 socialType:
                                     dialogData.data.dialogs[Number(id)]
                                         .socialtype,
@@ -86,30 +91,30 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
         localStorage.setItem(`chatArea/${id}`, '');
     };
 
-    useEffect(() => {
-        const savedMsg = localStorage.getItem(`chatArea/${id}`) ?? '';
-        if (!textAreaRef.current) return;
-        textAreaRef.current.value = savedMsg;
-        setIsDisabledSend(!textAreaRef.current.value && !attaches);
-    }, [id, setIsDisabledSend, attaches]);
-
     const handleClick = (e: React.MouseEvent) => {
         e.preventDefault();
         sendMessageHandler();
     };
 
+    useEffect(() => {
+        const savedMsg = localStorage.getItem(`chatArea/${id}`) ?? '';
+        if (!textAreaRef.current) return;
+        textAreaRef.current.value = savedMsg;
+        setIsDisabledSend(!textAreaRef.current.value && !attaches.length);
+    }, [id, setIsDisabledSend, attaches]);
+
     const handleMessageChange: ChangeEventHandler<HTMLTextAreaElement> = ({
         target,
     }) => {
         localStorage.setItem(`chatArea/${id}`, target.value);
-        setIsDisabledSend(!target.value && !attaches);
+        setIsDisabledSend(!target.value && !attaches.length);
     };
 
     const handleAreaKeydown: KeyboardEventHandler<HTMLTextAreaElement> = (
         event,
     ) => {
         if (event.code === 'Enter' && event.ctrlKey) {
-            sendMessageHandler();
+            // sendMessageHandler();
         }
     };
 
@@ -125,8 +130,8 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
                 onSubmit={(e) => e.preventDefault()}
             >
                 <AttachFile
-                    setFilesState={setAttaches}
-                    maxFilesToAttach={1}
+                    useFiles={[attaches, setAttaches]}
+                    maxFilesToAttach={5}
                 >
                     <Icon
                         name={'attachIcon'}
@@ -159,9 +164,9 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
                     />
                 </Button>
             </form>
-            <ChatAttachmentsList
+            <AttachmentsList
                 useFiles={[attaches, setAttaches]}
-            ></ChatAttachmentsList>
+            ></AttachmentsList>
         </Container>
     );
 };

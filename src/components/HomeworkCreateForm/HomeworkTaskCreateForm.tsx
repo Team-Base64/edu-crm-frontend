@@ -1,5 +1,5 @@
 import { HomeworkTaskRaw } from '@app/features/homework/homeworkModel';
-import { ChatAttachmentsList } from '@components/ChatAttachmentsList/ChatAttachmentsList';
+import { AttachmentsList } from '@ui-kit/AttachmentsList/AttachmentsList.tsx';
 import Widget from '@components/Widget/Widget';
 import { AttachFile } from '@ui-kit/AttachFile/AttachFile';
 import Button from '@ui-kit/Button/Button';
@@ -65,7 +65,7 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({
                             name="descr"
                         />
                     </Container>
-                    <ChatAttachmentsList useFiles={[attaches, setAttaches]} />
+                    <AttachmentsList useFiles={[attaches, setAttaches]} />
                 </form>
             </Widget>
         </>
