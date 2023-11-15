@@ -113,6 +113,7 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({ onSubmitSuccess, classe
                     onClick={handleSubmit}
                     disabled={lock}
                 >
+                    <Icon name='approve' classes={styles.submitIcon}/>
                     <Text type='p' size={1} weight='bold' classes={styles.submitText}>
                         Создать
                     </Text>
