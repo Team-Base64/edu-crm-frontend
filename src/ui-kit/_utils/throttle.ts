@@ -13,7 +13,7 @@ export function throttle<A = unknown, R = void>(
             timer = setTimeout(() => {
                 clearTimeout(timer);
                 timer = undefined;
-                console.log('thr');
+
                 resolve(fn(args));
             }, ms);
         });

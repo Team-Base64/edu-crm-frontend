@@ -1,8 +1,9 @@
-import React, { KeyboardEventHandler, useEffect, useId } from 'react';
+import React, { KeyboardEventHandler, useEffect, useId, useRef } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import styles from '@ui-kit/TextArea/TextArea.module.scss';
 import Container from '@ui-kit/Container/Container';
 import { noop } from '@app/const/consts';
+import { useThrottle } from '@ui-kit/_hooks/useThrottle';
 
 interface TextAreaProps extends UiComponentProps {
     name?: string;
@@ -16,7 +17,7 @@ interface TextAreaProps extends UiComponentProps {
     maxRows?: number;
     onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
     onKeydownCallback?: () => void;
-    textareaRef ?: React.RefObject<HTMLTextAreaElement>;
+    textareaRef?: React.RefObject<HTMLTextAreaElement>;
     maxLength?: number;
 }
 
@@ -37,27 +38,27 @@ const TextArea: React.FC<TextAreaProps> = ({
     minRows = 1,
     maxRows = 10,
     onChange,
-    onKeydownCallback = noop,
+    onKeydownCallback,
     textareaRef,
     classes,
     ...rest
 }) => {
+    const taRef = textareaRef ? textareaRef : useRef<HTMLTextAreaElement>(null);
     const id = useId();
 
     const handleAreaKeydown: KeyboardEventHandler<HTMLTextAreaElement> = (
         event,
     ) => {
         if (event.code === 'Enter' && event.ctrlKey) {
-            onKeydownCallback();
+            onKeydownCallback?.();
         }
     };
 
     const resizeTextarea = () => {
-        const area = textareaRef?.current;
+        const area = taRef.current;
         if (!autoResize || !area) {
             return;
         }
-
         const areaStyles = window.getComputedStyle(area);
         const lineHeight = parseInt(areaStyles.lineHeight);
         const padding =
@@ -78,12 +79,14 @@ const TextArea: React.FC<TextAreaProps> = ({
         }
     };
 
+    const resizeTextareaThrottled = useThrottle(resizeTextarea, 200);
+
     useEffect(() => {
         resizeTextarea();
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        resizeTextarea();
+        resizeTextareaThrottled(null);
         onChange?.(e);
     };
 
@@ -92,7 +95,7 @@ const TextArea: React.FC<TextAreaProps> = ({
             {labelText && <label htmlFor={id}>{labelText}</label>}
             <textarea
                 id={id}
-                ref={textareaRef}
+                ref={taRef}
                 name={name}
                 spellCheck={spellcheck}
                 defaultValue={textareaText}
