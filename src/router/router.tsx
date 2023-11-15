@@ -11,7 +11,7 @@ import { Chat } from '@pages/MessengerPage/Chat';
 import ClassesPage from '@pages/ClassesPage/ClassesPage';
 import RequireNotAuth from '@hoc/RequireNotAuth';
 import { CalendarPage } from '@pages/CalendarPage/CalendarPage.tsx';
-
+import TaskPage from '@pages/TaskPage/TaskPage';
 const AppRouter: React.FC = () => {
     return (
         <Routes>
@@ -39,6 +39,10 @@ const AppRouter: React.FC = () => {
                     <Route
                         path={AppRoutes.messenger}
                         element={<Chat />}
+                    />
+                    <Route
+                        path={AppRoutes.tasks}
+                        element={<TaskPage />}
                     />
                     <Route path={AppRoutes.classes}>
                         <Route

@@ -34,6 +34,12 @@ const config: SidebarConfig = [
             iconName: 'chatLine',
             path: AppRoutes.messenger,
         },
+
+        {
+            title: 'Банк заданий',
+            iconName: 'pencilLine',
+            path: AppRoutes.tasks,
+        },
         {
             title: 'Настройки',
             iconName: 'settingsLine',

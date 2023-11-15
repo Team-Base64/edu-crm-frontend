@@ -85,6 +85,7 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({ onSubmitSuccess, classe
                 <form
                     ref={formRef}
                     onSubmit={(e) => e.preventDefault()}
+                    className={styles.form}
                 >
                     <Container classes={styles.content}>
                         <TextArea
@@ -107,8 +108,9 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({ onSubmitSuccess, classe
                             />
                         </AttachFile>
                     </Container>
-                    <ChatAttachmentsList useFiles={[attaches, setAttaches]} />
                 </form>
+
+                <ChatAttachmentsList useFiles={[attaches, setAttaches]} />
                 <Button
                     onClick={handleSubmit}
                     disabled={lock}

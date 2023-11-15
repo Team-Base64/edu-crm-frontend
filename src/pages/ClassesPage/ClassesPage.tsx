@@ -31,7 +31,9 @@ const ClassesPage: React.FC<ClassesPageProps> = () => {
                     </Text>
                     <Button onClick={() => setShowCreateForm(true)} >
                         <Icon name='addLine' classes={styles.btnIcon} />
-                        Создать
+                        <Text type='p' size={1} weight='bold' classes={styles.btnText}>
+                            Создать класс
+                        </Text>
                     </Button>
                 </Container>
                 <Container
