@@ -8,6 +8,7 @@ import Icon from '@ui-kit/Icon/Icon';
 import { AddEventForm } from '@components/AddEventForm/AddEventForm.tsx';
 import { useEditEventMutation } from '@app/features/calendar/calendarSlice.ts';
 import Overlay from '@ui-kit/Overlay/Overlay.tsx';
+import { getUTCDate, getUTCTime } from '../utils/common/dateRepresentation.ts';
 
 interface CalendarEventProps extends UiComponentProps {
     event: CalendarEventType;
@@ -28,25 +29,31 @@ export const CalendarEvent: React.FC<CalendarEventProps> = ({
                 type={'p'}
                 size={5}
             >
-                {event.title}
+                Название:{event.title}
             </Text>
             <Text
                 type={'p'}
                 size={5}
             >
-                {event.description}
+                Описание:{event.description}
             </Text>
             <Text
                 type={'p'}
                 size={5}
             >
-                {event.startDate}
+                Дата начала:
+                {getUTCDate(new Date(event.startDate)) +
+                    ' ' +
+                    getUTCTime(new Date(event.startDate))}
             </Text>
             <Text
                 type={'p'}
                 size={5}
             >
-                {event.endDate}
+                Дата окончания:{' '}
+                {getUTCDate(new Date(event.endDate)) +
+                    ' ' +
+                    getUTCTime(new Date(event.endDate))}
             </Text>
             <Button
                 type={'secondary'}
