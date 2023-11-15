@@ -7,7 +7,7 @@ import Overlay from '@ui-kit/Overlay/Overlay.tsx';
 import { AddEventForm } from '@components/AddEventForm/AddEventForm.tsx';
 
 interface CalendarAddEventProps extends UiComponentProps {}
-export const CalendarAddEvent: React.FC<CalendarAddEventProps> = ({}) => {
+export const CalendarAddEvent: React.FC<CalendarAddEventProps> = () => {
     const [isAddEventWindowShowing, setAddEventWindowShowing] = useState(false);
     return (
         <>

@@ -1,13 +1,16 @@
 import { useAddEventMutation } from '@app/features/calendar/calendarSlice.ts';
 
-export type CalendarEventType = {
+export type CalendarCreateEventType = {
     title: string;
     description: string;
     startDate: string;
     endDate: string;
-    id: number;
     classid: number;
 };
+
+export interface CalendarEventType extends CalendarCreateEventType {
+    id: number;
+}
 
 export interface CalendarEventSelectByIDType {
     [index: number]: CalendarEventType;

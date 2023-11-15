@@ -1,6 +1,7 @@
 import appApi from '@app/appApi';
 import { calendarPaths } from '@app/features/calendar/calendarPaths.ts';
 import {
+    CalendarCreateEventType,
     CalendarEventDeleteType,
     CalendarEventSelectByIDType,
     CalendarEventType,
@@ -9,7 +10,7 @@ import appPaths from '@app/appPaths';
 
 export const calendarSlice = appApi.injectEndpoints({
     endpoints: (build) => ({
-        addEvent: build.mutation<unknown, CalendarEventType>({
+        addEvent: build.mutation<unknown, CalendarCreateEventType>({
             query: (eventData) => {
                 return {
                     url: `${appPaths.basePath}${calendarPaths.addEvent}`,

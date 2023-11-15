@@ -9,6 +9,7 @@ import Button from '@ui-kit/Button/Button.tsx';
 import Text from '@ui-kit/Text/Text.tsx';
 import { useAddEventMutation } from '@app/features/calendar/calendarSlice.ts';
 import useAddEvent from '../../hooks/useAddEvent.ts';
+import { DropDown } from '@ui-kit/DropDown/DropDown.tsx';
 
 interface AddEvenFormProps extends UiComponentProps {
     setIsShowingState: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,6 +27,8 @@ export const AddEventForm: React.FC<AddEvenFormProps> = ({
         useEndDate,
         useEndTime,
         useDescription,
+        useSelectedClass,
+        classData,
         handleSubmit,
     } = useAddEvent(setIsShowingState, useAddEventMutation()[0]);
 
@@ -68,6 +71,15 @@ export const AddEventForm: React.FC<AddEvenFormProps> = ({
                         useDescription.setDescription(event.target.value)
                     }
                 ></Input>
+                <DropDown
+                    options={Array.from(classData.keys())}
+                    classes={styles.addEventFormClassPicker}
+                    onChange={(event) =>
+                        useSelectedClass.setSelectedClass(
+                            classData.get(event.target.value) ?? -1,
+                        )
+                    }
+                ></DropDown>
                 <Button>
                     <Text
                         type={'h'}

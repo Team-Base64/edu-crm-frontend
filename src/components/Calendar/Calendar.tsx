@@ -16,7 +16,7 @@ export const Calendar: React.FC<CalendarProps> = ({ classes }) => {
         <Suspense
             fallback={
                 <div className={[styles.calendar, classes].join(' ')}>
-                    {/* eslint-disable-next-line react/jsx-no-undef */}
+                    {}
                     <Spinner></Spinner>
                 </div>
             }
