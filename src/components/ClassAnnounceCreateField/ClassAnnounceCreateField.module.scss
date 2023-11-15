@@ -14,3 +14,18 @@
     }
 
 }
+
+.form {
+    all: unset;
+    display: flex;
+    position: relative;
+    width: 100%;
+    & > div {
+        width: 100%;
+    }
+}
+
+.spinner {
+    fill: gray;
+    stroke: gray;
+}

@@ -7,7 +7,7 @@ import { classListMock, classNewMock } from '../const/classConstMocks.ts';
 import { classHomeworksMock } from '../const/homeworkConstMocks.ts';
 import { classStudentsMock } from '../const/studentConstMocks.ts';
 import { classSolutionsMock } from '../const/solutionsConstMocks.ts';
-import { classAnnouncementsMock } from '../const/announceConstMocks.ts';
+import { classAnnouncementsMock, newAnnounceMock } from '../const/announceConstMocks.ts';
 
 export const classHandlers = [
     // Get class
@@ -82,6 +82,32 @@ export const classHandlers = [
                 );
             }
         },
+    ),
+
+    // Create class announce 
+    http.post(
+        `${appPaths.basePath}${appPaths.createAnnouncement(':id')}`,
+        () => {
+            try {
+                return HttpResponse.json(
+                    {
+                        post: newAnnounceMock,
+                    },
+                    {
+                        status: 200,
+                        headers: { ...defaultHeadersMock },
+                    },
+                );
+            } catch (e) {
+                return HttpResponse.json(
+                    {},
+                    {
+                        status: 404,
+                        headers: { ...defaultHeadersMock },
+                    },
+                );
+            }
+        }
     ),
 
     // Get class anoounces
