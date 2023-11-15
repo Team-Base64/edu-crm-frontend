@@ -1,0 +1,28 @@
+.page {
+    width: 100%;
+}
+
+.list {
+    flex-wrap: wrap;
+    height: fit-content;
+}
+
+.item {
+    width: 400px;
+}
+
+.btnIcon {
+    fill: white;
+}
+
+.btnText {
+    color: white;
+}
+
+.header {
+    justify-content: space-between;
+}
+
+.create-form {
+    min-width: 50vw;
+}
