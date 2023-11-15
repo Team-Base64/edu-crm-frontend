@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import styles from './AddEventForm.module.scss';
 import Container from '@ui-kit/Container/Container.tsx';
@@ -8,6 +8,7 @@ import { DatePicker } from '@ui-kit/DatePicker/DatePicker.tsx';
 import Button from '@ui-kit/Button/Button.tsx';
 import Text from '@ui-kit/Text/Text.tsx';
 import { useAddEventMutation } from '@app/features/calendar/calendarSlice.ts';
+import useAddEvent from '../../hooks/useAddEvent.ts';
 
 interface AddEvenFormProps extends UiComponentProps {
     setIsShowingState: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,38 +19,18 @@ export type dateInput = null | Date;
 export const AddEventForm: React.FC<AddEvenFormProps> = ({
     setIsShowingState,
 }) => {
-    const [title, setTitle] = useState('');
-    const [startDate, setStartDate] = useState<dateInput>(null);
-    const [startTime, setStartTime] = useState<dateInput>(null);
-    const [endDate, setEndDate] = useState<dateInput>(null);
-    const [endTime, setEndTime] = useState<dateInput>(null);
-    const [description, setDescription] = useState('');
+    const {
+        useTitle,
+        useStartDate,
+        useStartTime,
+        useEndDate,
+        useEndTime,
+        useDescription,
+        handleSubmit,
+    } = useAddEvent(setIsShowingState, useAddEventMutation()[0]);
 
-    const [sendEvent] = useAddEventMutation();
     return (
-        <form
-            onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
-                event.preventDefault();
-                if (startDate && startTime && endDate && endTime) {
-                    startDate.setHours(startTime.getHours());
-                    startDate.setMinutes(startTime.getMinutes());
-                    endDate.setHours(endTime.getHours());
-                    endDate.setMinutes(endTime.getMinutes());
-                    console.log(
-                        startDate.toLocaleTimeString('ru-RU'),
-                        endDate.toLocaleTimeString('ru-RU'),
-                    );
-                    sendEvent({
-                        title,
-                        description,
-                        startDate: startDate.toLocaleTimeString('ru-RU'),
-                        endDate: endDate.toLocaleTimeString('ru-RU'),
-                    });
-                }
-                // fix;
-                setIsShowingState(false);
-            }}
-        >
+        <form onSubmit={handleSubmit}>
             <Container
                 direction={'grid'}
                 layout={'defaultBase'}
@@ -58,15 +39,15 @@ export const AddEventForm: React.FC<AddEvenFormProps> = ({
                 <Input
                     classes={styles.addEventFormTitle}
                     type="text"
-                    onChange={(event) => setTitle(event.target.value)}
+                    onChange={(event) => useTitle.setTitle(event.target.value)}
                 ></Input>
                 <DatePicker
                     classes={styles.addEventFormDate}
-                    setDate={setStartDate}
+                    setDate={useStartDate.setStartDate}
                 ></DatePicker>
                 <TimePicker
                     classes={styles.addEventFormTime}
-                    setTime={setStartTime}
+                    setTime={useStartTime.setStartTime}
                 ></TimePicker>
                 <Text
                     type={'h'}
@@ -74,16 +55,18 @@ export const AddEventForm: React.FC<AddEvenFormProps> = ({
                 ></Text>
                 <DatePicker
                     classes={styles.addEventFormDate}
-                    setDate={setEndDate}
+                    setDate={useEndDate.setEndDate}
                 ></DatePicker>
                 <TimePicker
                     classes={styles.addEventFormTime}
-                    setTime={setEndTime}
+                    setTime={useEndTime.setEndTime}
                 ></TimePicker>
                 <Input
                     type="text"
                     classes={styles.addEventFormDescription}
-                    onChange={(event) => setDescription(event.target.value)}
+                    onChange={(event) =>
+                        useDescription.setDescription(event.target.value)
+                    }
                 ></Input>
                 <Button>
                     <Text

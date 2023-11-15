@@ -12,7 +12,7 @@ export const CalendarAddEvent: React.FC<CalendarAddEventProps> = ({}) => {
     return (
         <>
             <Button
-                type={'secondary'}
+                type={'primary'}
                 // classes={styles.calendarControlsAddEvent}
                 onClick={() => setAddEventWindowShowing(true)}
             >
