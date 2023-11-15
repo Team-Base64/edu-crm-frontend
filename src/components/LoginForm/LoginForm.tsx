@@ -56,7 +56,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
         if (isError) {
             console.log(error);
         }
-    }, [isLoading]);
+    }, [error, fromLocation, isError, isLoading, isSuccess, navigate]);
 
     return (
         <>

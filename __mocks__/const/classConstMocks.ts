@@ -7,7 +7,9 @@ export const classNewMock: ClassData = {
     inviteToken: '32647374',
 };
 
+
 export const classListMock: ClassData[] = [
+    classNewMock,
     classNewMock,
     {
         id: 1,

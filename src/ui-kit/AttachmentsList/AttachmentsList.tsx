@@ -2,16 +2,13 @@ import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import React from 'react';
 import Container from '@ui-kit/Container/Container.tsx';
 import { Attachment } from '@ui-kit/Attachment/Attachment.tsx';
-import styles from './ChatAttachmentsList.module.scss';
+import styles from './AttachmentsList.module.scss';
 
 interface ChatAttachmentsListProps extends UiComponentProps {
-    useFiles: [
-        File[] | undefined,
-        React.Dispatch<React.SetStateAction<File[] | undefined>>,
-    ];
+    useFiles: [File[], React.Dispatch<React.SetStateAction<File[]>>];
 }
 
-export const ChatAttachmentsList: React.FC<ChatAttachmentsListProps> = ({
+export const AttachmentsList: React.FC<ChatAttachmentsListProps> = ({
     useFiles,
 }) => {
     const [files, setFiles] = useFiles;

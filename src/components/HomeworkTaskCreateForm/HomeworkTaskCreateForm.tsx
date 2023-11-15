@@ -1,8 +1,5 @@
-import { useSendChatAttachesMutation } from "@app/features/chat/chatSlice";
 import { HomeworkTask } from "@app/features/homeworkTask/homeworkTaskModel";
 import { useCreateTaskMutation } from "@app/features/homeworkTask/homeworkTaskSlice";
-import { ChatAttachmentsList } from "@components/ChatAttachmentsList/ChatAttachmentsList";
-import Widget from "@components/Widget/Widget";
 import { AttachFile } from "@ui-kit/AttachFile/AttachFile";
 import Button from "@ui-kit/Button/Button";
 import Container from "@ui-kit/Container/Container";
@@ -10,9 +7,12 @@ import Icon from "@ui-kit/Icon/Icon";
 import Text from "@ui-kit/Text/Text";
 import TextArea from "@ui-kit/TextArea/TextArea";
 import { UiComponentProps } from "@ui-kit/interfaces";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import styles from './HomeworkTaskCreateForm.module.scss';
+import { AttachmentsList } from "@ui-kit/AttachmentsList/AttachmentsList";
+import useSendAttaches from "hooks/useSendAttaches";
+import { SerializeAttachesFromBackend } from "utils/attaches/attachesSerializers";
 
 interface TaskCreateFormProps extends UiComponentProps {
     onSubmitSuccess?: (t: HomeworkTask) => void;
@@ -20,18 +20,9 @@ interface TaskCreateFormProps extends UiComponentProps {
 
 const TaskCreateForm: React.FC<TaskCreateFormProps> = ({ onSubmitSuccess, classes }) => {
     const formRef = useRef<HTMLFormElement>(null);
-    const [attaches, setAttaches] = useState<File[]>();
-    const [uploadAttach, uploadAttachStatus] = useSendChatAttachesMutation();
-    const [createTask, createTaskStatus] = useCreateTaskMutation();
+    const { attaches, setAttaches, attachesSendPromise } = useSendAttaches('homework');
+    const [createTask] = useCreateTaskMutation();
     const [lock, setLock] = useState<boolean>(false);
-
-    useEffect(() => {
-        if (uploadAttachStatus.isLoading || createTaskStatus.isLoading) {
-            setLock(true);
-        } else {
-            setLock(false);
-        }
-    }, [uploadAttachStatus, createTaskStatus, setLock]);
 
     const handleSubmit = async () => {
         const form = formRef.current;
@@ -44,41 +35,47 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({ onSubmitSuccess, classe
             return;
         }
 
-        const loadedAttaches: string[] = [];
-        if (attaches) {
-            for (let attach of attaches) {
-                const resp = await uploadAttach({ type: 'homework', attaches: [attach] });
-                if ('data' in resp) {
-                    loadedAttaches.push(resp.data.file);
+
+        let loaded: string[] = [];
+
+        setLock(true);
+
+        try {
+            if (attaches) {
+                const result = await attachesSendPromise();
+                loaded = SerializeAttachesFromBackend(result);
+            }
+
+            const resp = await createTask({
+                payload: {
+                    description: description,
+                    attach: loaded[0] || '',
                 }
-            }
-        }
-
-        const resp = await createTask({
-            payload: {
-                description: description,
-                attach: loadedAttaches.at(0),
-            }
-        });
-
-        if ('data' in resp) {
-            const id = resp.data.id;
-
-            onSubmitSuccess?.({
-                id: id,
-                description: description,
-                attach: loadedAttaches.at(0),
             });
 
-            setAttaches([]);
-            form.descr.value = '';
+            if ('data' in resp) {
+                const id = resp.data.id;
+
+                onSubmitSuccess?.({
+                    id: id,
+                    description: description,
+                    attach: loaded.at(0) || '',
+                });
+
+                setAttaches([]);
+                form.descr.value = '';
+
+            }
+        } catch (e) {
+            console.log(e);
         }
 
+        setLock(false);
     }
 
     return (
         <>
-            <Container direction='vertical' layout='defaultBase' gap='l' classes={styles.widget}>
+            <Container direction='vertical' layout='defaultBase' gap='l' classes={styles.widget + ' ' + classes}>
                 <Text type='h' size={3} weight='bold'>
                     Создание задания
                 </Text>
@@ -99,7 +96,7 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({ onSubmitSuccess, classe
                         />
 
                         <AttachFile
-                            setFilesState={setAttaches}
+                            useFiles={[attaches, setAttaches]}
                             maxFilesToAttach={1}
                         >
                             <Icon
@@ -110,7 +107,8 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({ onSubmitSuccess, classe
                     </Container>
                 </form>
 
-                <ChatAttachmentsList useFiles={[attaches, setAttaches]} />
+                <AttachmentsList useFiles={[attaches, setAttaches]} />
+
                 <Button
                     onClick={handleSubmit}
                     disabled={lock}

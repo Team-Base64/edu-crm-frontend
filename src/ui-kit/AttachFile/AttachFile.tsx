@@ -4,34 +4,35 @@ import styles from './AttachFile.module.scss';
 import Button from '@ui-kit/Button/Button.tsx';
 
 interface AttachFileProps extends UiComponentProps {
-    setFilesState: React.Dispatch<React.SetStateAction<File[] | undefined>>;
+    useFiles: [File[], React.Dispatch<React.SetStateAction<File[]>>];
     maxFilesToAttach: number;
 }
 
 export const AttachFile: React.FC<AttachFileProps> = ({
-    setFilesState,
+    useFiles,
     maxFilesToAttach,
     children,
 }) => {
+    const [settedFiles, setFilesState] = useFiles;
     const inputRef = useRef<HTMLInputElement>(null);
     const templateHandler = (
-        handler: (target: HTMLInputElement) => void,
+        handler: (files: FileList) => void,
         { target }: React.FormEvent<HTMLInputElement>,
     ) => {
-        if (
-            target instanceof HTMLInputElement &&
-            target.files &&
-            target.files.length <= maxFilesToAttach
-        ) {
-            handler(target);
-        } else {
-            console.warn('too many files attached');
+        if (target instanceof HTMLInputElement && target.files) {
+            handler(target.files);
+            target.files = null;
         }
     };
 
-    const handleOnChange = templateHandler.bind(this, (target) => {
-        setFilesState(Array.from(target.files ?? []));
-        target.files = null;
+    const handleOnChange = templateHandler.bind(this, (files) => {
+        if (files && files.length + settedFiles.length <= maxFilesToAttach) {
+            setFilesState([...settedFiles, ...Array.from(files ?? [])]);
+        } else {
+            console.warn(
+                `too many files : ${files.length + settedFiles.length}`,
+            );
+        }
     });
 
     return (
@@ -55,6 +56,7 @@ export const AttachFile: React.FC<AttachFileProps> = ({
                 accept={'.pdf, image/*'}
                 onChange={handleOnChange}
                 ref={inputRef}
+                multiple={true}
             ></input>
         </>
     );

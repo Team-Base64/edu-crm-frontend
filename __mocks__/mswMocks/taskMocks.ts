@@ -5,7 +5,7 @@ import { tasksMock } from '../const/taskConstMocks';
 
 export const taskHandlers = [
     // create task 
-    http.post(`${appPaths.basePath}${appPaths.createTask}`, async ({ request }) => {
+    http.post(`${appPaths.basePath}${appPaths.createTask}`, async () => {
         console.log('CREATE TASK');
         try {
             return HttpResponse.json(

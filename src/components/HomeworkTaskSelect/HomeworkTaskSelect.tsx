@@ -32,9 +32,9 @@ const HomeworkTaskSelect: React.FC<HomeworkTaskSelectProps> = ({ onSubmit }) => 
         setListSelect([]);
     }
 
-    const handleClear = () => {
-        setListSelect([]);
-    }
+    // const handleClear = () => {
+    //     setListSelect([]);
+    // }
 
     return (
         <>

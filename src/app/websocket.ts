@@ -9,7 +9,7 @@ let ws: WebSocket | null = null;
 
 export const getSocket = () => {
     if (!ws || !ws.OPEN) {
-        ws = new WebSocket('ws://' + '127.0.0.1:8081/apichat' + `/ws`);
+        ws = new WebSocket(import.meta.env.VITE_WEBSOCKET_PATH);
     }
     return ws;
 };

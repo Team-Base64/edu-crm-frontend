@@ -1,7 +1,7 @@
 import {
     Homework,
     HomeworkCreatePayload,
-} from '../../src/app/features/homework/homeworkModel';
+} from '@app/features/homework/homeworkModel.ts';
 
 interface IclassHomeworksMock {
     [key: number]: Homework[];

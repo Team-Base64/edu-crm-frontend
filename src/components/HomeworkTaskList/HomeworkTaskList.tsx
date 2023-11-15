@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { UiComponentProps } from "@ui-kit/interfaces";
 import { HomeworkTask } from "@app/features/homeworkTask/homeworkTaskModel";
 import EmptyItem from "@components/EmptyItem/EmptyItem";

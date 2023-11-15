@@ -8,10 +8,7 @@ import {
     useGetLiveMessagesQuery,
     useSendMessageMutation,
 } from '@app/features/chat/chatSlice.ts';
-import {
-    useGetDialogsQuery,
-    // usePostDialogsMutation,
-} from '@app/features/dialog/dialogSlice.ts';
+import { useGetDialogsQuery } from '@app/features/dialog/dialogSlice.ts';
 
 interface SendMessageAreaProps extends UiComponentProps {
     chatid: number;

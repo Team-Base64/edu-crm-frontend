@@ -8,7 +8,6 @@ import Button from '@ui-kit/Button/Button';
 import Icon from '@ui-kit/Icon/Icon';
 import styles from './HomeworkCreateForm.module.scss';
 import Overlay from '@ui-kit/Overlay/Overlay';
-import Widget from '@components/Widget/Widget';
 import Text from '@ui-kit/Text/Text';
 import { useCreateHomeworkMutation } from '@app/features/homework/homeworkSlice';
 

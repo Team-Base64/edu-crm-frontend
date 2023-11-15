@@ -9,6 +9,7 @@ export const newAnnounceMock: Announcement = {
 
 export const announcesMock: Announcement[] = [
     newAnnounceMock,
+    newAnnounceMock,
     {
         id: 0,
         text: 'Announce for class 0 #1/1',

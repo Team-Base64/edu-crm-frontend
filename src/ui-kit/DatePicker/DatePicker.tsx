@@ -12,6 +12,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({ setDate }) => {
         <Input
             type={'date'}
             onChange={(event) => setDate(event.target.valueAsDate)}
+            // value={new Date().toLocaleDateString('en-CA')}
+            min={new Date().toLocaleDateString('en-CA')}
         ></Input>
     );
 };

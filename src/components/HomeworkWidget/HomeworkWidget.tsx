@@ -24,6 +24,7 @@ const ClassHomeworksWidget: React.FC<ClassHomeworksWidgetProps> = ({
     const handleShowAll = (e: React.MouseEvent) => {
         e.stopPropagation();
         setFullPage(true);
+        setFullPage(true);
     };
 
     const showAllButton = (
