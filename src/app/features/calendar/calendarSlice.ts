@@ -39,10 +39,10 @@ export const calendarSlice = appApi.injectEndpoints({
                 };
             },
             providesTags: ['getEvents'],
-            transformResponse(calendarEvents: CalendarEventType[]) {
+            transformResponse(calendarEvents: { events: CalendarEventType[] }) {
                 const newDialogs: CalendarEventSelectByIDType = {};
 
-                calendarEvents.forEach((event) => {
+                calendarEvents.events.forEach((event) => {
                     newDialogs[event.id] = event;
                 });
 

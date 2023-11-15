@@ -24,6 +24,7 @@ export const CalendarEventsList: React.FC<CalendarEventsListProps> = () => {
             ></CalendarEvent>
         ),
     );
+    console.log(calendarEvents, data?.calendarEvents);
 
     return (
         <Container
