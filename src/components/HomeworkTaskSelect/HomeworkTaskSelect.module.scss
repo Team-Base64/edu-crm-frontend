@@ -3,7 +3,13 @@
 }
 
 .submit {
-    color: white;
+    &-text {
+        color: white;
+    }
+
+    &-icon {
+        fill: white;
+    }
 }
 
 .nav {

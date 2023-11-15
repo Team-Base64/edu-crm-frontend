@@ -10,7 +10,6 @@ export const classNewMock: ClassData = {
 
 export const classListMock: ClassData[] = [
     classNewMock,
-    classNewMock,
     {
         id: 1,
         title: 'Mock class #1',

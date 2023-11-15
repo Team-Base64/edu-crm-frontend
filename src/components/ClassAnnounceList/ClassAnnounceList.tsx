@@ -5,6 +5,8 @@ import ClassAnnounceCard from '@components/ClassAnnounceCard/ClassAnnounceCard';
 import Container from '@ui-kit/Container/Container';
 import { useGetClassAnnouncementsQuery } from '@app/features/announcement/announcementSlice';
 import EmptyItem from '@components/EmptyItem/EmptyItem';
+import Icon from '@ui-kit/Icon/Icon';
+import Spinner from '@ui-kit/Spinner/Spinner';
 
 interface ClassAnnounceListProps extends UiComponentProps {
     classId: string | number;
@@ -12,17 +14,20 @@ interface ClassAnnounceListProps extends UiComponentProps {
 
 const ClassAnnounceList: React.FC<ClassAnnounceListProps> = ({ classId }) => {
     const listId = useId();
-    const { data, isError, error } = useGetClassAnnouncementsQuery({
+    const { data, isError, isLoading } = useGetClassAnnouncementsQuery({
         class_id: classId,
     });
 
-    if (!data?.posts || isError) {
-        return (
-            <>
-                {isError && JSON.stringify(error)}
-                {!isError && 'Some error'}
-            </>
-        );
+    if(isLoading){
+        return <>
+            <EmptyItem text='Загрузка...'><Spinner/></EmptyItem>
+        </>
+    }
+
+    if(isError || !data?.posts) {
+        return <>
+            <EmptyItem text='Произошла ошибка'><Icon name='alert'/></EmptyItem>
+        </>
     }
 
     const list = data.posts;

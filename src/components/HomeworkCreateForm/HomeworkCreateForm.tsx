@@ -144,7 +144,7 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ onSubmitSuccess
                                     classes={styles.setBtn}
                                     onClick={() => setTaskSelectForm(true)}
                                 >
-                                    <Icon name='layoutLine' classes={styles.setBtnIcon} />
+                                    <Icon name='ulist' classes={styles.setBtnIcon} />
                                     <Text type='p' weight='bold' size={1} classes={styles.setBtnText}>
                                         Выбрать
                                     </Text>
@@ -156,8 +156,10 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ onSubmitSuccess
                 <Button
                     disabled={lock}
                     onClick={handleSubmit}
-                    >
-                    <Text type='p' weight='bold' size={1} classes={styles.submit}>
+                    classes={styles.submit}
+                >
+                    <Icon name='approve' classes={styles.submitIcon} />
+                    <Text type='p' weight='bold' size={1} classes={styles.submitText}>
                         Создать
                     </Text>
                 </Button>

@@ -3,6 +3,8 @@ import { UiComponentProps } from '@ui-kit/interfaces';
 import { useGetClassesQuery } from '@app/features/class/classSlice';
 import ClassItem from '@components/ClassItem/ClassItem';
 import EmptyItem from '@components/EmptyItem/EmptyItem';
+import Icon from '@ui-kit/Icon/Icon';
+import Spinner from '@ui-kit/Spinner/Spinner';
 
 interface ClassListProps extends UiComponentProps {
     limit?: number;
@@ -10,31 +12,35 @@ interface ClassListProps extends UiComponentProps {
 
 const ClassList: React.FC<ClassListProps> = ({ limit, classes }) => {
     const listId = useId();
-    const { data, isError, error } = useGetClassesQuery({});
+    const { data, isError, isLoading } = useGetClassesQuery({});
 
-    if (!data?.classes || isError) {
-        return (
-            <>
-                {isError && JSON.stringify(error)}
-                {!isError && 'Some error'}
-            </>
-        );
+    if (isLoading) {
+        return <>
+            <EmptyItem text='Загрузка...'><Spinner /></EmptyItem>
+        </>
+    }
+
+    if (isError || !data?.classes) {
+        return <>
+            <EmptyItem text='Произошла ошибка'><Icon name='alert' /></EmptyItem>
+        </>
     }
 
     const list = data.classes;
+
     return (
         <>
-            {!list.length && (<EmptyItem/>)}
-
-            {list.length &&
-                list.slice(0, limit).map((data) => (
-                    <React.Fragment key={`${listId}-${data.id}`}>
-                        <ClassItem
-                            data={data}
-                            classes={classes}
-                        />
-                    </React.Fragment>
-                ))}
+            {
+                !list.length ? <EmptyItem text='У вас ещё нет классов'/> :
+                    list.slice(0, limit).map((data) => (
+                        <React.Fragment key={`${listId}-${data.id}`}>
+                            <ClassItem
+                                data={data}
+                                classes={classes}
+                            />
+                        </React.Fragment>
+                    ))
+            }
         </>
     );
 };

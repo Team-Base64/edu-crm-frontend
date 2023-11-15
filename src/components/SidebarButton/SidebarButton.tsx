@@ -16,7 +16,7 @@ interface SidebarButtonProps {
 
 const SidebarButton: React.FC<SidebarButtonProps> = ({
     btnSize = 's',
-    iconSize = 'small',
+    iconSize = 'medium',
     title,
     iconName,
     path,

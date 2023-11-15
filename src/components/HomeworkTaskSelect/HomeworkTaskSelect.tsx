@@ -8,6 +8,7 @@ import { UiComponentProps } from '@ui-kit/interfaces';
 import React, { useEffect, useState } from 'react';
 
 import styles from './HomeworkTaskSelect.module.scss';
+import Icon from '@ui-kit/Icon/Icon';
 
 interface HomeworkTaskSelectProps extends UiComponentProps {
     onSubmit?: (selected: HomeworkTask[]) => void;
@@ -52,8 +53,9 @@ const HomeworkTaskSelect: React.FC<HomeworkTaskSelectProps> = ({ onSubmit }) => 
                     }}
                 />
                 <Container classes={styles.nav}>
-                    <Button onClick={handleSubmit}>
-                        <Text type='p' size={1} weight='bold' classes={styles.submit}>
+                    <Button onClick={handleSubmit} classes={styles.submit}>
+                        <Icon name='approve' classes={styles.submitIcon}/>
+                        <Text type='p' size={1} weight='bold' classes={styles.submitText} >
                             Прикрепить
                         </Text>
                     </Button>

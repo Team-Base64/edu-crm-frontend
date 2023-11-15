@@ -22,3 +22,8 @@ export { default as CloseLine } from './system_close-line.svg?react';
 export { default as EyeLine } from './system_eye-line.svg?react';
 export { default as EyeCrossedLine } from './system_eye-crossed-line.svg?react';
 export { default as LockLine } from './system_lock-line.svg?react';
+export { default as ApproveLine } from './system_check-line.svg?react';
+export { default as SaveLine } from './device_save-line.svg?react';
+export { default as BookLine } from './document_book-line.svg?react';
+export { default as UList } from './editor_list-unordered.svg?react';
+export { default as Alert } from './error-16-svgrepo-com.svg?react';
