@@ -19,6 +19,15 @@ export const calendarSlice = appApi.injectEndpoints({
                 };
             },
         }),
+        editEvent: build.mutation<unknown, CalendarCreateEventType>({
+            query: (eventData) => {
+                return {
+                    url: `${appPaths.basePath}${calendarPaths.editEvent}`,
+                    method: 'POST',
+                    body: eventData,
+                };
+            },
+        }),
         getEvents: build.query<
             { calendarEvents: CalendarEventSelectByIDType },
             unknown
@@ -57,4 +66,5 @@ export const {
     useAddEventMutation,
     useGetEventsQuery,
     useDeleteEventMutation,
+    useEditEventMutation,
 } = calendarSlice;

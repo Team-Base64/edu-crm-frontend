@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
 import { dateInput } from '@components/AddEventForm/AddEventForm.tsx';
-import { eventMutationsType } from '@app/features/calendar/calendarModel.ts';
+import {
+    CalendarEventType,
+    eventMutationsType,
+} from '@app/features/calendar/calendarModel.ts';
 import { useGetClassesQuery } from '@app/features/class/classSlice.ts';
 
 export default function useAddEvent(
     setIsShowingState: React.Dispatch<React.SetStateAction<boolean>>,
     sendEvent: ReturnType<eventMutationsType>[0],
+    event: CalendarEventType,
 ) {
-    const [title, setTitle] = useState('');
-    const [startDate, setStartDate] = useState<dateInput>(null);
-    const [startTime, setStartTime] = useState<dateInput>(null);
-    const [endDate, setEndDate] = useState<dateInput>(null);
-    const [endTime, setEndTime] = useState<dateInput>(null);
-    const [description, setDescription] = useState('');
+    const [title, setTitle] = useState(event?.title);
+    const [startDate, setStartDate] = useState<dateInput>();
+    const [startTime, setStartTime] = useState<dateInput>();
+    const [endDate, setEndDate] = useState<dateInput>();
+    const [endTime, setEndTime] = useState<dateInput>();
+    const [description, setDescription] = useState(event?.description);
 
     const { data } = useGetClassesQuery(null);
     const classData = new Map<string, number>();
@@ -20,9 +24,7 @@ export default function useAddEvent(
         classData.set(classItem.title, classItem.id);
     });
 
-    const [selectedClass, setSelectedClass] = useState<number | undefined>(
-        data?.classes[0].id,
-    );
+    const [selectedClass, setSelectedClass] = useState<number>(event?.id);
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -37,7 +39,7 @@ export default function useAddEvent(
                 description,
                 startDate: startDate.toISOString(),
                 endDate: endDate.toISOString(),
-                classid: selectedClass,
+                classid: selectedClass ?? -1,
             })
                 .then(() => {
                     setTitle('');

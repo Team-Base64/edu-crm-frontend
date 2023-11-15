@@ -7,18 +7,25 @@ import { TimePicker } from '@ui-kit/TimePicker/TimePicker.tsx';
 import { DatePicker } from '@ui-kit/DatePicker/DatePicker.tsx';
 import Button from '@ui-kit/Button/Button.tsx';
 import Text from '@ui-kit/Text/Text.tsx';
-import { useAddEventMutation } from '@app/features/calendar/calendarSlice.ts';
 import useAddEvent from '../../hooks/useAddEvent.ts';
 import { DropDown } from '@ui-kit/DropDown/DropDown.tsx';
+import {
+    CalendarEventType,
+    eventMutationsType,
+} from '@app/features/calendar/calendarModel.ts';
 
 interface AddEvenFormProps extends UiComponentProps {
     setIsShowingState: React.Dispatch<React.SetStateAction<boolean>>;
+    useMutation: eventMutationsType;
+    event: CalendarEventType;
 }
 
 export type dateInput = null | Date;
 
 export const AddEventForm: React.FC<AddEvenFormProps> = ({
     setIsShowingState,
+    useMutation,
+    event,
 }) => {
     const {
         useTitle,
@@ -30,7 +37,8 @@ export const AddEventForm: React.FC<AddEvenFormProps> = ({
         useSelectedClass,
         classData,
         handleSubmit,
-    } = useAddEvent(setIsShowingState, useAddEventMutation()[0]);
+    } = useAddEvent(setIsShowingState, useMutation()[0], event);
+    // useAddEvent(setIsShowingState, useAddEventMutation()[0]);
 
     return (
         <form onSubmit={handleSubmit}>
