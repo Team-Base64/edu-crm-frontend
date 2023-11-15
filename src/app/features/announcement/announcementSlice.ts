@@ -5,7 +5,7 @@ import { announcementPaths } from '@app/features/announcement/announcementPaths'
 export const announcementSlice = appApi.injectEndpoints({
     endpoints: (build) => ({
         getClassAnnouncements: build.query<
-            { announcements: Announcement[] },
+            { posts: Announcement[] },
             { class_id: string | number }
         >({
             query: ({ class_id }) => {

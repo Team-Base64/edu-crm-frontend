@@ -21,6 +21,7 @@ export const homeworkSlice = appApi.injectEndpoints({
             { id: string | number }
         >({
             query: ({ id }) => {
+                console.log('slice ', id);
                 return {
                     url: homeworkPaths.homework(id),
                     method: 'GET',
@@ -42,11 +43,11 @@ export const homeworkSlice = appApi.injectEndpoints({
 
         createHomework: build.mutation<
             { homework: Homework },
-            { class_id: string | number; payload: HomeworkCreatePayload }
+            { payload: HomeworkCreatePayload }
         >({
-            query: ({ class_id, payload }) => {
+            query: ({ payload }) => {
                 return {
-                    url: homeworkPaths.homeworkCreate(class_id),
+                    url: homeworkPaths.homeworkCreate,
                     method: 'POST',
                     body: JSON.stringify(payload),
                 };

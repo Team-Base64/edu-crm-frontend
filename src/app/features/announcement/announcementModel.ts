@@ -1,7 +1,7 @@
 export type Announcement = {
     id: string | number;
     text: string;
-    time: number;
+    createTime: number;
 };
 
 export type AnnouncementCreatePayload = {

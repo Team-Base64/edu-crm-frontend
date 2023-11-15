@@ -1,21 +1,27 @@
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import React, { useEffect, useRef } from 'react';
+import styles from './IframeViewer.module.scss';
 
 interface IframeViewerProps extends UiComponentProps {
-    blob: Blob;
+    linkToFile: string;
 }
 
-export const IframeViewer: React.FC<IframeViewerProps> = ({ blob }) => {
+export const IframeViewer: React.FC<IframeViewerProps> = ({
+    linkToFile,
+    classes = '',
+}) => {
     const iframeRef = useRef<HTMLIFrameElement>(null);
 
     useEffect(() => {
-        const objectUrl = URL.createObjectURL(blob);
         if (iframeRef.current) {
-            iframeRef.current.src = objectUrl;
+            iframeRef.current.src = linkToFile;
         }
+    }, [linkToFile, iframeRef]);
 
-        return () => URL.revokeObjectURL(objectUrl);
-    }, [iframeRef]);
-
-    return <iframe ref={iframeRef}></iframe>;
+    return (
+        <iframe
+            ref={iframeRef}
+            className={[classes, styles.fileViewer].join(' ')}
+        ></iframe>
+    );
 };

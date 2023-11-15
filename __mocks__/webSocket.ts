@@ -21,7 +21,7 @@ webSocketServer.on('connection', (socket) => {
         message.id = Number(
             new Date().getTime().toString().at(-1) ?? Math.random(),
         );
-        message.chatid = 1;
+        message.chatID = 1;
         socket.send(JSON.stringify(message));
     }, 3000);
     setInterval(() => {
@@ -32,7 +32,7 @@ webSocketServer.on('connection', (socket) => {
         message.id = Number(
             new Date().getTime().toString().at(-1) ?? Math.random(),
         );
-        message.chatid = 2;
+        message.chatID = 2;
         socket.send(JSON.stringify(message));
     }, 3000);
 });

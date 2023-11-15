@@ -10,5 +10,6 @@ const appApi = createApi({
     refetchOnReconnect: true,
     // refetchOnMountOrArgChange: true,
     endpoints: () => ({}),
+    tagTypes: ['getDialogs', 'getEvents'],
 });
 export default appApi;

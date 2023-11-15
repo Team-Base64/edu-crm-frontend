@@ -7,22 +7,24 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "vite",
-    "start:mock": "export NODE_ENV=mock && vite",
-    "build": "tsc && vite build",
+    "start": "export $(xargs <.env) && vite",
+    "start:mock": "export $(xargs <.env) && export NODE_ENV=mock && vite",
+    "build": "export $(xargs <.env) && tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
     "preview": "vite preview",
     "getcssvars": "sass ./src/ui-kit/devGetVariables.scss /tmp/app/c.css",
     "start:socketMock": " npx ts-node --esm __mocks__/webSocket.ts ",
-    "init:msw": "npx msw init __mocks__/"
+    "init:msw": "npx msw init __mocks__/",
+    "set:env": "export $(xargs <.env)"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.1.2",
-    "react-router-dom": "^6.17.0"
+    "react-router-dom": "^6.17.0",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

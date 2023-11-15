@@ -8,25 +8,25 @@ export const studentsMock: Student[] = [
         id: 0,
         name: 'George Illarionov',
         avatarSrc: avatarSrc,
-        social_network: 'tg',
+        socialType: 'tg',
     },
     {
         id: 1,
         name: 'Vlad Pinevich',
         avatarSrc: avatarSrc,
-        social_network: 'vk',
+        socialType: 'vk',
     },
     {
         id: 2,
         name: 'Leo Pak',
         avatarSrc: avatarSrc,
-        social_network: 'tg',
+        socialType: 'tg',
     },
     {
         id: 3,
         name: 'George Illarionov',
         avatarSrc: avatarSrc,
-        social_network: 'vk',
+        socialType: 'vk',
     },
 ];
 
@@ -35,7 +35,8 @@ interface IClassStudentsMock {
 }
 
 export const classStudentsMock: IClassStudentsMock = {
-    0: [studentsMock[0]],
+    0: [],
+    1: [studentsMock[0]],
 
-    1: [studentsMock[0], studentsMock[1], studentsMock[2], studentsMock[3]],
+    2: [studentsMock[0], studentsMock[1], studentsMock[2], studentsMock[3]],
 };

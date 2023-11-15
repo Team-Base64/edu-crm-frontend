@@ -2,6 +2,7 @@ import ClassMemberItem from '@components/ClassMemberItem/ClassMemberItem';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import React, { useId } from 'react';
 import { useGetClassStudentsQuery } from '@app/features/stundent/stundentSlice';
+import EmptyItem from '@components/EmptyItem/EmptyItem';
 // import styles from './ClassMemberList.module.scss';
 
 interface ClassMemberListProps extends UiComponentProps {
@@ -30,9 +31,9 @@ const ClassMemberList: React.FC<ClassMemberListProps> = ({
     const list = data.students;
     return (
         <>
-            {!list.length && 'EMPTY'}
-
-            {list.length &&
+            {!list.length ? (
+                <EmptyItem />
+            ) : (
                 list.slice(0, limit).map(({ id, name, avatarSrc }) => (
                     <React.Fragment key={`${listId}-${id}`}>
                         <ClassMemberItem
@@ -42,7 +43,8 @@ const ClassMemberList: React.FC<ClassMemberListProps> = ({
                             role="Ученик"
                         />
                     </React.Fragment>
-                ))}
+                ))
+            )}
         </>
     );
 };

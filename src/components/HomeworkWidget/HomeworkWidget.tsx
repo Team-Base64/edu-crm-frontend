@@ -7,6 +7,8 @@ import styles from './HomeworkWidget.module.scss';
 import Container from '@ui-kit/Container/Container';
 import Text from '@ui-kit/Text/Text';
 import HomeworkList from '@components/HomeworkList/HomeworkList';
+import Icon from '@ui-kit/Icon/Icon';
+import HomeworkCreateForm from '@components/HomeworkCreateForm/HomeworkCreateForm';
 
 interface ClassHomeworksWidgetProps extends UiComponentProps {
     classId: string | number;
@@ -16,11 +18,12 @@ const ClassHomeworksWidget: React.FC<ClassHomeworksWidgetProps> = ({
     classId,
     classes,
 }) => {
-    const [isOverlay, setIsOverlay] = useState<boolean>(false);
+    const [isFullPage, setFullPage] = useState<boolean>(false);
+    const [isCreateForm, setCreateForm] = useState<boolean>(false);
 
     const handleShowAll = (e: React.MouseEvent) => {
         e.stopPropagation();
-        setIsOverlay(true);
+        setFullPage(true);
     };
 
     const showAllButton = (
@@ -44,9 +47,31 @@ const ClassHomeworksWidget: React.FC<ClassHomeworksWidgetProps> = ({
 
     return (
         <>
+            <Widget
+                title="Домашние задания: "
+                nav={showAllButton}
+                classes={classes}
+            >
+                <HomeworkList
+                    classId={classId}
+                    limit={2}
+                />
+
+                <Button
+                    classes={styles.btnCreate}
+                    onClick={() => setCreateForm(true)}
+                >
+                    <Icon
+                        name="addLine"
+                        classes={styles.btnCreateIcon}
+                    />
+                    Создать
+                </Button>
+            </Widget>
+            {/* FULL PAGE WIGET */}
             <Overlay
-                isShowing={isOverlay}
-                closeOverlay={() => setIsOverlay(false)}
+                isShowing={isFullPage}
+                closeOverlay={() => setFullPage(false)}
             >
                 <Container
                     direction="vertical"
@@ -70,17 +95,16 @@ const ClassHomeworksWidget: React.FC<ClassHomeworksWidgetProps> = ({
                     />
                 </Container>
             </Overlay>
-
-            <Widget
-                title="Домашние задания: "
-                nav={showAllButton}
-                classes={classes}
+            {/* CREATE HW FORM */}
+            <Overlay
+                isShowing={isCreateForm}
+                closeOverlay={() => setCreateForm(false)}
             >
-                <HomeworkList
+                <HomeworkCreateForm
                     classId={classId}
-                    limit={2}
+                    onSuccess={() => setCreateForm(false)}
                 />
-            </Widget>
+            </Overlay>
         </>
     );
 };

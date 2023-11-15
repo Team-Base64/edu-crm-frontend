@@ -1,4 +1,4 @@
-export type chatMessageType = { text: string; chatid: number };
+export type chatMessageType = { text: string; chatID: number };
 
 export interface apiChatMessageType {
     messages: { [index: string]: ChatMessageType[] };
@@ -9,16 +9,14 @@ export type ChatMessageType = {
     ismine: boolean;
     text: string;
     date: string;
-    chatid: number;
+    chatID: number;
     id?: number;
     attaches?: string[];
+    socialType?: string;
 };
 
 export interface postChatMessageType extends ChatMessageType {
     // attachments: File[];
 }
 
-export type attachmentsType = {
-    attaches: File[];
-    message: ChatMessageType;
-};
+export type attachmentRequestReturnType = { file: string };

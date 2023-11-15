@@ -10,13 +10,16 @@ interface Messenger extends UiComponentProps {
 export const MessengerHeader: React.FC<Messenger> = ({ chatid }) => {
     const { data } = useGetDialogsQuery(null);
 
+    const content =
+        chatid !== -1 ? data?.dialogs[chatid].name : 'Чат не выбран';
+
     return (
         <Container layout={'defaultBase'}>
             <Text
                 type={'h'}
                 size={3}
             >
-                {data?.dialogs[chatid].name}
+                {content}
             </Text>
         </Container>
     );

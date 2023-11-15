@@ -3,13 +3,10 @@ import appApi from '@app/appApi.ts';
 import { getSocket, messageWS } from '@app/websocket';
 import {
     apiChatMessageType,
-    attachmentsType,
     ChatMessageType,
     postChatMessageType,
 } from '@app/features/chat/chatModel';
 import { chatPaths } from '@app/features/chat/chatPaths';
-
-const man_photo_src = 'https://flirtic.com/media/photos/1/e/7/1e733948480.jpg';
 
 export const chatSlice = appApi.injectEndpoints({
     endpoints: (build) => ({
@@ -52,7 +49,6 @@ export const chatSlice = appApi.injectEndpoints({
                 `getLiveMessages-${params.queryArgs.channel}`,
             merge: (currentCache, newItems) => {
                 Object.entries(newItems.messages).forEach(([key, newValue]) => {
-                    console.log(newValue, newItems.messages, key);
                     currentCache.messages[key] = [
                         ...newValue,
                         ...(currentCache.messages[key] ?? []),
@@ -69,16 +65,12 @@ export const chatSlice = appApi.injectEndpoints({
 
                     socket.onmessage = (event: MessageEvent) => {
                         const data = JSON.parse(event.data);
-                        if (
-                            data.channel !== channel
-                            // data.message.chatid !== chatid
-                        ) {
+                        if (data.channel !== channel) {
                             console.warn(data.channel, channel);
                             return;
                         }
 
                         updateCachedData((draft) => {
-                            data.authorAvatarSrc = man_photo_src;
                             draft.messages[data.chatid] = [
                                 ...(draft.messages[data.chatid] ?? []),
                                 data,
@@ -95,9 +87,12 @@ export const chatSlice = appApi.injectEndpoints({
         sendMessage: build.mutation<unknown, { message: postChatMessageType }>({
             queryFn: (args) => {
                 const socket = getSocket();
+                args.message.chatID;
+                args.message.socialType;
                 socket.send(JSON.stringify(args.message));
                 return { data: [] };
             },
+            invalidatesTags: ['getDialogs'],
             async onQueryStarted(
                 { message },
                 { dispatch /*, queryFulfilled*/ },
@@ -105,10 +100,10 @@ export const chatSlice = appApi.injectEndpoints({
                 dispatch(
                     chatSlice.util.updateQueryData(
                         'getLiveMessages',
-                        { channel: 'chat', chatid: message.chatid },
+                        { channel: 'chat', chatid: message.chatID },
                         (draft) => {
-                            draft.messages[message.chatid] = [
-                                ...(draft.messages[message.chatid] ?? []),
+                            draft.messages[message.chatID] = [
+                                ...(draft.messages[message.chatID] ?? []),
                                 message,
                             ];
                         },
@@ -126,53 +121,7 @@ export const chatSlice = appApi.injectEndpoints({
                 //}
             },
         }),
-        sendChatAttaches: build.mutation<unknown, attachmentsType>({
-            query: ({ attaches, message }) => {
-                const formData = new FormData();
-                formData.append('file', attaches[0]);
-                return {
-                    url:
-                        // TODO !!!
-                        `http://127.0.0.1:8081/api/attach?chatid=${message.chatid}` +
-                        (message.text
-                            ? `&text=${encodeURI(message.text)}`
-                            : ''),
-                    method: 'POST',
-                    body: formData,
-                    formData: true,
-                    headers: {
-                        'Content-Type': 'multipart/form-data;',
-                    },
-                };
-            },
-            onQueryStarted(
-                { attaches, message },
-                { dispatch /*, queryFulfilled*/ },
-            ) {
-                const UrlAttaches = attaches.map((attach) =>
-                    URL.createObjectURL(attach),
-                );
-                // revokeObjectURL
-                dispatch(
-                    chatSlice.util.updateQueryData(
-                        'getLiveMessages',
-                        { channel: 'chat', chatid: message.chatid },
-                        (draft) => {
-                            message.attaches = UrlAttaches;
-                            draft.messages[message.chatid] = [
-                                ...(draft.messages[message.chatid] ?? []),
-                                message,
-                            ];
-                        },
-                    ),
-                );
-            },
-        }),
     }),
 });
 
-export const {
-    useGetLiveMessagesQuery,
-    useSendMessageMutation,
-    useSendChatAttachesMutation,
-} = chatSlice;
+export const { useGetLiveMessagesQuery, useSendMessageMutation } = chatSlice;

@@ -17,6 +17,7 @@ jobs:
           cache: 'npm'
       - name: Build
         run: |
+          echo '${{ secrets.FRONTEND_ENV }}' > .env
           npm ci
           npm run build
       - uses: easingthemes/ssh-deploy@main

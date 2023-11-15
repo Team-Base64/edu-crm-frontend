@@ -1,5 +1,5 @@
 import MainLayout from '@components/MainLayout/MainLayout';
-import RequireAuth from '@hoc/RequireAuth';
+// import RequireAuth from '@hoc/RequireAuth';
 import LandingPage from '@pages/LandingPage';
 import LoginPage from '@pages/LoginPage/LoginPage';
 import NotFoundPage from '@pages/NotFoundPage';
@@ -10,6 +10,7 @@ import ClassPage from '@pages/ClassPage/ClassPage';
 import { Chat } from '@pages/MessengerPage/Chat';
 import ClassesPage from '@pages/ClassesPage/ClassesPage';
 import RequireNotAuth from '@hoc/RequireNotAuth';
+import { CalendarPage } from '@pages/CalendarPage/CalendarPage.tsx';
 
 const AppRouter: React.FC = () => {
     return (
@@ -33,24 +34,28 @@ const AppRouter: React.FC = () => {
                 </Route>
 
                 {/* Private */}
-                <Route element={<RequireAuth />}>
-                    <Route element={<MainLayout />}>
+                {/*<Route element={<RequireAuth />}>*/}
+                <Route element={<MainLayout />}>
+                    <Route
+                        path={AppRoutes.messenger}
+                        element={<Chat />}
+                    />
+                    <Route path={AppRoutes.classes}>
                         <Route
-                            path={AppRoutes.messenger}
-                            element={<Chat />}
+                            index
+                            element={<ClassesPage />}
                         />
-                        <Route path={AppRoutes.classes}>
-                            <Route
-                                index
-                                element={<ClassesPage />}
-                            />
-                            <Route
-                                path={AppRoutes.class}
-                                element={<ClassPage />}
-                            />
-                        </Route>
+                        <Route
+                            path={AppRoutes.class}
+                            element={<ClassPage />}
+                        />
                     </Route>
+                    <Route
+                        path={AppRoutes.calendar}
+                        element={<CalendarPage />}
+                    />
                 </Route>
+                {/*</Route>*/}
             </Route>
         </Routes>
     );

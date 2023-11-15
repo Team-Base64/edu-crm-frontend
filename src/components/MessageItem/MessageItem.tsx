@@ -4,8 +4,9 @@ import Container from '@ui-kit/Container/Container';
 import styles from './MessageItem.module.scss';
 import Text from '@ui-kit/Text/Text.tsx';
 import { getUTCTime } from '../../utils/common/dateRepresentation.ts';
-import { ChatAttachment } from '@components/ChatAttachment/ChatAttachment.tsx';
+import { Attachment } from '@ui-kit/Attachment/Attachment.tsx';
 import { noop } from '@app/const/consts.ts';
+import { Link } from 'react-router-dom';
 
 interface MessageItemProps extends UiComponentProps {
     id?: number;
@@ -20,16 +21,16 @@ const MessageItem: React.FC<MessageItemProps> = memo(function MessageItem({
     text,
     time,
     isMine,
-    attaches,
+    attaches = [],
 }) {
     const elementsAttaches = attaches?.map((attachment, index) => {
         return (
-            <ChatAttachment
+            <Attachment
                 file={attachment}
                 key={id + time.toString() + index}
                 onRemoveClick={noop}
                 isStatic={true}
-            ></ChatAttachment>
+            ></Attachment>
         );
     });
 
@@ -53,7 +54,22 @@ const MessageItem: React.FC<MessageItemProps> = memo(function MessageItem({
                 >
                     {text}
                 </Text>
-                {elementsAttaches}
+                {attaches.length ? (
+                    <Text
+                        type={'p'}
+                        size={1}
+                    >
+                        <Link
+                            to={attaches[0]}
+                            className={styles.linkAttachment}
+                        >
+                            {attaches[0]}
+                        </Link>
+                    </Text>
+                ) : (
+                    ''
+                )}
+                {elementsAttaches && elementsAttaches}
                 <Text
                     type={'p'}
                     size={2}

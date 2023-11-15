@@ -7,7 +7,7 @@ export const defaultHeadersMock = {
     'Access-Control-Allow-Credentials': 'true',
     'Access-Control-Allow-Headers': 'Origin, Content-Type, accept, csrf',
     'Access-Control-Allow-Methods': 'GET, POST, DELETE, OPTIONS',
-    'Access-Control-Allow-Origin': 'http://127.0.0.1:8001/',
+    'Access-Control-Allow-Origin': '*',
 };
 export const man_photo_src =
     'https://flirtic.com/media/photos/1/e/7/1e733948480.jpg';
@@ -22,7 +22,7 @@ export const messagesMock: netChatMessage[] = [
         text: middleLongTextMock,
         date: new Date().toISOString(),
         channel: 'chat',
-        chatid: 1,
+        chatID: 1,
         id: 1,
     },
     {
@@ -30,7 +30,7 @@ export const messagesMock: netChatMessage[] = [
         text: 'msg 2',
         date: new Date().toISOString(),
         channel: 'chat',
-        chatid: 2,
+        chatID: 2,
         id: 2,
     },
 ];
@@ -43,6 +43,7 @@ export const dialogListMock: dialogSelectType[] = [
         isread: true,
         text: 'longask dnkasndns andkjsdjnandkasndn asndkasstring',
         date: new Date().toISOString(),
+        socialtype: 'tg',
     },
     {
         chatid: 2,
@@ -51,5 +52,6 @@ export const dialogListMock: dialogSelectType[] = [
         isread: false,
         text: 'long asndkasstring',
         date: new Date().toISOString(),
+        socialtype: 'vk',
     },
 ];

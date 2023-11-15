@@ -4,6 +4,7 @@ import appPaths from '../../src/app/appPaths';
 import {
     defaultHeadersMock,
     dialogListMock,
+    man_photo_src,
     messagesMock,
 } from '../const/constMocks.ts';
 
@@ -21,8 +22,18 @@ export const chatHandlers = [
 
     http.get(`${appPaths.basePath}${appPaths.dialogs}`, () =>
         HttpResponse.json(
-            { dialogs: dialogListMock },
+            { chats: dialogListMock },
             { status: 200, headers: { ...defaultHeadersMock } },
+        ),
+    ),
+
+    http.post(`${import.meta.env.VITE_BASE_PATH}attach?type=chat`, () =>
+        HttpResponse.json(
+            { file: man_photo_src },
+            {
+                status: 200,
+                headers: { ...defaultHeadersMock },
+            },
         ),
     ),
 ];

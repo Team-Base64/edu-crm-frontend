@@ -2,6 +2,7 @@ import HomeworkSolutionItem from '@components/HomeworkSolutionItem/HomeworkSolut
 import { UiComponentProps } from '@ui-kit/interfaces';
 import React, { useId } from 'react';
 import { useGetClassSolutionsQuery } from '@app/features/homeworkSolution/homeworkSolutionSlice';
+import EmptyItem from '@components/EmptyItem/EmptyItem';
 // import styles from './HomeworkList.module.scss';
 
 interface HomeworkSolutionListProps extends UiComponentProps {
@@ -29,21 +30,29 @@ const HomeworkSolutionList: React.FC<HomeworkSolutionListProps> = ({
     const list = data.solutions;
     return (
         <>
-            {!list.length && 'EMPTY'}
-
-            {list.length &&
+            {!list.length ? (
+                <EmptyItem />
+            ) : (
                 list
                     .slice(0, limit)
-                    .map(({ id, time, student_id, homework_id }) => (
-                        <React.Fragment key={`${listId}-${id}`}>
-                            <HomeworkSolutionItem
-                                id={id}
-                                homeworkId={homework_id}
-                                studentId={student_id}
-                                passTime={time}
-                            />
-                        </React.Fragment>
-                    ))}
+                    .map(
+                        ({
+                            id,
+                            createTime: time,
+                            studentID: student_id,
+                            hwID: homework_id,
+                        }) => (
+                            <React.Fragment key={`${listId}-${id}`}>
+                                <HomeworkSolutionItem
+                                    id={id}
+                                    homeworkId={homework_id}
+                                    studentId={student_id}
+                                    passTime={time}
+                                />
+                            </React.Fragment>
+                        ),
+                    )
+            )}
         </>
     );
 };

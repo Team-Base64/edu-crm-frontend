@@ -2,10 +2,15 @@
 // TODO
 $padding-tb: 16px;
 $padding-rl: 8px;
-$scrollbar-widht: 8px;
+$scrollbar-width: 8px;
+
+.textarea-label {
+  margin: var(--space-default);
+}
 
 .textarea {
   width: 100%;
+  font-family: getVar(font, type, default);
 
   padding: $padding-tb $padding-rl;
   resize: none;
@@ -14,8 +19,8 @@ $scrollbar-widht: 8px;
 
   &::-webkit-scrollbar {
     background-color: rgba(0, 0, 0, 0);
-    width: $scrollbar-widht;
-    height: $scrollbar-widht;
+    width: $scrollbar-width;
+    height: $scrollbar-width;
   }
 
   &::-webkit-scrollbar-button {

@@ -8,6 +8,7 @@ import {
     useGetLiveMessagesQuery,
     useSendMessageMutation,
 } from '@app/features/chat/chatSlice.ts';
+import { useGetDialogsQuery } from '@app/features/dialog/dialogSlice.ts';
 
 interface SendMessageAreaProps extends UiComponentProps {
     chatid: number;
@@ -35,6 +36,8 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
 
     const messagesRef = useRef<HTMLDivElement>(null);
 
+    const dialogData = useGetDialogsQuery(null);
+
     useEffect(() => {
         if (messagesRef.current instanceof HTMLElement) {
             messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
@@ -55,22 +58,26 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
                 containerRef={messagesRef}
             >
                 {isLoading && <span>loading...</span>}
-                {isSuccess && messageBlock}
+                {isSuccess && (chatid !== -1 ? messageBlock : '')}
                 {isError && <span>{error.toString()}</span>}
             </Container>
             <SendMessageArea
                 id={chatid.toString()}
                 name={'SendMessageArea'}
-                onMessageSend={(text: string) =>
-                    sendMessage({
-                        message: {
-                            chatid,
-                            text: text.trim(),
-                            ismine: true,
-                            date: new Date().toISOString(),
-                        },
-                    })
-                }
+                onMessageSend={(text: string) => {
+                    if (dialogData.data && chatid !== -1) {
+                        sendMessage({
+                            message: {
+                                chatID: chatid,
+                                text: text.trim(),
+                                ismine: true,
+                                date: new Date().toISOString(),
+                                socialType:
+                                    dialogData.data.dialogs[chatid].socialtype,
+                            },
+                        });
+                    }
+                }}
             ></SendMessageArea>
         </Container>
     );

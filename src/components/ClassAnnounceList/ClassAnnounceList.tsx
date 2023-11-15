@@ -1,9 +1,10 @@
 import { UiComponentProps } from '@ui-kit/interfaces';
 import React, { useId } from 'react';
-// import styles from './ClassAnnounceList.module.scss';
+import styles from './ClassAnnounceList.module.scss';
 import ClassAnnounceCard from '@components/ClassAnnounceCard/ClassAnnounceCard';
 import Container from '@ui-kit/Container/Container';
 import { useGetClassAnnouncementsQuery } from '@app/features/announcement/announcementSlice';
+import EmptyItem from '@components/EmptyItem/EmptyItem';
 
 interface ClassAnnounceListProps extends UiComponentProps {
     classId: string | number;
@@ -15,7 +16,7 @@ const ClassAnnounceList: React.FC<ClassAnnounceListProps> = ({ classId }) => {
         class_id: classId,
     });
 
-    if (!data?.announcements || isError) {
+    if (!data?.posts || isError) {
         return (
             <>
                 {isError && JSON.stringify(error)}
@@ -24,16 +25,19 @@ const ClassAnnounceList: React.FC<ClassAnnounceListProps> = ({ classId }) => {
         );
     }
 
-    const list = data.announcements;
+    const list = data.posts;
     return (
         <Container
             direction="vertical"
             layout="defaultBase"
         >
-            {!list.length && 'EMPTY'}
-
-            {list.length &&
-                list.map(({ id, text, time }) => (
+            {!list.length ? (
+                <EmptyItem
+                    classes={styles.empty}
+                    text="В этом классе пока нет объявлений"
+                />
+            ) : (
+                list.map(({ id, text, createTime: time }) => (
                     <React.Fragment key={`${listId}-${id}`}>
                         <ClassAnnounceCard
                             firstName="George"
@@ -43,7 +47,8 @@ const ClassAnnounceList: React.FC<ClassAnnounceListProps> = ({ classId }) => {
                             time={Number(time)}
                         />
                     </React.Fragment>
-                ))}
+                ))
+            )}
         </Container>
     );
 };

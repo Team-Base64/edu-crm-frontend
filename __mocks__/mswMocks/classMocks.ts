@@ -3,7 +3,7 @@ import { http, HttpResponse } from 'msw';
 import appPaths from '../../src/app/appPaths';
 
 import { defaultHeadersMock } from '../const/constMocks.ts';
-import { classListMock } from '../const/classConstMocks.ts';
+import { classListMock, classNewMock } from '../const/classConstMocks.ts';
 import { classHomeworksMock } from '../const/homeworkConstMocks.ts';
 import { classStudentsMock } from '../const/studentConstMocks.ts';
 import { classSolutionsMock } from '../const/solutionsConstMocks.ts';
@@ -92,7 +92,7 @@ export const classHandlers = [
             try {
                 return HttpResponse.json(
                     {
-                        announcements: classAnnouncementsMock[Number(id)],
+                        posts: classAnnouncementsMock[Number(id)],
                     },
                     {
                         status: 200,
@@ -164,4 +164,28 @@ export const classHandlers = [
             }
         },
     ),
+
+    // CreateClass
+    http.post(`${appPaths.basePath}${appPaths.classCreate}`, async () => {
+        try {
+            return HttpResponse.json(
+                {
+                    class: classNewMock,
+                },
+                {
+                    status: 200,
+                    headers: { ...defaultHeadersMock },
+                },
+            );
+        } catch (e) {
+            console.log(e);
+            return HttpResponse.json(
+                {},
+                {
+                    status: 500,
+                    headers: { ...defaultHeadersMock },
+                },
+            );
+        }
+    }),
 ];

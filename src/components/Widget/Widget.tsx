@@ -3,6 +3,7 @@ import Text from '@ui-kit/Text/Text';
 
 import styles from './Widget.module.scss';
 import { UiComponentProps } from '@ui-kit/interfaces';
+import React from 'react';
 
 interface WidgetProps extends UiComponentProps {
     title: string;
@@ -24,6 +25,7 @@ const Widget: React.FC<WidgetProps> = ({
             <Container
                 direction="vertical"
                 layout="defaultBase"
+                gap="l"
                 classes={[classes].join(' ')}
             >
                 <Container

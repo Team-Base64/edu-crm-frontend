@@ -2,6 +2,7 @@ import React, { useId } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import { useGetClassesQuery } from '@app/features/class/classSlice';
 import ClassItem from '@components/ClassItem/ClassItem';
+import EmptyItem from '@components/EmptyItem/EmptyItem';
 
 interface ClassListProps extends UiComponentProps {
     limit?: number;
@@ -23,7 +24,7 @@ const ClassList: React.FC<ClassListProps> = ({ limit, classes }) => {
     const list = data.classes;
     return (
         <>
-            {!list.length && 'EMPTY'}
+            {!list.length && <EmptyItem />}
 
             {list.length &&
                 list.slice(0, limit).map((data) => (

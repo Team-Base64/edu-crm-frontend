@@ -8,8 +8,8 @@ import { chatPaths } from '@app/features/chat/chatPaths';
 import { teacherPaths } from '@app/features/teacher/teacherPaths';
 
 const appPaths = {
-    origin: 'http://127.0.0.1:8080',
-    basePath: `http://127.0.0.1:8080/api/`,
+    basePath: import.meta.env.VITE_BASE_PATH,
+    baseChatPath: import.meta.env.VITE_BASE_PATH,
     ...classPaths,
     ...homeworkPaths,
     ...announcementPaths,
