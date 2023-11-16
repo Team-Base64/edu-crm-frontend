@@ -64,11 +64,15 @@ const ClassCreateForm: React.FC<ClassCreateFormProps> = ({ classes }) => {
                 >
                     Создание класса
                 </Text>
-                <form>
-                    <Container direction={'vertical'}>
+                <form onSubmit={e => e.preventDefault()}>
+                    <Container direction={'vertical'} gap='l'>
                         <Input
                             inputRef={titleRef}
-                            label={'Название'}
+                            label={{
+                                text: 'Название',
+                                type: 'h',
+                                size: 4,
+                            }}
                             placeholder={'Например: Даша Математика'}
                             type={'text'}
                         />
@@ -77,7 +81,11 @@ const ClassCreateForm: React.FC<ClassCreateFormProps> = ({ classes }) => {
                             minRows={2}
                             maxRows={6}
                             border='border'
-                            labelText='Описание'
+                            label={{
+                                text: 'Описание',
+                                type: 'h',
+                                size: 4,
+                            }}
                         />
                     </Container>
                 </form>

@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Input.module.scss';
 import Container from '@ui-kit/Container/Container';
+import Label, { LabelProps } from '@ui-kit/Label/Label';
 
 const inputSizeType = {
     s: styles.small,
@@ -20,7 +21,7 @@ const borderType = {
 type BorderType = keyof typeof borderType;
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-    label?: string;
+    label?: LabelProps;
     errorHint?: string;
     success?: boolean;
     sizeType?: InputSizeType;
@@ -51,8 +52,7 @@ const Input: React.FC<InputProps> = ({
                 gap={sizeType}
                 classes={[inputSizeType[sizeType], classes].join(' ')}
             >
-                {label && <label className={styles.title}>{label}</label>}
-
+                {label && <Label {...label}/>}
                 <Container
                     direction={'horizontal'}
                     gap={sizeType}

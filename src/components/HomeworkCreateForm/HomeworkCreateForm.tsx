@@ -103,18 +103,30 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ onSubmitSuccess
                     <Container direction='vertical' gap='l'>
                         <Input
                             name='hwTitle'
-                            label='Заголовок домашнего задания'
+                            label={{
+                                text: 'Заголовок домашнего задания',
+                                type: 'h',
+                                size: 4,
+                            }}
                             placeholder='Например: Повторение '
                         />
                         <TextArea
                             name='hwDescr'
-                            labelText='Описание домашнего задания'
+                            label= {{
+                                text: 'Описание домашнего задания',
+                                type: 'h',
+                                size: 4,
+                            }}
                             placeholder='Можно оставить пустым'
                             border='border'
                         />
                         <Input
                             name='hwDeadline'
-                            label='Срок сдачи'
+                            label= {{
+                                text: 'Срок сдачи',
+                                type: 'h',
+                                size: 4,
+                            }}
                             type='date'
                         />
 

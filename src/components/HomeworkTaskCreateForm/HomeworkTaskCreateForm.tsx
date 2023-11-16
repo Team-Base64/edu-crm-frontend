@@ -87,7 +87,12 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({ onSubmitSuccess, classe
                     <Container classes={styles.content}>
                         <TextArea
                             classes={styles.area}
-                            labelText='Описание задачи'
+                            label={{
+                                text: 'Описание:',
+                                type: 'h',
+                                size: 4,
+                                // weight: 'bold',
+                            }}
                             placeholder='Опишите суть задачи'
                             minRows={4}
                             maxRows={8}

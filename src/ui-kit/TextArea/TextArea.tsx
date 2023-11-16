@@ -2,8 +2,8 @@ import React, { KeyboardEventHandler, useEffect, useId, useRef } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import styles from '@ui-kit/TextArea/TextArea.module.scss';
 import Container from '@ui-kit/Container/Container';
-import { noop } from '@app/const/consts';
 import { useThrottle } from '@ui-kit/_hooks/useThrottle';
+import Label, { LabelProps } from '@ui-kit/Label/Label';
 
 interface TextAreaProps extends UiComponentProps {
     name?: string;
@@ -11,7 +11,7 @@ interface TextAreaProps extends UiComponentProps {
     placeholder?: string;
     spellcheck?: boolean;
     border?: BorderType;
-    labelText?: string;
+    label?: LabelProps;
     autoResize?: boolean;
     minRows?: number;
     maxRows?: number;
@@ -31,7 +31,7 @@ const TextArea: React.FC<TextAreaProps> = ({
     name,
     textareaText,
     placeholder,
-    labelText,
+    label,
     spellcheck,
     border = 'noBorder',
     autoResize = false,
@@ -92,7 +92,7 @@ const TextArea: React.FC<TextAreaProps> = ({
 
     return (
         <Container direction='vertical'>
-            {labelText && <label htmlFor={id}>{labelText}</label>}
+            {label && <Label {...label}/>}
             <textarea
                 id={id}
                 ref={taRef}

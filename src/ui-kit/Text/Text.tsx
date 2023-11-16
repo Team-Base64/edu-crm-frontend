@@ -22,7 +22,7 @@ const textWeight = {
 };
 type TextWeightType = keyof typeof textWeight;
 
-interface TextProps extends UiComponentProps {
+export interface TextProps extends UiComponentProps {
     type: TextType;
     size: TextSizeType;
     weight?: TextWeightType;

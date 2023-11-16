@@ -77,7 +77,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
                     <Container direction={'vertical'}>
                         <Input
                             inputRef={usernameRef}
-                            label={'Имя пользователя'}
+                            label={{
+                                text: 'Имя пользователя',
+                                type: 'h',
+                                size: 4,
+                            }}
                             placeholder={'DEV Любое'}
                             icon={<Icon name={'user'} />}
                             button={
@@ -93,7 +97,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
                         />
                         <Input
                             inputRef={passwordRef}
-                            label={'Пароль'}
+                            label={{
+                                text: 'Пароль',
+                                type: 'h',
+                                size: 4,
+                            }}
                             placeholder={'DEV пароль 123'}
                             icon={<Icon name={'lock'} />}
                             button={
