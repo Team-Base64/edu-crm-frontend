@@ -81,6 +81,7 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
                     border={'noBorder'}
                     autoResize={true}
                     onChange={handleChange}
+                    onKeydownCallback={handleSubmit}
                 />
                 <Button
                     disabled={lock}
