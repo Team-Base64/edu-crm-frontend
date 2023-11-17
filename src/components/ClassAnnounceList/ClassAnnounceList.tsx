@@ -38,14 +38,13 @@ const ClassAnnounceList: React.FC<ClassAnnounceListProps> = ({ classId }) => {
         >
             {
                 !list.length ? <EmptyItem classes={styles.empty} text='В этом классе пока нет объявлений' /> :
-                    list.map(({ id, text, createTime: time }) => (
-                        <React.Fragment key={`${listId}-${id}`}>
+                    list.map(item => (
+                        <React.Fragment key={`${listId}-${item.id}`}>
                             <ClassAnnounceCard
                                 firstName="George"
                                 lastName="Illarionov"
                                 avatarSrc=""
-                                text={text}
-                                time={Number(time)}
+                                data={item}
                             />
                         </React.Fragment>
                     ))

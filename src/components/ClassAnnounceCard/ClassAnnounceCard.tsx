@@ -1,20 +1,22 @@
 import Avatar from '@ui-kit/Avatar/Avatar';
 import Container from '@ui-kit/Container/Container';
 import Icon from '@ui-kit/Icon/Icon';
-import Text from '@ui-kit/Text/Text';
+import Text, { TextProps } from '@ui-kit/Text/Text';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import React from 'react';
 
 import styles from './ClassAnnounceCard.module.scss';
+import prettyDate from 'utils/common/PrettyDate/datePrettify';
+import { Announcement } from '@app/features/announcement/announcementModel';
+import Updatable from '@ui-kit/Updatable/Updatable';
 
 interface ClassAnnounceCardProps extends UiComponentProps {
     firstName: string;
     lastName?: string;
     avatarSrc: string;
-    time: number;
+    data: Announcement;
     onEdit?: () => void;
     onDelete?: () => void;
-    text: string;
 }
 
 const ClassAnnounceCard: React.FC<ClassAnnounceCardProps> = ({
@@ -25,9 +27,9 @@ const ClassAnnounceCard: React.FC<ClassAnnounceCardProps> = ({
     firstName,
     lastName,
     avatarSrc,
-    time,
-    text,
+    data,
 }) => {
+    const { text, createTime } = data;
     const handleEdit = (e: React.MouseEvent) => {
         e.stopPropagation();
         onEdit?.();
@@ -37,6 +39,8 @@ const ClassAnnounceCard: React.FC<ClassAnnounceCardProps> = ({
         e.stopPropagation();
         onDelete?.();
     };
+
+    // useUpdate();
 
     return (
         <Container
@@ -66,14 +70,27 @@ const ClassAnnounceCard: React.FC<ClassAnnounceCardProps> = ({
                     >
                         {firstName + (lastName ? ' ' + lastName : '')}
                     </Text>
-                    <Text
+
+                    <Updatable
+                        element={Text}
+                        updateProps={() : TextProps => ({
+                            classes: [styles.date].join(' '),
+                            type: 'p',
+                            size: 1,
+                            weight: 'regular',
+                            children: prettyDate(createTime),
+                        })}
+                        interval={1}
+                    />
+
+                    {/* <Text
                         classes={[styles.date].join(' ')}
                         type="p"
                         size={1}
                         weight="regular"
                     >
-                        {new Date(time).toLocaleString('ru-RU')}
-                    </Text>
+                        {prettyDate(createTime)}
+                    </Text> */}
                 </Container>
                 <Container
                     classes={[styles.toolbar].join(' ')}
@@ -108,7 +125,7 @@ const ClassAnnounceCard: React.FC<ClassAnnounceCardProps> = ({
                     {text}
                 </Text>
             </Container>
-        </Container>
+        </Container >
     );
 };
 

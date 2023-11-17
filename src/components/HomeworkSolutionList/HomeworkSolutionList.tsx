@@ -40,13 +40,10 @@ const HomeworkSolutionList: React.FC<HomeworkSolutionListProps> = ({
             {
                 !list.length ? <EmptyItem text='Пока нет решений'/> :
                     list.slice(0, limit)
-                        .map(({ id, createTime: time, studentID: student_id, hwID: homework_id }) => (
-                            <React.Fragment key={`${listId}-${id}`}>
+                        .map(item => (
+                            <React.Fragment key={`${listId}-${item.id}`}>
                                 <HomeworkSolutionItem
-                                    id={id}
-                                    homeworkId={homework_id}
-                                    studentId={student_id}
-                                    passTime={time}
+                                    data={item}
                                 />
                             </React.Fragment>
                         ))

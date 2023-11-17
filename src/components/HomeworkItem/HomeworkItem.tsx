@@ -6,6 +6,9 @@ import React from 'react';
 import Text from '@ui-kit/Text/Text';
 
 import styles from './HomeworkItem.module.scss';
+import getDate from 'utils/common/PrettyDate/common/date';
+import { getDeltaNow } from 'utils/common/PrettyDate/common/delta';
+import getTime from 'utils/common/PrettyDate/common/time';
 
 interface HomeworkItemProps extends UiComponentProps {
     id: string | number;
@@ -23,9 +26,9 @@ const HomeworkItem: React.FC<HomeworkItemProps> = ({
 }) => {
     let stateClassName = styles.notPass;
     const stateStr =
-        'До ' + new Date(deadlineTime).toLocaleDateString('ru-RU').slice(0, -5);
+        'До ' + getDate(deadlineTime, false) + ' ' + getTime(deadlineTime);
 
-    if (Date.now() < deadlineTime) {
+    if (getDeltaNow(deadlineTime) > 0) {
         stateClassName = styles.notPass;
     } else {
         stateClassName = styles.pass;
