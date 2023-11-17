@@ -1,7 +1,7 @@
 export type Announcement = {
     id: string | number;
     text: string;
-    createTime: number;
+    createTime: string;
     attaches: string[];
 };
 

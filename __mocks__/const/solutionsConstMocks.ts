@@ -10,21 +10,21 @@ export const solutionsMock: HomeworkSolution[] = [
         hwID: 0,
         file: '',
         studentID: 0,
-        createTime: Date.now() - 1000,
+        createTime: new Date(Date.now() - 1000).toISOString(),
     },
     {
         id: 1,
         hwID: 1,
         file: '',
         studentID: 1,
-        createTime: Date.now() - 1000,
+        createTime: new Date(Date.now() - 1000).toISOString(),
     },
     {
         id: 2,
         hwID: 2,
         file: '',
         studentID: 2,
-        createTime: Date.now() - 500,
+        createTime: new Date(Date.now() - 500).toISOString(),
     },
 
     {
@@ -32,7 +32,7 @@ export const solutionsMock: HomeworkSolution[] = [
         hwID: 1,
         file: '',
         studentID: 0,
-        createTime: Date.now() - 4000,
+        createTime: new Date(Date.now() - 4000).toISOString(),
     },
 ];
 

@@ -3,8 +3,8 @@ export type Homework = {
     classID: string | number;
     title: string;
     description: string;
-    createTime: number;
-    deadlineTime: number;
+    createTime: string;
+    deadlineTime: string;
     file: string; // ‘host/…./file.pdf
 };
 

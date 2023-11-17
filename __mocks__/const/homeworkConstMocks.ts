@@ -13,8 +13,8 @@ export const homeworksMock: Homework[] = [
         classID: 0,
         title: 'HomeworkModel 0',
         description: 'mock homework 0',
-        createTime: Date.now() - 10000,
-        deadlineTime: Date.now() + 10000,
+        createTime: new Date(Date.now() - 10000).toISOString(),
+        deadlineTime: new Date(Date.now() + 10000).toISOString(),
         file: '',
     },
     {
@@ -22,8 +22,8 @@ export const homeworksMock: Homework[] = [
         classID: 1,
         title: 'HomeworkModel very very vey long long long title kek lol  1',
         description: 'mock homework 1',
-        createTime: Date.now() - 10000,
-        deadlineTime: Date.now() + 10000,
+        createTime: new Date(Date.now() - 10000).toISOString(),
+        deadlineTime: new Date(Date.now() + 10000).toISOString(),
         file: '',
     },
 
@@ -32,8 +32,8 @@ export const homeworksMock: Homework[] = [
         classID: 1,
         title: 'HomeworkModel 2',
         description: 'mock homework 2',
-        createTime: Date.now() - 5000,
-        deadlineTime: Date.now() + 20000,
+        createTime: new Date(Date.now() - 5000).toISOString(),
+        deadlineTime: new Date(Date.now() + 20000).toISOString(),
         file: '',
     },
 
@@ -42,8 +42,8 @@ export const homeworksMock: Homework[] = [
         classID: 1,
         title: 'HomeworkModel 3',
         description: 'mock homework 3',
-        createTime: Date.now() - 2000,
-        deadlineTime: Date.now() - 100,
+        createTime: new Date(Date.now() - 2000).toISOString(),
+        deadlineTime: new Date(Date.now() - 100).toISOString(),
         file: '',
     },
 ];
@@ -64,8 +64,8 @@ export const newHomeworkMock = (
         title: title,
         description: description,
         classID: classID,
-        createTime: Date.now(),
-        deadlineTime: Date.parse(deadlineTime),
+        createTime: new Date(Date.now()).toISOString(),
+        deadlineTime: new Date(Date.parse(deadlineTime)).toISOString(),
         file: '',
     };
 };
