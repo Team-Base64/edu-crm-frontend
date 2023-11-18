@@ -91,7 +91,7 @@ const TextArea: React.FC<TextAreaProps> = ({
     };
 
     return (
-        <Container direction='vertical'>
+        <Container direction='vertical' classes={classes}>
             {label && <Label {...label}/>}
             <textarea
                 id={id}
@@ -104,7 +104,7 @@ const TextArea: React.FC<TextAreaProps> = ({
                 onKeyDown={handleAreaKeydown}
                 onFocusCapture={resizeTextarea}
                 onBlur={resizeTextarea}
-                className={[styles.textarea, borderType[border], classes].join(
+                className={[styles.textarea, borderType[border]].join(
                     ' ',
                 )}
                 {...rest}
