@@ -9,21 +9,19 @@ import styles from './HomeworkItem.module.scss';
 import getDate from 'utils/common/PrettyDate/common/date';
 import { getDeltaNow } from 'utils/common/PrettyDate/common/delta';
 import getTime from 'utils/common/PrettyDate/common/time';
+import { Homework } from '@app/features/homework/homeworkModel';
 
 interface HomeworkItemProps extends UiComponentProps {
-    id: string | number;
-    title: string;
-    description?: string;
-    deadlineTime: number;
+    homework: Homework;
 }
 
 const HomeworkItem: React.FC<HomeworkItemProps> = ({
-    title,
-    description,
-    deadlineTime,
+    homework,
     onClick,
     classes,
 }) => {
+    const {deadlineTime, title, description} = homework;
+
     let stateClassName = styles.notPass;
     const stateStr =
         'До ' + getDate(deadlineTime, false) + ' ' + getTime(deadlineTime);

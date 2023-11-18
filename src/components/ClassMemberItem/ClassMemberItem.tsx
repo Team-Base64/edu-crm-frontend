@@ -7,23 +7,22 @@ import React, { useCallback } from 'react';
 import Text from '@ui-kit/Text/Text';
 
 import styles from './ClassMemberItem.module.scss';
+import { Student } from '@app/features/stundent/stundentModel';
 
 interface ClassMemberItemProps extends UiComponentProps {
-    id: string | number;
-    name: string;
-    avatarSrc: string;
+    student: Student;
     role: string;
     onMessageClick?: () => void;
 }
 
 const ClassMemberItem: React.FC<ClassMemberItemProps> = ({
-    name,
-    avatarSrc,
+    student,
     role,
     onMessageClick,
     onClick,
     classes,
 }) => {
+    const {name, avatarSrc} = student;
     const handleChatClick = useCallback(
         (e: React.MouseEvent) => {
             e.stopPropagation();

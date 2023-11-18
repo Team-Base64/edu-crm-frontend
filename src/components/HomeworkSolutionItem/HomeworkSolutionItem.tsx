@@ -3,7 +3,7 @@ import Button from '@ui-kit/Button/Button';
 import Container from '@ui-kit/Container/Container';
 import Icon from '@ui-kit/Icon/Icon';
 import { UiComponentProps } from '@ui-kit/interfaces';
-import React, { Children } from 'react';
+import React from 'react';
 import Text, { TextProps } from '@ui-kit/Text/Text';
 
 import styles from './HomeworkSolutionItem.module.scss';
@@ -13,6 +13,8 @@ import { HomeworkSolution } from '@app/features/homeworkSolution/homeworkSolutio
 import { getDelta } from 'utils/common/PrettyDate/common/delta';
 import prettyDate from 'utils/common/PrettyDate/datePrettify';
 import Updatable from '@ui-kit/Updatable/Updatable';
+import { useNavigate } from 'react-router-dom';
+import AppRoutes from '@router/routes';
 
 interface HomeworkSolutionItemProps extends UiComponentProps {
     data: HomeworkSolution;
@@ -20,10 +22,10 @@ interface HomeworkSolutionItemProps extends UiComponentProps {
 
 const HomeworkSolutionItem: React.FC<HomeworkSolutionItemProps> = ({
     data,
-    onClick,
     classes,
 }) => {
-    const { hwID, studentID, text, createTime, file } = data;
+    const { id, hwID, studentID,  createTime } = data;
+    const navigate = useNavigate();
 
     // Тут нужно зарефакторить этот кал
     const homeworkResponse = useGetHomeworkQuery({ id: hwID });
@@ -39,7 +41,6 @@ const HomeworkSolutionItem: React.FC<HomeworkSolutionItemProps> = ({
 
     const studentResponse = useGetStudentQuery({ id: studentID });
     const studentData = studentResponse.data?.student;
-    console.log(studentData);
 
     let avatarSrc = '',
         name = 'Неизвестный ученик';
@@ -58,11 +59,15 @@ const HomeworkSolutionItem: React.FC<HomeworkSolutionItemProps> = ({
         }
     }
 
+    const handleClick = () => {
+        navigate(`/${AppRoutes.solutions}/${id}`, {replace: false, relative:'route'});
+    }
+
     return (
         <Container
             classes={[styles.card, classes].join(' ')}
             direction="horizontal"
-            onClick={onClick}
+            onClick={handleClick}
         >
             <Container
                 classes={styles.wrapper}
@@ -109,7 +114,7 @@ const HomeworkSolutionItem: React.FC<HomeworkSolutionItemProps> = ({
                 />
                 <Button
                     classes={styles.btn}
-                    onClick={onClick}
+                    onClick={handleClick}
                     type="link"
                 >
                     <Icon
