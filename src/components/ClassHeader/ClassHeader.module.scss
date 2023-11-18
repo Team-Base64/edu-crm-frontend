@@ -1,6 +1,33 @@
-.header {
+.widget {
+    justify-content: space-between;
 
-    .title {}
+}
 
-    .description {}
+.invite {
+    background-color: var(--color-accent-super-light);
+    user-select: none;
+    & .btn{
+        padding: 12px;
+    }
+
+    &-content{
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 16px;
+    position: relative;
+
+    }
+
+    &-icon{
+        fill: gray;
+    }
+}
+
+.hint {
+    max-width: 100%;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
 }

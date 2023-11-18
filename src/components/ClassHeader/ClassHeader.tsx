@@ -1,10 +1,13 @@
 import Container from '@ui-kit/Container/Container';
 import Text from '@ui-kit/Text/Text';
 import { UiComponentProps } from '@ui-kit/interfaces';
-import React from 'react';
+import React, { useState } from 'react';
 
 import styles from './ClassHeader.module.scss';
 import { useGetClassByIdQuery } from '@app/features/class/classSlice';
+import Button from '@ui-kit/Button/Button';
+import Icon from '@ui-kit/Icon/Icon';
+import Hint from '@ui-kit/Hint/Hint';
 
 interface ClassHeaderProps extends UiComponentProps {
     classId: string | number;
@@ -12,7 +15,7 @@ interface ClassHeaderProps extends UiComponentProps {
 
 const ClassHeader: React.FC<ClassHeaderProps> = ({ classId }) => {
     const { data, isError, error } = useGetClassByIdQuery({ id: classId });
-
+    const [hint, setHint] = useState<boolean>(false);
     if (!data?.class || isError) {
         return (
             <>
@@ -22,30 +25,74 @@ const ClassHeader: React.FC<ClassHeaderProps> = ({ classId }) => {
         );
     }
 
-    const { title, description } = data.class;
+    const { title, description, inviteToken } = data.class;
+
+    const handleInvite = () => {
+        navigator.clipboard.writeText(
+            `<Учитель имя> приглашает вас в класс '${title}'
+            
+            Для подключения:
+
+            1) Напишите /start боту:
+            \t\tВконтакте: https://vk.com/im?sel=-222976710
+            \t\tТелеграмм: https://t.me/educrmmaster2bot
+            2) Отправьте ему токен:
+            \t\t${inviteToken}`
+        );
+        setHint(true);
+    }
 
     return (
         <Container
-            direction="vertical"
-            classes={styles.header}
+            classes={styles.widget}
             layout="defaultBase"
         >
-            <Text
-                type="h"
-                size={2}
-                classes={styles.title}
+            <Container
+                direction="vertical"
+                classes={styles.header}
             >
-                {title}
-            </Text>
-            {description && (
                 <Text
-                    type="p"
-                    size={1}
-                    classes={styles.description}
+                    type="h"
+                    size={2}
+                    classes={styles.title}
                 >
-                    {description}
+                    {title}
                 </Text>
-            )}
+                {description && (
+                    <Text
+                        type="p"
+                        size={1}
+                        classes={styles.description}
+                    >
+                        {description}
+                    </Text>
+                )}
+            </Container>
+            <Container
+                classes={styles.invite}
+                direction='vertical'
+                layout='defaultBase'
+            >
+                <Text type='h' size={4} weight='bold'>
+                    Приглашение в класс
+                </Text>
+                <Container
+                    classes={styles.inviteContent}
+                    layout='defaultBase'
+                >
+                    <Text type='p' size={1} classes={styles.inviteToken}>
+                        {inviteToken}
+                    </Text>
+                    <Button
+                        type='link'
+                        classes={styles.btn}
+                        onClick={handleInvite}
+                    >
+                        <Icon name='copyLine' />
+                    </Button>
+                    <Hint classes={styles.hint} text='Приглашение скопировано в буфер обмена!' timeoutSec={3} state={[hint, setHint]} />
+                </Container>
+            </Container>
         </Container>
     );
 };
