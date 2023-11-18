@@ -27,3 +27,4 @@ export { default as SaveLine } from './device_save-line.svg?react';
 export { default as BookLine } from './document_book-line.svg?react';
 export { default as UList } from './editor_list-unordered.svg?react';
 export { default as Alert } from './error-16-svgrepo-com.svg?react';
+export { default as InfoCircle } from './info-circle-svgrepo-com.svg?react';

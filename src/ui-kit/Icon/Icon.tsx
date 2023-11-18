@@ -33,6 +33,7 @@ const iconName = {
     book: Icons.BookLine,
     ulist: Icons.UList,
     alert: Icons.Alert,
+    infoCircle: Icons.InfoCircle,
 };
 
 export type IconName = keyof typeof iconName;
