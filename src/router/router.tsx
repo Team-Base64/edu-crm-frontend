@@ -7,7 +7,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import AppRoutes from './routes';
 import ClassPage from '@pages/ClassPage/ClassPage';
-import { Chat } from '@pages/MessengerPage/Chat';
+import { ChatPage } from '@pages/ChatPage/ChatPage.tsx';
 import ClassesPage from '@pages/ClassesPage/ClassesPage';
 import RequireNotAuth from '@hoc/RequireNotAuth';
 import { CalendarPage } from '@pages/CalendarPage/CalendarPage.tsx';
@@ -38,7 +38,7 @@ const AppRouter: React.FC = () => {
                 <Route element={<MainLayout />}>
                     <Route
                         path={AppRoutes.messenger}
-                        element={<Chat />}
+                        element={<ChatPage />}
                     />
                     <Route path={AppRoutes.classes}>
                         <Route

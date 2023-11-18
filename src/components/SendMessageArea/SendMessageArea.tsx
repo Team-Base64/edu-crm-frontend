@@ -53,7 +53,7 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
                                 ismine: true,
                                 date: new Date().toISOString(),
                                 attaches,
-                                socialType:
+                                socialtype:
                                     dialogData.data.dialogs[Number(id)]
                                         .socialtype,
                             },

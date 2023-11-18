@@ -3,6 +3,7 @@ import { UiComponentProps } from '@ui-kit/interfaces';
 import React, { useId } from 'react';
 import { useGetClassSolutionsQuery } from '@app/features/homeworkSolution/homeworkSolutionSlice';
 import EmptyItem from '@components/EmptyItem/EmptyItem';
+
 // import styles from './HomeworkList.module.scss';
 
 interface HomeworkSolutionListProps extends UiComponentProps {

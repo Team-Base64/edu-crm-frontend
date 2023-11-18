@@ -15,6 +15,7 @@ const btnType = {
     primary: styles.primary,
     secondary: styles.secondary,
     link: styles.link,
+    static: styles.static,
 };
 type ButtonType = keyof typeof btnType;
 

@@ -2,9 +2,9 @@ import Container from '@ui-kit/Container/Container.tsx';
 import MessageSelector from '@components/MessageSelector/MessageSelector.tsx';
 import Messenger from '@components/Messenger/Messenger.tsx';
 import React, { useState } from 'react';
-import styles from './Chat.module.scss';
+import styles from './ChatPage.module.scss';
 import { MessengerHeader } from '@components/MessangerHeader/MessengerHeader.tsx';
-export const Chat: React.FC = () => {
+export const ChatPage: React.FC = () => {
     const [chatID, setChatID] = useState<number>(-1);
 
     return (
@@ -13,7 +13,7 @@ export const Chat: React.FC = () => {
             classes={styles.chat}
         >
             <MessageSelector
-                setChatID={setChatID}
+                useSetChatId={[chatID, setChatID]}
                 classes={styles.dialogList}
             ></MessageSelector>
             <MessengerHeader
