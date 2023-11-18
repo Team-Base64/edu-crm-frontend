@@ -12,6 +12,8 @@ import ClassesPage from '@pages/ClassesPage/ClassesPage';
 import RequireNotAuth from '@hoc/RequireNotAuth';
 import { CalendarPage } from '@pages/CalendarPage/CalendarPage.tsx';
 import TaskPage from '@pages/TaskPage/TaskPage';
+import HomeworkPage from '@pages/HomeworkPage/HomeworkPage';
+import HomeworkSolutionPage from '@pages/HomeworkSolutionPage/HomeworkSolutionPage';
 
 const AppRouter: React.FC = () => {
     return (
@@ -37,6 +39,30 @@ const AppRouter: React.FC = () => {
                 {/* Private */}
                 {/*<Route element={<RequireAuth />}>*/}
                 <Route element={<MainLayout />}>
+                <Route
+                        path={AppRoutes.solutions}
+                    >
+                        <Route
+                            index
+                            element={<NotFoundPage />}
+                        />
+                        <Route
+                            path={AppRoutes.solution}
+                            element={<HomeworkSolutionPage/>}
+                        />
+                    </Route>
+                    <Route
+                        path={AppRoutes.homeworks}
+                    >
+                        <Route
+                            index
+                            element={<NotFoundPage />}
+                        />
+                        <Route
+                            path={AppRoutes.homework}
+                            element={<HomeworkPage/>}
+                        />
+                    </Route>
                     <Route
                         path={AppRoutes.messenger}
                         element={<Chat />}

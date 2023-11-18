@@ -12,6 +12,10 @@ const AppRoutes = asStrings({
     messenger: 'messenger',
     settings: 'settings',
     tasks: 'tasks',
+    homeworks: 'homeworks',
+    homework: ':id',
+    solutions: 'solutions',
+    solution: ':id',
 
     login: 'login',
     signup: 'signup',

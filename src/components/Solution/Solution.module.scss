@@ -1,0 +1,26 @@
+.widget {
+    width: 100%;
+}
+
+.status {
+    &-icon {
+        fill: #333;
+    }
+
+    &-text {
+        color: #333;
+    }
+
+    &-spinner {
+        color: #333;
+    }
+}
+
+.preview {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 50vh;
+    display: flex;
+    height: 100%;
+}
