@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { dateInput } from '@components/AddEventForm/AddEventForm.tsx';
+import { dateInput } from '@components/CalendarEventForm/CalendarEventForm.tsx';
 import {
     CalendarEventType,
     eventMutationsType,
@@ -10,13 +10,31 @@ import { unselectedId } from '@app/const/consts.ts';
 export default function useAddEvent(
     setIsShowingState: React.Dispatch<React.SetStateAction<boolean>>,
     sendEvent: ReturnType<eventMutationsType>[0],
-    event: CalendarEventType,
+    event: CalendarEventType | null,
 ) {
+    const getInitialDate = (
+        event: CalendarEventType | null,
+        param: 'startDate' | 'endDate',
+    ) => {
+        if (event) {
+            return new Date(event[param]);
+        }
+        return null;
+    };
+
     const [title, setTitle] = useState(event?.title);
-    const [startDate, setStartDate] = useState<dateInput>();
-    const [startTime, setStartTime] = useState<dateInput>();
-    const [endDate, setEndDate] = useState<dateInput>();
-    const [endTime, setEndTime] = useState<dateInput>();
+    const [startDate, setStartDate] = useState<dateInput>(
+        getInitialDate(event, 'startDate'),
+    );
+    const [startTime, setStartTime] = useState<dateInput>(
+        getInitialDate(event, 'startDate'),
+    );
+    const [endDate, setEndDate] = useState<dateInput>(
+        getInitialDate(event, 'endDate'),
+    );
+    const [endTime, setEndTime] = useState<dateInput>(
+        getInitialDate(event, 'endDate'),
+    );
     const [description, setDescription] = useState(event?.description);
 
     const { data } = useGetClassesQuery(null);
@@ -25,16 +43,25 @@ export default function useAddEvent(
         classData.set(classItem.title, classItem.id);
     });
 
-    const [selectedClass, setSelectedClass] = useState<number>(event?.id);
+    const [selectedClass, setSelectedClass] = useState<number>(
+        event?.id ?? unselectedId,
+    );
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if (startDate && startTime && endDate && endTime) {
+        // fix validation
+        if (
+            title &&
+            startDate &&
+            startTime &&
+            endDate &&
+            endTime &&
+            description
+        ) {
             startDate.setHours(startTime.getHours());
             startDate.setMinutes(startTime.getMinutes());
             endDate.setHours(endTime.getHours());
             endDate.setMinutes(endTime.getMinutes());
-            console.log('selectedClass', selectedClass);
             sendEvent({
                 title,
                 description,

@@ -4,22 +4,12 @@ import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import Button from '@ui-kit/Button/Button.tsx';
 import Text from '@ui-kit/Text/Text.tsx';
 import Overlay from '@ui-kit/Overlay/Overlay.tsx';
-import { AddEventForm } from '@components/AddEventForm/AddEventForm.tsx';
+import { CalendarEventForm } from '@components/CalendarEventForm/CalendarEventForm.tsx';
 import { useAddEventMutation } from '@app/features/calendar/calendarSlice.ts';
-import { unselectedId } from '@app/const/consts.ts';
 
 interface CalendarAddEventProps extends UiComponentProps {}
 export const CalendarAddEvent: React.FC<CalendarAddEventProps> = () => {
     const [isAddEventWindowShowing, setAddEventWindowShowing] = useState(false);
-
-    const defConst = {
-        title: '',
-        description: '',
-        startDate: '',
-        endDate: '',
-        classid: unselectedId,
-        id: unselectedId,
-    };
 
     return (
         <>
@@ -39,11 +29,10 @@ export const CalendarAddEvent: React.FC<CalendarAddEventProps> = () => {
                 isShowing={isAddEventWindowShowing}
                 closeOverlay={() => setAddEventWindowShowing(false)}
             >
-                <AddEventForm
+                <CalendarEventForm
                     setIsShowingState={setAddEventWindowShowing}
                     useMutation={useAddEventMutation}
-                    event={defConst}
-                ></AddEventForm>
+                ></CalendarEventForm>
             </Overlay>
         </>
     );

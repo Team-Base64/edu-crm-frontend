@@ -1,7 +1,7 @@
 import React from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import Input from '@ui-kit/Input/Input.tsx';
-import { dateInput } from '@components/AddEventForm/AddEventForm.tsx';
+import { dateInput } from '@components/CalendarEventForm/CalendarEventForm.tsx';
 import {
     getInputDateRepresentation,
     getNextYearDate,
@@ -9,8 +9,8 @@ import {
 
 interface DatePickerProps extends UiComponentProps {
     useDate: {
-        date: dateInput | undefined;
-        setDate: React.Dispatch<React.SetStateAction<dateInput | undefined>>;
+        date: dateInput;
+        setDate: React.Dispatch<React.SetStateAction<dateInput>>;
     };
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
-import styles from './AddEventForm.module.scss';
+import styles from './CalendarEventForm.module.scss';
 import Container from '@ui-kit/Container/Container.tsx';
 import Input from '@ui-kit/Input/Input.tsx';
 import { TimePicker } from '@ui-kit/TimePicker/TimePicker.tsx';
@@ -18,15 +18,15 @@ import { unselectedId } from '@app/const/consts.ts';
 interface AddEvenFormProps extends UiComponentProps {
     setIsShowingState: React.Dispatch<React.SetStateAction<boolean>>;
     useMutation: eventMutationsType;
-    event: CalendarEventType;
+    eventData?: CalendarEventType | null;
 }
 
 export type dateInput = null | Date;
 
-export const AddEventForm: React.FC<AddEvenFormProps> = ({
+export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
     setIsShowingState,
     useMutation,
-    event,
+    eventData = null,
 }) => {
     const {
         useTitle,
@@ -38,7 +38,7 @@ export const AddEventForm: React.FC<AddEvenFormProps> = ({
         useSelectedClass,
         classData,
         handleSubmit,
-    } = useAddEvent(setIsShowingState, useMutation()[0], event);
+    } = useAddEvent(setIsShowingState, useMutation()[0], eventData);
 
     return (
         <form onSubmit={handleSubmit}>

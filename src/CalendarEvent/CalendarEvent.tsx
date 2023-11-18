@@ -5,18 +5,18 @@ import Text from '@ui-kit/Text/Text.tsx';
 import { CalendarEventType } from '@app/features/calendar/calendarModel.ts';
 import Button from '@ui-kit/Button/Button';
 import Icon from '@ui-kit/Icon/Icon';
-import { AddEventForm } from '@components/AddEventForm/AddEventForm.tsx';
+import { CalendarEventForm } from '@components/CalendarEventForm/CalendarEventForm.tsx';
 import { useEditEventMutation } from '@app/features/calendar/calendarSlice.ts';
 import Overlay from '@ui-kit/Overlay/Overlay.tsx';
 import { getUTCDate, getUTCTime } from '../utils/common/dateRepresentation.ts';
 
 interface CalendarEventProps extends UiComponentProps {
-    event: CalendarEventType;
+    eventData: CalendarEventType;
     onDeleteClick: () => void;
 }
 
 export const CalendarEvent: React.FC<CalendarEventProps> = ({
-    event,
+    eventData,
     onDeleteClick,
 }) => {
     const [isAddEventWindowShowing, setEditEventWindowShowing] =
@@ -30,13 +30,13 @@ export const CalendarEvent: React.FC<CalendarEventProps> = ({
                 type={'p'}
                 size={5}
             >
-                Название: {event.title}
+                Название: {eventData.title}
             </Text>
             <Text
                 type={'p'}
                 size={5}
             >
-                Описание: {event.description}
+                Описание: {eventData.description}
             </Text>
             <Text
                 type={'p'}
@@ -44,9 +44,9 @@ export const CalendarEvent: React.FC<CalendarEventProps> = ({
             >
                 Дата начала:
                 {' ' +
-                    getUTCDate(new Date(event.startDate)) +
+                    getUTCDate(new Date(eventData.startDate)) +
                     ' ' +
-                    getUTCTime(new Date(event.startDate))}
+                    getUTCTime(new Date(eventData.startDate))}
             </Text>
             <Text
                 type={'p'}
@@ -54,9 +54,9 @@ export const CalendarEvent: React.FC<CalendarEventProps> = ({
             >
                 Дата окончания:
                 {' ' +
-                    getUTCDate(new Date(event.endDate)) +
+                    getUTCDate(new Date(eventData.endDate)) +
                     ' ' +
-                    getUTCTime(new Date(event.endDate))}
+                    getUTCTime(new Date(eventData.endDate))}
             </Text>
             <Button
                 type={'secondary'}
@@ -92,11 +92,11 @@ export const CalendarEvent: React.FC<CalendarEventProps> = ({
                 isShowing={isAddEventWindowShowing}
                 closeOverlay={() => setEditEventWindowShowing(false)}
             >
-                <AddEventForm
+                <CalendarEventForm
                     setIsShowingState={setEditEventWindowShowing}
                     useMutation={useEditEventMutation}
-                    event={event}
-                ></AddEventForm>
+                    eventData={eventData}
+                ></CalendarEventForm>
             </Overlay>
         </Container>
     );

@@ -16,11 +16,11 @@ export const CalendarEventsList: React.FC<CalendarEventsListProps> = () => {
     const [deleteEvent] = useDeleteEventMutation();
 
     const calendarEvents = Object.values(data?.calendarEvents ?? {}).map(
-        (event: CalendarEventType, index: number) => (
+        (eventData: CalendarEventType, index: number) => (
             <CalendarEvent
-                event={event}
-                key={`${event.id}-${event.classid}-${index}`}
-                onDeleteClick={() => deleteEvent({ id: event.id })}
+                eventData={eventData}
+                key={`${eventData.id}-${eventData.classid}-${index}`}
+                onDeleteClick={() => deleteEvent({ id: eventData.id })}
             ></CalendarEvent>
         ),
     );
