@@ -2,6 +2,7 @@ import {
     Homework,
     HomeworkCreatePayload,
 } from '@app/features/homework/homeworkModel.ts';
+import { tasksMock } from './taskConstMocks';
 
 interface IclassHomeworksMock {
     [key: number]: Homework[];
@@ -15,7 +16,7 @@ export const homeworksMock: Homework[] = [
         description: 'mock homework 0',
         createTime: new Date(Date.now() - 10000).toISOString(),
         deadlineTime: new Date(Date.now() + 10000).toISOString(),
-        file: '',
+        tasks: tasksMock.map(t => t.id),
     },
     {
         id: 1,
@@ -24,7 +25,8 @@ export const homeworksMock: Homework[] = [
         description: 'mock homework 1',
         createTime: new Date(Date.now() - 10000).toISOString(),
         deadlineTime: new Date(Date.now() + 10000).toISOString(),
-        file: '',
+        tasks: tasksMock.map(t => t.id),
+
     },
 
     {
@@ -34,7 +36,8 @@ export const homeworksMock: Homework[] = [
         description: 'mock homework 2',
         createTime: new Date(Date.now() - 5000).toISOString(),
         deadlineTime: new Date(Date.now() + 20000).toISOString(),
-        file: '',
+        tasks: tasksMock.map(t => t.id),
+
     },
 
     {
@@ -44,7 +47,8 @@ export const homeworksMock: Homework[] = [
         description: 'mock homework 3',
         createTime: new Date(Date.now() - 2000).toISOString(),
         deadlineTime: new Date(Date.now() - 100).toISOString(),
-        file: '',
+        tasks: tasksMock.map(t => t.id),
+
     },
 ];
 
@@ -58,7 +62,7 @@ export const classHomeworksMock: IclassHomeworksMock = {
 export const newHomeworkMock = (
     payload: HomeworkCreatePayload,
 ): Homework => {
-    const { title, description, classID, deadlineTime } = payload;
+    const { title, description, classID, deadlineTime, tasks } = payload;
     return {
         id: 1000,
         title: title,
@@ -66,6 +70,7 @@ export const newHomeworkMock = (
         classID: classID,
         createTime: new Date(Date.now()).toISOString(),
         deadlineTime: new Date(Date.parse(deadlineTime)).toISOString(),
-        file: '',
+        tasks: tasks,
+
     };
 };

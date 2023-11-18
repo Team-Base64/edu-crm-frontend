@@ -6,7 +6,7 @@ import { studentHandlers } from './mswMocks/studentMocks.ts';
 import { homeworkHandlers } from './mswMocks/homeworkMoks.ts';
 import { teacherHandlers } from './mswMocks/teacherMocks';
 import { taskHandlers } from './mswMocks/taskMocks.ts';
-
+import { solutionsHandlers } from './mswMocks/solutionMocks.ts'
 import { calendarHandlers } from './mswMocks/calendatMocks.ts';
 const handlers = [
     ...chatHandlers,
@@ -16,6 +16,7 @@ const handlers = [
     ...homeworkHandlers,
     ...teacherHandlers,
     ...taskHandlers,
+    ...solutionsHandlers,
 
     ...calendarHandlers,
 ];

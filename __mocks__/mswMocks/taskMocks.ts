@@ -56,4 +56,31 @@ export const taskHandlers = [
             }
         },
     ),
+
+    // Get task 
+    http.get(
+        `${appPaths.basePath}${appPaths.task(':id')}`,
+        ({params}) => {
+            const {id} = params;
+            try {
+                return HttpResponse.json(
+                    {
+                       ...tasksMock[Number(id) - 1],
+                    },
+                    {
+                        status: 200,
+                        headers: { ...defaultHeadersMock },
+                    },
+                );
+            } catch (e) {
+                return HttpResponse.json(
+                    {},
+                    {
+                        status: 404,
+                        headers: { ...defaultHeadersMock },
+                    },
+                );
+            }
+        },
+    ),
 ];
