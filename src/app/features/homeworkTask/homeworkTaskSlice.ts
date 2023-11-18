@@ -13,6 +13,15 @@ export const homeworkTaskSlice = appApi.injectEndpoints({
             },
         }),
 
+        getTask: build.query<HomeworkTask, {id : number}>({
+            query: ({id}) => {
+                return {
+                    url: homeworkTaskPaths.task(id),
+                    method: 'GET',
+                };
+            },
+        }),
+
         createTask: build.mutation<{id: number},{payload: HomeworkTaskCreatePayload}>({
             query: ({payload}) => {
                 return {
@@ -27,5 +36,6 @@ export const homeworkTaskSlice = appApi.injectEndpoints({
 
 export const {
     useGetTasksQuery,
+    useGetTaskQuery,
     useCreateTaskMutation,
 } = homeworkTaskSlice;

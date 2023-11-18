@@ -5,7 +5,7 @@ export type Homework = {
     description: string;
     createTime: string;
     deadlineTime: string;
-    file: string; // ‘host/…./file.pdf
+    tasks: number[];
 };
 
 export type HomeworkCreatePayload = {

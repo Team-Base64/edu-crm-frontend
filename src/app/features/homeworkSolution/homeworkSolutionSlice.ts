@@ -15,7 +15,19 @@ export const homeworkSolutionSlice = appApi.injectEndpoints({
                 };
             },
         }),
+
+        getSolution: build.query<HomeworkSolution, {id: number | string}>({
+            query: ({id}) => {
+                return {
+                    url: homeworkSolutionPaths.solution(id),
+                    method: 'GET',
+                };
+            },
+        }),
     }),
 });
 
-export const { useGetClassSolutionsQuery } = homeworkSolutionSlice;
+export const { 
+    useGetClassSolutionsQuery,
+    useGetSolutionQuery,
+ } = homeworkSolutionSlice;
