@@ -7,15 +7,17 @@ import styles from './MessageSelector.module.scss';
 import { useGetDialogsQuery } from '@app/features/dialog/dialogSlice';
 
 interface MessageSelectorProps extends UiComponentProps {
-    setChatID: (chatID: number) => void;
+    useSetChatId: [number, React.Dispatch<React.SetStateAction<number>>];
 }
 
 const MessageSelector: React.FC<MessageSelectorProps> = ({
-    setChatID,
+    useSetChatId,
     classes,
 }) => {
     const { data, isLoading, isSuccess, isError, error } =
         useGetDialogsQuery(null);
+
+    const [chatId, setChatId] = useSetChatId;
 
     const dialogList = Object.values(data?.dialogs ?? {})
         .sort((a, b) => (new Date(a.date) < new Date(b.date) ? 1 : -1))
@@ -23,7 +25,8 @@ const MessageSelector: React.FC<MessageSelectorProps> = ({
             <MessageSelectDialogItem
                 data={dialog}
                 key={dialog.chatid}
-                selectDialog={() => setChatID(dialog.chatid)}
+                selectDialog={() => setChatId(dialog.chatid)}
+                isSelected={chatId === dialog.chatid}
             ></MessageSelectDialogItem>
         ));
 

@@ -53,7 +53,6 @@ export const chatSlice = appApi.injectEndpoints({
                 `getLiveMessages-${params.queryArgs.channel}`,
             merge: (currentCache, newItems) => {
                 Object.entries(newItems.messages).forEach(([key, newValue]) => {
-                    console.log(newValue, newItems.messages, key);
                     currentCache.messages[key] = [
                         ...newValue,
                         ...(currentCache.messages[key] ?? []),
