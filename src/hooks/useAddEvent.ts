@@ -5,6 +5,7 @@ import {
     eventMutationsType,
 } from '@app/features/calendar/calendarModel.ts';
 import { useGetClassesQuery } from '@app/features/class/classSlice.ts';
+import { unselectedId } from '@app/const/consts.ts';
 
 export default function useAddEvent(
     setIsShowingState: React.Dispatch<React.SetStateAction<boolean>>,
@@ -39,7 +40,7 @@ export default function useAddEvent(
                 description,
                 startDate: startDate.toISOString(),
                 endDate: endDate.toISOString(),
-                classid: selectedClass ?? -1,
+                classid: selectedClass ?? unselectedId,
             })
                 .then(() => {
                     setTitle('');
@@ -56,10 +57,10 @@ export default function useAddEvent(
 
     return {
         useTitle: { title, setTitle },
-        useStartDate: { startDate, setStartDate },
-        useStartTime: { startTime, setStartTime },
-        useEndDate: { endDate, setEndDate },
-        useEndTime: { endTime, setEndTime },
+        useStartDate: { date: startDate, setDate: setStartDate },
+        useStartTime: { time: startTime, setTime: setStartTime },
+        useEndDate: { date: endDate, setDate: setEndDate },
+        useEndTime: { time: endTime, setTime: setEndTime },
         useDescription: { description, setDescription },
         useSelectedClass: { selectedClass, setSelectedClass },
         classData,

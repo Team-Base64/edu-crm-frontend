@@ -4,8 +4,9 @@ import Messenger from '@components/Messenger/Messenger.tsx';
 import React, { useState } from 'react';
 import styles from './ChatPage.module.scss';
 import { MessengerHeader } from '@components/MessangerHeader/MessengerHeader.tsx';
+import { unselectedId } from '@app/const/consts.ts';
 export const ChatPage: React.FC = () => {
-    const [chatID, setChatID] = useState<number>(-1);
+    const [chatID, setChatID] = useState<number>(unselectedId);
 
     return (
         <Container
@@ -17,11 +18,11 @@ export const ChatPage: React.FC = () => {
                 classes={styles.dialogList}
             ></MessageSelector>
             <MessengerHeader
-                chatid={chatID}
+                chatID={chatID}
                 classes={styles.messengerHeader}
             ></MessengerHeader>
             <Messenger
-                chatid={chatID}
+                chatID={chatID}
                 classes={styles.messenger}
             ></Messenger>
         </Container>

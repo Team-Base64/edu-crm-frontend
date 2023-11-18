@@ -4,53 +4,30 @@ import React, { useEffect, useRef } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import Container from '@ui-kit/Container/Container.tsx';
 import styles from './Messenger.module.scss';
-import {
-    useGetLiveMessagesQuery,
-    useSendMessageMutation,
-} from '@app/features/chat/chatSlice.ts';
-import { useGetDialogsQuery } from '@app/features/dialog/dialogSlice.ts';
+import { useGetLiveMessagesQuery } from '@app/features/chat/chatSlice.ts';
 import Text from '@ui-kit/Text/Text.tsx';
+import { unselectedId } from '@app/const/consts.ts';
 
 interface SendMessageAreaProps extends UiComponentProps {
-    chatid: number;
+    chatID: number;
 }
 
-const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
+const Messenger: React.FC<SendMessageAreaProps> = ({ chatID, classes }) => {
     const { data, isLoading, isSuccess, isError, error } =
         useGetLiveMessagesQuery({
             channel: 'chat',
-            chatid,
+            chatID,
         });
 
-    const [sendMessage] = useSendMessageMutation();
-
     const messagesRef = useRef<HTMLDivElement>(null);
-
-    const dialogData = useGetDialogsQuery(null);
 
     useEffect(() => {
         if (messagesRef.current instanceof HTMLElement) {
             messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
-        } else {
-            console.error('wrong element type');
         }
     });
 
-    const onMessageSendClick = (text: string) => {
-        if (dialogData.data && chatid !== -1) {
-            sendMessage({
-                message: {
-                    chatID: chatid,
-                    text: text.trim(),
-                    ismine: true,
-                    date: new Date().toISOString(),
-                    socialtype: dialogData.data.dialogs[chatid].socialtype,
-                },
-            });
-        }
-    };
-
-    const messageBlock = data?.messages[chatid]?.map((message, index) => {
+    const messageBlock = data?.messages[chatID]?.map((message, index) => {
         return (
             <MessageItem
                 isMine={message.ismine}
@@ -72,9 +49,9 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
                 {messageBlock}
             </Container>
             <SendMessageArea
-                id={chatid.toString()}
+                id={chatID}
                 name={'SendMessageArea'}
-                onMessageSend={onMessageSendClick}
+                // onMessageSend={onMessageSendClick}
             ></SendMessageArea>
         </>
     );
@@ -86,7 +63,7 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
             layout={'defaultBase'}
         >
             {isLoading && <span>loading...</span>}
-            {isSuccess && chatid !== -1 ? (
+            {isSuccess && chatID !== unselectedId ? (
                 contentToRender
             ) : (
                 <Text

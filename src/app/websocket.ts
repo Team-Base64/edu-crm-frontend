@@ -2,7 +2,7 @@ export type Channel = 'general' | 'chat';
 
 export type messageWS = {
     channel: Channel;
-    chatid: number;
+    chatID: number;
 };
 
 let ws: WebSocket | null = null;

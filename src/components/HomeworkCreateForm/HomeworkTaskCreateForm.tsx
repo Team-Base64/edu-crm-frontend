@@ -9,6 +9,7 @@ import TextArea from '@ui-kit/TextArea/TextArea';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import React, { useRef } from 'react';
 import useSendAttaches from '../../hooks/useSendAttaches.ts';
+import { unselectedId } from '@app/const/consts.ts';
 
 interface TaskCreateFormProps extends UiComponentProps {
     addTask: (t: HomeworkTaskRaw) => void;
@@ -31,7 +32,7 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({
 
         const task: HomeworkTaskRaw = {
             description: form.descr.value || '',
-            id: -1, // Новая таска
+            id: unselectedId, // Новая таска
             attach: attaches?.at(0),
         };
         addTask(task);

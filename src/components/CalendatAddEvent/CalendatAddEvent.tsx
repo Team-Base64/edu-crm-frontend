@@ -6,6 +6,7 @@ import Text from '@ui-kit/Text/Text.tsx';
 import Overlay from '@ui-kit/Overlay/Overlay.tsx';
 import { AddEventForm } from '@components/AddEventForm/AddEventForm.tsx';
 import { useAddEventMutation } from '@app/features/calendar/calendarSlice.ts';
+import { unselectedId } from '@app/const/consts.ts';
 
 interface CalendarAddEventProps extends UiComponentProps {}
 export const CalendarAddEvent: React.FC<CalendarAddEventProps> = () => {
@@ -16,8 +17,8 @@ export const CalendarAddEvent: React.FC<CalendarAddEventProps> = () => {
         description: '',
         startDate: '',
         endDate: '',
-        classid: -1,
-        id: -1,
+        classid: unselectedId,
+        id: unselectedId,
     };
 
     return (

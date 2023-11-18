@@ -19,3 +19,9 @@ export const getUTCDate = (date: Date) =>
 
 export const getUTCTime = (date: Date) =>
     `${date.getUTCHours()}:${date.getUTCMinutes()}`;
+
+export const getNextYearDate = () =>
+    new Date(new Date().setFullYear(new Date().getFullYear() + 1));
+
+export const getInputDateRepresentation = (date: Date) =>
+    date.toLocaleDateString('en-CA');

@@ -11,8 +11,8 @@ import { chatPaths } from '@app/features/chat/chatPaths';
 export const chatSlice = appApi.injectEndpoints({
     endpoints: (build) => ({
         getLiveMessages: build.query<apiChatMessageType, messageWS>({
-            query: ({ chatid }) => ({
-                url: chatPaths.dialog(chatid),
+            query: ({ chatID }) => ({
+                url: chatPaths.dialog(chatID),
                 method: 'GET',
             }),
             transformResponse(
@@ -21,10 +21,10 @@ export const chatSlice = appApi.injectEndpoints({
                 arg,
             ) {
                 const messages = {
-                    [arg.chatid]: baseQueryReturnValue.messages,
+                    [arg.chatID]: baseQueryReturnValue.messages,
                 };
                 const wasFetched = {
-                    [arg.chatid]: true,
+                    [arg.chatID]: true,
                 };
                 return { messages, wasFetched };
             },
@@ -37,9 +37,9 @@ export const chatSlice = appApi.injectEndpoints({
                     'wasFetched' in endpointState.data
                 ) {
                     return (
-                        currentArg.chatid !== previousArg.chatid &&
+                        currentArg.chatID !== previousArg.chatID &&
                         !(endpointState.data as apiChatMessageType).wasFetched[
-                            currentArg.chatid
+                            currentArg.chatID
                         ]
                     );
                 }
@@ -65,14 +65,15 @@ export const chatSlice = appApi.injectEndpoints({
 
                     socket.onmessage = (event: MessageEvent) => {
                         const data = JSON.parse(event.data);
+                        console.log(data);
                         if (data.channel !== channel) {
                             console.warn(data.channel, channel);
                             return;
                         }
 
                         updateCachedData((draft) => {
-                            draft.messages[data.chatid] = [
-                                ...(draft.messages[data.chatid] ?? []),
+                            draft.messages[data.chatID] = [
+                                ...(draft.messages[data.chatID] ?? []),
                                 data,
                             ];
                         });
@@ -89,7 +90,7 @@ export const chatSlice = appApi.injectEndpoints({
                 const socket = getSocket();
                 //fix
                 args.message.chatID;
-                args.message.socialtype;
+                args.message.socialType;
                 socket.send(JSON.stringify(args.message));
                 return { data: [] };
             },
@@ -101,7 +102,7 @@ export const chatSlice = appApi.injectEndpoints({
                 dispatch(
                     chatSlice.util.updateQueryData(
                         'getLiveMessages',
-                        { channel: 'chat', chatid: message.chatID },
+                        { channel: 'chat', chatID: message.chatID },
                         (draft) => {
                             draft.messages[message.chatID] = [
                                 ...(draft.messages[message.chatID] ?? []),

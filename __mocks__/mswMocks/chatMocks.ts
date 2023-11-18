@@ -1,12 +1,8 @@
 import { http, HttpResponse } from 'msw';
 import appPaths from '../../src/app/appPaths';
 
-import {
-    defaultHeadersMock,
-    dialogListMock,
-    man_photo_src,
-    messagesMock,
-} from '../const/constMocks.ts';
+import { defaultHeadersMock, man_photo_src } from '../const/constMocks.ts';
+import { dialogListMock, messagesMock } from '../const/chatMocks.ts';
 
 export const chatHandlers = [
     http.get(`${appPaths.basePath}${appPaths.dialog(':id')}`, ({ params }) => {

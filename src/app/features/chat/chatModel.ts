@@ -14,7 +14,7 @@ export type ChatMessageType = {
     chatID: number;
     id?: number;
     attaches?: string[];
-    socialtype?: SocialNetworkType;
+    socialType?: SocialNetworkType;
 };
 
 export interface postChatMessageType extends ChatMessageType {}

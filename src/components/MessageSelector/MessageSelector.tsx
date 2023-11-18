@@ -24,9 +24,9 @@ const MessageSelector: React.FC<MessageSelectorProps> = ({
         .map((dialog) => (
             <MessageSelectDialogItem
                 data={dialog}
-                key={dialog.chatid}
-                selectDialog={() => setChatId(dialog.chatid)}
-                isSelected={chatId === dialog.chatid}
+                key={dialog.chatID}
+                selectDialog={() => setChatId(dialog.chatID)}
+                isSelected={chatId === dialog.chatID}
             ></MessageSelectDialogItem>
         ));
 

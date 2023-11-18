@@ -13,6 +13,7 @@ import {
     CalendarEventType,
     eventMutationsType,
 } from '@app/features/calendar/calendarModel.ts';
+import { unselectedId } from '@app/const/consts.ts';
 
 interface AddEvenFormProps extends UiComponentProps {
     setIsShowingState: React.Dispatch<React.SetStateAction<boolean>>;
@@ -38,7 +39,6 @@ export const AddEventForm: React.FC<AddEvenFormProps> = ({
         classData,
         handleSubmit,
     } = useAddEvent(setIsShowingState, useMutation()[0], event);
-    // useAddEvent(setIsShowingState, useAddEventMutation()[0]);
 
     return (
         <form onSubmit={handleSubmit}>
@@ -50,15 +50,16 @@ export const AddEventForm: React.FC<AddEvenFormProps> = ({
                 <Input
                     classes={styles.addEventFormTitle}
                     type="text"
+                    value={useTitle.title}
                     onChange={(event) => useTitle.setTitle(event.target.value)}
                 ></Input>
                 <DatePicker
                     classes={styles.addEventFormDate}
-                    setDate={useStartDate.setStartDate}
+                    useDate={useStartDate}
                 ></DatePicker>
                 <TimePicker
                     classes={styles.addEventFormTime}
-                    setTime={useStartTime.setStartTime}
+                    useTime={useStartTime}
                 ></TimePicker>
                 <Text
                     type={'h'}
@@ -66,15 +67,16 @@ export const AddEventForm: React.FC<AddEvenFormProps> = ({
                 ></Text>
                 <DatePicker
                     classes={styles.addEventFormDate}
-                    setDate={useEndDate.setEndDate}
+                    useDate={useEndDate}
                 ></DatePicker>
                 <TimePicker
                     classes={styles.addEventFormTime}
-                    setTime={useEndTime.setEndTime}
+                    useTime={useEndTime}
                 ></TimePicker>
                 <Input
-                    type="text"
+                    type={'text'}
                     classes={styles.addEventFormDescription}
+                    value={useDescription.description}
                     onChange={(event) =>
                         useDescription.setDescription(event.target.value)
                     }
@@ -84,7 +86,7 @@ export const AddEventForm: React.FC<AddEvenFormProps> = ({
                     classes={styles.addEventFormClassPicker}
                     onChange={(event) =>
                         useSelectedClass.setSelectedClass(
-                            classData.get(event.target.value) ?? -1,
+                            classData.get(event.target.value) ?? unselectedId,
                         )
                     }
                 ></DropDown>
@@ -100,7 +102,6 @@ export const AddEventForm: React.FC<AddEvenFormProps> = ({
                     type={'secondary'}
                     onClick={() => setIsShowingState(false)}
                 >
-                    {' '}
                     <Text
                         type={'h'}
                         size={5}

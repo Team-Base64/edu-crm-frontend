@@ -19,7 +19,8 @@ export const CalendarEvent: React.FC<CalendarEventProps> = ({
     event,
     onDeleteClick,
 }) => {
-    const [isAddEventWindowShowing, setAddEventWindowShowing] = useState(false);
+    const [isAddEventWindowShowing, setEditEventWindowShowing] =
+        useState(false);
     return (
         <Container
             direction={'grid'}
@@ -29,20 +30,21 @@ export const CalendarEvent: React.FC<CalendarEventProps> = ({
                 type={'p'}
                 size={5}
             >
-                Название:{event.title}
+                Название: {event.title}
             </Text>
             <Text
                 type={'p'}
                 size={5}
             >
-                Описание:{event.description}
+                Описание: {event.description}
             </Text>
             <Text
                 type={'p'}
                 size={5}
             >
                 Дата начала:
-                {getUTCDate(new Date(event.startDate)) +
+                {' ' +
+                    getUTCDate(new Date(event.startDate)) +
                     ' ' +
                     getUTCTime(new Date(event.startDate))}
             </Text>
@@ -50,14 +52,15 @@ export const CalendarEvent: React.FC<CalendarEventProps> = ({
                 type={'p'}
                 size={5}
             >
-                Дата окончания:{' '}
-                {getUTCDate(new Date(event.endDate)) +
+                Дата окончания:
+                {' ' +
+                    getUTCDate(new Date(event.endDate)) +
                     ' ' +
                     getUTCTime(new Date(event.endDate))}
             </Text>
             <Button
                 type={'secondary'}
-                onClick={() => setAddEventWindowShowing(true)}
+                onClick={() => setEditEventWindowShowing(true)}
             >
                 <Icon
                     size={'small'}
@@ -87,10 +90,10 @@ export const CalendarEvent: React.FC<CalendarEventProps> = ({
             </Button>
             <Overlay
                 isShowing={isAddEventWindowShowing}
-                closeOverlay={() => setAddEventWindowShowing(false)}
+                closeOverlay={() => setEditEventWindowShowing(false)}
             >
                 <AddEventForm
-                    setIsShowingState={setAddEventWindowShowing}
+                    setIsShowingState={setEditEventWindowShowing}
                     useMutation={useEditEventMutation}
                     event={event}
                 ></AddEventForm>

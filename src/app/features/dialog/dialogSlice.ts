@@ -19,7 +19,7 @@ export const dialogSlice = appApi.injectEndpoints({
                 const newDialogs: dialogSelectByIDType = {};
 
                 chats.forEach((chats) => {
-                    newDialogs[chats.chatid] = chats;
+                    newDialogs[chats.chatID] = chats;
                 });
 
                 return { dialogs: newDialogs };
