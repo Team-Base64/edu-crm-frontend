@@ -43,8 +43,8 @@ export default function useAddEvent(
         classData.set(classItem.title, classItem.id);
     });
 
-    const [selectedClass, setSelectedClass] = useState<number>(
-        event?.id ?? unselectedId,
+    const [selectedClassId, setSelectedClass] = useState<number>(
+        event?.classid ?? unselectedId,
     );
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -67,7 +67,7 @@ export default function useAddEvent(
                 description,
                 startDate: startDate.toISOString(),
                 endDate: endDate.toISOString(),
-                classid: selectedClass ?? unselectedId,
+                classid: selectedClassId ?? unselectedId,
             })
                 .then(() => {
                     setTitle('');
@@ -89,7 +89,10 @@ export default function useAddEvent(
         useEndDate: { date: endDate, setDate: setEndDate },
         useEndTime: { time: endTime, setTime: setEndTime },
         useDescription: { description, setDescription },
-        useSelectedClass: { selectedClass, setSelectedClass },
+        useSelectedClass: {
+            selected: selectedClassId,
+            setSelected: setSelectedClass,
+        },
         classData,
         handleSubmit,
     };

@@ -1,87 +1,37 @@
+@use '../functions' as *;
+
 .drop-down {
+  position: relative;
+  font-family: getVar(font, type, default);
+
+  &::before,
+  &::after {
+    --size-of-arrow-in-dropdown: 6px;
+    content: "";
+    position: absolute;
+    pointer-events: none;
+  }
+
+  &::after {
+    border-left: var(--size-of-arrow-in-dropdown) solid transparent;
+    border-right: var(--size-of-arrow-in-dropdown) solid transparent;
+    border-top: var(--size-of-arrow-in-dropdown) solid var(--color-text-default);
+    top: 45%;
+    left: calc(100% - 2 * var(--space-default));
+  }
+
   &--data-list {
-    border-radius: var(--border-radius-default);
-    border: 2px solid var(--color-text-default);
-    padding: 16px 8px;
+    border: var(--ui-kit-border-width-default) solid var(--ui-kit-input-outline-color);
+    border-radius: var(--ui-kit-border-radius-large);
+    padding: calc(2 * var(--ui-kit-border-width-default) + var(--ui-kit-padding-t-b-medium)) var(--space-default);
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    display: inline-block;
+    width: 100%;
+  }
+
+  &--option {
+    color: var(--color-text-default);
   }
 }
-
-
-/* select */
-
-//.select {
-//  display: flex;
-//  flex-direction: column;
-//  width: 128px;
-//  height: 40px;
-//  cursor: pointer;
-//}
-//
-//.select:last-child {
-//  border-radius: 0 0 10px 10px
-//}
-//
-//.option__select {
-//  padding: 0 8px;
-//  min-height: 40px;
-//  display: flex;
-//  align-items: center;
-//  background: var(--background-white);
-//  border-top: var(--shadow-default) solid .5px;
-//  opacity: 0;
-//  top: 0;
-//  width: 100%;
-//  pointer-events: none;
-//  order: 2;
-//  z-index: 1;
-//  transition: background .4s ease-in-out;
-//  box-sizing: border-box;
-//  overflow: hidden;
-//  white-space: nowrap;
-//  justify-content: space-between;
-//  cursor: pointer;
-//}
-//
-//.option__select:hover {
-//  background: var(--shadow-default);
-//  cursor: pointer;
-//}
-//
-//.select:focus %option__select {
-//  position: relative;
-//  pointer-events: all;
-//  opacity: 1;
-//  border-radius: 0;
-//}
-//
-//.select-opt {
-//  opacity: 0;
-//  position: absolute;
-//  left: -40000px;
-//}
-//
-//.select-opt:checked + %option__select {
-//  order: 1;
-//  background: var(--background-white);
-//  border-top: none;
-//  position: relative;
-//  border-radius: 10px;
-//  opacity: 1;
-//}
-//
-//.select:focus .option_select {
-//  opacity: 1;
-//}
-//
-//.select:focus .select-opt:checked + %option__select {
-//  border-radius: 10px 10px 0 0;
-//}
-//
-//.select-opt:checked + %option__select::after {
-//  content: "";
-//  width: 12px;
-//  height: 8px;
-//  top: calc(50% - 4px);
-//  pointer-events: none;
-//  background: url("select-arrow.svg");
-//}

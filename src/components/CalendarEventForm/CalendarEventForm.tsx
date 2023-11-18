@@ -54,23 +54,23 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                     onChange={(event) => useTitle.setTitle(event.target.value)}
                 ></Input>
                 <DatePicker
-                    classes={styles.addEventFormDate}
+                    classes={styles.addEventFormStartDate}
                     useDate={useStartDate}
                 ></DatePicker>
                 <TimePicker
-                    classes={styles.addEventFormTime}
+                    classes={styles.addEventFormStartDate}
                     useTime={useStartTime}
                 ></TimePicker>
                 <Text
                     type={'h'}
-                    size={5}
+                    size={6}
                 ></Text>
                 <DatePicker
-                    classes={styles.addEventFormDate}
+                    classes={styles.addEventFormEndDate}
                     useDate={useEndDate}
                 ></DatePicker>
                 <TimePicker
-                    classes={styles.addEventFormTime}
+                    classes={styles.addEventFormEndDate}
                     useTime={useEndTime}
                 ></TimePicker>
                 <Input
@@ -85,12 +85,20 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                     options={Array.from(classData.keys())}
                     classes={styles.addEventFormClassPicker}
                     onChange={(event) =>
-                        useSelectedClass.setSelectedClass(
+                        useSelectedClass.setSelected(
                             classData.get(event.target.value) ?? unselectedId,
                         )
                     }
+                    isSelected={(index: number) => {
+                        return (
+                            index ===
+                            Array.from(classData.values()).indexOf(
+                                useSelectedClass.selected,
+                            )
+                        );
+                    }}
                 ></DropDown>
-                <Button>
+                <Button classes={styles.addEventFormSubmitButton}>
                     <Text
                         type={'h'}
                         size={5}
@@ -101,6 +109,7 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                 <Button
                     type={'secondary'}
                     onClick={() => setIsShowingState(false)}
+                    classes={styles.addEventFormCancelButton}
                 >
                     <Text
                         type={'h'}
