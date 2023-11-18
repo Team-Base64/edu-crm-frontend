@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import styles from './Image.module.scss';
 import Spinner from '@ui-kit/Spinner/Spinner';
@@ -31,7 +31,7 @@ const Image: React.FC<ImageProps> = ({
 }) => {
     const [state, setState] = useState<ImageState>(ImageState.loading);
     const loadTimer = useRef<NodeJS.Timeout>();
-    
+
     useEffect(() => {
         setState(ImageState.loading);
 
