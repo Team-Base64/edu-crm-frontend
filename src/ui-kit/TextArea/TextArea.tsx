@@ -42,10 +42,7 @@ const TextArea: React.FC<TextAreaProps> = ({
 }) => {
     const id = useId();
 
-    //@eslint-ignore
-    if (!textareaRef) {
-        textareaRef = useRef<HTMLTextAreaElement>(null);
-    }
+    textareaRef = useRef<HTMLTextAreaElement>(null);
 
     const resizeTextarea = () => {
         const area = textareaRef?.current;

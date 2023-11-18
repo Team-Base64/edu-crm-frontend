@@ -44,7 +44,7 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
                     text: text.trim(),
                     ismine: true,
                     date: new Date().toISOString(),
-                    socialType: dialogData.data.dialogs[chatid].socialtype,
+                    socialtype: dialogData.data.dialogs[chatid].socialtype,
                 },
             });
         }

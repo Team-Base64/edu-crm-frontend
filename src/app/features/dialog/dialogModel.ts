@@ -1,3 +1,5 @@
+import { SocialNetworkType } from '@app/features/stundent/stundentModel.ts';
+
 export type dialogSelectType = {
     chatid: number;
     name: string;
@@ -5,7 +7,7 @@ export type dialogSelectType = {
     isread: boolean;
     text: string;
     date: string;
-    socialtype: string;
+    socialtype: SocialNetworkType;
 };
 
 export interface dialogSelectByIDType {

@@ -1,11 +1,8 @@
 import Container from '@ui-kit/Container/Container';
 import Text from '@ui-kit/Text/Text';
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 
 const NotFoundPage: React.FC = () => {
-    const fromLocation = useLocation();
-    const fromPath = fromLocation?.state?.from.pathname || 'NW';
     return (
         <Container direction="vertical">
             <Text

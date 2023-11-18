@@ -1,3 +1,5 @@
+import { SocialNetworkType } from '@app/features/stundent/stundentModel.ts';
+
 export type chatMessageType = { text: string; chatID: number };
 
 export interface apiChatMessageType {
@@ -12,12 +14,10 @@ export type ChatMessageType = {
     chatID: number;
     id?: number;
     attaches?: string[];
-    socialType?: string;
+    socialtype?: SocialNetworkType;
 };
 
-export interface postChatMessageType extends ChatMessageType {
-    // attachments: File[];
-}
+export interface postChatMessageType extends ChatMessageType {}
 
 export type attachmentsType = {
     attaches: File[];
