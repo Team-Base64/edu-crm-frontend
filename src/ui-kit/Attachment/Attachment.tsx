@@ -9,6 +9,7 @@ import { IframeViewer } from '@ui-kit/IframeViewer/IframeViewer.tsx';
 import Overlay from '@ui-kit/Overlay/Overlay.tsx';
 
 interface ChatAttachmentProps extends UiComponentProps {
+    allowOpen?: () => boolean;
     onRemoveClick: () => void;
     file: File | string;
     isStatic?: boolean;
@@ -16,12 +17,22 @@ interface ChatAttachmentProps extends UiComponentProps {
 
 export const Attachment: React.FC<ChatAttachmentProps> = ({
     onRemoveClick,
+    allowOpen,
     file,
     isStatic = false,
 }) => {
     const handleRemoveClick = () => {
         onRemoveClick();
     };
+
+    const handleClick: React.MouseEventHandler = () => {
+        if (allowOpen) {
+            setOverlayIsShowing(allowOpen());
+            return;
+        }
+
+        setOverlayIsShowing(true);
+    }
 
     const [isOverlay, setOverlayIsShowing] = useState(false);
 
@@ -71,7 +82,7 @@ export const Attachment: React.FC<ChatAttachmentProps> = ({
                 name={'fileIcon'}
                 classes={styles.chatAttachmentListFileIcon}
                 size={''}
-                onClick={() => setOverlayIsShowing(true)}
+                onClick={handleClick}
             ></Icon>
             <Text
                 type={'p'}
