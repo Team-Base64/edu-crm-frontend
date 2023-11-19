@@ -1,4 +1,4 @@
-import { http, HttpResponse } from 'msw';
+import { http, HttpResponse, PathParams } from 'msw';
 
 import appPaths from '../../src/app/appPaths';
 
@@ -7,7 +7,8 @@ import { classListMock, classNewMock } from '../const/classConstMocks.ts';
 import { classHomeworksMock } from '../const/homeworkConstMocks.ts';
 import { classStudentsMock } from '../const/studentConstMocks.ts';
 import { classSolutionsMock } from '../const/solutionsConstMocks.ts';
-import { classAnnouncementsMock, newAnnounceMock } from '../const/announceConstMocks.ts';
+import { announcesMock, classAnnouncementsMock } from '../const/announceConstMocks.ts';
+import { Announcement, AnnouncementCreatePayload } from '@app/features/announcement/announcementModel.ts';
 
 export const classHandlers = [
     // Get class
@@ -85,13 +86,22 @@ export const classHandlers = [
     ),
 
     // Create class announce 
-    http.post(
+    http.post<{ id: string }, AnnouncementCreatePayload>(
         `${appPaths.basePath}${appPaths.createAnnouncement(':id')}`,
-        () => {
+        async ({ params, request }) => {
             try {
+                const classID = params.id;
+                const payload = await request.json();
+                const newA: Announcement = {
+                    id: Date.now(),
+                    createTime: new Date(Date.now()).toISOString(),
+                    ...payload,
+                };
+
+                classAnnouncementsMock[Number(classID)].push(newA);
                 return HttpResponse.json(
                     {
-                        post: newAnnounceMock,
+                        post: newA,
                     },
                     {
                         status: 200,
@@ -198,13 +208,13 @@ export const classHandlers = [
 
         try {
             return HttpResponse.json(
-            {
-               class: classNewMock,
-            },
-            {
-                status: 200,
-                headers: { ...defaultHeadersMock },
-            }
+                {
+                    class: classNewMock,
+                },
+                {
+                    status: 200,
+                    headers: { ...defaultHeadersMock },
+                }
             );
         }
         catch (e) {

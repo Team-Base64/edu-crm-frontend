@@ -1,15 +1,6 @@
 import { Announcement } from '../../src/app/features/announcement/announcementModel';
 
-export const newAnnounceMock: Announcement = {
-    id: 100,
-    text: 'New announce id 100',
-    createTime: new Date(Date.now()).toISOString(),
-    attaches: [],
-};
-
 export const announcesMock: Announcement[] = [
-    newAnnounceMock,
-    newAnnounceMock,
     {
         id: 0,
         text: 'Announce for class 0 #1/1',
