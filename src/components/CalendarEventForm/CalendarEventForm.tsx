@@ -110,6 +110,7 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                     type={'secondary'}
                     onClick={() => setIsShowingState(false)}
                     classes={styles.addEventFormCancelButton}
+                    action={'button'}
                 >
                     <Text
                         type={'h'}

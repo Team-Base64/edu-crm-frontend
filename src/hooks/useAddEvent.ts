@@ -82,6 +82,21 @@ export default function useAddEvent(
         }
     };
 
+    console.log(event, {
+        useTitle: { title, setTitle },
+        useStartDate: { date: startDate, setDate: setStartDate },
+        useStartTime: { time: startTime, setTime: setStartTime },
+        useEndDate: { date: endDate, setDate: setEndDate },
+        useEndTime: { time: endTime, setTime: setEndTime },
+        useDescription: { description, setDescription },
+        useSelectedClass: {
+            selected: selectedClassId,
+            setSelected: setSelectedClass,
+        },
+        classData,
+        handleSubmit,
+    });
+
     return {
         useTitle: { title, setTitle },
         useStartDate: { date: startDate, setDate: setStartDate },
