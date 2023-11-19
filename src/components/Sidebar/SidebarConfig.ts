@@ -14,11 +14,11 @@ type SidebarConfig = SidebarGroup[];
 
 const config: SidebarConfig = [
     [
-        {
-            title: 'Главная',
-            iconName: 'homeLine',
-            path: AppRoutes.base,
-        },
+        // {
+        //     title: 'Главная',
+        //     iconName: 'homeLine',
+        //     path: AppRoutes.base,
+        // },
         {
             title: 'Календарь',
             iconName: 'calendarLine',
@@ -40,11 +40,11 @@ const config: SidebarConfig = [
             iconName: 'pencilLine',
             path: AppRoutes.tasks,
         },
-        {
-            title: 'Настройки',
-            iconName: 'settingsLine',
-            path: AppRoutes.settings,
-        },
+        // {
+        //     title: 'Настройки',
+        //     iconName: 'settingsLine',
+        //     path: AppRoutes.settings,
+        // },
     ],
     [
         {
