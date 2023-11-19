@@ -2,7 +2,11 @@ import appApi from '@app/appApi';
 import { ClassCreatePayload, ClassData } from '@app/features/class/classModel';
 import { classPaths } from '@app/features/class/classPaths';
 
-export const classApi = appApi.injectEndpoints({
+export const classApi = appApi
+.enhanceEndpoints({
+    addTagTypes: ['Class'],
+})
+.injectEndpoints({
     endpoints: (build) => ({
         getClasses: build.query<{ classes: ClassData[] }, unknown>({
             query: () => {
@@ -11,6 +15,7 @@ export const classApi = appApi.injectEndpoints({
                     method: 'GET',
                 };
             },
+            providesTags: ['Class'],
         }),
 
         getClassById: build.query<
@@ -36,6 +41,7 @@ export const classApi = appApi.injectEndpoints({
                     method: 'POST',
                 };
             },
+            invalidatesTags: ['Class'],
         }),
     }),
 });

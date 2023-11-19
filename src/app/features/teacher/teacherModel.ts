@@ -1,5 +1,5 @@
 export type Teacher = {
-    id: string | number;
+    id: number;
     name: string;
     username: string;
 };

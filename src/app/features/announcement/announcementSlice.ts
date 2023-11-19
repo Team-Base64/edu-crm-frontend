@@ -20,6 +20,8 @@ export const announcementSlice = appApi
                         method: 'GET',
                     };
                 },
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
                 providesTags: (result, error, arg) => ([{
                     type: 'ClassFeed' as const,
                     id: arg.class_id,
@@ -37,6 +39,8 @@ export const announcementSlice = appApi
                         body: JSON.stringify(payload),
                     };
                 },
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
                 invalidatesTags: (result, error, arg) => ([{
                     type: 'ClassFeed' as const,
                     id: arg.class_id,

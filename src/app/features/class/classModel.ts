@@ -1,5 +1,5 @@
 export type ClassData = {
-    id: number | string;
+    id: number;
     title: string;
     description?: string;
     inviteToken: string;

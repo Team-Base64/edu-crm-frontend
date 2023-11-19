@@ -2,7 +2,11 @@ import appApi from '@app/appApi';
 import { HomeworkTask, HomeworkTaskCreatePayload } from './homeworkTaskModel';
 import { homeworkTaskPaths } from './homeworkTaskPaths';
 
-export const homeworkTaskSlice = appApi.injectEndpoints({
+export const homeworkTaskSlice = appApi
+.enhanceEndpoints({
+    addTagTypes: ['HomeworkTasks'],
+})
+.injectEndpoints({
     endpoints: (build) => ({
         getTasks: build.query<{ tasks: HomeworkTask[] }, unknown>({
             query: () => {
@@ -11,6 +15,7 @@ export const homeworkTaskSlice = appApi.injectEndpoints({
                     method: 'GET',
                 };
             },
+            providesTags: ['HomeworkTasks'],
         }),
 
         getTask: build.query<HomeworkTask, {id : number}>({
@@ -30,6 +35,7 @@ export const homeworkTaskSlice = appApi.injectEndpoints({
                     body: JSON.stringify(payload),
                 };
             },
+            invalidatesTags: ['HomeworkTasks'],
         }),
     }),
 });

@@ -1,6 +1,6 @@
 export type Homework = {
-    id: string | number;
-    classID: string | number;
+    id: number;
+    classID: number;
     title: string;
     description: string;
     createTime: string;
