@@ -8,6 +8,7 @@ import { useGetClassByIdQuery } from '@app/features/class/classSlice';
 import Button from '@ui-kit/Button/Button';
 import Icon from '@ui-kit/Icon/Icon';
 import Hint from '@ui-kit/Hint/Hint';
+import { copyInviteToken } from 'utils/class/copyInviteToken';
 
 interface ClassHeaderProps extends UiComponentProps {
     classId: string | number;
@@ -28,17 +29,7 @@ const ClassHeader: React.FC<ClassHeaderProps> = ({ classId }) => {
     const { title, description, inviteToken } = data.class;
 
     const handleInvite = () => {
-        navigator.clipboard.writeText(
-            `<Учитель имя> приглашает вас в класс '${title}'
-            
-            Для подключения:
-
-            1) Напишите /start боту:
-            \t\tВконтакте: https://vk.com/im?sel=-222976710
-            \t\tТелеграмм: https://t.me/educrmmaster2bot
-            2) Отправьте ему токен:
-            \t\t${inviteToken}`
-        );
+        copyInviteToken('', title, inviteToken);
         setHint(true);
     }
 

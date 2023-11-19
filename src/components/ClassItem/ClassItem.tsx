@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import Container from '@ui-kit/Container/Container';
 import Text from '@ui-kit/Text/Text';
@@ -8,18 +8,28 @@ import Icon from '@ui-kit/Icon/Icon';
 
 import styles from './ClassItem.module.scss';
 import { useNavigate } from 'react-router-dom';
+import { copyInviteToken } from 'utils/class/copyInviteToken';
+import Hint from '@ui-kit/Hint/Hint';
 
 interface ClassItemProps extends UiComponentProps {
     data: ClassData;
 }
 
 const ClassItem: React.FC<ClassItemProps> = ({ data, classes }) => {
-    const { id, title, description } = data;
+    const { id, title, description, inviteToken } = data;
+    const [hint, setHint] = useState<boolean>(false);
+
     const navigate = useNavigate();
     const handleCardClick = (e: React.MouseEvent) => {
         e.preventDefault();
         navigate(String(id));
     };
+
+    const handleInvite : React.MouseEventHandler = (e) => {
+        copyInviteToken('', title, inviteToken);
+        setHint(true);
+        e.stopPropagation();
+    }
     return (
         <>
             <Container
@@ -50,9 +60,27 @@ const ClassItem: React.FC<ClassItemProps> = ({ data, classes }) => {
                         </Text>
                     )}
                 </Container>
-                <Button type={'link'}>
-                    <Icon name={'arrowRight'} />
-                </Button>
+                <Container>
+                    <Container
+                        classes={styles.inviteContent}
+                        layout='defaultBase'
+                    >
+                        <Text type='p' size={1} classes={styles.inviteToken}>
+                            {inviteToken}
+                        </Text>
+                        <Button
+                            type='link'
+                            classes={styles.btn}
+                            onClick={handleInvite}
+                        >
+                            <Icon name='copyLine' />
+                        </Button>
+                        <Hint classes={styles.inviteHint} text='Приглашение скопировано в буфер обмена!' timeoutSec={3} state={[hint, setHint]} />
+                    </Container>
+                    <Button type={'link'}>
+                        <Icon name={'arrowRight'} />
+                    </Button>
+                </Container>
             </Container>
         </>
     );
