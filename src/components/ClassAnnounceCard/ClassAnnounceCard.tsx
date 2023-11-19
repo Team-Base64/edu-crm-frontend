@@ -57,6 +57,7 @@ const ClassAnnounceCard: React.FC<ClassAnnounceCardProps> = ({
                     classes={[styles.info].join(' ')}
                     direction="horizontal"
                 >
+                    {/* 
                     <Avatar
                         classes={[styles.avatar].join(' ')}
                         src={avatarSrc}
@@ -69,7 +70,8 @@ const ClassAnnounceCard: React.FC<ClassAnnounceCardProps> = ({
                         weight="bold"
                     >
                         {firstName + (lastName ? ' ' + lastName : '')}
-                    </Text>
+                    </Text> 
+                    */}
 
                     <Updatable
                         element={Text}
@@ -82,15 +84,6 @@ const ClassAnnounceCard: React.FC<ClassAnnounceCardProps> = ({
                         })}
                         interval={1}
                     />
-
-                    {/* <Text
-                        classes={[styles.date].join(' ')}
-                        type="p"
-                        size={1}
-                        weight="regular"
-                    >
-                        {prettyDate(createTime)}
-                    </Text> */}
                 </Container>
                 <Container
                     classes={[styles.toolbar].join(' ')}

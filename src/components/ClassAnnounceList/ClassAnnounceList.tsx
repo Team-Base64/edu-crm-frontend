@@ -7,6 +7,7 @@ import { useGetClassAnnouncementsQuery } from '@app/features/announcement/announ
 import EmptyItem from '@components/EmptyItem/EmptyItem';
 import Icon from '@ui-kit/Icon/Icon';
 import Spinner from '@ui-kit/Spinner/Spinner';
+import { getDelta } from 'utils/common/PrettyDate/common/delta';
 
 interface ClassAnnounceListProps extends UiComponentProps {
     classId: string | number;
@@ -18,19 +19,19 @@ const ClassAnnounceList: React.FC<ClassAnnounceListProps> = ({ classId }) => {
         class_id: classId,
     });
 
-    if(isLoading){
+    if (isLoading) {
         return <>
-            <EmptyItem text='Загрузка...'><Spinner/></EmptyItem>
+            <EmptyItem text='Загрузка...'><Spinner /></EmptyItem>
         </>
     }
 
-    if(isError || !data?.posts) {
+    if (isError || !data?.posts) {
         return <>
-            <EmptyItem text='Произошла ошибка'><Icon name='alert'/></EmptyItem>
+            <EmptyItem text='Произошла ошибка'><Icon name='alert' /></EmptyItem>
         </>
     }
 
-    const list = data.posts;
+    const list = [...data.posts];
     return (
         <Container
             direction="vertical"
@@ -38,7 +39,9 @@ const ClassAnnounceList: React.FC<ClassAnnounceListProps> = ({ classId }) => {
         >
             {
                 !list.length ? <EmptyItem classes={styles.empty} text='В этом классе пока нет объявлений' /> :
-                    list.map(item => (
+                    list.sort((a, b) => {
+                        return getDelta(b.createTime, a.createTime);
+                    }).map(item => (
                         <React.Fragment key={`${listId}-${item.id}`}>
                             <ClassAnnounceCard
                                 firstName="George"

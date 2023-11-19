@@ -63,11 +63,13 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
             direction="horizontal"
             layout="defaultBase"
         >
+            {/* 
             <Avatar
                 classes={styles.avatar}
                 src={avatarSrc}
                 alt="Your avatar"
-            />
+            /> 
+            */}
             <form onSubmit={(e) => e.preventDefault()} ref={formRef} className={styles.form}>
 
                 <TextArea
