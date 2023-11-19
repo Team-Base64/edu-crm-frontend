@@ -5,6 +5,9 @@ import { useGetClassSolutionsQuery } from '@app/features/homeworkSolution/homewo
 import EmptyItem from '@components/EmptyItem/EmptyItem';
 import Spinner from '@ui-kit/Spinner/Spinner';
 import Icon from '@ui-kit/Icon/Icon';
+import { groupByValuesReturnMap } from '@helpers/group';
+import { getDelta } from 'utils/common/PrettyDate/common/delta';
+import { HomeworkSolution } from '@app/features/homeworkSolution/homeworkSolutionModel';
 // import styles from './HomeworkList.module.scss';
 
 interface HomeworkSolutionListProps extends UiComponentProps {
@@ -20,25 +23,35 @@ const HomeworkSolutionList: React.FC<HomeworkSolutionListProps> = ({
     const { data, isLoading, isError } = useGetClassSolutionsQuery({
         class_id: classId,
     });
-    
-    if(isLoading){
+
+    if (isLoading) {
         return <>
-            <EmptyItem text='Загрузка...'><Spinner/></EmptyItem>
+            <EmptyItem text='Загрузка...'><Spinner /></EmptyItem>
         </>
     }
 
-    if(isError || !data?.solutions) {
+    if (isError || !data?.solutions) {
         return <>
-            <EmptyItem text='Произошла ошибка'><Icon name='alert'/></EmptyItem>
+            <EmptyItem text='Произошла ошибка'><Icon name='alert' /></EmptyItem>
         </>
     }
 
-    const list = data.solutions;
+
+    const list: HomeworkSolution[] = [];
+    const groups = groupByValuesReturnMap(data.solutions, ['studentID', 'hwID']);
+
+    groups.forEach(group => {
+        if (!group.length) return;
+        group.sort((a, b) => {
+            return getDelta(b.createTime, a.createTime);
+        });
+        list.push(group[0]);
+    });
 
     return (
         <>
             {
-                !list.length ? <EmptyItem text='Пока нет решений'/> :
+                !list.length ? <EmptyItem text='Пока нет решений' /> :
                     list.slice(0, limit)
                         .map(item => (
                             <React.Fragment key={`${listId}-${item.id}`}>
