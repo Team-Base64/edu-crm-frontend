@@ -7,6 +7,7 @@ import Button from '@ui-kit/Button/Button.tsx';
 import Text from '@ui-kit/Text/Text.tsx';
 import Overlay from '@ui-kit/Overlay/Overlay.tsx';
 import { MediaPreview } from '@components/MediaPreview/MediaPreview.tsx';
+import { checkIfImageByExtension } from '../../utils/attaches/attachesExtensions.ts';
 
 interface ChatAttachmentProps extends UiComponentProps {
     onRemoveClick: () => void;
@@ -57,7 +58,11 @@ export const Attachment: React.FC<ChatAttachmentProps> = ({
                 </Button>
             )}
             <Icon
-                name={'fileIcon'}
+                name={
+                    checkIfImageByExtension(getFileName() ?? '')
+                        ? 'imageIcon'
+                        : 'fileIcon'
+                }
                 classes={styles.chatAttachmentListFileIcon}
                 size={''}
                 onClick={() => setOverlayIsShowing(true)}

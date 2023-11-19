@@ -28,6 +28,7 @@ const iconName = {
     eye: Icons.EyeLine,
     eyeCrossed: Icons.EyeCrossedLine,
     lock: Icons.LockLine,
+    imageIcon: Icons.ImageIcon,
 };
 export type IconName = keyof typeof iconName;
 

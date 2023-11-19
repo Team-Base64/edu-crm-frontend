@@ -22,3 +22,4 @@ export { default as CloseLine } from './system_close-line.svg?react';
 export { default as EyeLine } from './system_eye-line.svg?react';
 export { default as EyeCrossedLine } from './system_eye-crossed-line.svg?react';
 export { default as LockLine } from './system_lock-line.svg?react';
+export { default as ImageIcon } from './image-icon.svg?react';
