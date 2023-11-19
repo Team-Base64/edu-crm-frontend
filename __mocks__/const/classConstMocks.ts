@@ -13,5 +13,11 @@ export const classListMock: ClassData[] = [
         description: 'Only for dev 1',
         inviteToken: 'dawbdl',
     },
+    {
+        id: 2,
+        title: 'Mock class #2',
+        description: 'Only for dev 2',
+        inviteToken: 'kimkdaworksfleamodjuiwajkd2u3183i21jnejdknwamesfmkeuuef',
+    },
 
 ];

@@ -14,10 +14,12 @@ export const classHandlers = [
     // Get class
     http.get(`${appPaths.basePath}${appPaths.class(':id')}`, ({ params }) => {
         const  id  = Number(params.id);
+        const clas = classListMock.filter(i => i.id === id).at(0);
+        if(!clas ) throw new Error(`No class ${id}`);
         try {
             return HttpResponse.json(
                 {
-                    class: classListMock.filter(i => i.id === id)[0],
+                    class: clas,
                 },
                 {
                     status: 200,

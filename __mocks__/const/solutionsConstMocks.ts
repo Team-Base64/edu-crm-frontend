@@ -16,11 +16,29 @@ export const solutionsMock: HomeworkSolution[] = [
         teacherEvaluation: '',
     },
     {
+        id: 111,
+        hwID: 0,
+        file: pdf,
+        studentID: 0,
+        createTime: new Date(Date.now() - 50000).toISOString(),
+        status: 'new',
+        teacherEvaluation: '',
+    },
+    {
         id: 1,
         hwID: 1,
         file: attach,
         studentID: 1,
         createTime: new Date(Date.now() - 1000000).toISOString(),
+        status: 'new',
+        teacherEvaluation: '',
+    },
+    {
+        id: 100,
+        hwID: 1,
+        file: attach,
+        studentID: 1,
+        createTime: new Date(Date.now() - 500000).toISOString(),
         status: 'new',
         teacherEvaluation: '',
     },
@@ -47,7 +65,6 @@ export const solutionsMock: HomeworkSolution[] = [
 
 export const classSolutionsMock: IclassSolutionsMock = {
     0: [],
-    1: [solutionsMock[0]],
-
-    2: [solutionsMock[1], solutionsMock[2], solutionsMock[3]],
+    1: [solutionsMock[0], solutionsMock[1]],
+    2: [solutionsMock[2], solutionsMock[3], solutionsMock[4]],
 };
