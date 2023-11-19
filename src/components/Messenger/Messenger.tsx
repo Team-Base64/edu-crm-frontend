@@ -69,7 +69,7 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatID, classes }) => {
                 <Text
                     type={'h'}
                     size={3}
-                    classes={styles.unselectedChatText}
+                    classes={styles.messengerContainerUnselectedChatText}
                 >
                     Выберете чат, чтобы начать общаться
                 </Text>

@@ -24,6 +24,9 @@ export const dialogSlice = appApi.injectEndpoints({
 
                 return { dialogs: newDialogs };
             },
+            // merge: (currentCache, newItems) => {
+            //     console.log(currentCache, newItems);
+            // },
         }),
     }),
 });

@@ -7,6 +7,7 @@ import {
     postChatMessageType,
 } from '@app/features/chat/chatModel';
 import { chatPaths } from '@app/features/chat/chatPaths';
+import { dialogSlice } from '@app/features/dialog/dialogSlice.ts';
 
 export const chatSlice = appApi.injectEndpoints({
     endpoints: (build) => ({
@@ -57,7 +58,12 @@ export const chatSlice = appApi.injectEndpoints({
             },
             async onCacheEntryAdded(
                 { channel },
-                { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
+                {
+                    updateCachedData,
+                    cacheDataLoaded,
+                    cacheEntryRemoved,
+                    dispatch,
+                },
             ) {
                 const socket = getSocket();
                 try {
@@ -65,7 +71,6 @@ export const chatSlice = appApi.injectEndpoints({
 
                     socket.onmessage = (event: MessageEvent) => {
                         const data = JSON.parse(event.data);
-                        console.log(data);
                         if (data.channel !== channel) {
                             console.warn(data.channel, channel);
                             return;
@@ -77,6 +82,9 @@ export const chatSlice = appApi.injectEndpoints({
                                 data,
                             ];
                         });
+                        dispatch(
+                            dialogSlice.util.invalidateTags(['getDialogs']),
+                        );
                     };
                 } catch {
                     console.error('error ws api');
