@@ -1,6 +1,5 @@
 import {
     Homework,
-    HomeworkCreatePayload,
 } from '@app/features/homework/homeworkModel.ts';
 import { tasksMock } from './taskConstMocks';
 
@@ -59,18 +58,3 @@ export const classHomeworksMock: IclassHomeworksMock = {
     2: [homeworksMock[1], homeworksMock[2], homeworksMock[3]],
 };
 
-export const newHomeworkMock = (
-    payload: HomeworkCreatePayload,
-): Homework => {
-    const { title, description, classID, deadlineTime, tasks } = payload;
-    return {
-        id: 1000,
-        title: title,
-        description: description,
-        classID: classID,
-        createTime: new Date(Date.now()).toISOString(),
-        deadlineTime: new Date(Date.parse(deadlineTime)).toISOString(),
-        tasks: tasks,
-
-    };
-};

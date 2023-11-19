@@ -9,6 +9,7 @@ import { taskHandlers } from './mswMocks/taskMocks.ts';
 import { solutionsHandlers } from './mswMocks/solutionMocks.ts'
 import { calendarHandlers } from './mswMocks/calendatMocks.ts';
 import { reviewHandlers } from './mswMocks/reviewMocks.ts';
+import { announceHandlers } from './mswMocks/announceMocks.ts';
 
 const handlers = [
     ...chatHandlers,
@@ -20,6 +21,7 @@ const handlers = [
     ...taskHandlers,
     ...solutionsHandlers,
     ...reviewHandlers,
+    ...announceHandlers,
 
     ...calendarHandlers,
 ];
