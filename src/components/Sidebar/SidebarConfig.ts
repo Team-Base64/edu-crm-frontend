@@ -36,7 +36,7 @@ const config: SidebarConfig = [
         },
 
         {
-            title: 'Банк заданий',
+            title: 'Банк задач',
             iconName: 'pencilLine',
             path: AppRoutes.tasks,
         },
