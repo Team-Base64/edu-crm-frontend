@@ -4,20 +4,22 @@ import styles from './DropDown.module.scss';
 interface DropDownProps extends React.InputHTMLAttributes<HTMLSelectElement> {
     options: string[];
     classes: string;
-    isSelected: (index: number) => boolean;
+    values: number[];
+    selectedValue?: number;
 }
 
 export const DropDown: React.FC<DropDownProps> = ({
     options,
     classes,
     onChange,
-    isSelected,
+    values,
+    selectedValue,
 }) => {
     const optionsElements = options.map((option, index) => (
         <option
             key={option + index}
             className={styles.dropDownOption}
-            selected={isSelected(index)}
+            value={values[index]}
         >
             {option}
         </option>
@@ -28,6 +30,7 @@ export const DropDown: React.FC<DropDownProps> = ({
                 id={options.toString()}
                 className={[styles.dropDownDataList].join(' ')}
                 onChange={onChange}
+                value={selectedValue}
             >
                 {optionsElements}
             </select>

@@ -89,14 +89,8 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                             classData.get(event.target.value) ?? unselectedId,
                         )
                     }
-                    isSelected={(index: number) => {
-                        return (
-                            index ===
-                            Array.from(classData.values()).indexOf(
-                                useSelectedClass.selected,
-                            )
-                        );
-                    }}
+                    values={Array.from(classData.values())}
+                    selectedValue={useSelectedClass.selected}
                 ></DropDown>
                 <Button classes={styles.addEventFormSubmitButton}>
                     <Text

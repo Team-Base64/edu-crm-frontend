@@ -5,8 +5,8 @@ import Container from '@ui-kit/Container/Container.tsx';
 import Icon from '@ui-kit/Icon/Icon.tsx';
 import Button from '@ui-kit/Button/Button.tsx';
 import Text from '@ui-kit/Text/Text.tsx';
-import { IframeViewer } from '@ui-kit/IframeViewer/IframeViewer.tsx';
 import Overlay from '@ui-kit/Overlay/Overlay.tsx';
+import { MediaPreview } from '@components/MediaPreview/MediaPreview.tsx';
 
 interface ChatAttachmentProps extends UiComponentProps {
     onRemoveClick: () => void;
@@ -35,17 +35,6 @@ export const Attachment: React.FC<ChatAttachmentProps> = ({
         return '';
     };
 
-    // if (file instanceof File) {
-    //     setLinkToFile(URL.createObjectURL(file));
-    // }
-
-    // useEffect(() => {
-    //     if (file instanceof File) {
-    //         setLinkToFile(URL.createObjectURL(file));
-    //     }
-    //
-    //     return () => URL.revokeObjectURL(linkToFile);
-    // }, [file, linkToFile]);
     const linkToFile =
         typeof file === 'string' ? file : URL.createObjectURL(file);
 
@@ -84,7 +73,10 @@ export const Attachment: React.FC<ChatAttachmentProps> = ({
                 isShowing={isOverlay}
                 closeOverlay={() => setOverlayIsShowing(false)}
             >
-                <IframeViewer linkToFile={linkToFile}></IframeViewer>
+                <MediaPreview
+                    linkToFile={linkToFile}
+                    fileName={getFileName()}
+                ></MediaPreview>
             </Overlay>
         </Container>
     );

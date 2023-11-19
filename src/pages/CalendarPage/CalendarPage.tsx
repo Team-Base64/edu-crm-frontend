@@ -13,7 +13,10 @@ export const CalendarPage: React.FC<CalendarPageProps> = () => {
             direction={'grid'}
             classes={styles.calendarPage}
         >
-            <Calendar classes={styles.calendarPageCalendar}></Calendar>
+            <Calendar
+                classes={styles.calendarPageCalendar}
+                mode={'MONTH'}
+            ></Calendar>
             <CalendarControls
                 classes={styles.calendarPageControls}
             ></CalendarControls>
