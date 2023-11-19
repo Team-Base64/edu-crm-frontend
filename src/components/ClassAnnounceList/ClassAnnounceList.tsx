@@ -44,9 +44,9 @@ const ClassAnnounceList: React.FC<ClassAnnounceListProps> = ({ classId }) => {
                     }).map(item => (
                         <React.Fragment key={`${listId}-${item.id}`}>
                             <ClassAnnounceCard
-                                firstName="George"
-                                lastName="Illarionov"
-                                avatarSrc=""
+                                // firstName="George"
+                                // lastName="Illarionov"
+                                // avatarSrc=""
                                 data={item}
                             />
                         </React.Fragment>

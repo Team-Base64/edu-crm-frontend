@@ -20,10 +20,6 @@ const HomeworkTaskSelect: React.FC<HomeworkTaskSelectProps> = ({ onSubmit }) => 
     const { data } = useGetTasksQuery(null);
 
     useEffect(() => {
-        console.log(listSelect);
-    }, [listSelect]);
-
-    useEffect(() => {
         if (!data) return;
         setList(data.tasks);
     }, [data]);

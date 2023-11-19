@@ -6,6 +6,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  margin: getVar(border, width, bold);
 
   border: none;
 
@@ -46,7 +47,7 @@
     }
 
     &:focus-visible {
-      $border-radius: getVar(border, width, bold) ;
+      $border-radius: getVar(border, width, bold);
       border: $border-radius solid getVar(btn, secondary, border, color, focus);
     }
 

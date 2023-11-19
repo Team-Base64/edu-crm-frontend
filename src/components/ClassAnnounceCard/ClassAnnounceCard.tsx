@@ -1,4 +1,4 @@
-import Avatar from '@ui-kit/Avatar/Avatar';
+// import Avatar from '@ui-kit/Avatar/Avatar';
 import Container from '@ui-kit/Container/Container';
 import Icon from '@ui-kit/Icon/Icon';
 import Text, { TextProps } from '@ui-kit/Text/Text';
@@ -11,9 +11,9 @@ import { Announcement } from '@app/features/announcement/announcementModel';
 import Updatable from '@ui-kit/Updatable/Updatable';
 
 interface ClassAnnounceCardProps extends UiComponentProps {
-    firstName: string;
-    lastName?: string;
-    avatarSrc: string;
+    // firstName: string;
+    // lastName?: string;
+    // avatarSrc: string;
     data: Announcement;
     onEdit?: () => void;
     onDelete?: () => void;
@@ -24,9 +24,9 @@ const ClassAnnounceCard: React.FC<ClassAnnounceCardProps> = ({
     onClick,
     onDelete,
     onEdit,
-    firstName,
-    lastName,
-    avatarSrc,
+    // firstName,
+    // lastName,
+    // avatarSrc,
     data,
 }) => {
     const { text, createTime } = data;

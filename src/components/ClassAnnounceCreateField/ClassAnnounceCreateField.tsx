@@ -1,4 +1,4 @@
-import Avatar from '@ui-kit/Avatar/Avatar';
+// import Avatar from '@ui-kit/Avatar/Avatar';
 import Container from '@ui-kit/Container/Container';
 import Icon from '@ui-kit/Icon/Icon';
 import TextArea from '@ui-kit/TextArea/TextArea';
@@ -9,12 +9,12 @@ import Button from '@ui-kit/Button/Button';
 import Spinner from '@ui-kit/Spinner/Spinner';
 
 interface ClassAnnounceCreateFieldProps {
-    avatarSrc: string;
+    // avatarSrc: string;
     classID: number | string;
 }
 
 const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
-    avatarSrc,
+    // avatarSrc,
     classID,
 }) => {
     const [lock, setLock] = useState<boolean>(false);

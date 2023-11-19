@@ -8,11 +8,19 @@ import Button from '@ui-kit/Button/Button';
 import Icon from '@ui-kit/Icon/Icon';
 import Overlay from '@ui-kit/Overlay/Overlay';
 import ClassCreateForm from '@components/CreateClassForm/ClassCreateForm';
+import { useNavigate } from 'react-router-dom';
 
 interface ClassesPageProps extends UiComponentProps { }
 
 const ClassesPage: React.FC<ClassesPageProps> = () => {
     const [showCreateForm, setShowCreateForm] = useState<boolean>(false);
+    const navigate = useNavigate();
+
+    const handleSuccessCreate = (id : string | number) => {
+        setShowCreateForm(false);
+        return navigate(id.toString());
+    };
+
     return (
         <>
             <Container
@@ -44,7 +52,7 @@ const ClassesPage: React.FC<ClassesPageProps> = () => {
                 </Container>
             </Container>
             <Overlay isShowing={showCreateForm} closeOverlay={() => setShowCreateForm(false)}>
-                <ClassCreateForm classes={styles.createForm} onSuccess={() => setShowCreateForm(false)}/>
+                <ClassCreateForm classes={styles.createForm} onSuccess={handleSuccessCreate} />
             </Overlay>
         </>
     );

@@ -1,6 +1,6 @@
 export const copyInviteToken = (teacherName : string, classTitle: string, token: string) => {
     navigator.clipboard.writeText(
-        `<Учитель имя> приглашает вас в класс '${classTitle}'
+        `${teacherName} приглашает вас в класс '${classTitle}'
         
         Для подключения:
 
