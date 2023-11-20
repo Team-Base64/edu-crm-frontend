@@ -3,6 +3,9 @@
 .drop-down {
   position: relative;
   font-family: getVar(font, type, default);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-smaller);
 
   &::before,
   &::after {
@@ -16,8 +19,11 @@
     border-left: var(--size-of-arrow-in-dropdown) solid transparent;
     border-right: var(--size-of-arrow-in-dropdown) solid transparent;
     border-top: var(--size-of-arrow-in-dropdown) solid var(--color-text-default);
-    top: 45%;
+    top: 65%;
     left: calc(100% - 2 * var(--space-default));
+  }
+
+  &--label {
   }
 
   &--data-list {

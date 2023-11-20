@@ -9,15 +9,21 @@ interface TimePickerProps extends UiComponentProps {
         time: dateInput;
         setTime: React.Dispatch<React.SetStateAction<dateInput>>;
     };
+    label: string;
 }
 
-export const TimePicker: React.FC<TimePickerProps> = ({ useTime, classes }) => {
+export const TimePicker: React.FC<TimePickerProps> = ({
+    useTime,
+    classes,
+    label,
+}) => {
     return (
         <Input
             type={'time'}
             onChange={(event) => useTime.setTime(event.target.valueAsDate)}
             value={getUTCTime(useTime.time ?? new Date())}
             classes={classes}
+            label={label}
         ></Input>
     );
 };

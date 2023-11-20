@@ -47,31 +47,39 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                 layout={'defaultBase'}
                 classes={styles.addEventForm}
             >
+                {' '}
+                <Text
+                    type={'h'}
+                    size={3}
+                >
+                    Создание события
+                </Text>
                 <Input
                     classes={styles.addEventFormTitle}
                     type="text"
                     value={useTitle.title}
                     onChange={(event) => useTitle.setTitle(event.target.value)}
+                    label={'Название события'}
                 ></Input>
                 <DatePicker
                     classes={styles.addEventFormStartDate}
                     useDate={useStartDate}
+                    label={'Дата начала'}
                 ></DatePicker>
                 <TimePicker
                     classes={styles.addEventFormStartDate}
                     useTime={useStartTime}
+                    label={'Время начала'}
                 ></TimePicker>
-                <Text
-                    type={'h'}
-                    size={6}
-                ></Text>
                 <DatePicker
                     classes={styles.addEventFormEndDate}
                     useDate={useEndDate}
+                    label={'Дата начала'}
                 ></DatePicker>
                 <TimePicker
                     classes={styles.addEventFormEndDate}
                     useTime={useEndTime}
+                    label={'Время окончания'}
                 ></TimePicker>
                 <Input
                     type={'text'}
@@ -80,6 +88,7 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                     onChange={(event) =>
                         useDescription.setDescription(event.target.value)
                     }
+                    label={'Описание события'}
                 ></Input>
                 <DropDown
                     options={Array.from(classData.keys())}
@@ -91,6 +100,7 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                     }
                     values={Array.from(classData.values())}
                     selectedValue={useSelectedClass.selected}
+                    label={'Класс события'}
                 ></DropDown>
                 <Button classes={styles.addEventFormSubmitButton}>
                     <Text

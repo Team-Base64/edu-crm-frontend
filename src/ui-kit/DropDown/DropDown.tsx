@@ -1,11 +1,13 @@
 import React from 'react';
 import styles from './DropDown.module.scss';
+import Text from '@ui-kit/Text/Text.tsx';
 
 interface DropDownProps extends React.InputHTMLAttributes<HTMLSelectElement> {
     options: string[];
     classes: string;
     values: number[];
     selectedValue?: number;
+    label: string;
 }
 
 export const DropDown: React.FC<DropDownProps> = ({
@@ -14,6 +16,7 @@ export const DropDown: React.FC<DropDownProps> = ({
     onChange,
     values,
     selectedValue,
+    label,
 }) => {
     const optionsElements = options.map((option, index) => (
         <option
@@ -26,6 +29,14 @@ export const DropDown: React.FC<DropDownProps> = ({
     ));
     return (
         <div className={[styles.dropDown, classes].join(' ')}>
+            <label className={styles.dropDownLabel}>
+                <Text
+                    type={'h'}
+                    size={5}
+                >
+                    {label}
+                </Text>
+            </label>
             <select
                 id={options.toString()}
                 className={[styles.dropDownDataList].join(' ')}

@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Input.module.scss';
 import Container from '@ui-kit/Container/Container';
+import Text from '@ui-kit/Text/Text';
 
 const inputSizeType = {
     s: styles.small,
@@ -51,7 +52,16 @@ const Input: React.FC<InputProps> = ({
                 gap={sizeType}
                 classes={[inputSizeType[sizeType], classes].join(' ')}
             >
-                {label && <label className={styles.title}>{label}</label>}
+                {label && (
+                    <label className={styles.title}>
+                        <Text
+                            type={'h'}
+                            size={5}
+                        >
+                            {label}
+                        </Text>
+                    </label>
+                )}
 
                 <Container
                     direction={'horizontal'}

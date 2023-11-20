@@ -12,9 +12,14 @@ interface DatePickerProps extends UiComponentProps {
         date: dateInput;
         setDate: React.Dispatch<React.SetStateAction<dateInput>>;
     };
+    label: string;
 }
 
-export const DatePicker: React.FC<DatePickerProps> = ({ useDate, classes }) => {
+export const DatePicker: React.FC<DatePickerProps> = ({
+    useDate,
+    classes,
+    label,
+}) => {
     return (
         <Input
             type={'date'}
@@ -23,6 +28,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({ useDate, classes }) => {
             max={getInputDateRepresentation(getNextYearDate())}
             value={getInputDateRepresentation(useDate.date ?? new Date())}
             classes={classes}
+            label={label}
         ></Input>
     );
 };
