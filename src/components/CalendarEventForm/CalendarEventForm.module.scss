@@ -2,32 +2,41 @@
   grid-template-columns: 1fr 1fr;
   align-items: center;
 
-  &--title {
+  &--form-name {
+    grid-row: 1;
     grid-column: 1 / 3;
-    //margin: auto;
   }
 
-  &--start-date {
+  &--title {
+    grid-column: 1 / 3;
     grid-row: 2;
   }
 
+  &--start-date {
+    grid-row: 4;
+  }
+
   &--end-date {
-    grid-row: 3;
+    grid-row: 5;
   }
 
   &--description {
     grid-column: 1 / 3;
+    grid-row: 6;
   }
 
   &--class-picker {
     grid-column: 1 / 3;
+    grid-row: 7;
   }
 
   &--submit-button {
     grid-column: 1;
+    grid-row: 8;
   }
 
   &--cancel-button {
     grid-column: 2;
+    grid-row: 8;
   }
 }

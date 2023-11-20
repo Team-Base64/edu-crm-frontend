@@ -96,6 +96,7 @@ export const CalendarEvent: React.FC<CalendarEventProps> = ({
                     setIsShowingState={setEditEventWindowShowing}
                     useMutation={useEditEventMutation}
                     eventData={eventData}
+                    title={'Изменение события'}
                 ></CalendarEventForm>
             </Overlay>
         </Container>

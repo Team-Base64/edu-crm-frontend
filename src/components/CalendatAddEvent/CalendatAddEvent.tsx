@@ -32,6 +32,7 @@ export const CalendarAddEvent: React.FC<CalendarAddEventProps> = () => {
                 <CalendarEventForm
                     setIsShowingState={setAddEventWindowShowing}
                     useMutation={useAddEventMutation}
+                    title={'Создание события'}
                 ></CalendarEventForm>
             </Overlay>
         </>
