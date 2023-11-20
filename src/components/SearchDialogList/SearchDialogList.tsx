@@ -4,19 +4,28 @@ import Input from '@ui-kit/Input/Input.tsx';
 import styles from './SearchDialogList.module.scss';
 import { routerQueryParams } from '@router/routes.ts';
 import { SetURLSearchParams } from 'react-router-dom';
+import { updateOneSearchParam } from '../../utils/router/searchParams.ts';
 
 interface SearchDialogListProps extends UiComponentProps {
-    useQueryParams: [() => string, SetURLSearchParams];
+    useQueryParams: [URLSearchParams, () => string, SetURLSearchParams];
 }
 
 export const SearchDialogList: React.FC<SearchDialogListProps> = ({
     useQueryParams,
 }) => {
-    const [getParam, setSearchParams] = useQueryParams;
-    const onInputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) =>
-        setSearchParams({
-            [routerQueryParams.messenger.search]: event.target.value,
-        });
+    const [searchParams, getParam, setSearchParams] = useQueryParams;
+
+    const onInputChangeHandler = (
+        event: React.ChangeEvent<HTMLInputElement>,
+    ) => {
+        setSearchParams(
+            updateOneSearchParam(
+                searchParams,
+                routerQueryParams.messenger.search,
+                event.target.value,
+            ),
+        );
+    };
 
     return (
         <Input

@@ -7,6 +7,7 @@ import styles from './MessageSelector.module.scss';
 import { useGetDialogsQuery } from '@app/features/dialog/dialogSlice';
 import { SetURLSearchParams } from 'react-router-dom';
 import { routerQueryParams } from '@router/routes.ts';
+import { updateOneSearchParam } from '../../utils/router/searchParams.ts';
 
 interface MessageSelectorProps extends UiComponentProps {
     useQueryParams: [URLSearchParams, SetURLSearchParams];
@@ -38,9 +39,13 @@ const MessageSelector: React.FC<MessageSelectorProps> = ({
                 data={dialog}
                 key={dialog.chatID}
                 selectDialog={() =>
-                    setSearchParams({
-                        [routerQueryParams.messenger.chatid]: dialog.chatID,
-                    })
+                    setSearchParams(
+                        updateOneSearchParam(
+                            searchParams,
+                            routerQueryParams.messenger.chatid,
+                            dialog.chatID,
+                        ),
+                    )
                 }
                 isSelected={
                     searchParams.get(routerQueryParams.messenger.chatid) ===
@@ -56,7 +61,7 @@ const MessageSelector: React.FC<MessageSelectorProps> = ({
             classes={[styles.messageSelector, classes].join(' ')}
         >
             <SearchDialogList
-                useQueryParams={[getSearchParam, setSearchParams]}
+                useQueryParams={[searchParams, getSearchParam, setSearchParams]}
             ></SearchDialogList>
             {isSuccess && dialogList}
             {isError && <p>{JSON.stringify(error)}</p>}
