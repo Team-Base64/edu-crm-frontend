@@ -3,11 +3,11 @@ import Button from '@ui-kit/Button/Button';
 import Container from '@ui-kit/Container/Container';
 import Icon from '@ui-kit/Icon/Icon';
 import { UiComponentProps } from '@ui-kit/interfaces';
-import React, { useCallback } from 'react';
+import React from 'react';
 import Text from '@ui-kit/Text/Text';
 
 import styles from './ClassMemberItem.module.scss';
-import { redirect, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AppRoutes, { routerQueryParams } from '@router/routes.ts';
 
 interface ClassMemberItemProps extends UiComponentProps {
