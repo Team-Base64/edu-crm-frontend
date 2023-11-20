@@ -9,25 +9,39 @@ import { SetURLSearchParams } from 'react-router-dom';
 import { routerQueryParams } from '@router/routes.ts';
 
 interface MessageSelectorProps extends UiComponentProps {
-    useSetChatIdQueryParams: [URLSearchParams, SetURLSearchParams];
+    useQueryParams: [URLSearchParams, SetURLSearchParams];
 }
 
 const MessageSelector: React.FC<MessageSelectorProps> = ({
-    useSetChatIdQueryParams,
+    useQueryParams,
     classes,
 }) => {
     const { data, isLoading, isSuccess, isError, error } =
         useGetDialogsQuery(null);
 
-    const [searchParams, setSearchParams] = useSetChatIdQueryParams;
+    const [searchParams, setSearchParams] = useQueryParams;
+
+    const getSearchParam = () =>
+        (
+            searchParams.get(routerQueryParams.messenger.search) ?? ''
+        ).toLowerCase();
 
     const dialogList = Object.values(data?.dialogs ?? {})
         .sort((a, b) => (new Date(a.date) < new Date(b.date) ? 1 : -1))
+        .filter(
+            (dialog) =>
+                dialog.name.toLowerCase().includes(getSearchParam()) ||
+                dialog.text.toLowerCase().includes(getSearchParam()),
+        )
         .map((dialog) => (
             <MessageSelectDialogItem
                 data={dialog}
                 key={dialog.chatID}
-                selectDialog={() => setSearchParams({ chatid: dialog.chatID })}
+                selectDialog={() =>
+                    setSearchParams({
+                        [routerQueryParams.messenger.chatid]: dialog.chatID,
+                    })
+                }
                 isSelected={
                     searchParams.get(routerQueryParams.messenger.chatid) ===
                     dialog.chatID
@@ -41,7 +55,9 @@ const MessageSelector: React.FC<MessageSelectorProps> = ({
             layout={'base'}
             classes={[styles.messageSelector, classes].join(' ')}
         >
-            <SearchDialogList></SearchDialogList>
+            <SearchDialogList
+                useQueryParams={[getSearchParam, setSearchParams]}
+            ></SearchDialogList>
             {isSuccess && dialogList}
             {isError && <p>{JSON.stringify(error)}</p>}
             {isLoading && <p>loading...</p>}

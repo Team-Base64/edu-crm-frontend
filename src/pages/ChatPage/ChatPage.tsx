@@ -21,7 +21,7 @@ export const ChatPage: React.FC = () => {
             classes={styles.chat}
         >
             <MessageSelector
-                useSetChatIdQueryParams={[searchParams, setSearchParams]}
+                useQueryParams={[searchParams, setSearchParams]}
                 classes={styles.dialogList}
             ></MessageSelector>
             <MessengerHeader

@@ -20,6 +20,7 @@ const AppRoutes = asStrings({
 export const routerQueryParams = {
     messenger: {
         chatid: 'chatid',
+        search: 'search',
     },
 };
 
