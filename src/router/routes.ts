@@ -17,4 +17,10 @@ const AppRoutes = asStrings({
     logout: 'logout',
 });
 
+export const routerQueryParams = {
+    messenger: {
+        chatid: 'chatid',
+    },
+};
+
 export default AppRoutes;

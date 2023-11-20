@@ -5,7 +5,8 @@ import MessageSelectDialogItem from '@components/MessageSelectDioalogItem/Messag
 import { SearchDialogList } from '@components/SearchDialogList/SearchDialogList.tsx';
 import styles from './MessageSelector.module.scss';
 import { useGetDialogsQuery } from '@app/features/dialog/dialogSlice';
-import { useSearchParams } from 'react-router-dom';
+import { SetURLSearchParams } from 'react-router-dom';
+import { routerQueryParams } from '@router/routes.ts';
 
 interface MessageSelectorProps extends UiComponentProps {
     useSetChatIdQueryParams: [URLSearchParams, SetURLSearchParams];
@@ -27,7 +28,10 @@ const MessageSelector: React.FC<MessageSelectorProps> = ({
                 data={dialog}
                 key={dialog.chatID}
                 selectDialog={() => setSearchParams({ chatid: dialog.chatID })}
-                isSelected={searchParams.get('chatid') === dialog.chatID}
+                isSelected={
+                    searchParams.get(routerQueryParams.messenger.chatid) ===
+                    dialog.chatID
+                }
             ></MessageSelectDialogItem>
         ));
 

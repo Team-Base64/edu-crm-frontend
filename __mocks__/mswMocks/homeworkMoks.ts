@@ -19,7 +19,6 @@ export const homeworkHandlers = [
                 },
             );
         } catch (e) {
-            console.log(e);
             return HttpResponse.json(
                 {},
                 {

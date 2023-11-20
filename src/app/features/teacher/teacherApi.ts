@@ -24,7 +24,7 @@ export const teacherApi = appApi.injectEndpoints({
                     const { data } = await queryFulfilled;
                     dispatch(setMe(data.me));
                 } catch (error) {
-                    console.log(error);
+                    console.error(error);
                 }
             },
         }),
@@ -45,12 +45,10 @@ export const teacherApi = appApi.injectEndpoints({
             // @ts-ignore
             async onQueryStarted(args, { dispatch, queryFulfilled }) {
                 try {
-                    console.log('APP login wait fullfilled');
                     const { data } = await queryFulfilled;
-                    console.log('APP login fullfilled', data);
                     dispatch(setMe(data.me));
                 } catch (error) {
-                    console.log(error);
+                    console.error(error);
                 }
             },
         }),
@@ -74,7 +72,7 @@ export const teacherApi = appApi.injectEndpoints({
                     const { data } = await queryFulfilled;
                     dispatch(setMe(data.me));
                 } catch (error) {
-                    console.log(error);
+                    console.error(error);
                 }
             },
         }),

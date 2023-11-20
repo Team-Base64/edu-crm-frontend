@@ -178,7 +178,6 @@ export const classHandlers = [
                 },
             );
         } catch (e) {
-            console.log(e);
             return HttpResponse.json(
                 {},
                 {

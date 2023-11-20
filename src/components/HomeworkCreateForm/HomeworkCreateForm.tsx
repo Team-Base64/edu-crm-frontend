@@ -56,8 +56,6 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({
     }, [createStatus, uploadStatus, setLock]);
 
     const handleSubmit = async () => {
-        console.log('Handle submit');
-
         const form = formRef.current;
         if (!form) {
             return;
@@ -70,16 +68,11 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({
         if (!title || !deadline) {
             return;
         }
-        console.log('OK');
-
         if (!desc && !tasks.length) {
             return;
         }
 
-        console.log('OK 2');
-
         const loadedTasks: HomeworkTask[] = [];
-        console.log('Load attaches');
 
         for (const task of tasks) {
             const loaded = {
@@ -100,9 +93,6 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({
 
             loadedTasks.push(loaded);
         }
-
-        console.log('Load done');
-        console.log('Create HW');
 
         createHW({
             payload: {

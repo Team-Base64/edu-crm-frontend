@@ -15,7 +15,6 @@ export const MediaPreview: React.FC<MediaPreviewProps> = ({
 }) => {
     const isImage = checkIfImageByExtension(fileName ?? '');
 
-    console.log(fileName, isImage);
     if (isImage) {
         return <ImageViewer src={[linkToFile]}></ImageViewer>;
     } else {

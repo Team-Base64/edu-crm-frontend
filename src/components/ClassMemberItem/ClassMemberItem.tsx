@@ -7,30 +7,31 @@ import React, { useCallback } from 'react';
 import Text from '@ui-kit/Text/Text';
 
 import styles from './ClassMemberItem.module.scss';
+import { redirect, useNavigate } from 'react-router-dom';
+import AppRoutes, { routerQueryParams } from '@router/routes.ts';
 
 interface ClassMemberItemProps extends UiComponentProps {
     id: string | number;
     name: string;
     avatarSrc: string;
     role: string;
-    onMessageClick?: () => void;
+    chatID: number;
 }
 
 const ClassMemberItem: React.FC<ClassMemberItemProps> = ({
     name,
     avatarSrc,
     role,
-    onMessageClick,
     onClick,
     classes,
+    chatID,
 }) => {
-    const handleChatClick = useCallback(
-        (e: React.MouseEvent) => {
-            e.stopPropagation();
-            onMessageClick?.();
-        },
-        [onMessageClick],
-    );
+    const navigate = useNavigate();
+    const handleChatClick = () => {
+        navigate(
+            `/${AppRoutes.messenger}?${routerQueryParams.messenger.chatid}=${chatID}`,
+        );
+    };
 
     return (
         <Container

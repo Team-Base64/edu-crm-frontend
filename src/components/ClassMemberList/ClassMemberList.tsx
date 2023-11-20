@@ -34,13 +34,14 @@ const ClassMemberList: React.FC<ClassMemberListProps> = ({
             {!list.length ? (
                 <EmptyItem />
             ) : (
-                list.slice(0, limit).map(({ id, name, avatarSrc }) => (
+                list.slice(0, limit).map(({ id, name, avatarSrc, chatID }) => (
                     <React.Fragment key={`${listId}-${id}`}>
                         <ClassMemberItem
                             id={id}
                             name={name}
                             avatarSrc={avatarSrc}
                             role="Ученик"
+                            chatID={chatID}
                         />
                     </React.Fragment>
                 ))

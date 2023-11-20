@@ -5,4 +5,5 @@ export type Student = {
     name: string;
     avatarSrc: string;
     socialType: SocialNetworkType;
+    chatID: number;
 };
