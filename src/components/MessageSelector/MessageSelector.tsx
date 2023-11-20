@@ -5,19 +5,20 @@ import MessageSelectDialogItem from '@components/MessageSelectDioalogItem/Messag
 import { SearchDialogList } from '@components/SearchDialogList/SearchDialogList.tsx';
 import styles from './MessageSelector.module.scss';
 import { useGetDialogsQuery } from '@app/features/dialog/dialogSlice';
+import { useSearchParams } from 'react-router-dom';
 
 interface MessageSelectorProps extends UiComponentProps {
-    useSetChatId: [number, React.Dispatch<React.SetStateAction<number>>];
+    useSetChatIdQueryParams: [URLSearchParams, SetURLSearchParams];
 }
 
 const MessageSelector: React.FC<MessageSelectorProps> = ({
-    useSetChatId,
+    useSetChatIdQueryParams,
     classes,
 }) => {
     const { data, isLoading, isSuccess, isError, error } =
         useGetDialogsQuery(null);
 
-    const [chatId, setChatId] = useSetChatId;
+    const [searchParams, setSearchParams] = useSetChatIdQueryParams;
 
     const dialogList = Object.values(data?.dialogs ?? {})
         .sort((a, b) => (new Date(a.date) < new Date(b.date) ? 1 : -1))
@@ -25,8 +26,8 @@ const MessageSelector: React.FC<MessageSelectorProps> = ({
             <MessageSelectDialogItem
                 data={dialog}
                 key={dialog.chatID}
-                selectDialog={() => setChatId(dialog.chatID)}
-                isSelected={chatId === dialog.chatID}
+                selectDialog={() => setSearchParams({ chatid: dialog.chatID })}
+                isSelected={searchParams.get('chatid') === dialog.chatID}
             ></MessageSelectDialogItem>
         ));
 
