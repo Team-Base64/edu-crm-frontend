@@ -7,3 +7,6 @@ export const localStoragePath = {
 };
 
 export const unselectedId = -1;
+
+export const userAvatarPlaceholder =
+    'https://raw.githubusercontent.com/frontend-park-mail-ru/2022_2_Base/main/public/img/UserPhoto.webp';

@@ -40,7 +40,7 @@ export const dialogListMock: dialogSelectType[] = [
     {
         chatID: 2,
         name: 'Martha Bennet',
-        cover: man_photo_src,
+        cover: undefined,
         isread: false,
         text: 'long asndkasstring',
         date: new Date().toISOString(),
