@@ -15,6 +15,7 @@ import prettyDate from "utils/common/PrettyDate/datePrettify";
 import { getDelta } from "utils/common/PrettyDate/common/delta";
 import Updatable from "@ui-kit/Updatable/Updatable";
 import SolutionSelect from "@components/Solution/SolutionSelect";
+import HomeworkTaskList from "@components/HomeworkTaskList/HomeworkTaskList";
 
 
 interface SolutionHeaderAuthorProps extends UiComponentProps {
@@ -56,11 +57,11 @@ export const SolutionHeaderAuthor: React.FC<SolutionHeaderAuthorProps> = ({
     );
 }
 
-interface SolutionHeaderHomeworkDataProps {
+interface SolutionHeaderHomeworkDataProps extends UiComponentProps{
     homeworkID: number;
 }
 
-export const SolutionHeaderHomeworkData: React.FC<SolutionHeaderHomeworkDataProps> = ({ homeworkID }) => {
+export const SolutionHeaderHomeworkData: React.FC<SolutionHeaderHomeworkDataProps> = ({ homeworkID, classes }) => {
     const { data, isLoading, isError, isSuccess } = useGetHomeworkQuery({ id: homeworkID });
 
     if (isLoading) {
@@ -88,7 +89,7 @@ export const SolutionHeaderHomeworkData: React.FC<SolutionHeaderHomeworkDataProp
     return (
         <>
             {isSuccess && data.homework && (
-                <>
+                <Container direction='vertical' classes={classes}>
                     <Text type='h' size={4} weight="bold">
                         Заголовок:
                     </Text>
@@ -118,7 +119,11 @@ export const SolutionHeaderHomeworkData: React.FC<SolutionHeaderHomeworkDataProp
                             getTime(data.homework.deadlineTime),
                         ].join(' ')}
                     </Text>
-                </>
+
+                    <Text type='h' size={4} weight="bold">
+                        Задачи: TODO
+                    </Text>
+                </Container>
             )}
         </>
     );

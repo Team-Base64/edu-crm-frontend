@@ -10,6 +10,8 @@ import getDate from 'utils/common/PrettyDate/common/date';
 import { getDeltaNow } from 'utils/common/PrettyDate/common/delta';
 import getTime from 'utils/common/PrettyDate/common/time';
 import { Homework } from '@app/features/homework/homeworkModel';
+import { useNavigate } from 'react-router-dom';
+import AppRoutes from '@router/routes';
 
 interface HomeworkItemProps extends UiComponentProps {
     homework: Homework;
@@ -17,10 +19,10 @@ interface HomeworkItemProps extends UiComponentProps {
 
 const HomeworkItem: React.FC<HomeworkItemProps> = ({
     homework,
-    onClick,
     classes,
 }) => {
-    const {deadlineTime, title, description} = homework;
+    const {deadlineTime, title, description, id} = homework;
+    const navigate = useNavigate();
 
     let stateClassName = styles.notPass;
     const stateStr =
@@ -32,11 +34,16 @@ const HomeworkItem: React.FC<HomeworkItemProps> = ({
         stateClassName = styles.pass;
     }
 
+    const handleClick = () => {
+        return navigate(`/${AppRoutes.homeworks}/${id}`);
+    }
+
+
     return (
         <Container
             classes={[styles.card, classes].join(' ')}
             direction="horizontal"
-            onClick={onClick}
+            onClick={handleClick}
         >
             <Container
                 classes={styles.wrapper}
@@ -70,7 +77,7 @@ const HomeworkItem: React.FC<HomeworkItemProps> = ({
                 </Text>
                 <Button
                     classes={styles.btn}
-                    onClick={onClick}
+                    onClick={handleClick}
                     type="link"
                 >
                     <Icon

@@ -2,8 +2,53 @@
     width: 100%;
     height: 100%;
     overflow-y: scroll;
+    overflow-x: hidden;
 
-    &::-webkit-scrollbar{
+    &::-webkit-scrollbar {
         display: none;
     }
+}
+
+.content {
+    grid-template-columns: max-content auto;
+
+    &-title {
+        grid-column: 1;
+    }
+
+    &-item {
+        grid-column: 2;
+    }
+}
+
+.status {
+    grid-column: 1;
+
+    &-icon {
+        fill: #333;
+    }
+
+    &-text {
+        color: #333;
+    }
+
+    &-spinner {
+        color: #333;
+    }
+}
+
+.participantList {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+.participantItem {
+    width: 100%;
+}
+
+.classItem {
+    max-width: max-content;
+}
+
+.solutions {
+    padding:  0;
 }
