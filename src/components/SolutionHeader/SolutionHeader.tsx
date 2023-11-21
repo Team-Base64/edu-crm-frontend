@@ -36,7 +36,7 @@ export const SolutionHeaderAuthor: React.FC<SolutionHeaderAuthorProps> = ({
         );
     }
 
-    if (isError) {
+    if (isError || !data?.student) {
         return (
             <>
                 <Icon name='alert' classes={styles.statusIcon} />
@@ -48,7 +48,7 @@ export const SolutionHeaderAuthor: React.FC<SolutionHeaderAuthorProps> = ({
     }
     return (
         <>
-            {isSuccess && (
+            {isSuccess && data.student && (
                 <ClassMemberItem classes={[styles.authorItem, classes].join(' ')} student={data.student} role="Ученик" />
             )}
         </>
@@ -73,7 +73,7 @@ export const SolutionHeaderHomeworkData: React.FC<SolutionHeaderHomeworkDataProp
         );
     }
 
-    if (isError) {
+    if (isError && !data?.homework) {
         return (
             <>
                 <Icon name='alert' classes={styles.statusIcon} />
@@ -86,7 +86,7 @@ export const SolutionHeaderHomeworkData: React.FC<SolutionHeaderHomeworkDataProp
 
     return (
         <>
-            {isSuccess && (
+            {isSuccess && data.homework && (
                 <>
                     <Text type='h' size={4} weight="bold">
                         Заголовок:
@@ -132,7 +132,7 @@ const SolutionHeaderPassStatus: React.FC<SolutionHeaderPassStatusProps> = ({ sol
     const [passStatus, changePassStatus] = useState<JSX.Element>();
 
     useEffect(() => {
-        if (homework.isSuccess) {
+        if (homework.isSuccess && homework.data.homework) {
             const inTime = getDelta(homework.data.homework.deadlineTime, solution.createTime) > 0;
             changePassStatus(
                 <Text type='p' size={1} classes={inTime ? styles.intime : styles.outtime}>

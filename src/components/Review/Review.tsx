@@ -21,7 +21,7 @@ interface ReviewProps extends UiComponentProps {
 }
 
 const Review: React.FC<ReviewProps> = ({ classes, solution }) => {
-    const { data, isError, isLoading, isSuccess } = useGetHomeworkQuery({ id: solution.id });
+    const { data, isError, isLoading, isSuccess } = useGetHomeworkQuery({ id: solution.hwID });
     const [sendReview] = useCreateReviewMutation();
 
     const [approved, setApproved] = useState<boolean>(false);
@@ -89,15 +89,15 @@ const Review: React.FC<ReviewProps> = ({ classes, solution }) => {
                         </Text>
                     </>
                 )}
-                {isError && (
-                    <>
+                {isError || !data?.homework && (
+                    <Container>
                         <Icon name='alert' />
                         <Text type="p" size={1} weight='regular'>
                             Произошла ошибка
                         </Text>
-                    </>
+                    </Container>
                 )}
-                {isSuccess && (
+                {isSuccess && data.homework && (
                     <>
                         <form ref={formRef} onSubmit={e => e.preventDefault()}>
                             <Container direction='vertical'>
@@ -110,42 +110,42 @@ const Review: React.FC<ReviewProps> = ({ classes, solution }) => {
                                     </React.Fragment>
                                 ))}
                             </Container>
-                        </form>
-                    </>
-                )}
 
-                <Container direction='vertical'>
-                    <Text type="h" size={4} weight='bold'>
-                        Результат проверки
-                    </Text>
-                    <Container classes={styles.state}>
-                        <CheckBox state={[approved, setApproved]} />
-                        <Label
-                            type="p"
-                            size={1}
-                            classes={approved ? styles.approved : styles.reject}
-                            text={approved ? 'Решение зачтено' : 'Задание нужно переделать'}
-                        />
-                    </Container>
-                    <Hint text="Если галочка не стоит, ученик сможет ещё раз отправить решение" />
+                            <Container direction='vertical'>
+                                <Text type="h" size={4} weight='bold'>
+                                    Результат проверки
+                                </Text>
+                                <Container classes={styles.state}>
+                                    <CheckBox state={[approved, setApproved]} />
+                                    <Label
+                                        type="p"
+                                        size={1}
+                                        classes={approved ? styles.approved : styles.reject}
+                                        text={approved ? 'Решение зачтено' : 'Задание нужно переделать'}
+                                    />
+                                </Container>
+                                <Hint text="Если галочка не стоит, ученик сможет ещё раз отправить решение" />
 
-                </Container>
-                <Button classes={styles.submit} onClick={handleSubmit}
-                    disabled={isLoading || isError || !data || lock}
-                >
-                    {lock && <Spinner classes={styles.spinner} />}
-                    {isError && <Icon classes={styles.submitIcon} name='alert' />}
-                    {(!lock && isSuccess) && <Icon classes={styles.submitIcon} name='approve' />}
-                    <Text classes={styles.submitText} type="p" size={1} weight='bold'>
-                        Отправить отзыв
-                    </Text>
-                </Button>
-                {/* <Button onClick={() => {
+                            </Container>
+                            <Button classes={styles.submit} onClick={handleSubmit}
+                                disabled={isLoading || isError || !data || lock}
+                            >
+                                {lock && <Spinner classes={styles.spinner} />}
+                                {isError && <Icon classes={styles.submitIcon} name='alert' />}
+                                {(!lock && isSuccess) && <Icon classes={styles.submitIcon} name='approve' />}
+                                <Text classes={styles.submitText} type="p" size={1} weight='bold'>
+                                    Отправить отзыв
+                                </Text>
+                            </Button>
+                            {/* <Button onClick={() => {
                     if(!data) return;
                     data.homework.tasks.map(id => clearComment(formRef, id));
                 }}>
                     Clear
                 </Button> */}
+                        </form>
+                    </>
+                )}
             </Container>
         </>
     );
