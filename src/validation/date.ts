@@ -35,6 +35,7 @@ const isTimeTooOld = (date: Date) => {
     // setZeroDate(actualDate);
     // setZeroDate(date);
     // return date >= actualDate && date <= getNextYearDate();
+    console.log(date);
     return false;
 };
 

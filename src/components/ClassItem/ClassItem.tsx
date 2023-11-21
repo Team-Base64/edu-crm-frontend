@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import Container from '@ui-kit/Container/Container';
 import Text from '@ui-kit/Text/Text';
-import { ClassData } from '@app/features/class/classModel';
 import Button from '@ui-kit/Button/Button';
 import Icon from '@ui-kit/Icon/Icon';
 

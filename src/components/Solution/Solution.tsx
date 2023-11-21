@@ -12,8 +12,6 @@ import Spinner from '@ui-kit/Spinner/Spinner';
 import Icon from '@ui-kit/Icon/Icon';
 import { useState } from 'react';
 import Hint from '@ui-kit/Hint/Hint';
-import Button from '@ui-kit/Button/Button';
-import SolutionSelect from './SolutionSelect';
 
 interface SolutionProps extends UiComponentProps {
     id: number | string;

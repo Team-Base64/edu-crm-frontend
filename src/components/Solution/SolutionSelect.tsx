@@ -62,7 +62,7 @@ interface SolutionSelectProps {
 
 const SolutionSelect: React.FC<SolutionSelectProps> = ({ solution }) => {
     const key = useId();
-    const { id, hwID, studentID } = solution;
+    const { hwID, studentID } = solution;
     const {
         data: otherHwSolutions,
         isLoading,
@@ -87,7 +87,7 @@ const SolutionSelect: React.FC<SolutionSelectProps> = ({ solution }) => {
         isLoading,
         solution,
         isSuccess,
-        otherHwSolutions.solutions,
+        otherHwSolutions?.solutions,
         studentID,
     ]);
     return (

@@ -66,6 +66,7 @@ export const SolutionHeaderAuthor: React.FC<SolutionHeaderAuthorProps> = ({
                     classes={[styles.authorItem, classes].join(' ')}
                     student={data.student}
                     role="Ученик"
+                    chatID={-1}
                 />
             )}
         </>
