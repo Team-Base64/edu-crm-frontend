@@ -16,11 +16,14 @@ import { getDelta } from "utils/common/PrettyDate/common/delta";
 import Updatable from "@ui-kit/Updatable/Updatable";
 
 
-interface SolutionHeaderAuthorProps {
+interface SolutionHeaderAuthorProps extends UiComponentProps {
     studentID: number;
 }
 
-const SolutionHeaderAuthor: React.FC<SolutionHeaderAuthorProps> = ({ studentID }) => {
+export const SolutionHeaderAuthor: React.FC<SolutionHeaderAuthorProps> = ({
+    studentID,
+    classes,
+}) => {
     const { data, isLoading, isError, isSuccess } = useGetStudentQuery({ id: studentID });
     if (isLoading) {
         return (
@@ -46,7 +49,7 @@ const SolutionHeaderAuthor: React.FC<SolutionHeaderAuthorProps> = ({ studentID }
     return (
         <>
             {isSuccess && (
-                <ClassMemberItem classes={styles.authorItem} student={data.student} role="Ученик" />
+                <ClassMemberItem classes={[styles.authorItem, classes].join(' ')} student={data.student} role="Ученик" />
             )}
         </>
     );
@@ -56,7 +59,7 @@ interface SolutionHeaderHomeworkDataProps {
     homeworkID: number;
 }
 
-const SolutionHeaderHomeworkData: React.FC<SolutionHeaderHomeworkDataProps> = ({ homeworkID }) => {
+export const SolutionHeaderHomeworkData: React.FC<SolutionHeaderHomeworkDataProps> = ({ homeworkID }) => {
     const { data, isLoading, isError, isSuccess } = useGetHomeworkQuery({ id: homeworkID });
 
     if (isLoading) {

@@ -14,6 +14,7 @@ export const solutionsMock: HomeworkSolution[] = [
         createTime: new Date(Date.now() - 10000000).toISOString(),
         status: 'new',
         teacherEvaluation: '',
+        isApproved: false,
     },
     {
         id: 111,
@@ -23,6 +24,8 @@ export const solutionsMock: HomeworkSolution[] = [
         createTime: new Date(Date.now() - 50000).toISOString(),
         status: 'new',
         teacherEvaluation: '',
+        isApproved: false,
+
     },
     {
         id: 1,
@@ -32,6 +35,7 @@ export const solutionsMock: HomeworkSolution[] = [
         createTime: new Date(Date.now() - 1000000).toISOString(),
         status: 'new',
         teacherEvaluation: '',
+        isApproved: true,
     },
     {
         id: 100,
@@ -41,6 +45,7 @@ export const solutionsMock: HomeworkSolution[] = [
         createTime: new Date(Date.now() - 500000).toISOString(),
         status: 'new',
         teacherEvaluation: '',
+        isApproved: false,
     },
     {
         id: 2,
@@ -50,6 +55,7 @@ export const solutionsMock: HomeworkSolution[] = [
         createTime: new Date(Date.now() - 5000000).toISOString(),
         status: 'new',
         teacherEvaluation: '',
+        isApproved: false,
     },
 
     {
@@ -60,6 +66,7 @@ export const solutionsMock: HomeworkSolution[] = [
         createTime: new Date(Date.now() - 40000000).toISOString(),
         status: 'new',
         teacherEvaluation: '',
+        isApproved: false,
     },
 ];
 

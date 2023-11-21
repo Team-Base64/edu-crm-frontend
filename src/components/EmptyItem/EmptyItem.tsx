@@ -4,13 +4,14 @@ import React from "react";
 import styles from './EmptyItem.module.scss';
 import Text from "@ui-kit/Text/Text";
 interface EmptyItemProps extends UiComponentProps {
-    text ?: string;
+    text?: string;
 }
 
-const EmptyItem: React.FC<EmptyItemProps> = ({ children,
-    text = 'Пусто...'
-
-    , classes }) => {
+const EmptyItem: React.FC<EmptyItemProps> = ({
+    children,
+    text = 'Пусто...',
+    classes
+}) => {
     return (
         <Container classes={[classes, styles.item].join(' ')}
             layout='defaultBase'

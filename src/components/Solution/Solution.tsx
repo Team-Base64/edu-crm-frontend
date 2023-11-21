@@ -63,7 +63,7 @@ const Solution: React.FC<SolutionProps> = ({ id, classes }) => {
                     <Container direction='vertical'>
                         <Label text="Вложения: " type="h" size={4} weight="bold" />
                         <Hint text={'Чтобы посмотреть нажмите на вложение, чтобы развернуть нажмите дважды'} />
-                        <Attachment allowOpen={() => handleAttachClick(data.file)} file={data.file} onRemoveClick={noop} isStatic={true} />
+                        <Attachment classes={styles.attach} allowOpen={() => handleAttachClick(data.file)} file={data.file} onRemoveClick={noop} isStatic={true} />
                     </Container>
                     <IframeViewer classes={styles.preview} linkToFile={currentAttach} />
                 </>
