@@ -13,11 +13,13 @@ import { getUTCDate, getUTCTime } from '../utils/common/dateRepresentation.ts';
 interface CalendarEventProps extends UiComponentProps {
     eventData: CalendarEventType;
     onDeleteClick: () => void;
+    iframeRef: React.RefObject<HTMLIFrameElement>;
 }
 
 export const CalendarEvent: React.FC<CalendarEventProps> = ({
     eventData,
     onDeleteClick,
+    iframeRef,
 }) => {
     const [isAddEventWindowShowing, setEditEventWindowShowing] =
         useState(false);
@@ -97,6 +99,7 @@ export const CalendarEvent: React.FC<CalendarEventProps> = ({
                     useMutation={useEditEventMutation}
                     eventData={eventData}
                     title={'Изменение события'}
+                    iframeRef={iframeRef}
                 ></CalendarEventForm>
             </Overlay>
         </Container>

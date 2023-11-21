@@ -7,8 +7,12 @@ import Overlay from '@ui-kit/Overlay/Overlay.tsx';
 import { CalendarEventForm } from '@components/CalendarEventForm/CalendarEventForm.tsx';
 import { useAddEventMutation } from '@app/features/calendar/calendarSlice.ts';
 
-interface CalendarAddEventProps extends UiComponentProps {}
-export const CalendarAddEvent: React.FC<CalendarAddEventProps> = () => {
+interface CalendarAddEventProps extends UiComponentProps {
+    iframeRef: React.RefObject<HTMLIFrameElement>;
+}
+export const CalendarAddEvent: React.FC<CalendarAddEventProps> = ({
+    iframeRef,
+}) => {
     const [isAddEventWindowShowing, setAddEventWindowShowing] = useState(false);
 
     return (
@@ -33,6 +37,7 @@ export const CalendarAddEvent: React.FC<CalendarAddEventProps> = () => {
                     setIsShowingState={setAddEventWindowShowing}
                     useMutation={useAddEventMutation}
                     title={'Создание события'}
+                    iframeRef={iframeRef}
                 ></CalendarEventForm>
             </Overlay>
         </>

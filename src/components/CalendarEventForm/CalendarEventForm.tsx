@@ -26,6 +26,7 @@ interface AddEvenFormProps extends UiComponentProps {
     useMutation: eventMutationsType;
     eventData?: CalendarEventType | null;
     title: string;
+    iframeRef: React.RefObject<HTMLIFrameElement>;
 }
 
 export type dateInput = Date | null;
@@ -35,7 +36,15 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
     useMutation,
     eventData = null,
     title,
+    iframeRef,
 }) => {
+    const handleOverlayClose = () => {
+        if (iframeRef.current) {
+            iframeRef.current.src += '';
+        }
+        setIsShowingState(false);
+    };
+
     const {
         useTitle,
         useStartDate,
@@ -46,7 +55,7 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
         useSelectedClass,
         classData,
         handleSubmit,
-    } = useAddEvent(setIsShowingState, useMutation()[0], eventData);
+    } = useAddEvent(handleOverlayClose, useMutation()[0], eventData);
 
     const [titleError, setTitleError] = useState<string>('');
     const [startDateError, setStartDateError] = useState<string>('');
@@ -207,7 +216,7 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                 </Button>
                 <Button
                     type={'secondary'}
-                    onClick={() => setIsShowingState(false)}
+                    onClick={handleOverlayClose}
                     classes={styles.addEventFormCancelButton}
                     action={'button'}
                 >

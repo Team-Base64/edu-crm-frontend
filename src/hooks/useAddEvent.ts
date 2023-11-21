@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { dateInput } from '@components/CalendarEventForm/CalendarEventForm.tsx';
 import {
     CalendarEventType,
@@ -8,7 +8,7 @@ import { useGetClassesQuery } from '@app/features/class/classSlice.ts';
 import { unselectedId } from '@app/const/consts.ts';
 
 export default function useAddEvent(
-    setIsShowingState: React.Dispatch<React.SetStateAction<boolean>>,
+    handleOverlayClose: () => void,
     sendEvent: ReturnType<eventMutationsType>[0],
     event: CalendarEventType | null,
 ) {
@@ -68,7 +68,7 @@ export default function useAddEvent(
                     // setEndDate(new Date());
                     // setEndTime(new Date());
                     // setDescription('');
-                    setIsShowingState(false);
+                    handleOverlayClose();
                 })
                 .catch((error) => console.error(error));
         }

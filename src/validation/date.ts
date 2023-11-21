@@ -1,7 +1,4 @@
-import {
-    getNextYearDate,
-    setZeroDate,
-} from '../utils/common/dateRepresentation.ts';
+import { getNextYearDate } from '../utils/common/dateRepresentation.ts';
 
 export const isEmptyDateValidation = (date: Date | null) =>
     date ? '' : 'Поле должно быть заполнено';
