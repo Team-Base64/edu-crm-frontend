@@ -28,8 +28,8 @@ export const getFullUTCTime = (date: Date) =>
 export const getNextYearDate = () =>
     new Date(new Date().setFullYear(new Date().getFullYear() + 1));
 
-export const getInputDateRepresentation = (date: Date) =>
-    date.toLocaleDateString('en-CA');
+export const getInputDateRepresentation = (date: Date | null) =>
+    date ? date.toLocaleDateString('en-CA') : undefined;
 
 const addLeadingZero = (stringDate: string | number) =>
     ('0' + stringDate).slice(-2);

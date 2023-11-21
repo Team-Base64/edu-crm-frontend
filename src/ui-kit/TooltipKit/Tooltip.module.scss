@@ -1,0 +1,107 @@
+@mixin tooltip-container {
+  position: absolute;
+  text-align: center;
+  border-radius: var(--border-radius-inner);
+  padding: var(--space-smaller) var(--space-default);
+  z-index: 1;
+  transition: opacity 0.3s;
+  word-break: keep-all;
+  white-space: pre;
+}
+
+@mixin tooltip-arrow {
+  content: "";
+  position: absolute;
+  border-style: solid;
+  border-width: 6px;
+  margin-left: -6px;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+
+  $top-bottom-h-shift: 35%;
+  $top-bottom-v-shift: 110%;
+
+  $left-right-h-shift: calc($top-bottom-v-shift - 5%);
+
+  & &--visibility-on-hover {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  &:hover &--visibility-on-hover {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  & &--visibility-hidden {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  & &-place-top {
+    @include tooltip-container;
+    background-color: var(--color-text-default);
+    color: #fff;
+    bottom: $top-bottom-v-shift;
+    left: $top-bottom-h-shift;
+  }
+
+  $top-bottom-arrow-top: 100%;
+  $top-bottom-arrow-left: 50%;
+
+  & &-place-top::after {
+    @include tooltip-arrow;
+    top: $top-bottom-arrow-top;
+    left: $top-bottom-arrow-left;
+    border-color: var(--color-text-default) transparent transparent transparent;
+  }
+
+  & &-place-bottom {
+    @include tooltip-container;
+    top: $top-bottom-v-shift;
+    left: $top-bottom-h-shift;
+    background-color: var(--color-text-default);
+    color: #fff;
+  }
+
+  & &-place-bottom::after {
+    @include tooltip-arrow;
+    bottom: $top-bottom-arrow-top;
+    left: $top-bottom-arrow-left;
+    border-color: transparent transparent var(--color-text-default) transparent;
+  }
+
+  & &-place-right {
+    @include tooltip-container;
+    background-color: var(--color-text-default);
+    color: #fff;
+    left: $left-right-h-shift;
+    top: 15%;
+  }
+
+  $left-right-arrow-top: 35%;
+
+  & &-place-right::after {
+    @include tooltip-arrow;
+    top: calc($left-right-arrow-top - 5%);
+    right: var(--tooltip-arrow-place-right-value);
+    border-color: transparent var(--color-text-default) transparent transparent;
+  }
+
+  & &-place-left {
+    @include tooltip-container;
+    background-color: var(--color-text-default);
+    color: #fff;
+    right: $left-right-h-shift;
+  }
+
+  & &-place-left::after {
+    @include tooltip-arrow;
+    left: var(--tooltip-arrow-place-left-value);
+    top: $left-right-arrow-top;
+    border-color: transparent transparent transparent var(--color-text-default);
+  }
+}

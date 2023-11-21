@@ -47,35 +47,27 @@ export default function useAddEvent(
         event?.classid ?? unselectedId,
     );
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+    const handleSubmit = () => {
         // fix validation
-        if (
-            title &&
-            startDate &&
-            startTime &&
-            endDate &&
-            endTime &&
-            description
-        ) {
+        if (title && startDate && startTime && endDate && endTime) {
             startDate.setHours(startTime.getHours());
             startDate.setMinutes(startTime.getMinutes());
             endDate.setHours(endTime.getHours());
             endDate.setMinutes(endTime.getMinutes());
             sendEvent({
                 title,
-                description,
+                description: description ?? '',
                 startDate: startDate.toISOString(),
                 endDate: endDate.toISOString(),
                 classid: selectedClassId ?? unselectedId,
             })
                 .then(() => {
-                    setTitle('');
-                    setStartDate(null);
-                    setStartTime(null);
-                    setEndDate(null);
-                    setEndTime(null);
-                    setDescription('');
+                    // setTitle('');
+                    // setStartDate(new Date());
+                    // setStartTime(new Date());
+                    // setEndDate(new Date());
+                    // setEndTime(new Date());
+                    // setDescription('');
                     setIsShowingState(false);
                 })
                 .catch((error) => console.error(error));

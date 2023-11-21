@@ -11,6 +11,7 @@ import { ChatPage } from '@pages/ChatPage/ChatPage.tsx';
 import ClassesPage from '@pages/ClassesPage/ClassesPage';
 import RequireNotAuth from '@hoc/RequireNotAuth';
 import { CalendarPage } from '@pages/CalendarPage/CalendarPage.tsx';
+import RequireAuth from '@hoc/RequireAuth';
 
 const AppRouter: React.FC = () => {
     return (
@@ -34,28 +35,28 @@ const AppRouter: React.FC = () => {
                 </Route>
 
                 {/* Private */}
-                {/*<Route element={<RequireAuth />}>*/}
-                <Route element={<MainLayout />}>
-                    <Route
-                        path={AppRoutes.messenger}
-                        element={<ChatPage />}
-                    />
-                    <Route path={AppRoutes.classes}>
+                <Route element={<RequireAuth />}>
+                    <Route element={<MainLayout />}>
                         <Route
-                            index
-                            element={<ClassesPage />}
+                            path={AppRoutes.messenger}
+                            element={<ChatPage />}
                         />
+                        <Route path={AppRoutes.classes}>
+                            <Route
+                                index
+                                element={<ClassesPage />}
+                            />
+                            <Route
+                                path={AppRoutes.class}
+                                element={<ClassPage />}
+                            />
+                        </Route>
                         <Route
-                            path={AppRoutes.class}
-                            element={<ClassPage />}
+                            path={AppRoutes.calendar}
+                            element={<CalendarPage />}
                         />
                     </Route>
-                    <Route
-                        path={AppRoutes.calendar}
-                        element={<CalendarPage />}
-                    />
                 </Route>
-                {/*</Route>*/}
             </Route>
         </Routes>
     );
