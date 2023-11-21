@@ -33,3 +33,17 @@ export const getInputDateRepresentation = (date: Date | null) =>
 
 const addLeadingZero = (stringDate: string | number) =>
     ('0' + stringDate).slice(-2);
+
+export const setZeroDate = (date: Date) => {
+    date.setDate(1);
+    date.setMonth(1);
+    date.setFullYear(1970);
+    return date;
+};
+
+export const setTime = (setTodate: Date, timeToSet: Date) => {
+    setTodate.setHours(timeToSet.getHours());
+    setTodate.setMinutes(timeToSet.getMinutes());
+    setTodate.setSeconds(timeToSet.getSeconds());
+    return setTodate;
+};

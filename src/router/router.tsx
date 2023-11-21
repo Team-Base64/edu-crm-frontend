@@ -11,7 +11,7 @@ import { ChatPage } from '@pages/ChatPage/ChatPage.tsx';
 import ClassesPage from '@pages/ClassesPage/ClassesPage';
 import RequireNotAuth from '@hoc/RequireNotAuth';
 import { CalendarPage } from '@pages/CalendarPage/CalendarPage.tsx';
-import RequireAuth from '@hoc/RequireAuth';
+// import RequireAuth from '@hoc/RequireAuth';
 
 const AppRouter: React.FC = () => {
     return (
@@ -35,29 +35,29 @@ const AppRouter: React.FC = () => {
                 </Route>
 
                 {/* Private */}
-                <Route element={<RequireAuth />}>
-                    <Route element={<MainLayout />}>
+                {/*<Route element={<RequireAuth />}>*/}
+                <Route element={<MainLayout />}>
+                    <Route
+                        path={AppRoutes.messenger}
+                        element={<ChatPage />}
+                    />
+                    <Route path={AppRoutes.classes}>
                         <Route
-                            path={AppRoutes.messenger}
-                            element={<ChatPage />}
+                            index
+                            element={<ClassesPage />}
                         />
-                        <Route path={AppRoutes.classes}>
-                            <Route
-                                index
-                                element={<ClassesPage />}
-                            />
-                            <Route
-                                path={AppRoutes.class}
-                                element={<ClassPage />}
-                            />
-                        </Route>
                         <Route
-                            path={AppRoutes.calendar}
-                            element={<CalendarPage />}
+                            path={AppRoutes.class}
+                            element={<ClassPage />}
                         />
                     </Route>
+                    <Route
+                        path={AppRoutes.calendar}
+                        element={<CalendarPage />}
+                    />
                 </Route>
             </Route>
+            {/*</Route>*/}
         </Routes>
     );
 };

@@ -18,7 +18,8 @@ import { getEmptyStringValidation } from '../../validation/string.ts';
 import {
     getIsFirstArgLessDateValidation,
     getIsFirstArgLessOrEqualDateValidation,
-    isEmptyDateValidation,
+    isActualDate,
+    isActualTime,
 } from '../../validation/date.ts';
 
 interface AddEvenFormProps extends UiComponentProps {
@@ -50,6 +51,7 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
 
     const [titleError, setTitleError] = useState<string>('');
     const [startDateError, setStartDateError] = useState<string>('');
+    const [startTimeError, setStartTimeError] = useState<string>('');
     const [endDateError, setEndDateError] = useState<string>('');
     const [endTimeError, setEndTimeError] = useState<string>('');
 
@@ -68,9 +70,17 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                         !endDateError &&
                         !endTimeError,
                 );
-                // if (!useTitle.title) {
                 setTitleError(getEmptyStringValidation(useTitle.title));
-                // }
+                setStartDateError(isActualDate(useStartDate.date));
+                setStartTimeError(isActualTime(useStartTime.time));
+                setEndDateError(
+                    getIsFirstArgLessOrEqualDateValidation(
+                        useEndDate.date,
+                        useStartDate.date,
+                        'Время окончания должна быть не позже даты начала',
+                    ),
+                );
+                setEndTimeError(isActualTime(useEndTime.time));
 
                 if (
                     !titleError &&
@@ -117,21 +127,21 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                         text: startDateError,
                         position: 'left',
                     }}
-                    onChange={() => {
-                        setStartDateError(
-                            isEmptyDateValidation(useStartDate.date),
-                        );
+                    onChange={({ target }) => {
+                        setStartDateError(isActualDate(new Date(target.value)));
                     }}
                 ></DatePicker>
                 <TimePicker
                     classes={styles.addEventFormStartDate}
                     useTime={useStartTime}
                     label={'Время начала'}
-                    onChange={noop}
                     error={{
-                        text: '',
-                        position: 'left',
+                        text: startTimeError,
+                        position: 'right',
                     }}
+                    onChange={({ target }) =>
+                        setStartTimeError(isActualTime(target.valueAsDate))
+                    }
                 ></TimePicker>
                 <DatePicker
                     classes={styles.addEventFormEndDate}
@@ -141,10 +151,10 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                         text: endDateError,
                         position: 'left',
                     }}
-                    onChange={() =>
+                    onChange={({ target }) =>
                         setEndDateError(
                             getIsFirstArgLessOrEqualDateValidation(
-                                useEndDate.date,
+                                target.valueAsDate,
                                 useStartDate.date,
                                 'Время окончания должна быть не позже даты начала',
                             ),
@@ -159,14 +169,8 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                         text: endTimeError,
                         position: 'right',
                     }}
-                    onChange={() =>
-                        setEndTimeError(
-                            getIsFirstArgLessDateValidation(
-                                useEndTime.time,
-                                useStartTime.time,
-                                'Время окончания должна быть не позже даты начала',
-                            ),
-                        )
+                    onChange={({ target }) =>
+                        setEndTimeError(isActualTime(target.valueAsDate))
                     }
                 ></TimePicker>
                 <Input

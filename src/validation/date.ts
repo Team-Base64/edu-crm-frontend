@@ -1,25 +1,52 @@
-import { getNextYearDate } from '../utils/common/dateRepresentation.ts';
+import {
+    getNextYearDate,
+    setZeroDate,
+} from '../utils/common/dateRepresentation.ts';
 
 export const isEmptyDateValidation = (date: Date | null) =>
-    isNotEmptyDate(date) ? '' : 'Выберете время';
+    date ? '' : 'Поле должно быть заполнено';
 
-export const isNotEmptyDate = (date: Date | null) => {
-    if (date) {
-        console.log(
-            date,
-            date >= new Date(),
-            new Date(),
-            date <= getNextYearDate(),
-            getNextYearDate(),
-        );
+export const isActualDate = (date: Date | null) => {
+    const isEmpty = isEmptyDateValidation(date);
+    if (isEmpty) {
+        return isEmpty;
+    } else {
+        return isDateNotTooOld(date as Date) ? '' : 'Выберете актуальную дату';
     }
-    return !!date && date >= new Date() && date <= getNextYearDate();
+};
+
+export const isActualTime = (date: Date | null) => {
+    console.log(date);
+    const isEmpty = isEmptyDateValidation(date);
+    if (isEmpty) {
+        return isEmpty;
+    } else {
+        console.log(isTimeTooOld(date as Date));
+        return isTimeTooOld(date as Date) ? 'Выберете актуальное время' : '';
+    }
+};
+
+const isDateNotTooOld = (date: Date) => {
+    const actualDate = new Date();
+    actualDate.setHours(0, 0, 0, 0);
+    // console.log(actualDate, date, date >= actualDate);
+    return date >= actualDate && date <= getNextYearDate();
+};
+
+const isTimeTooOld = (date: Date) => {
+    // const actualDate = new Date();
+    // setZeroDate(actualDate);
+    // setZeroDate(date);
+    // return date >= actualDate && date <= getNextYearDate();
+    return false;
 };
 
 export const isFirstArgLessDate = (
     initialDate: Date,
     dateToCompareWith: Date,
-) => initialDate <= dateToCompareWith;
+) => {
+    return initialDate <= dateToCompareWith;
+};
 
 export const isFirstArgLessOrEqualDate = (
     initialDate: Date,
@@ -55,14 +82,14 @@ export const getDateValidation = (
     errorText: string,
     checkFunc: (initialDate: Date, dateToCompareWith: Date) => boolean,
 ) => {
-    const isInitialEmpty = isEmptyDateValidation(initialDate);
-    const isToCompareEmpty = isEmptyDateValidation(dateToCompareWith);
+    const isInitialEmpty = isActualDate(initialDate);
+    const isToCompareEmpty = isActualDate(dateToCompareWith);
 
-    if (!isInitialEmpty) {
+    if (isInitialEmpty) {
         return isInitialEmpty;
     }
 
-    if (!isToCompareEmpty) {
+    if (isToCompareEmpty) {
         return '';
     }
 

@@ -33,7 +33,7 @@ const Tooltip: React.FC<SplitterProps> = ({
     classes,
     visibility = 'onHover',
 }) => {
-    const arrowPlaceLeftValue = 105;
+    const arrowPlaceLeftValue = 103;
     const arrowPlaceRightValue = 100;
 
     return (
