@@ -2,7 +2,8 @@ import appApi from '@app/appApi';
 import { HomeworkSolution } from '@app/features/homeworkSolution/homeworkSolutionModel';
 import { homeworkSolutionPaths } from '@app/features/homeworkSolution/homeworkSolutionPaths';
 
-export const homeworkSolutionSlice = appApi.injectEndpoints({
+export const homeworkSolutionSlice = appApi
+.injectEndpoints({
     endpoints: (build) => ({
         getClassSolutions: build.query<
             { solutions: HomeworkSolution[] },
@@ -11,6 +12,18 @@ export const homeworkSolutionSlice = appApi.injectEndpoints({
             query: ({ class_id }) => {
                 return {
                     url: homeworkSolutionPaths.classSolutions(class_id),
+                    method: 'GET',
+                };
+            },
+        }),
+
+        getHomeworkSolutions: build.query<
+            { solutions: HomeworkSolution[] },
+            { homeworkID: string | number }
+        >({
+            query: ({ homeworkID }) => {
+                return {
+                    url: homeworkSolutionPaths.homeworkSolutions(homeworkID),
                     method: 'GET',
                 };
             },
@@ -30,4 +43,5 @@ export const homeworkSolutionSlice = appApi.injectEndpoints({
 export const { 
     useGetClassSolutionsQuery,
     useGetSolutionQuery,
+    useGetHomeworkSolutionsQuery,
  } = homeworkSolutionSlice;

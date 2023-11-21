@@ -26,11 +26,10 @@ const HomeworkSolutionPage : React.FC = () => {
 
 
     return (
-        <Container direction='vertical' gap="l">
+        <Container direction='vertical' gap="l" classes={styles.page}> 
             {isSuccess && <SolutionHeader solution={data} />}
-            <Container direction='grid' gap="l" classes={styles.content}>
-                <Solution id={id} />
-                {/* {isSuccess && <IframeViewer linkToFile={data.file} classes={styles.solution} />} */}
+            <Container  gap="l" classes={styles.content}>
+                <Solution id={id} classes={styles.solution}/>
                 {isSuccess && <Review solution={data} classes={styles.review} />}
             </Container>
         </Container>

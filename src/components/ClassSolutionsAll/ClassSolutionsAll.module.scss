@@ -34,7 +34,7 @@
 
 .author {
     justify-content: flex-start;
-    padding: 8px 16px !important;
+    padding: 8px 0 !important;
 }
 
 .item {
@@ -84,9 +84,9 @@
             max-width: 100%;
         }
     }
-    // .author {
-    //     align-self: center;
-    // }
+    .author {
+        padding: 8px 16px ;
+    }
 
     .btn {
         flex-direction: row-reverse;

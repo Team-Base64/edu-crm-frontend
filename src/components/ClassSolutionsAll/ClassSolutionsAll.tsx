@@ -27,7 +27,7 @@ const SolutionItem: React.FC<SolutionItemProps> = ({ data }) => {
         <Container
             layout='defaultBase'
             classes={styles.item}
-            onClick={() =>  navigate(`/${AppRoutes.solutions}/${id}`, {replace: false, relative:'route'})}
+            onClick={() => navigate(`/${AppRoutes.solutions}/${id}`, { replace: false, relative: 'route' })}
         >
             <Container
                 direction='vertical'
@@ -70,15 +70,14 @@ interface SolutionGroupProps {
 
 const SolutionGroup: GroupFC<SolutionGroupProps, HomeworkSolution> = ({ keys, children }) => {
     const [show, setShow] = useState<boolean>(true);
-
     let headerText: string = '';
     let headerConent: React.ReactNode = '';
 
-    if (keys.hwID) {
+    if (keys.hwID !== undefined) {
         headerText = `Домашнее задание id${keys.hwID}`;
         headerConent = <SolutionHeaderHomeworkData homeworkID={keys.hwID} />;
     }
-    if (keys.studentID) {
+    if (keys.studentID !== undefined) {
         headerText = 'Выполнил';
         headerConent = <SolutionHeaderAuthor classes={styles.author} studentID={keys.studentID} />;
     }
@@ -104,7 +103,7 @@ const SolutionGroup: GroupFC<SolutionGroupProps, HomeworkSolution> = ({ keys, ch
                 classes={styles.title}
             >
                 <Button type='link' classes={styles.btn} onClick={() => setShow(prev => !prev)}>
-                <Text
+                    <Text
                         type="h"
                         size={4}
                         weight="bold"
@@ -112,11 +111,11 @@ const SolutionGroup: GroupFC<SolutionGroupProps, HomeworkSolution> = ({ keys, ch
                     >
                         {headerText}
                     </Text>
-                     <Icon name={show ? 'arrowUp' : 'arrowDown'} classes={styles.btnIcon} />
+                    <Icon name={show ? 'arrowUp' : 'arrowDown'} classes={styles.btnIcon} />
                     {/* <Text type="p" size={2} weight="bold" classes={styles.btnText}>
                         {show ? 'Свернуть' : 'Развернуть' }
                         </Text> */}
-                   
+
                 </Button>
             </Container>
             <Container
@@ -130,7 +129,7 @@ const SolutionGroup: GroupFC<SolutionGroupProps, HomeworkSolution> = ({ keys, ch
                     </>
                 ) : (
                     <EmptyItem text="Скрыто" classes={styles.hidden}>
-                        <Icon name='eyeCrossed' classes={styles.hiddenIcon}/>
+                        <Icon name='eyeCrossed' classes={styles.hiddenIcon} />
                     </EmptyItem>
                 )}
             </Container>

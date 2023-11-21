@@ -12,6 +12,8 @@ import Spinner from "@ui-kit/Spinner/Spinner";
 import Icon from "@ui-kit/Icon/Icon";
 import { useState } from "react";
 import Hint from "@ui-kit/Hint/Hint";
+import Button from "@ui-kit/Button/Button";
+import SolutionSelect from "./SolutionSelect";
 
 interface SolutionProps extends UiComponentProps {
     id: number | string;
@@ -54,6 +56,14 @@ const Solution: React.FC<SolutionProps> = ({ id, classes }) => {
             )}
             {isSuccess && (
                 <>
+                    {/* <Container direction='vertical'>
+                        <Text type='h' size={4} weight="bold">
+                           История решений:
+                        </Text>
+                        <Container>
+                            <SolutionSelect solution={data}/>
+                        </Container>
+                    </Container> */}
                     <Container direction='vertical'>
                         <Label text="Сообщение: " type="h" size={4} weight="bold" />
                         <Text type='p' size={1}>

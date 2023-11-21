@@ -14,6 +14,7 @@ import getTime from "utils/common/PrettyDate/common/time";
 import prettyDate from "utils/common/PrettyDate/datePrettify";
 import { getDelta } from "utils/common/PrettyDate/common/delta";
 import Updatable from "@ui-kit/Updatable/Updatable";
+import SolutionSelect from "@components/Solution/SolutionSelect";
 
 
 interface SolutionHeaderAuthorProps extends UiComponentProps {
@@ -194,6 +195,14 @@ const SolutionHeader: React.FC<SolutionHeaderProps> = ({ solution, classes }) =>
                     </Text>
                     <Container direction='vertical' classes={styles.contentItem}>
                         <SolutionHeaderPassStatus solution={solution} />
+                    </Container>
+                </Container>
+                <Container classes={styles.content}>
+                    <Text type='h' size={4} weight="bold" classes={styles.contentTitle}>
+                        История решений:
+                    </Text>
+                    <Container direction='vertical' classes={styles.contentItem}>
+                        <SolutionSelect solution={solution} />
                     </Container>
                 </Container>
             </Container>
