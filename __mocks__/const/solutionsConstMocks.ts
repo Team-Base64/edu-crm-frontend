@@ -1,5 +1,6 @@
 import { HomeworkSolution } from '../../src/app/features/homeworkSolution/homeworkSolutionModel';
-const attach = 'https://img.freepik.com/free-photo/beautiful-young-happy-brunette-girl-with-long-hair-posing-outdoors-street-photo-portrait-close-up_1321-50.jpg?w=996&t=st=1699021268~exp=1699021868~hmac=64ec31bcf7dd56bdd7962b0169cec1b5aa8a028e5d9677fb4348a62e78626202';
+const attach =
+    'https://img.freepik.com/free-photo/beautiful-young-happy-brunette-girl-with-long-hair-posing-outdoors-street-photo-portrait-close-up_1321-50.jpg?w=996&t=st=1699021268~exp=1699021868~hmac=64ec31bcf7dd56bdd7962b0169cec1b5aa8a028e5d9677fb4348a62e78626202';
 const pdf = 'https://www.vsavm.by/wp-content/uploads/2013/01/ZOOLOGIYa.pdf';
 interface IclassSolutionsMock {
     [key: number]: HomeworkSolution[];
@@ -25,7 +26,6 @@ export const solutionsMock: HomeworkSolution[] = [
         status: 'new',
         teacherEvaluation: '',
         isApproved: false,
-
     },
     {
         id: 112,
@@ -36,7 +36,6 @@ export const solutionsMock: HomeworkSolution[] = [
         status: 'new',
         teacherEvaluation: '',
         isApproved: false,
-
     },
     {
         id: 113,
@@ -47,7 +46,6 @@ export const solutionsMock: HomeworkSolution[] = [
         status: 'new',
         teacherEvaluation: '',
         isApproved: false,
-
     },
     {
         id: 114,
@@ -58,7 +56,6 @@ export const solutionsMock: HomeworkSolution[] = [
         status: 'new',
         teacherEvaluation: '',
         isApproved: false,
-
     },
     {
         id: 115,
@@ -69,7 +66,6 @@ export const solutionsMock: HomeworkSolution[] = [
         status: 'new',
         teacherEvaluation: '',
         isApproved: false,
-
     },
     {
         id: 1,

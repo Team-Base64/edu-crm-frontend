@@ -40,14 +40,13 @@ const Image: React.FC<ImageProps> = ({
         }, loadTimeoutMS);
 
         return () => clearTimeout(loadTimer.current);
-
     }, [src, setState]);
 
     const handleLoad = () => {
         clearTimeout(loadTimer.current);
         setState(ImageState.loaded);
         onLoad?.();
-    }
+    };
 
     const handleError = () => {
         clearTimeout(loadTimer.current);
@@ -57,8 +56,15 @@ const Image: React.FC<ImageProps> = ({
 
     return (
         <div className={[classes, styles.wrapper].join(' ')}>
-            {state === ImageState.loading && <Spinner classes={styles.spinner} />}
-            {state === ImageState.error && <Icon classes={styles.error} name='alert' />}
+            {state === ImageState.loading && (
+                <Spinner classes={styles.spinner} />
+            )}
+            {state === ImageState.error && (
+                <Icon
+                    classes={styles.error}
+                    name="alert"
+                />
+            )}
             <img
                 // ref={imgRef}
                 className={styles.image}

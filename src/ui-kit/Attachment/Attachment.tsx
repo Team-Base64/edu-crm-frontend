@@ -21,7 +21,7 @@ export const Attachment: React.FC<ChatAttachmentProps> = ({
     allowOpen,
     file,
     isStatic = false,
-    classes
+    classes,
 }) => {
     const handleRemoveClick = () => {
         onRemoveClick();
@@ -34,7 +34,7 @@ export const Attachment: React.FC<ChatAttachmentProps> = ({
         }
 
         setOverlayIsShowing(true);
-    }
+    };
 
     const [isOverlay, setOverlayIsShowing] = useState(false);
 

@@ -11,7 +11,7 @@ import { HomeworkTask } from '@app/features/homeworkTask/homeworkTaskModel';
 import { useGetTasksQuery } from '@app/features/homeworkTask/homeworkTaskSlice';
 import TaskCreateForm from '@components/HomeworkTaskCreateForm/HomeworkTaskCreateForm';
 
-interface TaskPageProps extends UiComponentProps { }
+interface TaskPageProps extends UiComponentProps {}
 
 const TaskPage: React.FC<TaskPageProps> = () => {
     const [showCreateForm, setShowCreateForm] = useState<boolean>(false);
@@ -31,7 +31,10 @@ const TaskPage: React.FC<TaskPageProps> = () => {
                 layout={'defaultBase'}
                 gap={'l'}
             >
-                <Container direction='horizontal' classes={styles.header}>
+                <Container
+                    direction="horizontal"
+                    classes={styles.header}
+                >
                     <Text
                         type={'h'}
                         size={3}
@@ -39,9 +42,17 @@ const TaskPage: React.FC<TaskPageProps> = () => {
                     >
                         Банк ваших заданий:
                     </Text>
-                    <Button onClick={() => setShowCreateForm(true)} >
-                        <Icon name='addLine' classes={styles.btnIcon} />
-                        <Text type='p' size={1} weight='bold' classes={styles.btnText}>
+                    <Button onClick={() => setShowCreateForm(true)}>
+                        <Icon
+                            name="addLine"
+                            classes={styles.btnIcon}
+                        />
+                        <Text
+                            type="p"
+                            size={1}
+                            weight="bold"
+                            classes={styles.btnText}
+                        >
                             Добавить задачу
                         </Text>
                     </Button>
@@ -53,8 +64,13 @@ const TaskPage: React.FC<TaskPageProps> = () => {
                     <HomeworkTaskList listState={[tasks, setTasks]} />
                 </Container>
             </Container>
-            <Overlay isShowing={showCreateForm} closeOverlay={() => setShowCreateForm(false)}>
-                <TaskCreateForm onSubmitSuccess={() => setShowCreateForm(false)}/>
+            <Overlay
+                isShowing={showCreateForm}
+                closeOverlay={() => setShowCreateForm(false)}
+            >
+                <TaskCreateForm
+                    onSubmitSuccess={() => setShowCreateForm(false)}
+                />
             </Overlay>
         </>
     );

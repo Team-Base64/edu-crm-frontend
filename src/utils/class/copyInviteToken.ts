@@ -1,4 +1,8 @@
-export const copyInviteToken = (teacherName : string, classTitle: string, token: string) => {
+export const copyInviteToken = (
+    teacherName: string,
+    classTitle: string,
+    token: string,
+) => {
     navigator.clipboard.writeText(
         `${teacherName} приглашает вас в класс '${classTitle}'
         
@@ -8,6 +12,6 @@ export const copyInviteToken = (teacherName : string, classTitle: string, token:
         \t\tВконтакте: https://vk.com/im?sel=-222976710
         \t\tТелеграмм: https://t.me/educrmmaster2bot
         2) Отправьте ему токен:
-        \t\t${token}`
+        \t\t${token}`,
     );
-}
+};

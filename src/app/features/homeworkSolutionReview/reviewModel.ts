@@ -4,6 +4,6 @@ export type ReviewItem = {
 };
 
 export type ReviewPayload = {
-    isApproved : boolean;
+    isApproved: boolean;
     tasks: ReviewItem[];
-}
+};

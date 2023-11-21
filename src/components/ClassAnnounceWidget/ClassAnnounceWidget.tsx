@@ -13,7 +13,7 @@ const ClassAnnounceWidget: React.FC<ClassAnnounceWidgetProps> = ({
 }) => {
     return (
         <Container direction="vertical">
-            <ClassAnnounceCreateField classID={classId} />  {/* avatarSrc="" */}
+            <ClassAnnounceCreateField classID={classId} /> {/* avatarSrc="" */}
             <ClassAnnounceList classId={classId} />
         </Container>
     );

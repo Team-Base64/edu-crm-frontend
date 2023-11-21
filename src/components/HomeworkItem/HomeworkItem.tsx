@@ -17,11 +17,8 @@ interface HomeworkItemProps extends UiComponentProps {
     homework: Homework;
 }
 
-const HomeworkItem: React.FC<HomeworkItemProps> = ({
-    homework,
-    classes,
-}) => {
-    const {deadlineTime, title, description, id} = homework;
+const HomeworkItem: React.FC<HomeworkItemProps> = ({ homework, classes }) => {
+    const { deadlineTime, title, description, id } = homework;
     const navigate = useNavigate();
 
     let stateClassName = styles.notPass;
@@ -36,8 +33,7 @@ const HomeworkItem: React.FC<HomeworkItemProps> = ({
 
     const handleClick = () => {
         return navigate(`/${AppRoutes.homeworks}/${id}`);
-    }
-
+    };
 
     return (
         <Container

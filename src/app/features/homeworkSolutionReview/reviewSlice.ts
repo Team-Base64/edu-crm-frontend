@@ -4,7 +4,10 @@ import { reviewPaths } from './reviewPaths';
 
 export const reviewSlice = appApi.injectEndpoints({
     endpoints: (build) => ({
-        createReview: build.mutation<unknown, { solutionID: number | string, payload: ReviewPayload }>({
+        createReview: build.mutation<
+            unknown,
+            { solutionID: number | string; payload: ReviewPayload }
+        >({
             query: ({ solutionID, payload }) => {
                 return {
                     url: reviewPaths.createReview(solutionID),
@@ -16,6 +19,4 @@ export const reviewSlice = appApi.injectEndpoints({
     }),
 });
 
-export const {
-    useCreateReviewMutation,
-} = reviewSlice;
+export const { useCreateReviewMutation } = reviewSlice;

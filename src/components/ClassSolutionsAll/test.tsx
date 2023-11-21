@@ -1,18 +1,21 @@
-import Container from "@ui-kit/Container/Container";
-import Text from "@ui-kit/Text/Text";
-import React, { useId, useState } from "react";
-import { HomeworkSolution } from "@app/features/homeworkSolution/homeworkSolutionModel";
-import EmptyItem from "@components/EmptyItem/EmptyItem";
+import Container from '@ui-kit/Container/Container';
+import Text from '@ui-kit/Text/Text';
+import React, { useId, useState } from 'react';
+import { HomeworkSolution } from '@app/features/homeworkSolution/homeworkSolutionModel';
+import EmptyItem from '@components/EmptyItem/EmptyItem';
 import styles from './ClassSolutionsAll.module.scss';
-import Icon from "@ui-kit/Icon/Icon";
-import { SolutionHeaderAuthor, SolutionHeaderHomeworkData } from "@components/SolutionHeader/SolutionHeader";
-import { UiComponentProps } from "@ui-kit/interfaces";
-import getDate from "utils/common/PrettyDate/common/date";
-import getTime from "utils/common/PrettyDate/common/time";
-import Button from "@ui-kit/Button/Button";
-import DeepGroup, { GroupFC, ListFC } from "@ui-kit/DeepGroup/DeepGroup";
-import { useNavigate } from "react-router-dom";
-import AppRoutes from "@router/routes";
+import Icon from '@ui-kit/Icon/Icon';
+import {
+    SolutionHeaderAuthor,
+    SolutionHeaderHomeworkData,
+} from '@components/SolutionHeader/SolutionHeader';
+import { UiComponentProps } from '@ui-kit/interfaces';
+import getDate from 'utils/common/PrettyDate/common/date';
+import getTime from 'utils/common/PrettyDate/common/time';
+import Button from '@ui-kit/Button/Button';
+import DeepGroup, { GroupFC, ListFC } from '@ui-kit/DeepGroup/DeepGroup';
+import { useNavigate } from 'react-router-dom';
+import AppRoutes from '@router/routes';
 
 interface SolutionItemProps extends UiComponentProps {
     data: HomeworkSolution;
@@ -23,50 +26,61 @@ const SolutionItem: React.FC<SolutionItemProps> = ({ data }) => {
     const navigate = useNavigate();
     return (
         <Container
-            layout='defaultBase'
+            layout="defaultBase"
             classes={styles.item}
-            onClick={() => navigate(`/${AppRoutes.solutions}/${id}`, { replace: false, relative: 'route' })}
+            onClick={() =>
+                navigate(`/${AppRoutes.solutions}/${id}`, {
+                    replace: false,
+                    relative: 'route',
+                })
+            }
         >
             <Container
-                direction='vertical'
+                direction="vertical"
                 gap="l"
             >
                 <Text
-                    type='h'
+                    type="h"
                     size={4}
                     weight="bold"
                 >
                     Решение от {getDate(createTime)} {getTime(createTime)}
                 </Text>
-                <Container
-                    direction='vertical'>
+                <Container direction="vertical">
                     <Text
-                        type='p'
+                        type="p"
                         size={1}
                         weight="bold"
                     >
                         Сообщение:
                     </Text>
                     <Text
-                        type='p'
+                        type="p"
                         size={1}
                     >
                         {text ? text : 'Без сообщения'}
                     </Text>
                 </Container>
             </Container>
-            <Button type="link" classes={styles.btn}>
-                <Icon name='arrowRight' classes={styles.btnIcon} />
+            <Button
+                type="link"
+                classes={styles.btn}
+            >
+                <Icon
+                    name="arrowRight"
+                    classes={styles.btnIcon}
+                />
             </Button>
         </Container>
     );
-}
+};
 
-interface SolutionGroupProps {
+interface SolutionGroupProps {}
 
-}
-
-const SolutionGroup: GroupFC<SolutionGroupProps, HomeworkSolution> = ({ keys, children }) => {
+const SolutionGroup: GroupFC<SolutionGroupProps, HomeworkSolution> = ({
+    keys,
+    children,
+}) => {
     const [show, setShow] = useState<boolean>(true);
     let headerText: string = '';
     let headerConent: React.ReactNode = '';
@@ -77,7 +91,12 @@ const SolutionGroup: GroupFC<SolutionGroupProps, HomeworkSolution> = ({ keys, ch
     }
     if (keys.studentID !== undefined) {
         headerText = 'Выполнил';
-        headerConent = <SolutionHeaderAuthor classes={styles.author} studentID={keys.studentID} />;
+        headerConent = (
+            <SolutionHeaderAuthor
+                classes={styles.author}
+                studentID={keys.studentID}
+            />
+        );
     }
     if (keys.isApproved !== undefined) {
         headerText = keys.isApproved ? 'Принятые' : 'С ошибками';
@@ -97,10 +116,14 @@ const SolutionGroup: GroupFC<SolutionGroupProps, HomeworkSolution> = ({ keys, ch
             gap="l"
         >
             <Container
-                direction='vertical'
+                direction="vertical"
                 classes={styles.title}
             >
-                <Button type='link' classes={styles.btn} onClick={() => setShow(prev => !prev)}>
+                <Button
+                    type="link"
+                    classes={styles.btn}
+                    onClick={() => setShow((prev) => !prev)}
+                >
                     <Text
                         type="h"
                         size={4}
@@ -109,15 +132,17 @@ const SolutionGroup: GroupFC<SolutionGroupProps, HomeworkSolution> = ({ keys, ch
                     >
                         {headerText}
                     </Text>
-                    <Icon name={show ? 'arrowUp' : 'arrowDown'} classes={styles.btnIcon} />
+                    <Icon
+                        name={show ? 'arrowUp' : 'arrowDown'}
+                        classes={styles.btnIcon}
+                    />
                     {/* <Text type="p" size={2} weight="bold" classes={styles.btnText}>
                         {show ? 'Свернуть' : 'Развернуть' }
                         </Text> */}
-
                 </Button>
             </Container>
             <Container
-                direction='vertical'
+                direction="vertical"
                 classes={styles.content}
             >
                 {show ? (
@@ -126,39 +151,41 @@ const SolutionGroup: GroupFC<SolutionGroupProps, HomeworkSolution> = ({ keys, ch
                         {children}
                     </>
                 ) : (
-                    <EmptyItem text="Скрыто" classes={styles.hidden}>
-                        <Icon name='eyeCrossed' classes={styles.hiddenIcon} />
+                    <EmptyItem
+                        text="Скрыто"
+                        classes={styles.hidden}
+                    >
+                        <Icon
+                            name="eyeCrossed"
+                            classes={styles.hiddenIcon}
+                        />
                     </EmptyItem>
                 )}
             </Container>
         </Container>
     );
-}
-interface SolutionListProps {
+};
+interface SolutionListProps {}
 
-}
-
-const SolutionList: ListFC<SolutionListProps, HomeworkSolution> = ({ items }) => {
+const SolutionList: ListFC<SolutionListProps, HomeworkSolution> = ({
+    items,
+}) => {
     const key = useId();
 
     if (!items.length) {
-        return <EmptyItem text="Пока нет решений" />
+        return <EmptyItem text="Пока нет решений" />;
     }
 
     return (
-        <Container
-            direction='vertical'
-        >
-            {
-                items.map(item => (
-                    <React.Fragment key={`${key}-group-item-${item.id}`}>
-                        <SolutionItem data={item} />
-                    </React.Fragment>
-                ))
-            }
+        <Container direction="vertical">
+            {items.map((item) => (
+                <React.Fragment key={`${key}-group-item-${item.id}`}>
+                    <SolutionItem data={item} />
+                </React.Fragment>
+            ))}
         </Container>
     );
-}
+};
 
 interface SolutionsGroupProps extends UiComponentProps {
     solutions: HomeworkSolution[];
@@ -166,11 +193,16 @@ interface SolutionsGroupProps extends UiComponentProps {
     keys: (keyof HomeworkSolution)[];
 }
 
-const SolutionsGroup: React.FC<SolutionsGroupProps> = ({ solutions, title, keys, classes }) => {
+const SolutionsGroup: React.FC<SolutionsGroupProps> = ({
+    solutions,
+    title,
+    keys,
+    classes,
+}) => {
     return (
         <Container
-            direction='vertical'
-            layout='defaultBase'
+            direction="vertical"
+            layout="defaultBase"
             classes={[styles.widget, classes].join(' ')}
         >
             {title && (
@@ -184,7 +216,7 @@ const SolutionsGroup: React.FC<SolutionsGroupProps> = ({ solutions, title, keys,
             )}
 
             <Container
-                direction='vertical'
+                direction="vertical"
                 classes={styles.widgetContent}
             >
                 <DeepGroup
@@ -192,16 +224,12 @@ const SolutionsGroup: React.FC<SolutionsGroupProps> = ({ solutions, title, keys,
                     keys={keys}
                     renderGroup={SolutionGroup}
                     renderList={SolutionList}
-                    renderGroupProps={{
-
-                    }}
-                    renderListProps={{
-
-                    }}
+                    renderGroupProps={{}}
+                    renderListProps={{}}
                 />
             </Container>
         </Container>
     );
-}
+};
 
 export default SolutionsGroup;

@@ -1,46 +1,42 @@
-import { groupByValuesObjectKeys } from "@ui-kit/_utils/group";
-import React, { useId } from "react";
+import { groupByValuesObjectKeys } from '@ui-kit/_utils/group';
+import React, { useId } from 'react';
 
 interface DeepGroupProps<
     Item extends object,
     ListProps extends object,
     GroupProps extends object,
-    Key = Extract<keyof Item, PropertyKey>
+    Key = Extract<keyof Item, PropertyKey>,
 > {
     items: Item[];
     keys: Key[];
     renderList: ListFC<ListProps, Item>;
     renderListProps: ListProps;
-    renderGroup: GroupFC<GroupProps, Item>
+    renderGroup: GroupFC<GroupProps, Item>;
     renderGroupProps: GroupProps;
 }
 
-export type ListFC<
-    Props extends object,
-    Item extends object
-> = React.FC<
+export type ListFC<Props extends object, Item extends object> = React.FC<
     Props & {
-        items: Item[]
+        items: Item[];
     }
 >;
 
-export type GroupFC<
-    Props extends object,
-    Item extends object
-> = React.FC<
+export type GroupFC<Props extends object, Item extends object> = React.FC<
     Props & {
         keys: {
-            [key in Extract<keyof Item, PropertyKey>]: Item[key] | undefined
-        },
-        children: React.ReactNode
+            [key in Extract<keyof Item, PropertyKey>]: Item[key] | undefined;
+        };
+        children: React.ReactNode;
     }
 >;
 
 type DeepGroupComponent = <
     Item extends object,
     ListProps extends object,
-    GroupProps extends object
->(props: DeepGroupProps<Item, ListProps, GroupProps>) => React.ReactNode;
+    GroupProps extends object,
+>(
+    props: DeepGroupProps<Item, ListProps, GroupProps>,
+) => React.ReactNode;
 
 const DeepGroup: DeepGroupComponent = (props) => {
     const key = useId();
@@ -49,7 +45,10 @@ const DeepGroup: DeepGroupComponent = (props) => {
     if (!keys.length) {
         const { renderList: List, renderListProps: listProps } = props;
         return (
-            <List {...listProps} items={items} />
+            <List
+                {...listProps}
+                items={items}
+            />
         );
     }
     const { renderGroup: Group, renderGroupProps: groupProps } = props;
@@ -57,23 +56,22 @@ const DeepGroup: DeepGroupComponent = (props) => {
 
     return (
         <>
-            {
-                Array
-                    .from(groups.entries())
-                    .map(([groupKey, groupItems]) => (
-                        <React.Fragment key={`${key}-${JSON.stringify(groupKey)}`}>
-                            <Group {...groupProps} keys={groupKey}>
-                                <DeepGroup
-                                    {...props}
-                                    items={groupItems}
-                                    keys={keys.slice(1)}
-                                />
-                            </Group>
-                        </React.Fragment >
-                    ))
-            }
+            {Array.from(groups.entries()).map(([groupKey, groupItems]) => (
+                <React.Fragment key={`${key}-${JSON.stringify(groupKey)}`}>
+                    <Group
+                        {...groupProps}
+                        keys={groupKey}
+                    >
+                        <DeepGroup
+                            {...props}
+                            items={groupItems}
+                            keys={keys.slice(1)}
+                        />
+                    </Group>
+                </React.Fragment>
+            ))}
         </>
     );
-}
+};
 
 export default DeepGroup;

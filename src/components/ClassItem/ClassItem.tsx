@@ -19,7 +19,9 @@ interface ClassItemProps extends UiComponentProps {
 }
 
 const ClassItem: React.FC<ClassItemProps> = ({ classID, classes }) => {
-    const { data, isLoading, isError, isSuccess } = useGetClassByIdQuery({ id: classID });
+    const { data, isLoading, isError, isSuccess } = useGetClassByIdQuery({
+        id: classID,
+    });
     // const { id, title, description, inviteToken } = data;
     const [hint, setHint] = useState<boolean>(false);
     const navigate = useNavigate();
@@ -40,7 +42,7 @@ const ClassItem: React.FC<ClassItemProps> = ({ classID, classes }) => {
         const { title, inviteToken } = data.class;
         copyInviteToken('', title, inviteToken);
         setHint(true);
-    }
+    };
 
     return (
         <>
@@ -53,15 +55,26 @@ const ClassItem: React.FC<ClassItemProps> = ({ classID, classes }) => {
                 {isLoading && (
                     <Container classes={styles.status}>
                         <Spinner classes={styles.statusSpinner} />
-                        <Text type="p" size={1} classes={styles.statusText}>
+                        <Text
+                            type="p"
+                            size={1}
+                            classes={styles.statusText}
+                        >
                             Загрузка...
                         </Text>
                     </Container>
                 )}
                 {isError && (
                     <Container classes={styles.status}>
-                        <Icon name="alert" classes={styles.statusIcon} />
-                        <Text type="p" size={1} classes={styles.statusText}>
+                        <Icon
+                            name="alert"
+                            classes={styles.statusIcon}
+                        />
+                        <Text
+                            type="p"
+                            size={1}
+                            classes={styles.statusText}
+                        >
                             Произошла ошибка...
                         </Text>
                     </Container>
@@ -72,7 +85,7 @@ const ClassItem: React.FC<ClassItemProps> = ({ classID, classes }) => {
                             <Container
                                 direction={'vertical'}
                                 classes={styles.wrapper}
-                                gap='l'
+                                gap="l"
                             >
                                 <Text
                                     type={'h'}
@@ -87,36 +100,57 @@ const ClassItem: React.FC<ClassItemProps> = ({ classID, classes }) => {
                                     size={1}
                                     classes={styles.text}
                                 >
-                                    {data.class.description && data.class.description.length ? data.class.description : 'Без описания'}
+                                    {data.class.description &&
+                                    data.class.description.length
+                                        ? data.class.description
+                                        : 'Без описания'}
                                 </Text>
                             </Container>
                         </Container>
 
                         <Container
                             classes={styles.invite}
-                            layout='defaultBase'
+                            layout="defaultBase"
                         >
                             <Container classes={styles.inviteWrapper}>
-                                <Text type='p' size={1} classes={styles.inviteToken}>
+                                <Text
+                                    type="p"
+                                    size={1}
+                                    classes={styles.inviteToken}
+                                >
                                     {data.class.inviteToken}
                                 </Text>
                             </Container>
                             <Button
-                                type='link'
+                                type="link"
                                 classes={styles.inviteBtn}
                                 onClick={handleInvite}
                             >
-                                <Icon name='copyLine' classes={styles.inviteBtnIcon} />
+                                <Icon
+                                    name="copyLine"
+                                    classes={styles.inviteBtnIcon}
+                                />
                             </Button>
-                            <Hint classes={styles.inviteHint} text='Приглашение скопировано в буфер обмена!' timeoutSec={3} state={[hint, setHint]} />
+                            <Hint
+                                classes={styles.inviteHint}
+                                text="Приглашение скопировано в буфер обмена!"
+                                timeoutSec={3}
+                                state={[hint, setHint]}
+                            />
                         </Container>
 
-                        <Button type={'link'} classes={styles.btn}>
-                            <Icon name={'arrowRight'} classes={styles.btnIcon} />
+                        <Button
+                            type={'link'}
+                            classes={styles.btn}
+                        >
+                            <Icon
+                                name={'arrowRight'}
+                                classes={styles.btnIcon}
+                            />
                         </Button>
                     </>
                 )}
-            </Container >
+            </Container>
         </>
     );
 };

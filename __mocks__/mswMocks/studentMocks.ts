@@ -8,7 +8,7 @@ import { classStudentsMock, studentsMock } from '../const/studentConstMocks.ts';
 
 export const studentHandlers = [
     http.get(`${appPaths.basePath}${appPaths.student(':id')}`, ({ params }) => {
-        const id  = Number( params.id);
+        const id = Number(params.id);
 
         try {
             return HttpResponse.json(
@@ -56,5 +56,5 @@ export const studentHandlers = [
                 );
             }
         },
-    ),    
+    ),
 ];

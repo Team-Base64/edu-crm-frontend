@@ -14,7 +14,9 @@ interface HomeworkTaskSelectProps extends UiComponentProps {
     onSubmit?: (selected: HomeworkTask[]) => void;
 }
 
-const HomeworkTaskSelect: React.FC<HomeworkTaskSelectProps> = ({ onSubmit }) => {
+const HomeworkTaskSelect: React.FC<HomeworkTaskSelectProps> = ({
+    onSubmit,
+}) => {
     const [list, setList] = useState<HomeworkTask[]>([]);
     const [listSelect, setListSelect] = useState<HomeworkTask[]>([]);
     const { data } = useGetTasksQuery(null);
@@ -27,7 +29,7 @@ const HomeworkTaskSelect: React.FC<HomeworkTaskSelectProps> = ({ onSubmit }) => 
     const handleSubmit = () => {
         onSubmit?.(listSelect);
         setListSelect([]);
-    }
+    };
 
     // const handleClear = () => {
     //     setListSelect([]);
@@ -35,23 +37,43 @@ const HomeworkTaskSelect: React.FC<HomeworkTaskSelectProps> = ({ onSubmit }) => 
 
     return (
         <>
-            <Container direction='vertical' layout='defaultBase' gap='l' classes={styles.widget}>
-                <Text type='h' size={3} weight='bold'>
+            <Container
+                direction="vertical"
+                layout="defaultBase"
+                gap="l"
+                classes={styles.widget}
+            >
+                <Text
+                    type="h"
+                    size={3}
+                    weight="bold"
+                >
                     Выберите задания из списка
                 </Text>
                 <HomeworkTaskList
                     listState={[list, setList]}
                     onSelect={(t) => {
-                        setListSelect(p => [...p, t])
+                        setListSelect((p) => [...p, t]);
                     }}
                     onDeselect={(t) => {
-                        setListSelect(p => p.filter(i => i.id !== t.id))
+                        setListSelect((p) => p.filter((i) => i.id !== t.id));
                     }}
                 />
                 <Container classes={styles.nav}>
-                    <Button onClick={handleSubmit} classes={styles.submit}>
-                        <Icon name='approve' classes={styles.submitIcon}/>
-                        <Text type='p' size={1} weight='bold' classes={styles.submitText} >
+                    <Button
+                        onClick={handleSubmit}
+                        classes={styles.submit}
+                    >
+                        <Icon
+                            name="approve"
+                            classes={styles.submitIcon}
+                        />
+                        <Text
+                            type="p"
+                            size={1}
+                            weight="bold"
+                            classes={styles.submitText}
+                        >
                             Прикрепить
                         </Text>
                     </Button>
@@ -60,7 +82,6 @@ const HomeworkTaskSelect: React.FC<HomeworkTaskSelectProps> = ({ onSubmit }) => 
                     </Button> */}
                 </Container>
             </Container>
-
         </>
     );
 };

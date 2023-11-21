@@ -1,8 +1,9 @@
 import appApi from '@app/appApi';
-import { Announcement, AnnouncementCreatePayload } from '@app/features/announcement/announcementModel';
+import {
+    Announcement,
+    AnnouncementCreatePayload,
+} from '@app/features/announcement/announcementModel';
 import { announcementPaths } from '@app/features/announcement/announcementPaths';
-
-
 
 export const announcementSlice = appApi
     .enhanceEndpoints({
@@ -22,15 +23,20 @@ export const announcementSlice = appApi
                 },
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
-                providesTags: (result, error, arg) => ([{
-                    type: 'ClassFeed' as const,
-                    id: arg.class_id,
-                }]),
+                providesTags: (result, error, arg) => [
+                    {
+                        type: 'ClassFeed' as const,
+                        id: arg.class_id,
+                    },
+                ],
             }),
 
             createAnnouncement: build.mutation<
                 { post: Announcement },
-                { class_id: string | number, payload: AnnouncementCreatePayload }
+                {
+                    class_id: string | number;
+                    payload: AnnouncementCreatePayload;
+                }
             >({
                 query: ({ class_id, payload }) => {
                     return {
@@ -41,10 +47,12 @@ export const announcementSlice = appApi
                 },
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
-                invalidatesTags: (result, error, arg) => ([{
-                    type: 'ClassFeed' as const,
-                    id: arg.class_id,
-                }]),
+                invalidatesTags: (result, error, arg) => [
+                    {
+                        type: 'ClassFeed' as const,
+                        id: arg.class_id,
+                    },
+                ],
             }),
         }),
     });

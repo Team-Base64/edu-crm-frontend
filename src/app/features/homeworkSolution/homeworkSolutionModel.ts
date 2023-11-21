@@ -9,5 +9,5 @@ export type HomeworkSolution = {
     file: string; // ‘host/…./file.pdf
     status: HomeworkSolutionStatus;
     teacherEvaluation: string;
-    isApproved : boolean;
+    isApproved: boolean;
 };

@@ -16,13 +16,19 @@ interface ClassHeaderProps extends UiComponentProps {
 }
 
 const ClassHeader: React.FC<ClassHeaderProps> = ({ classId }) => {
-    const { data, isError, isLoading, isSuccess } = useGetClassByIdQuery({ id: classId });
+    const { data, isError, isLoading, isSuccess } = useGetClassByIdQuery({
+        id: classId,
+    });
     const [hint, setHint] = useState<boolean>(false);
 
     const handleInvite = () => {
-        copyInviteToken('', data?.class.title || '', data?.class.inviteToken || '');
+        copyInviteToken(
+            '',
+            data?.class.title || '',
+            data?.class.inviteToken || '',
+        );
         setHint(true);
-    }
+    };
 
     return (
         <Container
@@ -32,15 +38,26 @@ const ClassHeader: React.FC<ClassHeaderProps> = ({ classId }) => {
             {isLoading && (
                 <>
                     <Spinner classes={styles.statusSpinner} />
-                    <Text type='p' size={1} classes={styles.statusText}>
+                    <Text
+                        type="p"
+                        size={1}
+                        classes={styles.statusText}
+                    >
                         Загрузка...
                     </Text>
                 </>
             )}
             {isError && (
                 <>
-                    <Icon name='alert' classes={styles.statusIcon} />
-                    <Text type='p' size={1} classes={styles.statusText}>
+                    <Icon
+                        name="alert"
+                        classes={styles.statusIcon}
+                    />
+                    <Text
+                        type="p"
+                        size={1}
+                        classes={styles.statusText}
+                    >
                         Загрузка...
                     </Text>
                 </>
@@ -63,35 +80,51 @@ const ClassHeader: React.FC<ClassHeaderProps> = ({ classId }) => {
                             size={1}
                             classes={styles.description}
                         >
-                            {data.class.description ? data.class.description : 'Без описания'}
+                            {data.class.description
+                                ? data.class.description
+                                : 'Без описания'}
                         </Text>
                     </Container>
                     <Container
                         classes={styles.invite}
-                        direction='vertical'
-                        layout='defaultBase'
+                        direction="vertical"
+                        layout="defaultBase"
                     >
-                        <Text type='h' size={4} weight='bold'>
+                        <Text
+                            type="h"
+                            size={4}
+                            weight="bold"
+                        >
                             Приглашение в класс
                         </Text>
                         <Container
                             classes={styles.inviteContent}
-                            layout='defaultBase'
+                            layout="defaultBase"
                         >
-                            <Text type='p' size={1} classes={styles.inviteToken}>
+                            <Text
+                                type="p"
+                                size={1}
+                                classes={styles.inviteToken}
+                            >
                                 {data.class.inviteToken}
                             </Text>
                             <Button
-                                type='link'
+                                type="link"
                                 classes={styles.btn}
                                 onClick={handleInvite}
                             >
-                                <Icon name='copyLine' />
+                                <Icon name="copyLine" />
                             </Button>
-                            <Hint classes={styles.hint} text='Приглашение скопировано в буфер обмена!' timeoutSec={3} state={[hint, setHint]} />
+                            <Hint
+                                classes={styles.hint}
+                                text="Приглашение скопировано в буфер обмена!"
+                                timeoutSec={3}
+                                state={[hint, setHint]}
+                            />
                         </Container>
                     </Container>
-                </>)}
+                </>
+            )}
         </Container>
     );
 };

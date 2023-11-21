@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
 interface Props<T> {
     element: React.FC<T>;
     updateProps: () => T;
     interval: number;
-};
+}
 
-const Updatable = <T extends object>(props: Props<T> & { children?: React.ReactNode }) => {
+const Updatable = <T extends object>(
+    props: Props<T> & { children?: React.ReactNode },
+) => {
     const { element, updateProps, interval } = props;
-    const [rendered, update] = useState<React.ReactNode>(element(updateProps()));
+    const [rendered, update] = useState<React.ReactNode>(
+        element(updateProps()),
+    );
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -17,14 +21,10 @@ const Updatable = <T extends object>(props: Props<T> & { children?: React.ReactN
 
         return () => {
             clearInterval(timer);
-        }
-    }, [update, updateProps]);
+        };
+    }, [element, interval, update, updateProps]);
 
-    return (
-        <>
-            {rendered}
-        </>
-    );
-}
+    return <>{rendered}</>;
+};
 
 export default Updatable;

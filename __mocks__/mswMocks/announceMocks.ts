@@ -4,12 +4,13 @@ import appPaths from '../../src/app/appPaths';
 
 import { defaultHeadersMock } from '../const/constMocks.ts';
 import { classAnnouncementsMock } from '../const/announceConstMocks.ts';
-import { Announcement, AnnouncementCreatePayload } from '../../src/app/features/announcement/announcementModel.ts';
-
+import {
+    Announcement,
+    AnnouncementCreatePayload,
+} from '../../src/app/features/announcement/announcementModel.ts';
 
 export const announceHandlers = [
-
-    // Create class announce 
+    // Create class announce
     http.post<{ id: string }, AnnouncementCreatePayload>(
         `${appPaths.basePath}${appPaths.createAnnouncement(':id')}`,
         async ({ params, request }) => {
@@ -41,7 +42,7 @@ export const announceHandlers = [
                     },
                 );
             }
-        }
+        },
     ),
 
     // Get class anoounces

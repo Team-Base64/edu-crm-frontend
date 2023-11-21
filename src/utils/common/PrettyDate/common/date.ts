@@ -1,7 +1,10 @@
-export default function getDate(iso: number | string | Date, showYear: boolean = true): string {
+export default function getDate(
+    iso: number | string | Date,
+    showYear: boolean = true,
+): string {
     const date = new Date(iso).toLocaleDateString('ru-RU');
 
-    if(!showYear) {
+    if (!showYear) {
         return date.slice(0, -5);
     }
 

@@ -75,7 +75,7 @@ const ClassAnnounceCard: React.FC<ClassAnnounceCardProps> = ({
 
                     <Updatable
                         element={Text}
-                        updateProps={() : TextProps => ({
+                        updateProps={(): TextProps => ({
                             classes: [styles.date].join(' '),
                             type: 'p',
                             size: 1,
@@ -118,7 +118,7 @@ const ClassAnnounceCard: React.FC<ClassAnnounceCardProps> = ({
                     {text}
                 </Text>
             </Container>
-        </Container >
+        </Container>
     );
 };
 

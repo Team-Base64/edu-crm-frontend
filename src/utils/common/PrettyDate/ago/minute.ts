@@ -6,7 +6,6 @@ export default function minutesAgo(offset: number): string {
 
     if (offset < 20) return offset + ' минут назад';
 
-
     const lastDigit = offset % 10;
 
     if (lastDigit == 0) return offset + ' минут назад';

@@ -1,3 +1,3 @@
 export const reviewPaths = {
-    createReview : (solutionID : string | number) => `solutions/${solutionID}`,
-}
+    createReview: (solutionID: string | number) => `solutions/${solutionID}`,
+};

@@ -1,6 +1,6 @@
 export function throttle<A = unknown, R = void>(
     fn: (args: A) => R,
-    ms: number
+    ms: number,
 ): [(args: A) => Promise<R>, () => void] {
     let timer: ReturnType<typeof setTimeout> | undefined = undefined;
 
