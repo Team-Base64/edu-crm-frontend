@@ -12,6 +12,7 @@ import { copyInviteToken } from 'utils/class/copyInviteToken';
 import Hint from '@ui-kit/Hint/Hint';
 import { useGetClassByIdQuery } from '@app/features/class/classSlice';
 import Spinner from '@ui-kit/Spinner/Spinner';
+import AppRoutes from '@router/routes';
 
 interface ClassItemProps extends UiComponentProps {
     classID: number;
@@ -28,7 +29,7 @@ const ClassItem: React.FC<ClassItemProps> = ({ classID, classes }) => {
 
         if (!data) return;
 
-        navigate(String(data.class.id));
+        navigate(`/${AppRoutes.classes}/${data.class.id}`);
     };
 
     const handleInvite: React.MouseEventHandler = (e) => {
