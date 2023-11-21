@@ -3,6 +3,7 @@
   overflow-y: scroll;
 
   &--input {
+    width: inherit;
     margin: 8px 16px;
   }
 }

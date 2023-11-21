@@ -13,14 +13,13 @@ import {
     CalendarEventType,
     eventMutationsType,
 } from '@app/features/calendar/calendarModel.ts';
-import { noop, unselectedId } from '@app/const/consts.ts';
-import { getEmptyStringValidation } from '../../validation/string.ts';
+import { unselectedId } from '@app/const/consts.ts';
 import {
-    getIsFirstArgLessDateValidation,
     getIsFirstArgLessOrEqualDateValidation,
     isActualDate,
     isActualTime,
 } from '../../validation/date.ts';
+import { getEmptyStringValidation } from '../../validation/string.ts';
 
 interface AddEvenFormProps extends UiComponentProps {
     setIsShowingState: React.Dispatch<React.SetStateAction<boolean>>;

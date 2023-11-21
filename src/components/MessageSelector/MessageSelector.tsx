@@ -34,25 +34,27 @@ const MessageSelector: React.FC<MessageSelectorProps> = ({
                 dialog.name.toLowerCase().includes(getSearchParam()) ||
                 dialog.text.toLowerCase().includes(getSearchParam()),
         )
-        .map((dialog) => (
-            <MessageSelectDialogItem
-                data={dialog}
-                key={dialog.chatID}
-                selectDialog={() =>
-                    setSearchParams(
-                        updateOneSearchParam(
-                            searchParams,
-                            routerQueryParams.messenger.chatid,
-                            dialog.chatID,
-                        ),
-                    )
-                }
-                isSelected={
-                    searchParams.get(routerQueryParams.messenger.chatid) ===
-                    dialog.chatID
-                }
-            ></MessageSelectDialogItem>
-        ));
+        .map((dialog) => {
+            return (
+                <MessageSelectDialogItem
+                    data={dialog}
+                    key={dialog.chatID}
+                    selectDialog={() =>
+                        setSearchParams(
+                            updateOneSearchParam(
+                                searchParams,
+                                routerQueryParams.messenger.chatid,
+                                dialog.chatID,
+                            ),
+                        )
+                    }
+                    isSelected={
+                        searchParams.get(routerQueryParams.messenger.chatid) ==
+                        dialog.chatID
+                    }
+                ></MessageSelectDialogItem>
+            );
+        });
 
     return (
         <Container
