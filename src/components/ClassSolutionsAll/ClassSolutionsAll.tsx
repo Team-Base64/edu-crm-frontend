@@ -1,7 +1,7 @@
 import { useGetClassSolutionsQuery } from "@app/features/homeworkSolution/homeworkSolutionSlice";
 import Container from "@ui-kit/Container/Container";
 import Text from "@ui-kit/Text/Text";
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 import { HomeworkSolution } from "@app/features/homeworkSolution/homeworkSolutionModel";
 import EmptyItem from "@components/EmptyItem/EmptyItem";
 import Spinner from "@ui-kit/Spinner/Spinner";
@@ -141,6 +141,7 @@ interface SolutionListProps {
 }
 
 const SolutionList: ListFC<SolutionListProps, HomeworkSolution> = ({ items }) => {
+    const key = useId();
     if (!items.length) {
         return <EmptyItem text="Пока нет решений" />
     }
@@ -152,7 +153,9 @@ const SolutionList: ListFC<SolutionListProps, HomeworkSolution> = ({ items }) =>
         >
             {
                 items.map(item => (
-                    <SolutionItem data={item} />
+                    <React.Fragment key={`${key}-${item.id}`}>
+                        <SolutionItem data={item} />
+                    </React.Fragment>
                 ))
             }
         </Container>

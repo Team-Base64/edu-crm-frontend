@@ -1,4 +1,5 @@
 import { groupByValuesObjectKeys } from "@ui-kit/_utils/group";
+import React, { useId } from "react";
 
 interface DeepGroupProps<
     Item extends object,
@@ -42,6 +43,7 @@ type DeepGroupComponent = <
 >(props: DeepGroupProps<Item, ListProps, GroupProps>) => React.ReactNode;
 
 const DeepGroup: DeepGroupComponent = (props) => {
+    const key = useId();
     const { items, keys } = props;
 
     if (!keys.length) {
@@ -59,13 +61,15 @@ const DeepGroup: DeepGroupComponent = (props) => {
                 Array
                     .from(groups.entries())
                     .map(([groupKey, groupItems]) => (
-                        <Group {...groupProps} keys={groupKey}>
-                            <DeepGroup
-                                {...props}
-                                items={groupItems}
-                                keys={keys.slice(1)}
-                            />
-                        </Group>
+                        <React.Fragment key={`${key}-${JSON.stringify(groupKey)}`}>
+                            <Group {...groupProps} keys={groupKey}>
+                                <DeepGroup
+                                    {...props}
+                                    items={groupItems}
+                                    keys={keys.slice(1)}
+                                />
+                            </Group>
+                        </React.Fragment >
                     ))
             }
         </>

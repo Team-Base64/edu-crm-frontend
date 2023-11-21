@@ -67,13 +67,13 @@ const Solution: React.FC<SolutionProps> = ({ id, classes }) => {
                     <Container direction='vertical'>
                         <Label text="Сообщение: " type="h" size={4} weight="bold" />
                         <Text type='p' size={1}>
-                            {(data.text?.length) ? data.text : 'Сообщение не приложено'}
+                            {(data.solution.text?.length) ? data.solution.text : 'Сообщение не приложено'}
                         </Text>
                     </Container>
                     <Container direction='vertical'>
                         <Label text="Вложения: " type="h" size={4} weight="bold" />
                         <Hint text={'Чтобы посмотреть нажмите на вложение, чтобы развернуть нажмите дважды'} />
-                        <Attachment classes={styles.attach} allowOpen={() => handleAttachClick(data.file)} file={data.file} onRemoveClick={noop} isStatic={true} />
+                        <Attachment classes={styles.attach} allowOpen={() => handleAttachClick(data.solution.file)} file={data.solution.file} onRemoveClick={noop} isStatic={true} />
                     </Container>
                     <IframeViewer classes={styles.preview} linkToFile={currentAttach} />
                 </>

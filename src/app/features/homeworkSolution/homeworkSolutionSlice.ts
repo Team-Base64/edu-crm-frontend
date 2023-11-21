@@ -29,7 +29,7 @@ export const homeworkSolutionSlice = appApi
             },
         }),
 
-        getSolution: build.query<HomeworkSolution, {id: number | string}>({
+        getSolution: build.query<{solution: HomeworkSolution}, {id: number | string}>({
             query: ({id}) => {
                 return {
                     url: homeworkSolutionPaths.solution(id),

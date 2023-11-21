@@ -57,7 +57,7 @@ export const SolutionHeaderAuthor: React.FC<SolutionHeaderAuthorProps> = ({
     );
 }
 
-interface SolutionHeaderHomeworkDataProps extends UiComponentProps{
+interface SolutionHeaderHomeworkDataProps extends UiComponentProps {
     homeworkID: number;
 }
 
@@ -134,32 +134,52 @@ interface SolutionHeaderPassStatusProps {
 }
 
 const SolutionHeaderPassStatus: React.FC<SolutionHeaderPassStatusProps> = ({ solution }) => {
-    const homework = useGetHomeworkQuery({ id: solution.id });
-    const [passStatus, changePassStatus] = useState<JSX.Element>();
+    const { data, isLoading, isError, isSuccess } = useGetHomeworkQuery({ id: solution.hwID });
+    const [passStatus, changePassStatus] = useState<React.ReactNode>('');
 
     useEffect(() => {
-        if (homework.isSuccess && homework.data.homework) {
-            const inTime = getDelta(homework.data.homework.deadlineTime, solution.createTime) > 0;
+        if (isSuccess && data.homework) {
+            const inTime = getDelta(data.homework.deadlineTime, solution.createTime) > 0;
             changePassStatus(
                 <Text type='p' size={1} classes={inTime ? styles.intime : styles.outtime}>
                     {inTime ? 'В срок' : 'После срока'}
                 </Text>
             );
         }
-    }, [homework]);
+    }, [data, changePassStatus]);
 
     return (
         <>
-            <Updatable
-                element={Text}
-                updateProps={(): TextProps => ({
-                    type: 'p',
-                    size: 1,
-                    children: `Сдано ${prettyDate(solution.createTime)}`,
-                })}
-                interval={1}
-            />
-            {passStatus}
+            {isLoading && (
+                <Container classes={styles.status}>
+                    <Spinner classes={styles.statusSpinner} />
+                    <Text type="p" size={1} classes={styles.statusText}>
+                        Загрузка...
+                    </Text>
+                </Container>
+            )}
+            {isError && (
+                <Container classes={styles.status}>
+                    <Icon name="alert" classes={styles.statusIcon} />
+                    <Text type="p" size={1} classes={styles.statusText}>
+                        Произошла ошибка...
+                    </Text>
+                </Container>
+            )}
+            {isSuccess && (
+                <>
+                    <Updatable
+                        element={Text}
+                        updateProps={(): TextProps => ({
+                            type: 'p',
+                            size: 1,
+                            children: `Сдано ${prettyDate(solution.createTime)}`,
+                        })}
+                        interval={1}
+                    />
+                    {passStatus}
+                </>
+            )}
         </>
     );
 }
@@ -170,7 +190,6 @@ interface SolutionHeaderProps extends UiComponentProps {
 
 
 const SolutionHeader: React.FC<SolutionHeaderProps> = ({ solution, classes }) => {
-
     return (
         <Container gap="l" direction='vertical' layout='defaultBase' classes={[classes, styles.widget].join(' ')}>
             <Text type='h' size={3} weight="bold">
@@ -182,7 +201,7 @@ const SolutionHeader: React.FC<SolutionHeaderProps> = ({ solution, classes }) =>
                         Выполнил:
                     </Text>
                     <Container gap="l" classes={styles.contentItem}>
-                        <SolutionHeaderAuthor studentID={Number(solution.studentID)} />
+                        <SolutionHeaderAuthor studentID={solution.studentID} />
                     </Container>
 
                 </Container>

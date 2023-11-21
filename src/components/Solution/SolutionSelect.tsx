@@ -2,7 +2,7 @@ import { HomeworkSolution } from "@app/features/homeworkSolution/homeworkSolutio
 import { useGetHomeworkSolutionsQuery } from "@app/features/homeworkSolution/homeworkSolutionSlice";
 import Container from "@ui-kit/Container/Container";
 import Spinner from "@ui-kit/Spinner/Spinner";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useId, useState } from "react";
 import styles from './SolutionSelect.module.scss';
 import Text from "@ui-kit/Text/Text";
 import Icon from "@ui-kit/Icon/Icon";
@@ -29,12 +29,12 @@ const SolutionSelectItem: React.FC<SolutionSelectItemProps> = ({ solution }) => 
                 }
             >
                 <Button type="link" classes={styles.link}>
-                   <Text type="h" size={5} weight="bold" classes={styles.linkText}>
-                    {getDate(createTime)} 
-                   </Text>
-                   <Text type="h" size={5} weight="bold" classes={styles.linkText}>
-                    {getTime(createTime)}
-                   </Text>
+                    <Text type="h" size={5} weight="bold" classes={styles.linkText}>
+                        {getDate(createTime)}
+                    </Text>
+                    <Text type="h" size={5} weight="bold" classes={styles.linkText}>
+                        {getTime(createTime)}
+                    </Text>
                 </Button>
             </NavLink>
         </>
@@ -46,6 +46,7 @@ interface SolutionSelectProps {
 }
 
 const SolutionSelect: React.FC<SolutionSelectProps> = ({ solution }) => {
+    const key = useId();
     const { id, hwID, studentID } = solution;
     const { data: otherHwSolutions, isLoading, isSuccess, isError } = useGetHomeworkSolutionsQuery({
         homeworkID: hwID,
@@ -56,11 +57,10 @@ const SolutionSelect: React.FC<SolutionSelectProps> = ({ solution }) => {
         if (!isSuccess) return;
         update(
             otherHwSolutions.solutions
-            .filter(s => s.studentID === studentID )
-            .sort((a, b) => getDelta(b.createTime, a.createTime)) // && s.id !== id
+                .filter(s => s.studentID === studentID)
+                .sort((a, b) => getDelta(b.createTime, a.createTime)) // && s.id !== id
         );
     }, [update, isLoading, solution]);
-    console.log(id);
     return (
         <>
             {isLoading && (
@@ -71,7 +71,7 @@ const SolutionSelect: React.FC<SolutionSelectProps> = ({ solution }) => {
                     </Text>
                 </Container>
             )}
-            {isError &&  (
+            {isError && (
                 <Container>
                     <Icon name='alert' classes={styles.statusIcon} />
                     <Text type='p' size={1} classes={styles.statusText}>
@@ -83,7 +83,9 @@ const SolutionSelect: React.FC<SolutionSelectProps> = ({ solution }) => {
                 <Container gap="s" classes={styles.list}>
                     {
                         filteredOtherSolutions.map(s => (
-                            <SolutionSelectItem solution={s} />
+                            <React.Fragment key={`${key}-select-item-${s.id}`}>
+                                <SolutionSelectItem solution={s} />
+                            </React.Fragment>
                         ))
                     }
                 </Container>

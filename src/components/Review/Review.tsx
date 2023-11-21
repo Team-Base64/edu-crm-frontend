@@ -2,7 +2,7 @@ import { useGetHomeworkQuery } from "@app/features/homework/homeworkSlice";
 import Container from "@ui-kit/Container/Container";
 import Icon from "@ui-kit/Icon/Icon";
 import Spinner from "@ui-kit/Spinner/Spinner";
-import React, { useRef, useId, useState } from "react";
+import React, { useRef, useId, useState, useCallback } from "react";
 import ReviewTask, { clearComment, getComment } from "@components/ReviewTask/ReviewTask";
 import Text from "@ui-kit/Text/Text";
 import Button from "@ui-kit/Button/Button";
@@ -31,6 +31,7 @@ const Review: React.FC<ReviewProps> = ({ classes, solution }) => {
     const [lock, setLock] = useState<boolean>(false);
 
     const handleSubmit = () => {
+
         if (!formRef.current) {
             return;
         }
@@ -58,7 +59,6 @@ const Review: React.FC<ReviewProps> = ({ classes, solution }) => {
             setLock(false);
             return;
         }
-
         sendReview({
             solutionID: solution.id,
             payload: payload,
@@ -74,7 +74,7 @@ const Review: React.FC<ReviewProps> = ({ classes, solution }) => {
             })
 
     }
-
+    
     return (
         <>
             <Container direction='vertical' gap="l" layout='defaultBase' classes={[styles.review, classes].join(' ')}>
