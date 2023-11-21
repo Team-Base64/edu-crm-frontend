@@ -15,6 +15,7 @@ interface ClassMemberListProps extends UiComponentProps {
 const ClassMemberList: React.FC<ClassMemberListProps> = ({
     classId,
     limit,
+    classes
 }) => {
     const listId = useId();
     const { data, isError, isLoading } = useGetClassStudentsQuery({
@@ -44,6 +45,7 @@ const ClassMemberList: React.FC<ClassMemberListProps> = ({
                             <ClassMemberItem
                                 student={stundet}
                                 role="Ученик"
+                                classes={classes}
                             />
                         </React.Fragment>
                     ))

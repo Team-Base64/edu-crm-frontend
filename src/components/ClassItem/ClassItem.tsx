@@ -10,78 +10,112 @@ import styles from './ClassItem.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { copyInviteToken } from 'utils/class/copyInviteToken';
 import Hint from '@ui-kit/Hint/Hint';
+import { useGetClassByIdQuery } from '@app/features/class/classSlice';
+import Spinner from '@ui-kit/Spinner/Spinner';
 
 interface ClassItemProps extends UiComponentProps {
-    data: ClassData;
+    classID: number;
 }
 
-const ClassItem: React.FC<ClassItemProps> = ({ data, classes }) => {
-    const { id, title, description, inviteToken } = data;
+const ClassItem: React.FC<ClassItemProps> = ({ classID, classes }) => {
+    const { data, isLoading, isError, isSuccess } = useGetClassByIdQuery({ id: classID });
+    // const { id, title, description, inviteToken } = data;
     const [hint, setHint] = useState<boolean>(false);
-
     const navigate = useNavigate();
+
     const handleCardClick = (e: React.MouseEvent) => {
         e.preventDefault();
-        navigate(String(id));
+
+        if (!data) return;
+
+        navigate(String(data.class.id));
     };
 
-    const handleInvite : React.MouseEventHandler = (e) => {
+    const handleInvite: React.MouseEventHandler = (e) => {
+        e.stopPropagation();
+
+        if (!data) return;
+
+        const { title, inviteToken } = data.class;
         copyInviteToken('', title, inviteToken);
         setHint(true);
-        e.stopPropagation();
     }
+
     return (
         <>
             <Container
-                direction={'horizontal'}
+                direction={'grid'}
                 layout={'defaultBase'}
                 classes={[styles.card, classes].join(' ')}
                 onClick={handleCardClick}
             >
-                <Container
-                    direction={'vertical'}
-                    classes={styles.wrapper}
-                >
-                    <Text
-                        type={'h'}
-                        size={5}
-                        weight={'bold'}
-                        classes={styles.text}
-                    >
-                        {title}
-                    </Text>
-                    {description && (
-                        <Text
-                            type={'p'}
-                            size={2}
-                            classes={styles.text}
-                        >
-                            {description}
+                {isLoading && (
+                    <Container classes={styles.status}>
+                        <Spinner classes={styles.statusSpinner} />
+                        <Text type="p" size={1} classes={styles.statusText}>
+                            Загрузка...
                         </Text>
-                    )}
-                </Container>
-                <Container>
-                    <Container
-                        classes={styles.inviteContent}
-                        layout='defaultBase'
-                    >
-                        <Text type='p' size={1} classes={styles.inviteToken}>
-                            {inviteToken}
-                        </Text>
-                        <Button
-                            type='link'
-                            classes={styles.btn}
-                            onClick={handleInvite}
-                        >
-                            <Icon name='copyLine' />
-                        </Button>
-                        <Hint classes={styles.inviteHint} text='Приглашение скопировано в буфер обмена!' timeoutSec={3} state={[hint, setHint]} />
                     </Container>
-                    <Button type={'link'}>
-                        <Icon name={'arrowRight'} />
-                    </Button>
-                </Container>
-            </Container>
+                )}
+                {isError && (
+                    <Container classes={styles.status}>
+                        <Icon name="alert" classes={styles.statusIcon} />
+                        <Text type="p" size={1} classes={styles.statusText}>
+                            Произошла ошибка...
+                        </Text>
+                    </Container>
+                )}
+                {isSuccess && data.class && (
+                    <>
+                        <Container classes={styles.content}>
+                            <Container
+                                direction={'vertical'}
+                                classes={styles.wrapper}
+                                gap='l'
+                            >
+                                <Text
+                                    type={'h'}
+                                    size={4}
+                                    weight={'bold'}
+                                    classes={styles.text}
+                                >
+                                    {data.class.title}
+                                </Text>
+                                <Text
+                                    type={'p'}
+                                    size={1}
+                                    classes={styles.text}
+                                >
+                                    {data.class.description && data.class.description.length ? data.class.description : 'Без описания'}
+                                </Text>
+                            </Container>
+                        </Container>
+
+                        <Container
+                            classes={styles.invite}
+                            layout='defaultBase'
+                        >
+                            <Container classes={styles.inviteWrapper}>
+                                <Text type='p' size={1} classes={styles.inviteToken}>
+                                    {data.class.inviteToken}
+                                </Text>
+                            </Container>
+                            <Button
+                                type='link'
+                                classes={styles.inviteBtn}
+                                onClick={handleInvite}
+                            >
+                                <Icon name='copyLine' classes={styles.inviteBtnIcon} />
+                            </Button>
+                            <Hint classes={styles.inviteHint} text='Приглашение скопировано в буфер обмена!' timeoutSec={3} state={[hint, setHint]} />
+                        </Container>
+
+                        <Button type={'link'} classes={styles.btn}>
+                            <Icon name={'arrowRight'} classes={styles.btnIcon} />
+                        </Button>
+                    </>
+                )}
+            </Container >
         </>
     );
 };

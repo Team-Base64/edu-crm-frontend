@@ -1,52 +1,69 @@
 .card {
-  justify-content: space-between;
-  min-width: 0;
+  grid-template-columns: auto auto max-content;
   background-color: var(--color-accent-super-light);
-  cursor: pointer;
+}
 
-  & .wrapper {
-    min-width: 0;
-    overflow: hidden;
-    justify-content: center;
+.status {
+  grid-column: 1;
+
+  &-icon {
+    fill: #333;
   }
 
-  & .text {
-    text-overflow: ellipsis;
-    text-wrap: nowrap;
+  &-text {
+    color: #333;
+  }
+
+  &-spinner {
+    color: #333;
+  }
+}
+
+.content {
+  grid-column: 1;
+
+  &-wrapper {
+    min-width: 100px;
     overflow: hidden;
   }
 }
 
+.text {
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
 
 .invite {
-  background-color: var(--color-accent-super-light);
+  grid-column: 2;
+  overflow: hidden;
+  align-items: center;
+  padding: 8px 16px;
+  justify-content: space-between;
+  position: relative;
 
-
-  & .btn {
-    padding: 12px;
-  }
-
-  &-content {
-    user-select: none;
-    width: 150px;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 16px;
-    position: relative;
+  &-wrapper {
+    flex-grow: 1;
     overflow: hidden;
-    min-width: 0px;
-
+    min-width: 50px;
+    justify-content: center;
   }
 
-  &-token{
+  &-token {
     text-overflow: ellipsis;
-    text-wrap: nowrap;
     overflow: hidden;
+    text-wrap: nowrap;
   }
 
-  &-icon {
-    fill: gray;
+
+  &-btn {
+    padding: 8px !important;
+
+    &-icon {
+      fill: #333;
+    }
   }
+
 
   &-hint {
     max-width: 100%;
@@ -55,8 +72,15 @@
     height: 100%;
     top: 0;
     left: 0;
-    
+
     text-overflow: ellipsis;
     overflow: hidden;
+  }
+}
+
+.btn {
+  grid-column: 3;
+  &-icon {
+    fill: var(--color-accent-default);
   }
 }

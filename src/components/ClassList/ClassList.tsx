@@ -35,7 +35,7 @@ const ClassList: React.FC<ClassListProps> = ({ limit, classes }) => {
                     list.slice(0, limit).map((data) => (
                         <React.Fragment key={`${listId}-${data.id}`}>
                             <ClassItem
-                                data={data}
+                                classID={data.id}
                                 classes={classes}
                             />
                         </React.Fragment>
