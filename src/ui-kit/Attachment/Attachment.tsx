@@ -20,6 +20,7 @@ export const Attachment: React.FC<ChatAttachmentProps> = ({
     allowOpen,
     file,
     isStatic = false,
+    classes
 }) => {
     const handleRemoveClick = () => {
         onRemoveClick();
@@ -64,7 +65,7 @@ export const Attachment: React.FC<ChatAttachmentProps> = ({
         <Container
             gap={''}
             direction={'grid'}
-            classes={styles.chatAttachmentList}
+            classes={[styles.chatAttachmentList, classes].join(' ')}
         >
             {!isStatic && (
                 <Button

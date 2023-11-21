@@ -16,6 +16,8 @@ const iconName = {
     pencilLine: Icons.PencilLine,
     addLine: Icons.AddLine,
     arrowRight: Icons.ArrowRight,
+    arrowUp: Icons.ArrowUp,
+    arrowDown: Icons.ArrowDown,
     closeCircle: Icons.CloseCircle,
     copyLine: Icons.CopyLine,
     deleteBinLine: Icons.DeleteBinLine,
