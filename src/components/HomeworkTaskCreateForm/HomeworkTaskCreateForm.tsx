@@ -1,26 +1,30 @@
-import { HomeworkTask } from "@app/features/homeworkTask/homeworkTaskModel";
-import { useCreateTaskMutation } from "@app/features/homeworkTask/homeworkTaskSlice";
-import { AttachFile } from "@ui-kit/AttachFile/AttachFile";
-import Button from "@ui-kit/Button/Button";
-import Container from "@ui-kit/Container/Container";
-import Icon from "@ui-kit/Icon/Icon";
-import Text from "@ui-kit/Text/Text";
-import TextArea from "@ui-kit/TextArea/TextArea";
-import { UiComponentProps } from "@ui-kit/interfaces";
-import { useRef, useState } from "react";
+import { HomeworkTask } from '@app/features/homeworkTask/homeworkTaskModel';
+import { useCreateTaskMutation } from '@app/features/homeworkTask/homeworkTaskSlice';
+import { AttachFile } from '@ui-kit/AttachFile/AttachFile';
+import Button from '@ui-kit/Button/Button';
+import Container from '@ui-kit/Container/Container';
+import Icon from '@ui-kit/Icon/Icon';
+import Text from '@ui-kit/Text/Text';
+import TextArea from '@ui-kit/TextArea/TextArea';
+import { UiComponentProps } from '@ui-kit/interfaces';
+import { useRef, useState } from 'react';
 
 import styles from './HomeworkTaskCreateForm.module.scss';
-import { AttachmentsList } from "@ui-kit/AttachmentsList/AttachmentsList";
-import useSendAttaches from "hooks/useSendAttaches";
-import { SerializeAttachesFromBackend } from "utils/attaches/attachesSerializers";
+import { AttachmentsList } from '@ui-kit/AttachmentsList/AttachmentsList';
+import useSendAttaches from 'hooks/useSendAttaches';
+import { SerializeAttachesFromBackend } from 'utils/attaches/attachesSerializers';
 
 interface TaskCreateFormProps extends UiComponentProps {
     onSubmitSuccess?: (t: HomeworkTask) => void;
 }
 
-const TaskCreateForm: React.FC<TaskCreateFormProps> = ({ onSubmitSuccess, classes }) => {
+const TaskCreateForm: React.FC<TaskCreateFormProps> = ({
+    onSubmitSuccess,
+    classes,
+}) => {
     const formRef = useRef<HTMLFormElement>(null);
-    const { attaches, setAttaches, attachesSendPromise } = useSendAttaches('homework');
+    const { attaches, setAttaches, attachesSendPromise } =
+        useSendAttaches('homework');
     const [createTask] = useCreateTaskMutation();
     const [lock, setLock] = useState<boolean>(false);
 
@@ -34,7 +38,6 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({ onSubmitSuccess, classe
         if (!description.length && !attaches?.length) {
             return;
         }
-
 
         let loaded: string[] = [];
 
@@ -50,7 +53,7 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({ onSubmitSuccess, classe
                 payload: {
                     description: description,
                     attach: loaded[0] || '',
-                }
+                },
             });
 
             if ('data' in resp) {
@@ -64,19 +67,29 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({ onSubmitSuccess, classe
 
                 setAttaches([]);
                 form.descr.value = '';
-
             }
         } catch (e) {
             console.log(e);
         }
 
         setLock(false);
-    }
+    };
+
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     return (
         <>
-            <Container direction='vertical' layout='defaultBase' gap='l' classes={styles.widget + ' ' + classes}>
-                <Text type='h' size={3} weight='bold'>
+            <Container
+                direction="vertical"
+                layout="defaultBase"
+                gap="l"
+                classes={styles.widget + ' ' + classes}
+            >
+                <Text
+                    type="h"
+                    size={3}
+                    weight="bold"
+                >
                     Создание задания
                 </Text>
                 <form
@@ -86,6 +99,7 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({ onSubmitSuccess, classe
                 >
                     <Container classes={styles.content}>
                         <TextArea
+                            textareaRef={textareaRef}
                             classes={styles.area}
                             label={{
                                 text: 'Описание:',
@@ -93,11 +107,11 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({ onSubmitSuccess, classe
                                 size: 4,
                                 // weight: 'bold',
                             }}
-                            placeholder='Опишите суть задачи'
+                            placeholder="Опишите суть задачи"
                             minRows={4}
                             maxRows={8}
-                            border='border'
-                            name='descr'
+                            border="border"
+                            name="descr"
                         />
 
                         <AttachFile
@@ -118,14 +132,22 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({ onSubmitSuccess, classe
                     onClick={handleSubmit}
                     disabled={lock}
                 >
-                    <Icon name='approve' classes={styles.submitIcon}/>
-                    <Text type='p' size={1} weight='bold' classes={styles.submitText}>
+                    <Icon
+                        name="approve"
+                        classes={styles.submitIcon}
+                    />
+                    <Text
+                        type="p"
+                        size={1}
+                        weight="bold"
+                        classes={styles.submitText}
+                    >
                         Создать
                     </Text>
                 </Button>
             </Container>
         </>
     );
-}
+};
 
 export default TaskCreateForm;

@@ -18,18 +18,16 @@ export const homeworkSlice = appApi
                         method: 'GET',
                     };
                 },
-                providesTags: (result) => (
-                    result ?
-                        [...result.homeworks
-                            .map(({ id }) => ({
-                                type: 'Homeworks' as const,
-                                id: id,
-                            })),
-                            'Homeworks'
-                        ]
-                        :
-                        ['Homeworks']
-                ),
+                providesTags: (result) =>
+                    result
+                        ? [
+                              ...result.homeworks.map(({ id }) => ({
+                                  type: 'Homeworks' as const,
+                                  id: id,
+                              })),
+                              'Homeworks',
+                          ]
+                        : ['Homeworks'],
             }),
 
             getHomework: build.query<
@@ -57,10 +55,12 @@ export const homeworkSlice = appApi
                 },
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
-                providesTags: (result, error, arg) => ([{
-                    type: 'ClassHomeworks',
-                    id: arg.id,
-                }]),
+                providesTags: (result, error, arg) => [
+                    {
+                        type: 'ClassHomeworks',
+                        id: arg.id,
+                    },
+                ],
             }),
 
             createHomework: build.mutation<
@@ -74,7 +74,7 @@ export const homeworkSlice = appApi
                         body: JSON.stringify(payload),
                     };
                 },
-                
+
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 invalidatesTags: (result, error, arg) => {
@@ -88,7 +88,7 @@ export const homeworkSlice = appApi
                             id: arg.payload.classID,
                         },
                     ];
-                }
+                },
             }),
         }),
     });

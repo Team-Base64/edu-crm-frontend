@@ -10,19 +10,25 @@ import { dialogSelectType } from '@app/features/dialog/dialogModel';
 interface MessageSelectDialogItemProps extends UiComponentProps {
     data: dialogSelectType;
     selectDialog: () => void;
+    isSelected: boolean;
 }
 
 const MessageSelectDialogItem: React.FC<MessageSelectDialogItemProps> = ({
     data,
     selectDialog,
+    isSelected,
 }) => {
     return (
         <Button
-            type={'link'}
+            type={'static'}
             onClick={selectDialog}
             size={'l'}
             border={''}
-            classes={styles.messageSelectDialogItem}
+            classes={
+                isSelected
+                    ? styles.messageSelectDialogItemSelected
+                    : styles.messageSelectDialogItem
+            }
         >
             <Avatar
                 src={data.cover}

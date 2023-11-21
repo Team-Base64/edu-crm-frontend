@@ -14,7 +14,10 @@ interface ClassCreateFormProps extends UiComponentProps {
     onSuccess?: (id: string | number) => void;
 }
 
-const ClassCreateForm: React.FC<ClassCreateFormProps> = ({ classes, onSuccess }) => {
+const ClassCreateForm: React.FC<ClassCreateFormProps> = ({
+    classes,
+    onSuccess,
+}) => {
     const [createClass] = useCreateClassMutation();
     const formRef = useRef<HTMLFormElement>(null);
     const [lock, setLock] = useState<boolean>(false);
@@ -36,25 +39,27 @@ const ClassCreateForm: React.FC<ClassCreateFormProps> = ({ classes, onSuccess })
             payload: {
                 title: title,
                 description: descr,
-            }
+            },
         })
-            .then(resp => {
+            .then((resp) => {
                 if ('data' in resp) {
                     onSuccess?.(resp.data.class.id);
                 }
             })
-            .catch(e => {
+            .catch((e) => {
                 console.log(e);
             })
             .finally(() => {
                 setLock(false);
             });
-    }
+    };
+
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     return (
         <form
             ref={formRef}
-            onSubmit={e => e.preventDefault()}
+            onSubmit={(e) => e.preventDefault()}
         >
             <Container
                 direction={'vertical'}
@@ -69,7 +74,10 @@ const ClassCreateForm: React.FC<ClassCreateFormProps> = ({ classes, onSuccess })
                 >
                     Создание класса
                 </Text>
-                <Container direction={'vertical'} gap='l'>
+                <Container
+                    direction={'vertical'}
+                    gap="l"
+                >
                     <Input
                         disabled={lock}
                         label={{
@@ -79,14 +87,15 @@ const ClassCreateForm: React.FC<ClassCreateFormProps> = ({ classes, onSuccess })
                         }}
                         placeholder={'Например: Даша Математика'}
                         type={'text'}
-                        name='classTitle'
+                        name="classTitle"
                     />
                     <TextArea
                         // TODO disabled={lock}
+                        textareaRef={textareaRef}
                         minRows={2}
                         maxRows={6}
-                        border='border'
-                        name='classDescription'
+                        border="border"
+                        name="classDescription"
                         label={{
                             text: 'Описание',
                             type: 'h',
@@ -94,15 +103,24 @@ const ClassCreateForm: React.FC<ClassCreateFormProps> = ({ classes, onSuccess })
                         }}
                     />
                 </Container>
+
                 <Button
                     onClick={handleSubmit}
                     disabled={lock}
                 >
-                    {lock && <Spinner classes={styles.btnSpinner}/>}
+                    {lock && <Spinner classes={styles.btnSpinner} />}
                     {!lock && (
                         <>
-                            <Icon name='addLine' classes={styles.btnIcon} />
-                            <Text type='p' size={1} weight='bold' classes={styles.btnText}>
+                            <Icon
+                                name="addLine"
+                                classes={styles.btnIcon}
+                            />
+                            <Text
+                                type="p"
+                                size={1}
+                                weight="bold"
+                                classes={styles.btnText}
+                            >
                                 Создать
                             </Text>
                         </>

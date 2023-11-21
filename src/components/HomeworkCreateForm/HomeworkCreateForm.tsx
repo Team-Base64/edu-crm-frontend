@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import Container from '@ui-kit/Container/Container';
@@ -10,7 +9,6 @@ import styles from './HomeworkCreateForm.module.scss';
 import Overlay from '@ui-kit/Overlay/Overlay';
 import Text from '@ui-kit/Text/Text';
 import { useCreateHomeworkMutation } from '@app/features/homework/homeworkSlice';
-
 import HomeworkTaskList from '@components/HomeworkTaskList/HomeworkTaskList';
 import { HomeworkTask } from '@app/features/homeworkTask/homeworkTaskModel';
 import TaskCreateForm from '@components/HomeworkTaskCreateForm/HomeworkTaskCreateForm';
@@ -21,7 +19,10 @@ interface HomeworkCreateFormProps extends UiComponentProps {
     classId: string | number;
 }
 
-const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ onSubmitSuccess, classId }) => {
+const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({
+    onSubmitSuccess,
+    classId,
+}) => {
     const formRef = useRef<HTMLFormElement>(null);
     const [tasks, setTasks] = useState<HomeworkTask[]>([]);
 
@@ -29,7 +30,6 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ onSubmitSuccess
     const [isTaskSelectForm, setTaskSelectForm] = useState<boolean>(false);
 
     const [lock, setLock] = useState<boolean>(false);
-
 
     const [createHW, createStatus] = useCreateHomeworkMutation();
 
@@ -41,37 +41,31 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ onSubmitSuccess
         }
     }, [createStatus, setLock]);
 
-
     const handleSubmit = async () => {
-        console.log('Handle submit');
-
         const form = formRef.current;
         if (!form) {
             return;
         }
 
         const title = form.hwTitle.value;
-        const descr = form.hwDescr.value;
+        const desc = form.hwDescr.value;
         const deadline: Date = form.hwDeadline.valueAsDate;
 
         if (!title || !deadline) {
             return;
         }
-        console.log('OK');
-
-        if (!descr && !tasks.length) {
+        if (!desc && !tasks.length) {
             return;
         }
 
-        console.log('OK 2');
         createHW({
             payload: {
                 classID: Number(classId),
                 deadlineTime: deadline.toISOString(),
                 title: title,
-                description: descr,
-                tasks: tasks.map(t => t.id),
-            }
+                description: desc,
+                tasks: tasks.map((t) => t.id),
+            },
         }).then(() => {
             form.hwTitle.value = '';
             form.hwDescr.value = '';
@@ -80,74 +74,112 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ onSubmitSuccess
 
             onSubmitSuccess?.();
         });
-
-    }
+    };
 
     const handleCreateTaskSuccess = (task: HomeworkTask) => {
-        setTasks(prev => [...prev, task]);
+        setTasks((prev) => [...prev, task]);
         setTaskCreateForm(false);
-    }
+    };
 
     const handleSelectTasks = (selected: HomeworkTask[]) => {
-        setTasks(prev => [...prev, ...selected]);
+        setTasks((prev) => [...prev, ...selected]);
         setTaskSelectForm(false);
-    }
+    };
+
+    const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
     return (
         <>
-            <Container direction='vertical' layout='defaultBase' gap='l' classes={styles.widget}>
-                <Text type='h' size={3} weight='bold'>
+            <Container
+                direction="vertical"
+                layout="defaultBase"
+                gap="l"
+                classes={styles.widget}
+            >
+                <Text
+                    type="h"
+                    size={3}
+                    weight="bold"
+                >
                     {'Новое домашнее задание'}
                 </Text>
-                <form ref={formRef} onSubmit={e => e.preventDefault()}>
-                    <Container direction='vertical' gap='l'>
+                <form
+                    ref={formRef}
+                    onSubmit={(e) => e.preventDefault()}
+                >
+                    <Container
+                        direction="vertical"
+                        gap="l"
+                    >
                         <Input
-                            name='hwTitle'
+                            name="hwTitle"
                             label={{
                                 text: 'Заголовок домашнего задания',
                                 type: 'h',
                                 size: 4,
                             }}
-                            placeholder='Например: Повторение '
+                            placeholder="Например: Повторение "
                         />
                         <TextArea
-                            name='hwDescr'
-                            label= {{
+                            textareaRef={textAreaRef}
+                            name="hwDescr"
+                            label={{
                                 text: 'Описание домашнего задания',
                                 type: 'h',
                                 size: 4,
                             }}
-                            placeholder='Можно оставить пустым'
-                            border='border'
+                            placeholder="Можно оставить пустым"
+                            border="border"
                         />
                         <Input
-                            name='hwDeadline'
-                            label= {{
+                            name="hwDeadline"
+                            label={{
                                 text: 'Срок сдачи',
                                 type: 'h',
                                 size: 4,
                             }}
-                            type='date'
+                            type="date"
                         />
 
-                        <Container direction='vertical' classes={styles.content}>
-                            <Text type='h' size={4} weight='bold'>
+                        <Container
+                            direction="vertical"
+                            classes={styles.content}
+                        >
+                            <Text
+                                type="h"
+                                size={4}
+                                weight="bold"
+                            >
                                 Список задач:
                             </Text>
-                            <Container direction='vertical' classes={styles.list}>
+                            <Container
+                                direction="vertical"
+                                classes={styles.list}
+                            >
                                 <HomeworkTaskList
                                     listState={[tasks, setTasks]}
                                     allowDelete
                                 />
                             </Container>
-                            <Container direction='horizontal' classes={styles.contentNav}>
+                            <Container
+                                direction="horizontal"
+                                classes={styles.contentNav}
+                            >
                                 <Button
                                     disabled={lock}
                                     onClick={() => setTaskCreateForm(true)}
                                     classes={styles.addBtn}
                                 >
-                                    <Icon name='addLine' classes={styles.addBtnIcon} />
-                                    <Text type='p' weight='bold' size={1} classes={styles.addBtnText}>
+                                    <Icon
+                                        name="addLine"
+                                        classes={styles.addBtnIcon}
+                                    />
+                                    <Text
+                                        type="p"
+                                        weight="bold"
+                                        size={1}
+                                        classes={styles.addBtnText}
+                                    >
                                         Новая
                                     </Text>
                                 </Button>
@@ -156,8 +188,16 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ onSubmitSuccess
                                     classes={styles.setBtn}
                                     onClick={() => setTaskSelectForm(true)}
                                 >
-                                    <Icon name='ulist' classes={styles.setBtnIcon} />
-                                    <Text type='p' weight='bold' size={1} classes={styles.setBtnText}>
+                                    <Icon
+                                        name="ulist"
+                                        classes={styles.setBtnIcon}
+                                    />
+                                    <Text
+                                        type="p"
+                                        weight="bold"
+                                        size={1}
+                                        classes={styles.setBtnText}
+                                    >
                                         Выбрать
                                     </Text>
                                 </Button>
@@ -170,22 +210,32 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({ onSubmitSuccess
                     onClick={handleSubmit}
                     classes={styles.submit}
                 >
-                    <Icon name='approve' classes={styles.submitIcon} />
-                    <Text type='p' weight='bold' size={1} classes={styles.submitText}>
+                    <Icon
+                        name="approve"
+                        classes={styles.submitIcon}
+                    />
+                    <Text
+                        type="p"
+                        weight="bold"
+                        size={1}
+                        classes={styles.submitText}
+                    >
                         Создать
                     </Text>
                 </Button>
             </Container>
 
-            <Overlay isShowing={isTaskCreateFrom} closeOverlay={() => setTaskCreateForm(false)} >
-                <TaskCreateForm
-                    onSubmitSuccess={handleCreateTaskSuccess}
-                />
+            <Overlay
+                isShowing={isTaskCreateFrom}
+                closeOverlay={() => setTaskCreateForm(false)}
+            >
+                <TaskCreateForm onSubmitSuccess={handleCreateTaskSuccess} />
             </Overlay>
-            <Overlay isShowing={isTaskSelectForm} closeOverlay={() => setTaskSelectForm(false)} >
-                <HomeworkTaskSelect
-                    onSubmit={handleSelectTasks}
-                />
+            <Overlay
+                isShowing={isTaskSelectForm}
+                closeOverlay={() => setTaskSelectForm(false)}
+            >
+                <HomeworkTaskSelect onSubmit={handleSelectTasks} />
             </Overlay>
         </>
     );

@@ -15,41 +15,51 @@ interface ClassMemberListProps extends UiComponentProps {
 const ClassMemberList: React.FC<ClassMemberListProps> = ({
     classId,
     limit,
-    classes
+    classes,
 }) => {
     const listId = useId();
     const { data, isError, isLoading } = useGetClassStudentsQuery({
         class_id: classId,
     });
 
-    if(isLoading){
-        return <>
-            <EmptyItem text='Загрузка...'><Spinner/></EmptyItem>
-        </>
+    if (isLoading) {
+        return (
+            <>
+                <EmptyItem text="Загрузка...">
+                    <Spinner />
+                </EmptyItem>
+            </>
+        );
     }
 
-    if(isError || !data?.students) {
-        return <>
-            <EmptyItem text='Произошла ошибка'><Icon name='alert'/></EmptyItem>
-        </>
+    if (isError || !data?.students) {
+        return (
+            <>
+                <EmptyItem text="Произошла ошибка">
+                    <Icon name="alert" />
+                </EmptyItem>
+            </>
+        );
     }
 
     const list = data.students;
 
     return (
         <>
-            {
-                !list.length ? <EmptyItem text='Пока нет участников' /> :
-                    list.slice(0, limit).map(stundet => (
-                        <React.Fragment key={`${listId}-${stundet.id}`}>
-                            <ClassMemberItem
-                                student={stundet}
-                                role="Ученик"
-                                classes={classes}
-                            />
-                        </React.Fragment>
-                    ))
-            }
+            {!list.length ? (
+                <EmptyItem text="Пока нет участников" />
+            ) : (
+                list.slice(0, limit).map((stundet) => (
+                    <React.Fragment key={`${listId}-${stundet.id}`}>
+                        <ClassMemberItem
+                            student={stundet}
+                            role="Ученик"
+                            classes={classes}
+                            chatID={Number(classId)}
+                        />
+                    </React.Fragment>
+                ))
+            )}
         </>
     );
 };

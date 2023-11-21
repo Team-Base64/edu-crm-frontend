@@ -4,26 +4,31 @@ import React, { useEffect, useRef } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import Container from '@ui-kit/Container/Container.tsx';
 import styles from './Messenger.module.scss';
-import {
-    useGetLiveMessagesQuery,
-    useSendMessageMutation,
-} from '@app/features/chat/chatSlice.ts';
-import { useGetDialogsQuery } from '@app/features/dialog/dialogSlice.ts';
+
+import { useGetLiveMessagesQuery } from '@app/features/chat/chatSlice.ts';
+import Text from '@ui-kit/Text/Text.tsx';
+import { unselectedId } from '@app/const/consts.ts';
 
 interface SendMessageAreaProps extends UiComponentProps {
-    chatid: number;
+    chatID: number;
 }
-const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
+
+const Messenger: React.FC<SendMessageAreaProps> = ({ chatID, classes }) => {
     const { data, isLoading, isSuccess, isError, error } =
         useGetLiveMessagesQuery({
             channel: 'chat',
-            chatid,
+            chatID,
         });
 
-    const [sendMessage] = useSendMessageMutation();
-    // const [updChatList] = usePostDialogsMutation();
+    const messagesRef = useRef<HTMLDivElement>(null);
 
-    const messageBlock = data?.messages[chatid]?.map((message, index) => {
+    useEffect(() => {
+        if (messagesRef.current instanceof HTMLElement) {
+            messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+        }
+    });
+
+    const messageBlock = data?.messages[chatID]?.map((message, index) => {
         return (
             <MessageItem
                 isMine={message.ismine}
@@ -35,17 +40,22 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
         );
     });
 
-    const messagesRef = useRef<HTMLDivElement>(null);
-
-    const dialogData = useGetDialogsQuery(null);
-
-    useEffect(() => {
-        if (messagesRef.current instanceof HTMLElement) {
-            messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
-        } else {
-            console.error('wrong element type');
-        }
-    });
+    const contentToRender = (
+        <>
+            <Container
+                direction={'vertical'}
+                classes={styles.messengerContainer}
+                containerRef={messagesRef}
+            >
+                {messageBlock}
+            </Container>
+            <SendMessageArea
+                id={chatID}
+                name={'SendMessageArea'}
+                // onMessageSend={onMessageSendClick}
+            ></SendMessageArea>
+        </>
+    );
 
     return (
         <Container
@@ -53,33 +63,19 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
             classes={[styles.messenger, classes].join(' ')}
             layout={'defaultBase'}
         >
-            <Container
-                direction={'vertical'}
-                classes={styles.messageContainer}
-                containerRef={messagesRef}
-            >
-                {isLoading && <span>loading...</span>}
-                {isSuccess && (chatid !== -1 ? messageBlock : '')}
-                {isError && <span>{error.toString()}</span>}
-            </Container>
-            <SendMessageArea
-                id={chatid.toString()}
-                name={'SendMessageArea'}
-                onMessageSend={(text: string) => {
-                    if (dialogData.data && chatid !== -1) {
-                        sendMessage({
-                            message: {
-                                chatID: chatid,
-                                text: text.trim(),
-                                ismine: true,
-                                date: new Date().toISOString(),
-                                socialType:
-                                    dialogData.data.dialogs[chatid].socialtype,
-                            },
-                        });
-                    }
-                }}
-            ></SendMessageArea>
+            {isLoading && <span>loading...</span>}
+            {isSuccess && chatID !== unselectedId ? (
+                contentToRender
+            ) : (
+                <Text
+                    type={'h'}
+                    size={3}
+                    classes={styles.messengerContainerUnselectedChatText}
+                >
+                    Выберете чат, чтобы начать общаться
+                </Text>
+            )}
+            {isError && <span>{error.toString()}</span>}
         </Container>
     );
 };

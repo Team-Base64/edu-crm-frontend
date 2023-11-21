@@ -1,20 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import Container from '@ui-kit/Container/Container.tsx';
 import Text from '@ui-kit/Text/Text.tsx';
 import { CalendarEventType } from '@app/features/calendar/calendarModel.ts';
 import Button from '@ui-kit/Button/Button';
 import Icon from '@ui-kit/Icon/Icon';
+import { CalendarEventForm } from '@components/CalendarEventForm/CalendarEventForm.tsx';
+import { useEditEventMutation } from '@app/features/calendar/calendarSlice.ts';
+import Overlay from '@ui-kit/Overlay/Overlay.tsx';
+import {
+    getUTCDate,
+    getUTCTime,
+} from '../../utils/common/dateRepresentation.ts';
 
 interface CalendarEventProps extends UiComponentProps {
-    event: CalendarEventType;
+    eventData: CalendarEventType;
     onDeleteClick: () => void;
+    iframeRef: React.RefObject<HTMLIFrameElement>;
 }
 
 export const CalendarEvent: React.FC<CalendarEventProps> = ({
-    event,
+    eventData,
     onDeleteClick,
+    iframeRef,
 }) => {
+    const [isAddEventWindowShowing, setEditEventWindowShowing] =
+        useState(false);
     return (
         <Container
             direction={'grid'}
@@ -24,27 +35,38 @@ export const CalendarEvent: React.FC<CalendarEventProps> = ({
                 type={'p'}
                 size={5}
             >
-                {event.title}
+                Название: {eventData.title}
             </Text>
             <Text
                 type={'p'}
                 size={5}
             >
-                {event.description}
+                Описание: {eventData.description}
             </Text>
             <Text
                 type={'p'}
                 size={5}
             >
-                {event.startDate}
+                Дата начала:
+                {' ' +
+                    getUTCDate(new Date(eventData.startDate)) +
+                    ' ' +
+                    getUTCTime(new Date(eventData.startDate))}
             </Text>
             <Text
                 type={'p'}
                 size={5}
             >
-                {event.endDate}
+                Дата окончания:
+                {' ' +
+                    getUTCDate(new Date(eventData.endDate)) +
+                    ' ' +
+                    getUTCTime(new Date(eventData.endDate))}
             </Text>
-            <Button type={'secondary'}>
+            <Button
+                type={'secondary'}
+                onClick={() => setEditEventWindowShowing(true)}
+            >
                 <Icon
                     size={'small'}
                     name={'deleteBinLine'}
@@ -71,6 +93,18 @@ export const CalendarEvent: React.FC<CalendarEventProps> = ({
                     Удалить событие
                 </Text>
             </Button>
+            <Overlay
+                isShowing={isAddEventWindowShowing}
+                closeOverlay={() => setEditEventWindowShowing(false)}
+            >
+                <CalendarEventForm
+                    setIsShowingState={setEditEventWindowShowing}
+                    useMutation={useEditEventMutation}
+                    eventData={eventData}
+                    title={'Изменение события'}
+                    iframeRef={iframeRef}
+                ></CalendarEventForm>
+            </Overlay>
         </Container>
     );
 };

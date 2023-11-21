@@ -3,33 +3,35 @@ import Button from '@ui-kit/Button/Button';
 import Container from '@ui-kit/Container/Container';
 import Icon from '@ui-kit/Icon/Icon';
 import { UiComponentProps } from '@ui-kit/interfaces';
-import React, { useCallback } from 'react';
+import React from 'react';
 import Text from '@ui-kit/Text/Text';
 
 import styles from './ClassMemberItem.module.scss';
 import { Student } from '@app/features/stundent/stundentModel';
+import { useNavigate } from 'react-router-dom';
+import AppRoutes, { routerQueryParams } from '@router/routes.ts';
 
 interface ClassMemberItemProps extends UiComponentProps {
     student: Student;
     role: string;
-    onMessageClick?: () => void;
+    chatID: number;
 }
 
 const ClassMemberItem: React.FC<ClassMemberItemProps> = ({
     student,
     role,
-    onMessageClick,
     onClick,
     classes,
+    chatID,
 }) => {
-    const {name, avatarSrc} = student;
-    const handleChatClick = useCallback(
-        (e: React.MouseEvent) => {
-            e.stopPropagation();
-            onMessageClick?.();
-        },
-        [onMessageClick],
-    );
+    const { name, avatarSrc } = student;
+
+    const navigate = useNavigate();
+    const handleChatClick = () => {
+        navigate(
+            `/${AppRoutes.messenger}?${routerQueryParams.messenger.chatid}=${chatID}`,
+        );
+    };
 
     return (
         <Container

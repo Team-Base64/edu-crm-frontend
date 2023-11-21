@@ -3,15 +3,16 @@ import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import Container from '@ui-kit/Container/Container.tsx';
 import Text from '@ui-kit/Text/Text.tsx';
 import { useGetDialogsQuery } from '@app/features/dialog/dialogSlice';
+import { unselectedId } from '@app/const/consts.ts';
 
 interface Messenger extends UiComponentProps {
-    chatid: number;
+    chatID: number;
 }
-export const MessengerHeader: React.FC<Messenger> = ({ chatid }) => {
+export const MessengerHeader: React.FC<Messenger> = ({ chatID }) => {
     const { data } = useGetDialogsQuery(null);
 
     const content =
-        chatid !== -1 ? data?.dialogs[chatid].name : 'Чат не выбран';
+        chatID !== unselectedId ? data?.dialogs[chatID].name : 'Чат не выбран';
 
     return (
         <Container layout={'defaultBase'}>

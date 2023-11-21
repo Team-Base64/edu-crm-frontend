@@ -7,7 +7,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import AppRoutes from './routes';
 import ClassPage from '@pages/ClassPage/ClassPage';
-import { Chat } from '@pages/MessengerPage/Chat';
+import { ChatPage } from '@pages/ChatPage/ChatPage.tsx';
 import ClassesPage from '@pages/ClassesPage/ClassesPage';
 import RequireNotAuth from '@hoc/RequireNotAuth';
 import { CalendarPage } from '@pages/CalendarPage/CalendarPage.tsx';
@@ -39,33 +39,29 @@ const AppRouter: React.FC = () => {
                 {/* Private */}
                 {/*<Route element={<RequireAuth />}>*/}
                 <Route element={<MainLayout />}>
-                <Route
-                        path={AppRoutes.solutions}
-                    >
+                    <Route path={AppRoutes.solutions}>
                         <Route
                             index
                             element={<NotFoundPage />}
                         />
                         <Route
                             path={AppRoutes.solution}
-                            element={<HomeworkSolutionPage/>}
+                            element={<HomeworkSolutionPage />}
                         />
                     </Route>
-                    <Route
-                        path={AppRoutes.homeworks}
-                    >
+                    <Route path={AppRoutes.homeworks}>
                         <Route
                             index
                             element={<NotFoundPage />}
                         />
                         <Route
                             path={AppRoutes.homework}
-                            element={<HomeworkPage/>}
+                            element={<HomeworkPage />}
                         />
                     </Route>
                     <Route
                         path={AppRoutes.messenger}
-                        element={<Chat />}
+                        element={<ChatPage />}
                     />
                     <Route
                         path={AppRoutes.tasks}
@@ -89,6 +85,7 @@ const AppRouter: React.FC = () => {
                 {/*</Route>*/}
                 {/*</Route>*/}
             </Route>
+            {/*</Route>*/}
         </Routes>
     );
 };

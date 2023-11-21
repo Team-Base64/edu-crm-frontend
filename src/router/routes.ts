@@ -22,4 +22,11 @@ const AppRoutes = asStrings({
     logout: 'logout',
 });
 
+export const routerQueryParams = {
+    messenger: {
+        chatid: 'chatid',
+        search: 'search',
+    },
+};
+
 export default AppRoutes;

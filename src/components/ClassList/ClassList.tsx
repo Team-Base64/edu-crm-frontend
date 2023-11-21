@@ -15,32 +15,41 @@ const ClassList: React.FC<ClassListProps> = ({ limit, classes }) => {
     const { data, isError, isLoading } = useGetClassesQuery({});
 
     if (isLoading) {
-        return <>
-            <EmptyItem text='Загрузка...'><Spinner /></EmptyItem>
-        </>
+        return (
+            <>
+                <EmptyItem text="Загрузка...">
+                    <Spinner />
+                </EmptyItem>
+            </>
+        );
     }
 
     if (isError || !data?.classes) {
-        return <>
-            <EmptyItem text='Произошла ошибка'><Icon name='alert' /></EmptyItem>
-        </>
+        return (
+            <>
+                <EmptyItem text="Произошла ошибка">
+                    <Icon name="alert" />
+                </EmptyItem>
+            </>
+        );
     }
 
     const list = data.classes;
 
     return (
         <>
-            {
-                !list.length ? <EmptyItem text='У вас ещё нет классов'/> :
-                    list.slice(0, limit).map((data) => (
-                        <React.Fragment key={`${listId}-${data.id}`}>
-                            <ClassItem
-                                classID={data.id}
-                                classes={classes}
-                            />
-                        </React.Fragment>
-                    ))
-            }
+            {!list.length ? (
+                <EmptyItem text="У вас ещё нет классов" />
+            ) : (
+                list.slice(0, limit).map((data) => (
+                    <React.Fragment key={`${listId}-${data.id}`}>
+                        <ClassItem
+                            classID={data.id}
+                            classes={classes}
+                        />
+                    </React.Fragment>
+                ))
+            )}
         </>
     );
 };

@@ -1,9 +1,10 @@
-import React, { KeyboardEventHandler, useEffect, useId, useRef } from 'react';
+import React, { KeyboardEventHandler, useEffect, useId } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import styles from '@ui-kit/TextArea/TextArea.module.scss';
 import Container from '@ui-kit/Container/Container';
 import { useThrottle } from '@ui-kit/_hooks/useThrottle';
 import Label, { LabelProps } from '@ui-kit/Label/Label';
+import { noop } from '@app/const/consts.ts';
 
 interface TextAreaProps extends UiComponentProps {
     name?: string;
@@ -17,7 +18,7 @@ interface TextAreaProps extends UiComponentProps {
     maxRows?: number;
     onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
     onKeydownCallback?: () => void;
-    textareaRef?: React.RefObject<HTMLTextAreaElement>;
+    textareaRef: React.RefObject<HTMLTextAreaElement>;
     maxLength?: number;
 }
 
@@ -38,24 +39,23 @@ const TextArea: React.FC<TextAreaProps> = ({
     minRows = 1,
     maxRows = 10,
     onChange,
-    onKeydownCallback,
+    onKeydownCallback = noop,
     textareaRef,
     classes,
     ...rest
 }) => {
-    const taRef = textareaRef ? textareaRef : useRef<HTMLTextAreaElement>(null);
     const id = useId();
 
     const handleAreaKeydown: KeyboardEventHandler<HTMLTextAreaElement> = (
         event,
     ) => {
         if (event.code === 'Enter' && event.ctrlKey) {
-            onKeydownCallback?.();
+            onKeydownCallback();
         }
     };
 
     const resizeTextarea = () => {
-        const area = taRef.current;
+        const area = textareaRef.current;
         if (!autoResize || !area) {
             return;
         }
@@ -91,11 +91,14 @@ const TextArea: React.FC<TextAreaProps> = ({
     };
 
     return (
-        <Container direction='vertical' classes={classes}>
-            {label && <Label {...label}/>}
+        <Container
+            direction="vertical"
+            classes={classes}
+        >
+            {label && <Label {...label} />}
             <textarea
                 id={id}
-                ref={taRef}
+                ref={textareaRef}
                 name={name}
                 spellCheck={spellcheck}
                 defaultValue={textareaText}
@@ -104,9 +107,7 @@ const TextArea: React.FC<TextAreaProps> = ({
                 onKeyDown={handleAreaKeydown}
                 onFocusCapture={resizeTextarea}
                 onBlur={resizeTextarea}
-                className={[styles.textarea, borderType[border]].join(
-                    ' ',
-                )}
+                className={[styles.textarea, borderType[border]].join(' ')}
                 {...rest}
             ></textarea>
         </Container>

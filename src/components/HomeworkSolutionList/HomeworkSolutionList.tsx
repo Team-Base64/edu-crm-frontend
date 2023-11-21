@@ -4,10 +4,11 @@ import React, { useEffect, useId, useState } from 'react';
 import { useGetClassSolutionsQuery } from '@app/features/homeworkSolution/homeworkSolutionSlice';
 import EmptyItem from '@components/EmptyItem/EmptyItem';
 import Spinner from '@ui-kit/Spinner/Spinner';
+import { HomeworkSolution } from '@app/features/homeworkSolution/homeworkSolutionModel.ts';
+import { groupByValues } from '@ui-kit/_utils/group.ts';
+import { getDelta } from '../../utils/common/PrettyDate/common/delta.ts';
 import Icon from '@ui-kit/Icon/Icon';
-import { getDelta } from 'utils/common/PrettyDate/common/delta';
-import { HomeworkSolution } from '@app/features/homeworkSolution/homeworkSolutionModel';
-import { groupByValues } from '@ui-kit/_utils/group';
+
 // import styles from './HomeworkList.module.scss';
 
 interface HomeworkSolutionListProps extends UiComponentProps {
@@ -33,23 +34,23 @@ const HomeworkSolutionList: React.FC<HomeworkSolutionListProps> = ({
         if (!isSuccess) return;
 
         try {
-            const filtered = data.solutions.filter(s => {
+            const filtered = data.solutions.filter((s) => {
                 if (
-                    (showStatus === 'all')
-                    ||
-                    (showStatus === 'approved' && s.isApproved)
-                    ||
+                    showStatus === 'all' ||
+                    (showStatus === 'approved' && s.isApproved) ||
                     (showStatus === 'rejected' && !s.isApproved)
                 ) {
                     return s;
                 }
+                // fix
+                return {};
             });
 
             const groups = groupByValues(filtered, ['studentID', 'hwID']);
 
             const newList: HomeworkSolution[] = [];
 
-            groups.forEach(group => {
+            groups.forEach((group) => {
                 if (!group.length) return;
                 group.sort((a, b) => {
                     return getDelta(b.createTime, a.createTime);
@@ -60,36 +61,39 @@ const HomeworkSolutionList: React.FC<HomeworkSolutionListProps> = ({
         } catch (e) {
             console.log(e);
         }
+    }, [data?.solutions, isSuccess, showStatus]);
 
-    }, [isSuccess]);
-
-    
     if (isLoading) {
-        return <>
-            <EmptyItem text='Загрузка...'><Spinner /></EmptyItem>
-        </>
+        return (
+            <>
+                <EmptyItem text="Загрузка...">
+                    <Spinner />
+                </EmptyItem>
+            </>
+        );
     }
 
     if (isError) {
-        return <>
-            <EmptyItem text='Произошла ошибка'><Icon name='alert' /></EmptyItem>
-        </>
+        return (
+            <>
+                <EmptyItem text="Произошла ошибка">
+                    <Icon name="alert" />
+                </EmptyItem>
+            </>
+        );
     }
 
     return (
         <>
-            {
-                !list.length ? <EmptyItem text={emptyTitle} /> :
-                    list
-                        .slice(0, limit)
-                        .map(item => (
-                            <React.Fragment key={`${listId}-${item.id}`}>
-                                <HomeworkSolutionItem
-                                    data={item}
-                                />
-                            </React.Fragment>
-                        ))
-            }
+            {!list.length ? (
+                <EmptyItem text={emptyTitle} />
+            ) : (
+                list.slice(0, limit).map((item) => (
+                    <React.Fragment key={`${listId}-${item.id}`}>
+                        <HomeworkSolutionItem data={item} />
+                    </React.Fragment>
+                ))
+            )}
         </>
     );
 };

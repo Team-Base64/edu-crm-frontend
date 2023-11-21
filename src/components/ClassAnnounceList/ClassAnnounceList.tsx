@@ -20,15 +20,21 @@ const ClassAnnounceList: React.FC<ClassAnnounceListProps> = ({ classId }) => {
     });
 
     if (isLoading) {
-        return <>
-            <EmptyItem text='Загрузка...'><Spinner /></EmptyItem>
-        </>
+        return (
+            <EmptyItem text="Загрузка...">
+                <Spinner />
+            </EmptyItem>
+        );
     }
 
     if (isError || !data?.posts) {
-        return <>
-            <EmptyItem text='Произошла ошибка'><Icon name='alert' /></EmptyItem>
-        </>
+        return (
+            <>
+                <EmptyItem text="Произошла ошибка">
+                    <Icon name="alert" />
+                </EmptyItem>
+            </>
+        );
     }
 
     const list = [...data.posts];
@@ -37,11 +43,17 @@ const ClassAnnounceList: React.FC<ClassAnnounceListProps> = ({ classId }) => {
             direction="vertical"
             layout="defaultBase"
         >
-            {
-                !list.length ? <EmptyItem classes={styles.empty} text='В этом классе пока нет объявлений' /> :
-                    list.sort((a, b) => {
+            {!list.length ? (
+                <EmptyItem
+                    classes={styles.empty}
+                    text="В этом классе пока нет объявлений"
+                />
+            ) : (
+                list
+                    .sort((a, b) => {
                         return getDelta(b.createTime, a.createTime);
-                    }).map(item => (
+                    })
+                    .map((item) => (
                         <React.Fragment key={`${listId}-${item.id}`}>
                             <ClassAnnounceCard
                                 // firstName="George"
@@ -51,7 +63,7 @@ const ClassAnnounceList: React.FC<ClassAnnounceListProps> = ({ classId }) => {
                             />
                         </React.Fragment>
                     ))
-            }
+            )}
         </Container>
     );
 };

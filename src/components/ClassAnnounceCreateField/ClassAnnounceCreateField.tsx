@@ -3,6 +3,7 @@ import Container from '@ui-kit/Container/Container';
 import Icon from '@ui-kit/Icon/Icon';
 import TextArea from '@ui-kit/TextArea/TextArea';
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+
 import styles from './ClassAnnounceCreateField.module.scss';
 import { useCreateAnnouncementMutation } from '@app/features/announcement/announcementSlice';
 import Button from '@ui-kit/Button/Button';
@@ -48,14 +49,15 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
                 form.announce.value = '';
                 localStorage.setItem(`${classID}/announce`, '');
             })
-            .catch(e => {
+            .catch((e) => {
                 console.log('Create feed err ', e);
             });
-    }
+    };
 
     const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         localStorage.setItem(`${classID}/announce`, e.target.value);
-    }
+    };
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     return (
         <Container
@@ -63,17 +65,21 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
             direction="horizontal"
             layout="defaultBase"
         >
-            {/* 
+            {/*
             <Avatar
                 classes={styles.avatar}
                 src={avatarSrc}
                 alt="Your avatar"
-            /> 
+            />
             */}
-            <form onSubmit={(e) => e.preventDefault()} ref={formRef} className={styles.form}>
-
+            <form
+                onSubmit={(e) => e.preventDefault()}
+                ref={formRef}
+                className={styles.form}
+            >
                 <TextArea
                     classes={styles.area}
+                    textareaRef={textareaRef}
                     name="announce"
                     spellcheck={true}
                     placeholder={'Напишите что-нибудь всему классу...'}
@@ -87,18 +93,20 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
                 />
                 <Button
                     disabled={lock}
-                    type='link' onClick={handleSubmit} classes={styles.btn}>
-                    {lock ?
+                    type="link"
+                    onClick={handleSubmit}
+                    classes={styles.btn}
+                >
+                    {lock ? (
                         <Spinner classes={styles.spinner} />
-                        :
+                    ) : (
                         <Icon
                             classes={styles.btnIcon}
                             name="chatSend"
                         />
-                    }
+                    )}
                 </Button>
             </form>
-
         </Container>
     );
 };

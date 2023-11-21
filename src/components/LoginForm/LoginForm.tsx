@@ -9,7 +9,6 @@ import AppRoutes from '@router/routes';
 import Icon from '@ui-kit/Icon/Icon';
 import Container from '@ui-kit/Container/Container';
 import Text from '@ui-kit/Text/Text';
-import { GoogleOAuth } from '@components/GoogleOAuth/GoogleOAuth.tsx';
 
 interface LoginFormProps extends UiComponentProps {}
 
@@ -54,7 +53,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
             });
         }
         if (isError) {
-            console.log(error);
+            console.error(error);
         }
     }, [error, fromLocation, isError, isLoading, isSuccess, navigate]);
 
@@ -126,7 +125,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
                         />
                     </Container>
                 </form>
-                <GoogleOAuth></GoogleOAuth>
                 <Button disabled={isLoading}>
                     {isLoading && <Spinner />}
                     <Text

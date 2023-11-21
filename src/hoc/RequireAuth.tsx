@@ -6,7 +6,8 @@ const RequireAuth = (): JSX.Element => {
     const location = useLocation();
 
     const { me } = useAppSelector((state) => state.teacherState);
-    console.log('req auth ', me, location.state);
+
+    console.log(me);
     if (!me) {
         return (
             <Navigate

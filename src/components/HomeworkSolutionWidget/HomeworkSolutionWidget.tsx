@@ -50,7 +50,7 @@ const HomeworkSolutionWidget: React.FC<HomeworkSolutionWidgetProps> = ({
                 closeOverlay={() => setIsOverlay(false)}
             >
                 <ClassSolutionsAll classID={Number(classId)} />
-            </Overlay >
+            </Overlay>
 
             <Widget
                 title="Решения: "
@@ -60,8 +60,8 @@ const HomeworkSolutionWidget: React.FC<HomeworkSolutionWidgetProps> = ({
                 <HomeworkSolutionList
                     classId={classId}
                     limit={2}
-                    emptyTitle='Пока нет решений'
-                    showStatus='all'
+                    emptyTitle="Пока нет решений"
+                    showStatus="all"
                 />
             </Widget>
         </>

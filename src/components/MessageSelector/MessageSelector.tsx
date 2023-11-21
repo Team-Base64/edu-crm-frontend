@@ -5,27 +5,56 @@ import MessageSelectDialogItem from '@components/MessageSelectDioalogItem/Messag
 import { SearchDialogList } from '@components/SearchDialogList/SearchDialogList.tsx';
 import styles from './MessageSelector.module.scss';
 import { useGetDialogsQuery } from '@app/features/dialog/dialogSlice';
+import { SetURLSearchParams } from 'react-router-dom';
+import { routerQueryParams } from '@router/routes.ts';
+import { updateOneSearchParam } from '../../utils/router/searchParams.ts';
 
 interface MessageSelectorProps extends UiComponentProps {
-    setChatID: (chatID: number) => void;
+    useQueryParams: [URLSearchParams, SetURLSearchParams];
 }
 
 const MessageSelector: React.FC<MessageSelectorProps> = ({
-    setChatID,
+    useQueryParams,
     classes,
 }) => {
     const { data, isLoading, isSuccess, isError, error } =
         useGetDialogsQuery(null);
 
+    const [searchParams, setSearchParams] = useQueryParams;
+
+    const getSearchParam = () =>
+        (
+            searchParams.get(routerQueryParams.messenger.search) ?? ''
+        ).toLowerCase();
+
     const dialogList = Object.values(data?.dialogs ?? {})
         .sort((a, b) => (new Date(a.date) < new Date(b.date) ? 1 : -1))
-        .map((dialog) => (
-            <MessageSelectDialogItem
-                data={dialog}
-                key={dialog.chatid}
-                selectDialog={() => setChatID(dialog.chatid)}
-            ></MessageSelectDialogItem>
-        ));
+        .filter(
+            (dialog) =>
+                dialog.name.toLowerCase().includes(getSearchParam()) ||
+                dialog.text.toLowerCase().includes(getSearchParam()),
+        )
+        .map((dialog) => {
+            return (
+                <MessageSelectDialogItem
+                    data={dialog}
+                    key={dialog.chatID}
+                    selectDialog={() =>
+                        setSearchParams(
+                            updateOneSearchParam(
+                                searchParams,
+                                routerQueryParams.messenger.chatid,
+                                dialog.chatID,
+                            ),
+                        )
+                    }
+                    isSelected={
+                        searchParams.get(routerQueryParams.messenger.chatid) ==
+                        dialog.chatID
+                    }
+                ></MessageSelectDialogItem>
+            );
+        });
 
     return (
         <Container
@@ -33,7 +62,9 @@ const MessageSelector: React.FC<MessageSelectorProps> = ({
             layout={'base'}
             classes={[styles.messageSelector, classes].join(' ')}
         >
-            <SearchDialogList></SearchDialogList>
+            <SearchDialogList
+                useQueryParams={[searchParams, getSearchParam, setSearchParams]}
+            ></SearchDialogList>
             {isSuccess && dialogList}
             {isError && <p>{JSON.stringify(error)}</p>}
             {isLoading && <p>loading...</p>}

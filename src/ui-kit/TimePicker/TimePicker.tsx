@@ -1,17 +1,37 @@
 import React from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
-import Input from '@ui-kit/Input/Input.tsx';
-import { dateInput } from '@components/AddEventForm/AddEventForm.tsx';
+import Input, { InputErrorType } from '@ui-kit/Input/Input.tsx';
+import { dateInput } from '@components/CalendarEventForm/CalendarEventForm.tsx';
+import { getUTCTime } from '../../utils/common/dateRepresentation.ts';
 
 interface TimePickerProps extends UiComponentProps {
-    setTime: React.Dispatch<React.SetStateAction<dateInput>>;
+    useTime: {
+        time: dateInput;
+        setTime: React.Dispatch<React.SetStateAction<dateInput>>;
+    };
+    label: string;
+    error: InputErrorType;
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const TimePicker: React.FC<TimePickerProps> = ({ setTime }) => {
+export const TimePicker: React.FC<TimePickerProps> = ({
+    useTime,
+    classes,
+    label,
+    error,
+    onChange,
+}) => {
     return (
         <Input
             type={'time'}
-            onChange={(event) => setTime(event.target.valueAsDate)}
+            onChange={(event) => {
+                useTime.setTime(event.target.valueAsDate);
+                onChange(event);
+            }}
+            defaultValue={useTime.time ? getUTCTime(useTime.time) : undefined}
+            classes={classes}
+            label={{ text: label, type: 'h', size: 5 }}
+            error={error}
         ></Input>
     );
 };

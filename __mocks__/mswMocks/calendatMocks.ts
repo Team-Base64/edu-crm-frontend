@@ -10,15 +10,17 @@ import {
 export const calendarHandlers = [
     http.get(`${appPaths.basePath}${calendarPaths.getEvents}`, () =>
         HttpResponse.json(
-            [
-                getEventsFirstMockData,
-                getEventsSecondMockData,
-                getEventsSecondMockData,
-                getEventsSecondMockData,
-                getEventsSecondMockData,
-                getEventsSecondMockData,
-                getEventsSecondMockData,
-            ],
+            {
+                events: [
+                    getEventsFirstMockData,
+                    getEventsSecondMockData,
+                    getEventsSecondMockData,
+                    getEventsSecondMockData,
+                    getEventsSecondMockData,
+                    getEventsSecondMockData,
+                    getEventsSecondMockData,
+                ],
+            },
             {
                 status: 200,
                 headers: { ...defaultHeadersMock },

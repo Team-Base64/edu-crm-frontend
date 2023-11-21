@@ -1,4 +1,4 @@
-.message-select-dialog-item {
+@mixin select-dialog-item {
   justify-content: flex-start;
 
   &:hover {
@@ -30,3 +30,18 @@
     }
   }
 }
+
+
+.message-select-dialog-item {
+  @include select-dialog-item;
+
+  &:hover {
+    background-color: var(--ui-kit-btn-link-bg-hover);
+  }
+
+  &-selected {
+    background-color: var(--color-accent-light);
+  }
+}
+
+

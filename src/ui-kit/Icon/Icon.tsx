@@ -36,6 +36,7 @@ const iconName = {
     ulist: Icons.UList,
     alert: Icons.Alert,
     infoCircle: Icons.InfoCircle,
+    imageIcon: Icons.ImageIcon,
 };
 
 export type IconName = keyof typeof iconName;

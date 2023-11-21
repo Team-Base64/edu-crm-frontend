@@ -19,6 +19,15 @@ export const calendarSlice = appApi.injectEndpoints({
                 };
             },
         }),
+        editEvent: build.mutation<unknown, CalendarCreateEventType>({
+            query: (eventData) => {
+                return {
+                    url: `${appPaths.basePath}${calendarPaths.editEvent}`,
+                    method: 'POST',
+                    body: eventData,
+                };
+            },
+        }),
         getEvents: build.query<
             { calendarEvents: CalendarEventSelectByIDType },
             unknown
@@ -30,10 +39,11 @@ export const calendarSlice = appApi.injectEndpoints({
                 };
             },
             providesTags: ['getEvents'],
-            transformResponse(calendarEvents: CalendarEventType[]) {
+
+            transformResponse(calendarEvents: { events: CalendarEventType[] }) {
                 const newDialogs: CalendarEventSelectByIDType = {};
 
-                calendarEvents.forEach((event) => {
+                calendarEvents.events.forEach((event) => {
                     newDialogs[event.id] = event;
                 });
 
@@ -57,4 +67,5 @@ export const {
     useAddEventMutation,
     useGetEventsQuery,
     useDeleteEventMutation,
+    useEditEventMutation,
 } = calendarSlice;

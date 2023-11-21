@@ -24,7 +24,7 @@ const HomeworkSolutionItem: React.FC<HomeworkSolutionItemProps> = ({
     data,
     classes,
 }) => {
-    const { id, hwID, studentID,  createTime } = data;
+    const { id, hwID, studentID, createTime } = data;
     const navigate = useNavigate();
 
     // Тут нужно зарефакторить этот кал
@@ -60,8 +60,11 @@ const HomeworkSolutionItem: React.FC<HomeworkSolutionItemProps> = ({
     }
 
     const handleClick = () => {
-        navigate(`/${AppRoutes.solutions}/${id}`, {replace: false, relative:'route'});
-    }
+        navigate(`/${AppRoutes.solutions}/${id}`, {
+            replace: false,
+            relative: 'route',
+        });
+    };
 
     return (
         <Container
@@ -104,11 +107,13 @@ const HomeworkSolutionItem: React.FC<HomeworkSolutionItemProps> = ({
                 <Updatable
                     element={Text}
                     updateProps={(): TextProps => ({
-                        type: "p",
+                        type: 'p',
                         size: 2,
                         weight: 'bold',
                         classes: [styles.state, stateClassName].join(' '),
-                        children: createTime ? prettyDate(createTime) : 'Срок не ясен',
+                        children: createTime
+                            ? prettyDate(createTime)
+                            : 'Срок не ясен',
                     })}
                     interval={1}
                 />

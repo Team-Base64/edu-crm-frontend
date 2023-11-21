@@ -5,22 +5,27 @@ import {
     useDeleteEventMutation,
     useGetEventsQuery,
 } from '@app/features/calendar/calendarSlice.ts';
-import { CalendarEvent } from '../../CalendarEvent/CalendarEvent.tsx';
+import { CalendarEvent } from '@components/CalendarEvent/CalendarEvent.tsx';
 import { CalendarEventType } from '@app/features/calendar/calendarModel.ts';
 import styles from './CalendarEventsList.module.scss';
 
-interface CalendarEventsListProps extends UiComponentProps {}
+interface CalendarEventsListProps extends UiComponentProps {
+    iframeRef: React.RefObject<HTMLIFrameElement>;
+}
 
-export const CalendarEventsList: React.FC<CalendarEventsListProps> = () => {
+export const CalendarEventsList: React.FC<CalendarEventsListProps> = ({
+    iframeRef,
+}) => {
     const { data } = useGetEventsQuery(null);
     const [deleteEvent] = useDeleteEventMutation();
 
     const calendarEvents = Object.values(data?.calendarEvents ?? {}).map(
-        (event: CalendarEventType, index: number) => (
+        (eventData: CalendarEventType, index: number) => (
             <CalendarEvent
-                event={event}
-                key={`${event.id}-${event.classid}-${index}`}
-                onDeleteClick={() => deleteEvent({ id: event.id })}
+                eventData={eventData}
+                key={`${eventData.id}-${eventData.classid}-${index}`}
+                onDeleteClick={() => deleteEvent({ id: eventData.id })}
+                iframeRef={iframeRef}
             ></CalendarEvent>
         ),
     );

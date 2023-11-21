@@ -3,9 +3,16 @@ import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import styles from './Calendar.module.scss';
 import Spinner from '@ui-kit/Spinner/Spinner.tsx';
 
-interface CalendarProps extends UiComponentProps {}
+interface CalendarProps extends UiComponentProps {
+    mode: 'WEEK' | 'MONTH';
+    iframeRef: React.RefObject<HTMLIFrameElement>;
+}
 
-export const Calendar: React.FC<CalendarProps> = ({ classes }) => {
+export const Calendar: React.FC<CalendarProps> = ({
+    classes,
+    mode,
+    iframeRef,
+}) => {
     const timeZone = 'Europe%2FMoscow';
     const showTimeZone = '1';
     const src =
@@ -22,7 +29,8 @@ export const Calendar: React.FC<CalendarProps> = ({ classes }) => {
             }
         >
             <iframe
-                src={`https://calendar.google.com/calendar/embed?ctz=${timeZone}&hl=ru&showTz=${showTimeZone}&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=1&showCalendars=0&src=${src}`}
+                ref={iframeRef}
+                src={`https://calendar.google.com/calendar/embed?ctz=${timeZone}&hl=ru&showTz=${showTimeZone}&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=1&showCalendars=0&src=${src}&mode=${mode}`}
                 className={[styles.calendar, classes].join(' ')}
             ></iframe>
         </Suspense>

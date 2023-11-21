@@ -6,7 +6,7 @@ const appApi = createApi({
         baseUrl: appPaths.basePath,
         mode: 'cors',
     }),
-    refetchOnFocus: true,
+    // refetchOnFocus: true,
     refetchOnReconnect: true,
     // refetchOnMountOrArgChange: true,
     endpoints: () => ({}),

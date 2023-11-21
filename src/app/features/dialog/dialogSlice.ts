@@ -4,6 +4,7 @@ import {
     dialogSelectType,
 } from '@app/features/dialog/dialogModel';
 import { dialogPaths } from '@app/features/dialog/dialogPaths';
+import { userAvatarPlaceholder } from '@app/const/consts.ts';
 
 export const dialogSlice = appApi.injectEndpoints({
     endpoints: (build) => ({
@@ -19,18 +20,15 @@ export const dialogSlice = appApi.injectEndpoints({
                 const newDialogs: dialogSelectByIDType = {};
 
                 chats.forEach((chats) => {
-                    newDialogs[chats.chatid] = chats;
+                    newDialogs[chats.chatID] = {
+                        ...chats,
+                        cover: chats.cover ?? userAvatarPlaceholder,
+                    };
                 });
 
                 return { dialogs: newDialogs };
             },
         }),
-        // postDialogs: build.mutation<unknown, unknown>({
-        //     queryFn: () => {
-        //         return { data: [] };
-        //     },
-        //     invalidatesTags: ['getDialogs'],
-        // }),
     }),
 });
 

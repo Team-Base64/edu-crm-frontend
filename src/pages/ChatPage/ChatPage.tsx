@@ -1,11 +1,19 @@
 import Container from '@ui-kit/Container/Container.tsx';
 import MessageSelector from '@components/MessageSelector/MessageSelector.tsx';
 import Messenger from '@components/Messenger/Messenger.tsx';
-import React, { useState } from 'react';
-import styles from './Chat.module.scss';
+import React from 'react';
+import styles from './ChatPage.module.scss';
 import { MessengerHeader } from '@components/MessangerHeader/MessengerHeader.tsx';
-export const Chat: React.FC = () => {
-    const [chatID, setChatID] = useState<number>(-1);
+import { unselectedId } from '@app/const/consts.ts';
+import { useSearchParams } from 'react-router-dom';
+import { routerQueryParams } from '@router/routes.ts';
+export const ChatPage: React.FC = () => {
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const getChatIdParam = () =>
+        searchParams.has('chatid')
+            ? Number(searchParams.get(routerQueryParams.messenger.chatid))
+            : unselectedId;
 
     return (
         <Container
@@ -13,15 +21,15 @@ export const Chat: React.FC = () => {
             classes={styles.chat}
         >
             <MessageSelector
-                setChatID={setChatID}
+                useQueryParams={[searchParams, setSearchParams]}
                 classes={styles.dialogList}
             ></MessageSelector>
             <MessengerHeader
-                chatid={chatID}
+                chatID={getChatIdParam()}
                 classes={styles.messengerHeader}
             ></MessengerHeader>
             <Messenger
-                chatid={chatID}
+                chatID={getChatIdParam()}
                 classes={styles.messenger}
             ></Messenger>
         </Container>

@@ -58,9 +58,20 @@ const ClassHomeworksWidget: React.FC<ClassHomeworksWidgetProps> = ({
                     limit={2}
                 />
 
-                <Button classes={styles.btnCreate} onClick={() => setCreateForm(true)}>
-                    <Icon name='addLine' classes={styles.btnCreateIcon} />
-                    <Text type='p' size={1} weight='bold' classes={styles.btnCreateText}>
+                <Button
+                    classes={styles.btnCreate}
+                    onClick={() => setCreateForm(true)}
+                >
+                    <Icon
+                        name="addLine"
+                        classes={styles.btnCreateIcon}
+                    />
+                    <Text
+                        type="p"
+                        size={1}
+                        weight="bold"
+                        classes={styles.btnCreateText}
+                    >
                         Создать
                     </Text>
                 </Button>
@@ -93,8 +104,14 @@ const ClassHomeworksWidget: React.FC<ClassHomeworksWidgetProps> = ({
                 </Container>
             </Overlay>
             {/* CREATE HW FORM */}
-            <Overlay isShowing={isCreateForm} closeOverlay={() => setCreateForm(false)}>
-                <HomeworkCreateForm classId={classId} onSubmitSuccess={() => setCreateForm(false)} />
+            <Overlay
+                isShowing={isCreateForm}
+                closeOverlay={() => setCreateForm(false)}
+            >
+                <HomeworkCreateForm
+                    classId={classId}
+                    onSubmitSuccess={() => setCreateForm(false)}
+                />
             </Overlay>
         </>
     );
