@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { FormEvent, useEffect, useRef, useState } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import Input from '@ui-kit/Input/Input';
 import Button from '@ui-kit/Button/Button';
@@ -9,6 +9,8 @@ import AppRoutes from '@router/routes';
 import Icon from '@ui-kit/Icon/Icon';
 import Container from '@ui-kit/Container/Container';
 import Text from '@ui-kit/Text/Text';
+import styles from './LoginForm.module.scss';
+import { getEmptyStringValidation } from '../../validation/string.ts';
 
 interface LoginFormProps extends UiComponentProps {}
 
@@ -31,11 +33,17 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
         passwordRef.current.type = passwordVisibility;
     }, [passwordVisibility]);
 
+    const [loginError, setLoginErorr] = useState<string>('');
+    const [passwordError, setPasswordErorr] = useState<string>('');
+
     const fromLocation = location?.state?.from;
-    const handleSubmit = () => {
+    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         const username = usernameRef.current?.value;
         const password = passwordRef.current?.value;
         if (!username || !password) {
+            setLoginErorr(getEmptyStringValidation(username));
+            setPasswordErorr(getEmptyStringValidation(password));
             return;
         }
         login({
@@ -72,7 +80,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
                 >
                     Пожалуйста, войдите
                 </Text>
-                <form onSubmit={handleSubmit}>
+                <form
+                    onSubmit={handleSubmit}
+                    className={styles.loginForm}
+                >
                     <Container direction={'vertical'}>
                         <Input
                             inputRef={usernameRef}
@@ -93,6 +104,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
                                 />
                             }
                             type={'text'}
+                            error={{ text: loginError, position: 'right' }}
+                            onChange={({ target }) =>
+                                setLoginErorr(
+                                    getEmptyStringValidation(target.value),
+                                )
+                            }
                         />
                         <Input
                             inputRef={passwordRef}
@@ -103,6 +120,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
                             }}
                             placeholder={'DEV пароль 123'}
                             icon={<Icon name={'lock'} />}
+                            error={{ text: passwordError, position: 'right' }}
                             button={
                                 <Icon
                                     name={
@@ -122,18 +140,26 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
                                 />
                             }
                             type={'text'}
+                            onChange={({ target }) => {
+                                setPasswordErorr(
+                                    getEmptyStringValidation(target.value),
+                                );
+                            }}
                         />
                     </Container>
-                </form>
-                <Button disabled={isLoading}>
-                    {isLoading && <Spinner />}
-                    <Text
-                        type={'h'}
-                        size={5}
+                    <Button
+                        disabled={isLoading}
+                        classes={styles.loginFormSubmitButton}
                     >
-                        Войти
-                    </Text>
-                </Button>
+                        {isLoading && <Spinner />}
+                        <Text
+                            type={'h'}
+                            size={5}
+                        >
+                            Войти
+                        </Text>
+                    </Button>
+                </form>
             </Container>
         </>
     );
