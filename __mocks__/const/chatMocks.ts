@@ -30,20 +30,22 @@ export const messagesMock: netChatMessage[] = [
 export const dialogListMock: dialogSelectType[] = [
     {
         chatID: 1,
-        name: 'Ziko Anvo',
+        studentName: 'Ziko Anvo',
         cover: man_photo_src,
         isread: true,
         text: 'longask dnkasndns andkjsdjnandkasndn asndkasstring',
         date: new Date().toISOString(),
         socialType: 'tg',
+        studentID: 1,
     },
     {
         chatID: 2,
-        name: 'Martha Bennet',
+        studentName: 'Martha Bennet',
         cover: '',
         isread: false,
         text: 'long asndkasstring',
         date: new Date().toISOString(),
         socialType: 'vk',
+        studentID: 2,
     },
 ];
