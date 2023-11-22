@@ -52,15 +52,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
                 password: password,
             },
         });
-        // .then((result) => {
-        //     console.log('login result', result);
-        // })
-        // .catch((error) => console.log('login error', error));
     };
 
     useEffect(() => {
         if (isSuccess) {
-            console.log(fromLocation);
             navigate(
                 fromLocation
                     ? fromLocation.pathname

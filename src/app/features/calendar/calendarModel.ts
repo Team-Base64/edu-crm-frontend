@@ -19,3 +19,8 @@ export interface CalendarEventSelectByIDType {
 export type CalendarEventDeleteType = { id: CalendarEventType['id'] };
 
 export type eventMutationsType = typeof useAddEventMutation;
+
+export type calendarGetID = {
+    googleid: string;
+    id: number;
+};

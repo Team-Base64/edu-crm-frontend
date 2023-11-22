@@ -7,7 +7,7 @@ import { homeworkHandlers } from './mswMocks/homeworkMoks.ts';
 import { teacherHandlers } from './mswMocks/teacherMocks';
 import { taskHandlers } from './mswMocks/taskMocks.ts';
 import { solutionsHandlers } from './mswMocks/solutionMocks.ts';
-import { calendarHandlers } from './mswMocks/calendatMocks.ts';
+import { calendarHandlers } from './mswMocks/calendarMocks.ts';
 import { reviewHandlers } from './mswMocks/reviewMocks.ts';
 import { announceHandlers } from './mswMocks/announceMocks.ts';
 

@@ -5,6 +5,7 @@ import {
     CalendarEventDeleteType,
     CalendarEventSelectByIDType,
     CalendarEventType,
+    calendarGetID,
 } from '@app/features/calendar/calendarModel.ts';
 import appPaths from '@app/appPaths';
 
@@ -60,6 +61,14 @@ export const calendarSlice = appApi.injectEndpoints({
             },
             invalidatesTags: ['getEvents'],
         }),
+        getCalendarID: build.query<calendarGetID, unknown>({
+            query: () => {
+                return {
+                    url: `${appPaths.basePath}${calendarPaths.getCalendarID}`,
+                    method: 'GET',
+                };
+            },
+        }),
     }),
 });
 
@@ -68,4 +77,5 @@ export const {
     useGetEventsQuery,
     useDeleteEventMutation,
     useEditEventMutation,
+    useGetCalendarIDQuery,
 } = calendarSlice;

@@ -1,4 +1,7 @@
-import { CalendarEventType } from '../../src/app/features/calendar/calendarModel';
+import {
+    CalendarEventType,
+    calendarGetID,
+} from '../../src/app/features/calendar/calendarModel';
 
 export const getEventsFirstMockData: CalendarEventType = {
     title: 'title',
@@ -18,4 +21,10 @@ export const getEventsSecondMockData: CalendarEventType = {
     endDate: new Date('August 20, 2024 00:01').toISOString(),
     id: 124,
     classid: 2,
+};
+
+export const calendarIdMock: calendarGetID = {
+    googleid:
+        '611a7b115cb31d14e41c9909e07db425548dd3b5fa76a145f3c93ae7410bc142@group.calendar.google.com',
+    id: 1,
 };

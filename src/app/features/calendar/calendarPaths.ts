@@ -3,4 +3,5 @@ export const calendarPaths = {
     getEvents: 'calendar/events',
     deleteEvent: 'calendar/event',
     editEvent: 'calendar/event',
+    getCalendarID: 'calendar',
 };

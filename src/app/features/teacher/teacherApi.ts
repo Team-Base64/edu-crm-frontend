@@ -46,7 +46,6 @@ export const teacherApi = appApi.injectEndpoints({
             async onQueryStarted(args, { dispatch, queryFulfilled }) {
                 try {
                     const { data } = await queryFulfilled;
-                    console.log('ccc');
                     dispatch(setMe(data.me));
                 } catch (error) {
                     console.error(error);
