@@ -3,7 +3,7 @@ import Text from '@ui-kit/Text/Text';
 import React, { useId, useState } from 'react';
 import { HomeworkSolution } from '@app/features/homeworkSolution/homeworkSolutionModel';
 import EmptyItem from '@components/EmptyItem/EmptyItem';
-import styles from './ClassSolutionsAll.module.scss';
+import styles from './test.module.scss';
 import Icon from '@ui-kit/Icon/Icon';
 import {
     SolutionHeaderAuthor,
@@ -75,7 +75,7 @@ const SolutionItem: React.FC<SolutionItemProps> = ({ data }) => {
     );
 };
 
-interface SolutionGroupProps {}
+interface SolutionGroupProps { }
 
 const SolutionGroup: GroupFC<SolutionGroupProps, HomeworkSolution> = ({
     keys,
@@ -98,22 +98,26 @@ const SolutionGroup: GroupFC<SolutionGroupProps, HomeworkSolution> = ({
             />
         );
     }
-    if (keys.isApproved !== undefined) {
-        headerText = keys.isApproved ? 'Принятые' : 'С ошибками';
-        // headerConent = (
-        //     <Text
-        //         type="p"
-        //         size={1}
-        //     >
-        //         {keys.isApproved ? 'Зачтено' : 'Не зачтено'}
-        //     </Text>
-        // );
+    if (keys.status !== undefined) {
+        switch (keys.status) {
+            case 'new': {
+                headerText = 'Непроверенные';
+                break;
+            }
+            case 'approve': {
+                headerText = 'Принятые';
+                break;
+            }
+            case 'reject': {
+                headerText = 'С ошибками';
+                break;
+            }
+        }
     }
 
     return (
         <Container
             classes={styles.group}
-            gap="l"
         >
             <Container
                 direction="vertical"
@@ -165,7 +169,7 @@ const SolutionGroup: GroupFC<SolutionGroupProps, HomeworkSolution> = ({
         </Container>
     );
 };
-interface SolutionListProps {}
+interface SolutionListProps { }
 
 const SolutionList: ListFC<SolutionListProps, HomeworkSolution> = ({
     items,
@@ -204,12 +208,14 @@ const SolutionsGroup: React.FC<SolutionsGroupProps> = ({
             direction="vertical"
             layout="defaultBase"
             classes={[styles.widget, classes].join(' ')}
+            gap='l'
         >
             {title && (
                 <Text
                     type="h"
                     size={3}
                     weight="bold"
+                    classes={styles.widgetTitle}
                 >
                     {title}
                 </Text>
