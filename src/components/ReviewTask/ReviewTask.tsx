@@ -9,6 +9,8 @@ import React, { useRef } from 'react';
 import styles from './ReviewTask.module.scss';
 import Text from '@ui-kit/Text/Text';
 import { commentStorePath } from './utils';
+import { Attachment } from '@ui-kit/Attachment/Attachment';
+import { noop } from '@app/const/consts';
 
 interface ReviewTaskProps {
     title?: string;
@@ -93,17 +95,18 @@ const ReviewTask: React.FC<ReviewTaskProps> = ({ taskID, title }) => {
                             weight="bold"
                             classes={styles.title}
                         >
-                            {title ? title : `Задача id${data.id}`}
+                            {title ? title : `Задача id${taskID}`}
                         </Text>
                         <Text
                             type="p"
                             size={1}
                             classes={styles.description}
                         >
-                            {data.description}
+                            {data.task.description}
                         </Text>
-                        TODO attach
-                        {/* {data.attach && <Attachment file={data.attach} onRemoveClick={noop}/>} */}
+                        {data.task.attach && data.task.attach.length && (
+                            <Attachment file={data.task.attach} onRemoveClick={noop} isStatic={true}/>
+                        )}
                     </Container>
                     <Container
                         direction="horizontal"

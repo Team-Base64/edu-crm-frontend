@@ -7,6 +7,8 @@ import styles from './HomeworkTaskItem.module.scss';
 import { HomeworkTask } from '@app/features/homeworkTask/homeworkTaskModel';
 import CheckBox from '@ui-kit/CheckBox/CheckBox';
 import { useEffect, useState } from 'react';
+import { Attachment } from '@ui-kit/Attachment/Attachment';
+import { noop } from '@app/const/consts';
 
 interface HomeworkTaskItemProps extends UiComponentProps {
     title?: string;
@@ -23,7 +25,7 @@ const HomeworkTaskItem: React.FC<HomeworkTaskItemProps> = ({
     onDelete,
     onSelect,
 }) => {
-    const { id, description } = task;
+    const { id, description, attach } = task;
     const [state, setState] = useState<boolean>(false);
     useEffect(() => {
         if (state) {
@@ -56,6 +58,9 @@ const HomeworkTaskItem: React.FC<HomeworkTaskItemProps> = ({
                 >
                     {description}
                 </Text>
+                {attach && attach.length && (
+                    <Attachment file={attach} onRemoveClick={noop} isStatic={true}/>
+                )}
                 {onDelete && (
                     <Button
                         onClick={() => onDelete(id)}
