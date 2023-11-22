@@ -33,8 +33,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
         passwordRef.current.type = passwordVisibility;
     }, [passwordVisibility]);
 
-    // const navigate = useNavigate();
-
     const [loginError, setLoginErorr] = useState<string>('');
     const [passwordError, setPasswordErorr] = useState<string>('');
 
@@ -53,18 +51,24 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
                 login: username,
                 password: password,
             },
-        })
-            .then((result) => {
-                console.log('login result', result);
-            })
-            .catch((error) => console.log('login error', error));
+        });
+        // .then((result) => {
+        //     console.log('login result', result);
+        // })
+        // .catch((error) => console.log('login error', error));
     };
 
     useEffect(() => {
         if (isSuccess) {
-            navigate(fromLocation ? fromLocation.pathname : AppRoutes.classes, {
-                replace: true,
-            });
+            console.log(fromLocation);
+            navigate(
+                fromLocation
+                    ? fromLocation.pathname
+                    : AppRoutes.base + AppRoutes.classes,
+                {
+                    replace: true,
+                },
+            );
         }
         if (isError) {
             console.error(error);
