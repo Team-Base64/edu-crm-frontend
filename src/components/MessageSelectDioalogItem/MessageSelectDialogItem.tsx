@@ -32,7 +32,7 @@ const MessageSelectDialogItem: React.FC<MessageSelectDialogItemProps> = ({
         >
             <Avatar
                 src={data.cover}
-                alt={`аватар диалога с ${data.name}`}
+                alt={`аватар диалога с ${data.studentName}`}
             ></Avatar>
             <div className={styles.messageSelectDialogItemText}>
                 <Text
@@ -40,7 +40,7 @@ const MessageSelectDialogItem: React.FC<MessageSelectDialogItemProps> = ({
                     size={5}
                     classes={styles.messageSelectDialogItemTextTitle}
                 >
-                    {data.name}
+                    {data.studentName}
                 </Text>
                 <Text
                     type={'p'}
