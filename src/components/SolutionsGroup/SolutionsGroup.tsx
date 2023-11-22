@@ -75,7 +75,7 @@ const SolutionItem: React.FC<SolutionItemProps> = ({ data }) => {
     );
 };
 
-interface SolutionGroupProps { }
+interface SolutionGroupProps {}
 
 const SolutionGroup: GroupFC<SolutionGroupProps, HomeworkSolution> = ({
     keys,
@@ -116,9 +116,7 @@ const SolutionGroup: GroupFC<SolutionGroupProps, HomeworkSolution> = ({
     }
 
     return (
-        <Container
-            classes={styles.group}
-        >
+        <Container classes={styles.group}>
             <Container
                 direction="vertical"
                 classes={styles.title}
@@ -169,7 +167,7 @@ const SolutionGroup: GroupFC<SolutionGroupProps, HomeworkSolution> = ({
         </Container>
     );
 };
-interface SolutionListProps { }
+interface SolutionListProps {}
 
 const SolutionList: ListFC<SolutionListProps, HomeworkSolution> = ({
     items,
@@ -208,7 +206,7 @@ const SolutionsGroup: React.FC<SolutionsGroupProps> = ({
             direction="vertical"
             layout="defaultBase"
             classes={[styles.widget, classes].join(' ')}
-            gap='l'
+            gap="l"
         >
             {title && (
                 <Text

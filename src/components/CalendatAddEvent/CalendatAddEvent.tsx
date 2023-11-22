@@ -16,6 +16,13 @@ export const CalendarAddEvent: React.FC<CalendarAddEventProps> = ({
 }) => {
     const [isAddEventWindowShowing, setAddEventWindowShowing] = useState(false);
 
+    const handleOverlayClose = () => {
+        if (iframeRef.current) {
+            iframeRef.current.src += '';
+        }
+        setAddEventWindowShowing(false);
+    };
+
     return (
         <>
             <Button
@@ -35,10 +42,9 @@ export const CalendarAddEvent: React.FC<CalendarAddEventProps> = ({
                 closeOverlay={() => setAddEventWindowShowing(false)}
             >
                 <CalendarEventForm
-                    setIsShowingState={setAddEventWindowShowing}
                     useMutation={useAddEventMutation}
                     title={'Создание события'}
-                    iframeRef={iframeRef}
+                    handleOverlayClose={handleOverlayClose}
                 ></CalendarEventForm>
             </Overlay>
         </>

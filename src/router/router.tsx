@@ -23,7 +23,12 @@ const AppRouter: React.FC = () => {
                 <Route
                     index
                     // element={<LandingPage />}
-                    element={<Navigate to={`/${AppRoutes.classes}`} replace/>}
+                    element={
+                        <Navigate
+                            to={`/${AppRoutes.classes}`}
+                            replace
+                        />
+                    }
                 />
                 <Route
                     path={AppRoutes.none}

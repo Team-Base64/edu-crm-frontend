@@ -1,11 +1,11 @@
-import { useGetHomeworkSolutionsQuery } from "@app/features/homeworkSolution/homeworkSolutionSlice";
-import Container from "@ui-kit/Container/Container";
-import Icon from "@ui-kit/Icon/Icon";
-import Spinner from "@ui-kit/Spinner/Spinner";
-import Text from "@ui-kit/Text/Text";
-import { UiComponentProps } from "@ui-kit/interfaces";
+import { useGetHomeworkSolutionsQuery } from '@app/features/homeworkSolution/homeworkSolutionSlice';
+import Container from '@ui-kit/Container/Container';
+import Icon from '@ui-kit/Icon/Icon';
+import Spinner from '@ui-kit/Spinner/Spinner';
+import Text from '@ui-kit/Text/Text';
+import { UiComponentProps } from '@ui-kit/interfaces';
 import styles from './HomeworkSolutionsAll.module.scss';
-import SolutionsGroup from "@components/SolutionsGroup/SolutionsGroup";
+import SolutionsGroup from '@components/SolutionsGroup/SolutionsGroup';
 
 interface HomeworkSolutionsAllProps extends UiComponentProps {
     homeworkID: number;
@@ -56,6 +56,5 @@ const HomeworkSolutionsAll: React.FC<HomeworkSolutionsAllProps> = ({
         </>
     );
 };
-
 
 export default HomeworkSolutionsAll;
