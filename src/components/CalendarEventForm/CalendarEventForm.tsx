@@ -22,29 +22,20 @@ import {
 import { getEmptyStringValidation } from '../../validation/string.ts';
 
 interface AddEvenFormProps extends UiComponentProps {
-    setIsShowingState: React.Dispatch<React.SetStateAction<boolean>>;
     useMutation: eventMutationsType;
     eventData?: CalendarEventType | null;
     title: string;
-    iframeRef: React.RefObject<HTMLIFrameElement>;
+    handleOverlayClose: () => void;
 }
 
 export type dateInput = Date | null;
 
 export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
-    setIsShowingState,
     useMutation,
     eventData = null,
     title,
-    iframeRef,
+    handleOverlayClose,
 }) => {
-    const handleOverlayClose = () => {
-        if (iframeRef.current) {
-            iframeRef.current.src += '';
-        }
-        setIsShowingState(false);
-    };
-
     const {
         useTitle,
         useStartDate,

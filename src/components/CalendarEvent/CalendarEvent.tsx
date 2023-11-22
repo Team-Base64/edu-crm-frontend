@@ -24,6 +24,17 @@ export const CalendarEvent: React.FC<CalendarEventProps> = ({
     onDeleteClick,
     iframeRef,
 }) => {
+    const handleOverlayClose = () => {
+        if (iframeRef.current) {
+            iframeRef.current.src += '';
+        }
+        setEditEventWindowShowing(false);
+    };
+    const onDelteHandle = () => {
+        onDeleteClick();
+        handleOverlayClose();
+    };
+
     const [isAddEventWindowShowing, setEditEventWindowShowing] =
         useState(false);
     return (
@@ -80,7 +91,7 @@ export const CalendarEvent: React.FC<CalendarEventProps> = ({
             </Button>
             <Button
                 type={'link'}
-                onClick={onDeleteClick}
+                onClick={onDelteHandle}
             >
                 <Icon
                     size={'small'}
@@ -98,11 +109,10 @@ export const CalendarEvent: React.FC<CalendarEventProps> = ({
                 closeOverlay={() => setEditEventWindowShowing(false)}
             >
                 <CalendarEventForm
-                    setIsShowingState={setEditEventWindowShowing}
                     useMutation={useEditEventMutation}
                     eventData={eventData}
                     title={'Изменение события'}
-                    iframeRef={iframeRef}
+                    handleOverlayClose={handleOverlayClose}
                 ></CalendarEventForm>
             </Overlay>
         </Container>
