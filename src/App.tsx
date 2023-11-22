@@ -1,7 +1,7 @@
 import AppRouter from '@router/router';
 import React from 'react';
 import styles from './App.module.scss';
-import { useCheckAuthQuery } from '@app/features/auth/authSlice.ts';
+import { useCheckAuthQuery } from '@app/features/teacher/teacherApi.ts';
 // import { useNavigate } from 'react-router-dom';
 // import AppRoutes from '@router/routes.ts';
 
@@ -11,7 +11,7 @@ const App: React.FC = () => {
     // });
 
     // const navigate = useNavigate();
-    const { isError } = useCheckAuthQuery(null);
+    useCheckAuthQuery(null);
     // if (isError) {
     //     navigate(AppRoutes.base + AppRoutes.login);
     // }

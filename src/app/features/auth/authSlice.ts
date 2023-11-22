@@ -31,5 +31,4 @@ export const authSlice = appApi.injectEndpoints({
     }),
 });
 
-export const { useCheckAuthQuery, useLoginQuery, useLogoutMutation } =
-    authSlice;
+// export const {} = authSlice;
