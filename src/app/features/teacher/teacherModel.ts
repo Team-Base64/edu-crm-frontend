@@ -1,16 +1,16 @@
 export type Teacher = {
     id: number;
     name: string;
-    username: string;
+    login: string;
 };
 
 export type TeacherLoginPayload = {
-    username: string;
+    login: string;
     password: string; // TODO crypt
 };
 
 export type TeacherRegisterPayload = {
     name: string;
-    username: string;
+    login: string;
     password: string;
 };

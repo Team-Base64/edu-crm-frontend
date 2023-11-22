@@ -50,7 +50,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
         }
         login({
             payload: {
-                username: username,
+                login: username,
                 password: password,
             },
         })
