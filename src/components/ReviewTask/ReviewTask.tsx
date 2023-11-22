@@ -105,7 +105,11 @@ const ReviewTask: React.FC<ReviewTaskProps> = ({ taskID, title }) => {
                             {data.task.description}
                         </Text>
                         {data.task.attach && data.task.attach.length && (
-                            <Attachment file={data.task.attach} onRemoveClick={noop} isStatic={true}/>
+                            <Attachment
+                                file={data.task.attach}
+                                onRemoveClick={noop}
+                                isStatic={true}
+                            />
                         )}
                     </Container>
                     <Container

@@ -59,7 +59,11 @@ const HomeworkTaskItem: React.FC<HomeworkTaskItemProps> = ({
                     {description}
                 </Text>
                 {attach && attach.length && (
-                    <Attachment file={attach} onRemoveClick={noop} isStatic={true}/>
+                    <Attachment
+                        file={attach}
+                        onRemoveClick={noop}
+                        isStatic={true}
+                    />
                 )}
                 {onDelete && (
                     <Button
