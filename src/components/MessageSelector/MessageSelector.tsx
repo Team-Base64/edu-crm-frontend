@@ -31,7 +31,9 @@ const MessageSelector: React.FC<MessageSelectorProps> = ({
         .sort((a, b) => (new Date(a.date) < new Date(b.date) ? 1 : -1))
         .filter(
             (dialog) =>
-                dialog.name.toLowerCase().includes(getSearchParam()) ||
+                (dialog.name &&
+                    dialog.text &&
+                    dialog.name.toLowerCase().includes(getSearchParam())) ||
                 dialog.text.toLowerCase().includes(getSearchParam()),
         )
         .map((dialog) => {
