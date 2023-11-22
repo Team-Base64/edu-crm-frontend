@@ -1,6 +1,6 @@
 import MainLayout from '@components/MainLayout/MainLayout';
 // import RequireAuth from '@hoc/RequireAuth';
-import LandingPage from '@pages/LandingPage';
+// import LandingPage from '@pages/LandingPage';
 import LoginPage from '@pages/LoginPage/LoginPage';
 import NotFoundPage from '@pages/NotFoundPage';
 import React from 'react';

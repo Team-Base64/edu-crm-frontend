@@ -37,8 +37,8 @@ const HomeworkSolutionList: React.FC<HomeworkSolutionListProps> = ({
             const filtered = data.solutions.filter((s) => {
                 if (
                     showStatus === 'all' ||
-                    (showStatus === 'approved' && s.isApproved) ||
-                    (showStatus === 'rejected' && !s.isApproved)
+                    (showStatus === 'approved' && s.status === 'approve') ||
+                    (showStatus === 'rejected' && s.status === 'reject')
                 ) {
                     return s;
                 }
