@@ -9,59 +9,7 @@ import ClassItem from '@components/ClassItem/ClassItem';
 import Icon from '@ui-kit/Icon/Icon';
 import ClassMemberList from '@components/ClassMemberList/ClassMemberList';
 import React from 'react';
-import { UiComponentProps } from '@ui-kit/interfaces';
-import { useGetHomeworkSolutionsQuery } from '@app/features/homeworkSolution/homeworkSolutionSlice';
-import SolutionsGroup from '@components/ClassSolutionsAll/test';
-
-interface HomeworkSolutionsAllProps extends UiComponentProps {
-    homeworkID: number;
-}
-
-const HomeworkSolutionsAll: React.FC<HomeworkSolutionsAllProps> = ({
-    homeworkID,
-    classes,
-}) => {
-    const { data, isLoading, isError, isSuccess } =
-        useGetHomeworkSolutionsQuery({ homeworkID: homeworkID });
-    return (
-        <>
-            {isLoading && (
-                <Container classes={styles.status}>
-                    <Spinner classes={styles.statusSpinner} />
-                    <Text
-                        type="p"
-                        size={1}
-                        classes={styles.statusText}
-                    >
-                        Загрузка...
-                    </Text>
-                </Container>
-            )}
-            {isError && (
-                <Container classes={styles.status}>
-                    <Icon
-                        name="alert"
-                        classes={styles.statusIcon}
-                    />
-                    <Text
-                        type="p"
-                        size={1}
-                        classes={styles.statusText}
-                    >
-                        Произошла ошибка...
-                    </Text>
-                </Container>
-            )}
-            {isSuccess && (
-                <SolutionsGroup
-                    solutions={data.solutions}
-                    keys={['isApproved', 'studentID']}
-                    classes={classes}
-                />
-            )}
-        </>
-    );
-};
+import HomeworkSolutionsAll from '@components/HomeworkSolutionsAll/HomeworkSolutionsAll';
 
 const HomeworkPage: React.FC = () => {
     const params = useParams();
@@ -87,7 +35,6 @@ const HomeworkPage: React.FC = () => {
             layout="defaultBase"
             gap="l"
         >
-            {/* <Container direction='vertical' layout='defaultBase' gap="l"> */}
             <Text
                 type="h"
                 size={3}
@@ -190,7 +137,6 @@ const HomeworkPage: React.FC = () => {
                     />
                 </Container>
             )}
-            {/* </Container> */}
         </Container>
     );
 };

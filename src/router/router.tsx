@@ -4,7 +4,7 @@ import LandingPage from '@pages/LandingPage';
 import LoginPage from '@pages/LoginPage/LoginPage';
 import NotFoundPage from '@pages/NotFoundPage';
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import AppRoutes from './routes';
 import ClassPage from '@pages/ClassPage/ClassPage';
 import { ChatPage } from '@pages/ChatPage/ChatPage.tsx';
@@ -22,7 +22,8 @@ const AppRouter: React.FC = () => {
                 {/* Public */}
                 <Route
                     index
-                    element={<LandingPage />}
+                    // element={<LandingPage />}
+                    element={<Navigate to={`/${AppRoutes.classes}`} replace/>}
                 />
                 <Route
                     path={AppRoutes.none}

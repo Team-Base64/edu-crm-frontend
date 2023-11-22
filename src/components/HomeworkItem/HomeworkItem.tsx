@@ -31,7 +31,8 @@ const HomeworkItem: React.FC<HomeworkItemProps> = ({ homework, classes }) => {
         stateClassName = styles.pass;
     }
 
-    const handleClick = () => {
+    const handleClick : React.MouseEventHandler = (e) => {
+        e.stopPropagation();
         return navigate(`/${AppRoutes.homeworks}/${id}`);
     };
 
