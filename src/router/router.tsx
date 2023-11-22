@@ -14,6 +14,7 @@ import { CalendarPage } from '@pages/CalendarPage/CalendarPage.tsx';
 import TaskPage from '@pages/TaskPage/TaskPage';
 import HomeworkPage from '@pages/HomeworkPage/HomeworkPage';
 import HomeworkSolutionPage from '@pages/HomeworkSolutionPage/HomeworkSolutionPage';
+import RequireAuth from '@hoc/RequireAuth';
 
 const AppRouter: React.FC = () => {
     return (
@@ -47,52 +48,52 @@ const AppRouter: React.FC = () => {
                 </Route>
 
                 {/* Private */}
-                {/*<Route element={<RequireAuth />}>*/}
-                <Route element={<MainLayout />}>
-                    <Route path={AppRoutes.solutions}>
+                <Route element={<RequireAuth />}>
+                    <Route element={<MainLayout />}>
+                        <Route path={AppRoutes.solutions}>
+                            <Route
+                                index
+                                element={<NotFoundPage />}
+                            />
+                            <Route
+                                path={AppRoutes.solution}
+                                element={<HomeworkSolutionPage />}
+                            />
+                        </Route>
+                        <Route path={AppRoutes.homeworks}>
+                            <Route
+                                index
+                                element={<NotFoundPage />}
+                            />
+                            <Route
+                                path={AppRoutes.homework}
+                                element={<HomeworkPage />}
+                            />
+                        </Route>
                         <Route
-                            index
-                            element={<NotFoundPage />}
+                            path={AppRoutes.messenger}
+                            element={<ChatPage />}
                         />
                         <Route
-                            path={AppRoutes.solution}
-                            element={<HomeworkSolutionPage />}
+                            path={AppRoutes.tasks}
+                            element={<TaskPage />}
+                        />
+                        <Route path={AppRoutes.classes}>
+                            <Route
+                                index
+                                element={<ClassesPage />}
+                            />
+                            <Route
+                                path={AppRoutes.class}
+                                element={<ClassPage />}
+                            />
+                        </Route>
+                        <Route
+                            path={AppRoutes.calendar}
+                            element={<CalendarPage />}
                         />
                     </Route>
-                    <Route path={AppRoutes.homeworks}>
-                        <Route
-                            index
-                            element={<NotFoundPage />}
-                        />
-                        <Route
-                            path={AppRoutes.homework}
-                            element={<HomeworkPage />}
-                        />
-                    </Route>
-                    <Route
-                        path={AppRoutes.messenger}
-                        element={<ChatPage />}
-                    />
-                    <Route
-                        path={AppRoutes.tasks}
-                        element={<TaskPage />}
-                    />
-                    <Route path={AppRoutes.classes}>
-                        <Route
-                            index
-                            element={<ClassesPage />}
-                        />
-                        <Route
-                            path={AppRoutes.class}
-                            element={<ClassPage />}
-                        />
-                    </Route>
-                    <Route
-                        path={AppRoutes.calendar}
-                        element={<CalendarPage />}
-                    />
                 </Route>
-                {/*</Route>*/}
                 {/*</Route>*/}
             </Route>
             {/*</Route>*/}

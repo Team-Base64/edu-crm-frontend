@@ -9,10 +9,10 @@ import { setMe } from '@app/features/teacher/teacherSlice';
 
 export const teacherApi = appApi.injectEndpoints({
     endpoints: (build) => ({
-        getMe: build.query<{ me: Teacher }, unknown>({
+        checkAuth: build.query<{ me: Teacher }, unknown>({
             query: () => {
                 return {
-                    url: teacherPaths.me,
+                    url: teacherPaths.checkAuth,
                     method: 'GET',
                 };
             },
@@ -79,5 +79,5 @@ export const teacherApi = appApi.injectEndpoints({
     }),
 });
 
-export const { useGetMeQuery, useLoginMutation, useRegisterMutation } =
+export const { useCheckAuthQuery, useLoginMutation, useRegisterMutation } =
     teacherApi;
