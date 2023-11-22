@@ -12,7 +12,9 @@ export const MessengerHeader: React.FC<Messenger> = ({ chatID }) => {
     const { data } = useGetDialogsQuery(null);
 
     const content =
-        chatID !== unselectedId ? data?.dialogs[chatID].name : 'Чат не выбран';
+        chatID !== unselectedId
+            ? data?.dialogs[chatID].studentName
+            : 'Чат не выбран';
 
     return (
         <Container layout={'defaultBase'}>
