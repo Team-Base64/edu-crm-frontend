@@ -5,6 +5,7 @@ const appApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: appPaths.basePath,
         mode: 'cors',
+        credentials: 'include',
     }),
     // refetchOnFocus: true,
     refetchOnReconnect: true,
