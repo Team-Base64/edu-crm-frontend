@@ -17,11 +17,10 @@ export const teacherApi = appApi.injectEndpoints({
                 };
             },
 
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            async onQueryStarted(args, { dispatch, queryFulfilled }) {
+            async onQueryStarted(_, { dispatch, queryFulfilled }) {
                 try {
                     const { data } = await queryFulfilled;
+                    console.log(data);
                     dispatch(setMe(data.me));
                 } catch (error) {
                     console.error(error);
@@ -41,11 +40,10 @@ export const teacherApi = appApi.injectEndpoints({
                 };
             },
 
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            async onQueryStarted(args, { dispatch, queryFulfilled }) {
+            async onQueryStarted(_, { dispatch, queryFulfilled }) {
                 try {
                     const { data } = await queryFulfilled;
+                    console.log(data);
                     dispatch(setMe(data.me));
                 } catch (error) {
                     console.error(error);
