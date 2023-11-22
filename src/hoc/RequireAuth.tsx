@@ -7,7 +7,6 @@ const RequireAuth = (): JSX.Element => {
 
     const { me } = useAppSelector((state) => state.teacherState);
 
-    console.log(me);
     if (!me) {
         return (
             <Navigate

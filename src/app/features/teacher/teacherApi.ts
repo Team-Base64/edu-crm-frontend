@@ -1,6 +1,5 @@
 import appApi from '@app/appApi';
 import {
-    Teacher,
     TeacherLoginPayload,
     TeacherRegisterPayload,
 } from '@app/features/teacher/teacherModel';
@@ -9,7 +8,7 @@ import { setMe } from '@app/features/teacher/teacherSlice';
 
 export const teacherApi = appApi.injectEndpoints({
     endpoints: (build) => ({
-        checkAuth: build.query<{ me: Teacher }, unknown>({
+        checkAuth: build.query<{ me: boolean }, unknown>({
             query: () => {
                 return {
                     url: teacherPaths.checkAuth,
@@ -19,17 +18,22 @@ export const teacherApi = appApi.injectEndpoints({
 
             async onQueryStarted(_, { dispatch, queryFulfilled }) {
                 try {
-                    const { data } = await queryFulfilled;
-                    console.log(data);
-                    dispatch(setMe(data.me));
+                    const { meta } = await queryFulfilled;
+                    console.log(meta?.response?.ok);
+                    if (meta && meta.response && meta.response.ok) {
+                        dispatch(setMe(true));
+                    } else {
+                        dispatch(setMe(false));
+                    }
                 } catch (error) {
                     console.error(error);
+                    dispatch(setMe(false));
                 }
             },
         }),
 
         login: build.mutation<
-            { me: Teacher },
+            { me: boolean },
             { payload: TeacherLoginPayload }
         >({
             query: ({ payload }) => {
@@ -42,17 +46,21 @@ export const teacherApi = appApi.injectEndpoints({
 
             async onQueryStarted(_, { dispatch, queryFulfilled }) {
                 try {
-                    const { data } = await queryFulfilled;
-                    console.log(data);
-                    dispatch(setMe(data.me));
+                    const { meta } = await queryFulfilled;
+                    if (meta && meta.response && meta.response.ok) {
+                        dispatch(setMe(true));
+                    } else {
+                        dispatch(setMe(false));
+                    }
                 } catch (error) {
                     console.error(error);
+                    dispatch(setMe(false));
                 }
             },
         }),
 
         register: build.mutation<
-            { me: Teacher },
+            { me: boolean },
             { payload: TeacherRegisterPayload }
         >({
             query: ({ payload }) => {
@@ -67,10 +75,15 @@ export const teacherApi = appApi.injectEndpoints({
             // @ts-ignore
             async onQueryStarted(args, { dispatch, queryFulfilled }) {
                 try {
-                    const { data } = await queryFulfilled;
-                    dispatch(setMe(data.me));
+                    const { meta } = await queryFulfilled;
+                    if (meta && meta.response && meta.response.ok) {
+                        dispatch(setMe(true));
+                    } else {
+                        dispatch(setMe(false));
+                    }
                 } catch (error) {
                     console.error(error);
+                    dispatch(setMe(false));
                 }
             },
         }),
