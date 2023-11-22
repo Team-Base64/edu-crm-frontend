@@ -1,20 +1,10 @@
 import AppRouter from '@router/router';
 import React from 'react';
 import styles from './App.module.scss';
-import { useCheckAuthQuery } from '@app/features/teacher/teacherApi.ts';
-// import { useNavigate } from 'react-router-dom';
-// import AppRoutes from '@router/routes.ts';
+import { usePrefetchImmediately } from '@app/hooks/preFetch.ts';
 
 const App: React.FC = () => {
-    // document.addEventListener('DOMContentLoaded', userActions.fetchUser, {
-    //     once: true,
-    // });
-
-    // const navigate = useNavigate();
-    useCheckAuthQuery(null);
-    // if (isError) {
-    //     navigate(AppRoutes.base + AppRoutes.login);
-    // }
+    usePrefetchImmediately('checkAuth', null);
 
     return (
         <div className={styles.app}>

@@ -27,7 +27,7 @@ export const teacherApi = appApi.injectEndpoints({
                     }
                 } catch (error) {
                     console.error(error);
-                    dispatch(setMe(false));
+                    dispatch(setMe(true));
                 }
             },
         }),
@@ -90,5 +90,9 @@ export const teacherApi = appApi.injectEndpoints({
     }),
 });
 
-export const { useCheckAuthQuery, useLoginMutation, useRegisterMutation } =
-    teacherApi;
+export const {
+    useCheckAuthQuery,
+    useLoginMutation,
+    useRegisterMutation,
+    usePrefetch,
+} = teacherApi;
