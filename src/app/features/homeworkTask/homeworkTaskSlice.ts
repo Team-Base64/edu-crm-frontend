@@ -18,7 +18,7 @@ export const homeworkTaskSlice = appApi
                 providesTags: ['HomeworkTasks'],
             }),
 
-            getTask: build.query<HomeworkTask, { id: number }>({
+            getTask: build.query<{task: HomeworkTask}, { id: number }>({
                 query: ({ id }) => {
                     return {
                         url: homeworkTaskPaths.task(id),
