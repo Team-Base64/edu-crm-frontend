@@ -1,4 +1,4 @@
-import { http, HttpResponse } from 'msw';
+import { http, HttpHandler, HttpResponse } from 'msw';
 import appPaths from '../../src/app/appPaths';
 
 import { defaultHeadersMock } from '../const/constMocks';
@@ -9,9 +9,9 @@ import {
     HomeworkCreatePayload,
 } from '@app/features/homework/homeworkModel';
 
-export const homeworkHandlers = [
+export const homeworkHandlers: HttpHandler[] = [
     // create homework
-    http.post<any, HomeworkCreatePayload>(
+    http.post<never, HomeworkCreatePayload>(
         `${appPaths.basePath}${appPaths.homeworkCreate}`,
         async (info) => {
             try {

@@ -34,6 +34,10 @@ const AppRouter: React.FC = () => {
                     path={AppRoutes.none}
                     element={<NotFoundPage />}
                 />
+                <Route
+                    path={AppRoutes.page404}
+                    element={<NotFoundPage />}
+                />
                 {/* only for unauthorized */}
                 <Route element={<RequireNotAuth />}>
                     <Route

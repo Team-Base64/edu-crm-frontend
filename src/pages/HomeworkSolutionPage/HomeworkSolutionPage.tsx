@@ -1,26 +1,33 @@
 import { useGetSolutionQuery } from '@app/features/homeworkSolution/homeworkSolutionSlice';
 import Container from '@ui-kit/Container/Container';
-import { useParams, Navigate, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import Review from '@components/Review/Review';
 import styles from './HomeworkSolutionPage.module.scss';
 import React from 'react';
 import SolutionHeader from '@components/SolutionHeader/SolutionHeader';
 import Solution from '@components/Solution/Solution';
+import AppRoutes from '@router/routes';
 
-const HomeworkSolutionPage: React.FC = () => {
-    const params = useParams();
-    const id = Number(params.id);
+const useGetSolutionID = () => {
     const location = useLocation();
+    const params = useParams();
+    const navigate = useNavigate();
+
+    const id = Number(params.id);
 
     if (Number.isNaN(id)) {
-        return (
-            <Navigate
-                to="/page404"
-                state={{ from: location }}
-            />
-        );
+        navigate(`/${AppRoutes.page404}`, {
+            replace: true,
+            state: { from: location },
+        });
+        return -1;
     }
 
+    return id;
+};
+
+const HomeworkSolutionPage: React.FC = () => {
+    const id = useGetSolutionID();
     const { data, isSuccess } = useGetSolutionQuery({ id: id });
 
     return (

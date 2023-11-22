@@ -22,6 +22,7 @@ const Solution: React.FC<SolutionProps> = ({ id, classes }) => {
         id: id,
     });
     const [currentAttach, setCurrentAttach] = useState<string>('');
+    const hintState = useState<boolean>(true);
 
     const handleAttachClick = (file: string) => {
         if (currentAttach === file) {
@@ -107,6 +108,7 @@ const Solution: React.FC<SolutionProps> = ({ id, classes }) => {
                             weight="bold"
                         />
                         <Hint
+                            state={hintState}
                             text={
                                 'Чтобы посмотреть нажмите на вложение, чтобы развернуть нажмите дважды'
                             }

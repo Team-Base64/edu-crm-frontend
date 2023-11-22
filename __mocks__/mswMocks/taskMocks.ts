@@ -1,4 +1,4 @@
-import { http, HttpResponse } from 'msw';
+import { http, HttpHandler, HttpResponse } from 'msw';
 import appPaths from '../../src/app/appPaths';
 import { defaultHeadersMock } from '../const/constMocks';
 import { tasksMock } from '../const/taskConstMocks';
@@ -7,9 +7,9 @@ import {
     HomeworkTaskCreatePayload,
 } from '@app/features/homeworkTask/homeworkTaskModel';
 
-export const taskHandlers = [
+export const taskHandlers: HttpHandler[] = [
     // create task
-    http.post<any, HomeworkTaskCreatePayload>(
+    http.post<never, HomeworkTaskCreatePayload>(
         `${appPaths.basePath}${appPaths.createTask}`,
         async (info) => {
             try {

@@ -1,4 +1,4 @@
-import { http, HttpResponse } from 'msw';
+import { http, HttpHandler, HttpResponse } from 'msw';
 
 import appPaths from '../../src/app/appPaths';
 
@@ -13,7 +13,7 @@ import {
 } from '@app/features/class/classModel.ts';
 import { classAnnouncementsMock } from '../const/announceConstMocks.ts';
 
-export const classHandlers = [
+export const classHandlers: HttpHandler[] = [
     // Get class
     http.get(`${appPaths.basePath}${appPaths.class(':id')}`, ({ params }) => {
         const id = Number(params.id);
@@ -64,7 +64,7 @@ export const classHandlers = [
     }),
 
     // CreateClass
-    http.post<any, ClassCreatePayload>(
+    http.post<never, ClassCreatePayload>(
         `${appPaths.basePath}${appPaths.classCreate}`,
         async (info) => {
             try {

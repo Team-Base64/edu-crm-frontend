@@ -1,5 +1,5 @@
 import Container from '@ui-kit/Container/Container';
-import { Navigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styles from './HomeworkPage.module.scss';
 import Text from '@ui-kit/Text/Text';
 import { useGetHomeworkQuery } from '@app/features/homework/homeworkSlice';
@@ -10,20 +10,28 @@ import Icon from '@ui-kit/Icon/Icon';
 import ClassMemberList from '@components/ClassMemberList/ClassMemberList';
 import React from 'react';
 import HomeworkSolutionsAll from '@components/HomeworkSolutionsAll/HomeworkSolutionsAll';
+import AppRoutes from '@router/routes';
 
-const HomeworkPage: React.FC = () => {
+const useGetHomeworkID = () => {
+    const location = useLocation();
     const params = useParams();
+    const navigate = useNavigate();
+
     const id = Number(params.id);
 
     if (Number.isNaN(id)) {
-        return (
-            <Navigate
-                to="/page404"
-                state={{ from: location }}
-            />
-        );
+        navigate(`/${AppRoutes.page404}`, {
+            replace: true,
+            state: { from: location },
+        });
+        return -1;
     }
 
+    return id;
+};
+
+const HomeworkPage: React.FC = () => {
+    const id = useGetHomeworkID();
     const { data, isLoading, isError, isSuccess } = useGetHomeworkQuery({
         id: id,
     });

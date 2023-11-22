@@ -3,6 +3,7 @@ import asStrings from '@helpers/AsStrings';
 const AppRoutes = asStrings({
     base: '/',
     none: '*',
+    page404: 'page_not_found',
 
     test: 'test',
 

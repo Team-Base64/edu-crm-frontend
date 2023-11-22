@@ -1,5 +1,5 @@
 export function groupByValueReturnObject<
-    Item extends Object,
+    Item extends {},
     Key extends Extract<keyof Item, PropertyKey>,
     Value extends PropertyKey,
 >(items: Item[], key: Key) {
@@ -19,7 +19,7 @@ export function groupByValueReturnObject<
 }
 
 export function groupByValueReturnMap<
-    Item extends Object,
+    Item extends {},
     Key extends Extract<keyof Item, PropertyKey>,
     Value = PropertyKey,
 >(items: Item[], key: Key) {
@@ -38,7 +38,7 @@ export function groupByValueReturnMap<
 }
 
 export function groupByValues<
-    Item extends Object,
+    Item extends {},
     Key extends Extract<keyof Item, PropertyKey>,
 >(items: Item[], keys: Key[]) {
     const map = new Map<string, Item[]>();
@@ -65,7 +65,7 @@ export function groupByValues<
 }
 
 export function groupByValuesObjectKeys<
-    Item extends Object,
+    Item extends {},
     Key extends Extract<keyof Item, PropertyKey>,
 >(items: Item[], keys: Key[]) {
     const ret = new Map<

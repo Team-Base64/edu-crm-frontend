@@ -3,10 +3,7 @@ import Container from '@ui-kit/Container/Container';
 import Icon from '@ui-kit/Icon/Icon';
 import Spinner from '@ui-kit/Spinner/Spinner';
 import React, { useRef, useId, useState } from 'react';
-import ReviewTask, {
-    clearComment,
-    getComment,
-} from '@components/ReviewTask/ReviewTask';
+import ReviewTask from '@components/ReviewTask/ReviewTask';
 import Text from '@ui-kit/Text/Text';
 import Button from '@ui-kit/Button/Button';
 
@@ -18,6 +15,7 @@ import { useCreateReviewMutation } from '@app/features/homeworkSolutionReview/re
 import CheckBox from '@ui-kit/CheckBox/CheckBox';
 import Label from '@ui-kit/Label/Label';
 import Hint from '@ui-kit/Hint/Hint';
+import { clearComment, getComment } from '@components/ReviewTask/utils';
 
 interface ReviewProps extends UiComponentProps {
     solution: HomeworkSolution;
@@ -34,6 +32,7 @@ const Review: React.FC<ReviewProps> = ({ classes, solution }) => {
     const formRef = useRef<HTMLFormElement>(null);
     const formID = useId();
     const [lock, setLock] = useState<boolean>(false);
+    const hintState = useState<boolean>(true);
 
     const handleSubmit = () => {
         if (!formRef.current) {
@@ -157,7 +156,10 @@ const Review: React.FC<ReviewProps> = ({ classes, solution }) => {
                                         }
                                     />
                                 </Container>
-                                <Hint text="Если галочка не стоит, ученик сможет ещё раз отправить решение" />
+                                <Hint
+                                    state={hintState}
+                                    text="Если галочка не стоит, ученик сможет ещё раз отправить решение"
+                                />
                             </Container>
                             <Button
                                 classes={styles.submit}

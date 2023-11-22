@@ -2,11 +2,11 @@ import Container from '@ui-kit/Container/Container';
 import Icon from '@ui-kit/Icon/Icon';
 import Text from '@ui-kit/Text/Text';
 import { UiComponentProps } from '@ui-kit/interfaces';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styles from './Hint.module.scss';
 
 interface HintProps extends UiComponentProps {
-    state?: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
+    state: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
     timeoutSec?: number;
     text: string;
     onClose?: () => void;
@@ -19,7 +19,7 @@ const Hint: React.FC<HintProps> = ({
     onClose,
     state,
 }) => {
-    const [hint, showHint] = state ? state : useState(true);
+    const [hint, showHint] = state;
 
     useEffect(() => {
         if (timeoutSec && hint) {
