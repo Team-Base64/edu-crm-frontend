@@ -1,0 +1,15 @@
+.status {
+    grid-column: 1;
+
+    &-icon {
+        fill: #333;
+    }
+
+    &-text {
+        color: #333;
+    }
+
+    &-spinner {
+        color: #333;
+    }
+}

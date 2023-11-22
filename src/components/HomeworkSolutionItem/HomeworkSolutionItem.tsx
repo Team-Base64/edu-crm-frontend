@@ -59,11 +59,9 @@ const HomeworkSolutionItem: React.FC<HomeworkSolutionItemProps> = ({
         }
     }
 
-    const handleClick = () => {
-        navigate(`/${AppRoutes.solutions}/${id}`, {
-            replace: false,
-            relative: 'route',
-        });
+    const handleClick: React.MouseEventHandler = (e) => {
+        e.stopPropagation();
+        return navigate(`/${AppRoutes.solutions}/${id}`);
     };
 
     return (

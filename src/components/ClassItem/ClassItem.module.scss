@@ -1,6 +1,7 @@
 .card {
-  grid-template-columns: auto auto max-content;
+  grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr) max-content;
   background-color: var(--color-accent-super-light);
+  padding-right: 8px;
 }
 
 .status {
@@ -21,11 +22,11 @@
 
 .content {
   grid-column: 1;
+}
 
-  &-wrapper {
-    min-width: 100px;
-    overflow: hidden;
-  }
+.wrapper {
+  min-width: 100px;
+  overflow: hidden;
 }
 
 .text {

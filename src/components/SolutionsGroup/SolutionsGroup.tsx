@@ -3,7 +3,7 @@ import Text from '@ui-kit/Text/Text';
 import React, { useId, useState } from 'react';
 import { HomeworkSolution } from '@app/features/homeworkSolution/homeworkSolutionModel';
 import EmptyItem from '@components/EmptyItem/EmptyItem';
-import styles from './test.module.scss';
+import styles from './SolutionsGroup.module.scss';
 import Icon from '@ui-kit/Icon/Icon';
 import {
     SolutionHeaderAuthor,
