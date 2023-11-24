@@ -1,0 +1,41 @@
+.widget {
+    grid-template-columns: 1fr 1fr;
+}
+
+.content {
+    overflow: hidden;
+    max-height: inherit;
+    position: relative;
+}
+
+.list {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-right: 16px;
+
+    &::-webkit-scrollbar {
+        width: 8px;
+        background-color: inherit;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 8px;
+        background-color: lightgray;
+    }
+}
+
+.nav {
+    align-items: center;
+
+    & .add {
+        background-color: rgba(0, 157, 0, 0.42);
+
+        & .icon {
+            fill: white;
+        }
+
+        & .text {
+            color: white;
+        }
+    }
+}

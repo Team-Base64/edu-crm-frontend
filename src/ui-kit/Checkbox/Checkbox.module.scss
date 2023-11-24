@@ -64,6 +64,9 @@
     border: var(--border-width) solid var(--border-color);
     border-radius: var(--border-radius);
 
+    flex-shrink: 0;
+    flex-grow: 0;
+
     &:checked {
         background-color: var(--bg-checked);
     }

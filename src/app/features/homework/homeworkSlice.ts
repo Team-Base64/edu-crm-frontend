@@ -35,7 +35,6 @@ export const homeworkSlice = appApi
                 { id: string | number }
             >({
                 query: ({ id }) => {
-                    console.log('slice ', id);
                     return {
                         url: homeworkPaths.homework(id),
                         method: 'GET',
