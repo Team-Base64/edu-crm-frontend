@@ -26,7 +26,7 @@ const layoutType = {
 
 type LayoutType = keyof typeof layoutType;
 
-interface ContainerProps extends UiComponentProps {
+export interface ContainerProps extends UiComponentProps {
     direction?: ContainerDirection;
     gap?: ContainerGap;
     containerRef?: React.Ref<HTMLDivElement>;
