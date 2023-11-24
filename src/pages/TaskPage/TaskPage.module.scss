@@ -11,8 +11,8 @@ flex-grow: 1;
 
 .listContainer {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    grid-template-rows: max-content;
     width: 100%;
+    grid-auto-rows: 1fr;
     height: max-content;
 }
 
