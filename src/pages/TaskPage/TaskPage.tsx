@@ -14,7 +14,7 @@ import HomeworkTaskItem from '@components/HomeworkTaskItem/HomeworkTaskItem';
 import { useListItems } from '@ui-kit/List/hooks';
 import { arrayToItem } from '@ui-kit/List/helpers';
 
-interface TaskPageProps extends UiComponentProps {}
+interface TaskPageProps extends UiComponentProps { }
 
 const TaskPage: React.FC<TaskPageProps> = () => {
     const [showCreateForm, setShowCreateForm] = useState<boolean>(false);
@@ -60,19 +60,20 @@ const TaskPage: React.FC<TaskPageProps> = () => {
                         </Text>
                     </Button>
                 </Container>
-                <Container
-                    direction={'horizontal'}
+                <ListFC
+                    itemsState={[tasks, setTasks]}
+                    renderItem={HomeworkTaskItem}
+                    renderItemProps={{
+                        allowDelete: false,
+                        allowSelect: false,
+                        classes: styles.listItem,
+                    }}
+                    containerProps={{
+                        direction:'grid',
+                        classes: styles.listContainer
+                    }}
                     classes={styles.list}
-                >
-                    <ListFC
-                        itemsState={[tasks, setTasks]}
-                        renderItem={HomeworkTaskItem}
-                        renderItemProps={{
-                            allowDelete: false,
-                            allowSelect: false,
-                        }}
-                    />
-                </Container>
+                />
             </Container>
             <Overlay
                 isShowing={showCreateForm}

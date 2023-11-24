@@ -5,12 +5,15 @@
 }
 
 .list {
-    flex-wrap: wrap;
-    height: fit-content;
+display: flex;
+flex-grow: 1;
 }
 
-.item {
-    width: 400px;
+.listContainer {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-rows: max-content;
+    width: 100%;
+    height: max-content;
 }
 
 .btnIcon {

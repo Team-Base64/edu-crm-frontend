@@ -1,8 +1,12 @@
+.li {
+    display: flex;
+    flex: 1;
+}
+
 .item {
-    align-items: center;
     background-color: var(--color-accent-super-light);
     position: relative;
-
+    flex-grow: 1;
 }
 
 .btnRemoveIcon {
@@ -13,4 +17,4 @@
     position: absolute;
     top: 15px;
     right: 15px;
-}   
+}

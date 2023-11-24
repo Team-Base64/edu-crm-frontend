@@ -17,6 +17,7 @@ interface HomeworkTaskItemProps extends UiComponentProps {
 }
 
 const HomeworkTaskItem: ListItemFC<HomeworkTask, HomeworkTaskItemProps> = ({
+    classes,
     item,
     title,
     onDelete,
@@ -26,7 +27,7 @@ const HomeworkTaskItem: ListItemFC<HomeworkTask, HomeworkTaskItemProps> = ({
 }) => {
     const { description, attach, selected, uuid, id } = item;
     return (
-        <li>
+        <li className={[styles.li, classes].join(' ')}>
             <Container
                 direction="horizontal"
                 layout="defaultBase"

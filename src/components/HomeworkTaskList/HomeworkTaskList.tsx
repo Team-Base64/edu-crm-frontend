@@ -13,17 +13,22 @@ import Text from "@ui-kit/Text/Text";
 import { UiComponentProps } from "@ui-kit/interfaces";
 import React, { useEffect } from "react";
 
-interface HomeworkTaskListProps  extends UiComponentProps{
+interface HomeworkTaskListProps extends UiComponentProps {
     homework: Homework;
 }
 
-const HomeworkTaskList :React.FC<HomeworkTaskListProps> = ({homework, classes}) => {
+const HomeworkTaskList: React.FC<HomeworkTaskListProps> = ({ homework, classes }) => {
     const { data, isLoading, isError, isSuccess } = useGetTasksQuery(null);
     const [tasks, setTasks] = useListItems([] as HomeworkTask[]);
 
     useEffect(() => {
         if (!data) return;
-        setTasks(arrayToItem(data.tasks.filter(t => t.id in homework.tasks)));
+        setTasks(
+            arrayToItem(
+                data.tasks
+                    .filter(t => homework.tasks.includes(t.id))
+            )
+        );
     }, [setTasks, data?.tasks]);
 
     return (
