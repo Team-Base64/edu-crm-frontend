@@ -75,7 +75,7 @@ const SolutionItem: React.FC<SolutionItemProps> = ({ data }) => {
     );
 };
 
-interface SolutionGroupProps {}
+interface SolutionGroupProps { }
 
 const SolutionGroup: GroupFC<SolutionGroupProps, HomeworkSolution> = ({
     keys,
@@ -167,7 +167,7 @@ const SolutionGroup: GroupFC<SolutionGroupProps, HomeworkSolution> = ({
         </Container>
     );
 };
-interface SolutionListProps {}
+interface SolutionListProps { }
 
 const SolutionList: ListFC<SolutionListProps, HomeworkSolution> = ({
     items,
@@ -219,19 +219,23 @@ const SolutionsGroup: React.FC<SolutionsGroupProps> = ({
                 </Text>
             )}
 
-            <Container
-                direction="vertical"
-                classes={styles.widgetContent}
-            >
-                <DeepGroup
-                    items={solutions}
-                    keys={keys}
-                    renderGroup={SolutionGroup}
-                    renderList={SolutionList}
-                    renderGroupProps={{}}
-                    renderListProps={{}}
-                />
-            </Container>
+            {solutions.length ? (
+                <Container
+                    direction="vertical"
+                    classes={styles.widgetContent}
+                >
+                    <DeepGroup
+                        items={solutions}
+                        keys={keys}
+                        renderGroup={SolutionGroup}
+                        renderList={SolutionList}
+                        renderGroupProps={{}}
+                        renderListProps={{}}
+                    />
+                </Container>
+            ) : (
+                <EmptyItem text='Пока нет решений'/>
+            )}
         </Container>
     );
 };

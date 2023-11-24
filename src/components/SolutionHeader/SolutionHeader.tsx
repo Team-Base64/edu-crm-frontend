@@ -181,14 +181,6 @@ export const SolutionHeaderHomeworkData: React.FC<
                             getTime(data.homework.deadlineTime),
                         ].join(' ')}
                     </Text>
-
-                    <Text
-                        type="h"
-                        size={4}
-                        weight="bold"
-                    >
-                        Задачи: TODO
-                    </Text>
                 </Container>
             )}
         </>

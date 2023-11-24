@@ -11,6 +11,7 @@ import ClassMemberList from '@components/ClassMemberList/ClassMemberList';
 import React from 'react';
 import HomeworkSolutionsAll from '@components/HomeworkSolutionsAll/HomeworkSolutionsAll';
 import AppRoutes from '@router/routes';
+import HomeworkTaskList from '@components/HomeworkTaskList/HomeworkTaskList';
 
 const useGetHomeworkID = () => {
     const location = useLocation();
@@ -95,6 +96,16 @@ const HomeworkPage: React.FC = () => {
                         homeworkID={id}
                         classes={styles.contentItem}
                     />
+
+                    <Text
+                        type="h"
+                        size={4}
+                        weight="bold"
+                        classes={styles.contentTitle}
+                    >
+                        Задачи:
+                    </Text>
+                    <HomeworkTaskList homework={data.homework} classes={styles.contentItem}/>
                     <Text
                         type="h"
                         size={4}
