@@ -5,80 +5,76 @@ import Text from '@ui-kit/Text/Text';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import styles from './HomeworkTaskItem.module.scss';
 import { HomeworkTask } from '@app/features/homeworkTask/homeworkTaskModel';
-import CheckBox from '@ui-kit/CheckBox/CheckBox';
-import { useEffect, useState } from 'react';
+import CheckBox from '@ui-kit/Checkbox/Checkbox';
 import { Attachment } from '@ui-kit/Attachment/Attachment';
 import { noop } from '@app/const/consts';
+import { ListItemFC } from '@ui-kit/List/types';
 
 interface HomeworkTaskItemProps extends UiComponentProps {
     title?: string;
-    task: HomeworkTask;
-    onDelete?: (id: number) => void;
-    onSelect?: (task: HomeworkTask) => void;
-    onDeselect?: (task: HomeworkTask) => void;
+    allowSelect?: boolean;
+    allowDelete?: boolean;
 }
 
-const HomeworkTaskItem: React.FC<HomeworkTaskItemProps> = ({
-    task,
+const HomeworkTaskItem: ListItemFC<HomeworkTask, HomeworkTaskItemProps> = ({
+    item,
     title,
-    onDeselect,
     onDelete,
     onSelect,
+    allowDelete = false,
+    allowSelect = false,
 }) => {
-    const { id, description, attach } = task;
-    const [state, setState] = useState<boolean>(false);
-    useEffect(() => {
-        if (state) {
-            onSelect?.(task);
-        } else {
-            onDeselect?.(task);
-        }
-    }, [onDeselect, onSelect, state, task]);
+    const { description, attach, selected, uuid, id } = item;
     return (
-        <Container
-            direction="horizontal"
-            layout="defaultBase"
-            classes={styles.item}
-            gap="l"
-        >
-            {onSelect && <CheckBox state={[state, setState]} />}
-            <Container direction="vertical">
-                {title && (
+        <li>
+            <Container
+                direction="horizontal"
+                layout="defaultBase"
+                classes={styles.item}
+                gap="l"
+            >
+                {allowSelect && (
+                    <CheckBox
+                        checked={selected}
+                        onChange={() => onSelect(uuid, !selected)}
+                    />
+                )}
+                <Container direction="vertical">
                     <Text
                         type="h"
                         size={4}
                         weight="bold"
                     >
-                        {title}
+                        {title ? title : `Задача id${id}`}
                     </Text>
-                )}
-                <Text
-                    type="p"
-                    size={1}
-                >
-                    {description}
-                </Text>
-                {attach && attach.length && (
-                    <Attachment
-                        file={attach}
-                        onRemoveClick={noop}
-                        isStatic={true}
-                    />
-                )}
-                {onDelete && (
-                    <Button
-                        onClick={() => onDelete(id)}
-                        type="link"
-                        classes={styles.btnRemove}
+                    <Text
+                        type="p"
+                        size={1}
                     >
-                        <Icon
-                            name="close"
-                            classes={styles.btnRemoveIcon}
+                        {description}
+                    </Text>
+                    {attach && attach.length && (
+                        <Attachment
+                            file={attach}
+                            onRemoveClick={noop}
+                            isStatic={true}
                         />
-                    </Button>
-                )}
+                    )}
+                    {allowDelete && (
+                        <Button
+                            onClick={() => onDelete(uuid)}
+                            type="link"
+                            classes={styles.btnRemove}
+                        >
+                            <Icon
+                                name="close"
+                                classes={styles.btnRemoveIcon}
+                            />
+                        </Button>
+                    )}
+                </Container>
             </Container>
-        </Container>
+        </li>
     );
 };
 

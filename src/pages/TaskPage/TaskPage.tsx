@@ -6,22 +6,25 @@ import Text from '@ui-kit/Text/Text';
 import Button from '@ui-kit/Button/Button';
 import Icon from '@ui-kit/Icon/Icon';
 import Overlay from '@ui-kit/Overlay/Overlay';
-import HomeworkTaskList from '@components/HomeworkTaskList/HomeworkTaskList';
 import { HomeworkTask } from '@app/features/homeworkTask/homeworkTaskModel';
 import { useGetTasksQuery } from '@app/features/homeworkTask/homeworkTaskSlice';
 import TaskCreateForm from '@components/HomeworkTaskCreateForm/HomeworkTaskCreateForm';
+import ListFC from '@ui-kit/List/List';
+import HomeworkTaskItem from '@components/HomeworkTaskItem/HomeworkTaskItem';
+import { useListItems } from '@ui-kit/List/hooks';
+import { arrayToItem } from '@ui-kit/List/helpers';
 
 interface TaskPageProps extends UiComponentProps {}
 
 const TaskPage: React.FC<TaskPageProps> = () => {
     const [showCreateForm, setShowCreateForm] = useState<boolean>(false);
-    const [tasks, setTasks] = useState<HomeworkTask[]>([]);
+    const [tasks, setTasks] = useListItems([] as HomeworkTask[]);
     const { data } = useGetTasksQuery(null);
 
     useEffect(() => {
         if (!data) return;
-        setTasks(data.tasks);
-    }, [data]);
+        setTasks(arrayToItem(data.tasks));
+    }, [data, setTasks]);
 
     return (
         <>
@@ -61,7 +64,14 @@ const TaskPage: React.FC<TaskPageProps> = () => {
                     direction={'horizontal'}
                     classes={styles.list}
                 >
-                    <HomeworkTaskList listState={[tasks, setTasks]} />
+                    <ListFC
+                        itemsState={[tasks, setTasks]}
+                        renderItem={HomeworkTaskItem}
+                        renderItemProps={{
+                            allowDelete: false,
+                            allowSelect: false,
+                        }}
+                    />
                 </Container>
             </Container>
             <Overlay

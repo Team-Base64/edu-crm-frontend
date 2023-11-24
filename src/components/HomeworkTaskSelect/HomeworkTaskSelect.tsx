@@ -1,14 +1,17 @@
 import { HomeworkTask } from '@app/features/homeworkTask/homeworkTaskModel';
 import { useGetTasksQuery } from '@app/features/homeworkTask/homeworkTaskSlice';
-import HomeworkTaskList from '@components/HomeworkTaskList/HomeworkTaskList';
 import Button from '@ui-kit/Button/Button';
 import Container from '@ui-kit/Container/Container';
 import Text from '@ui-kit/Text/Text';
 import { UiComponentProps } from '@ui-kit/interfaces';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import styles from './HomeworkTaskSelect.module.scss';
 import Icon from '@ui-kit/Icon/Icon';
+import { useListItems } from '@ui-kit/List/hooks';
+import { arrayToItem } from '@ui-kit/List/helpers';
+import ListFC from '@ui-kit/List/List';
+import HomeworkTaskItem from '@components/HomeworkTaskItem/HomeworkTaskItem';
 
 interface HomeworkTaskSelectProps extends UiComponentProps {
     onSubmit?: (selected: HomeworkTask[]) => void;
@@ -17,18 +20,17 @@ interface HomeworkTaskSelectProps extends UiComponentProps {
 const HomeworkTaskSelect: React.FC<HomeworkTaskSelectProps> = ({
     onSubmit,
 }) => {
-    const [list, setList] = useState<HomeworkTask[]>([]);
-    const [listSelect, setListSelect] = useState<HomeworkTask[]>([]);
     const { data } = useGetTasksQuery(null);
+    const [tasks, changeTasks] = useListItems([] as HomeworkTask[]);
 
     useEffect(() => {
         if (!data) return;
-        setList(data.tasks);
-    }, [data]);
+        changeTasks(arrayToItem(data.tasks));
+    }, [data, changeTasks]);
 
     const handleSubmit = () => {
-        onSubmit?.(listSelect);
-        setListSelect([]);
+        onSubmit?.(tasks.filter((t) => t.selected));
+        changeTasks((items) => items.filter((i) => !i.selected));
     };
 
     // const handleClear = () => {
@@ -50,15 +52,16 @@ const HomeworkTaskSelect: React.FC<HomeworkTaskSelectProps> = ({
                 >
                     Выберите задания из списка
                 </Text>
-                <HomeworkTaskList
-                    listState={[list, setList]}
-                    onSelect={(t) => {
-                        setListSelect((p) => [...p, t]);
-                    }}
-                    onDeselect={(t) => {
-                        setListSelect((p) => p.filter((i) => i.id !== t.id));
+
+                <ListFC
+                    itemsState={[tasks, changeTasks]}
+                    renderItem={HomeworkTaskItem}
+                    renderItemProps={{
+                        allowSelect: true,
+                        allowDelete: false,
                     }}
                 />
+
                 <Container classes={styles.nav}>
                     <Button
                         onClick={handleSubmit}

@@ -9,10 +9,14 @@ import styles from './HomeworkCreateForm.module.scss';
 import Overlay from '@ui-kit/Overlay/Overlay';
 import Text from '@ui-kit/Text/Text';
 import { useCreateHomeworkMutation } from '@app/features/homework/homeworkSlice';
-import HomeworkTaskList from '@components/HomeworkTaskList/HomeworkTaskList';
 import { HomeworkTask } from '@app/features/homeworkTask/homeworkTaskModel';
 import TaskCreateForm from '@components/HomeworkTaskCreateForm/HomeworkTaskCreateForm';
 import HomeworkTaskSelect from '@components/HomeworkTaskSelect/HomeworkTaskSelect';
+import { useListItems } from '@ui-kit/List/hooks';
+import ListFC from '@ui-kit/List/List';
+import HomeworkTaskItem from '@components/HomeworkTaskItem/HomeworkTaskItem';
+
+import { arrayToItem, objToItem } from '@ui-kit/List/helpers';
 
 interface HomeworkCreateFormProps extends UiComponentProps {
     onSubmitSuccess?: () => void;
@@ -24,7 +28,6 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({
     classId,
 }) => {
     const formRef = useRef<HTMLFormElement>(null);
-    const [tasks, setTasks] = useState<HomeworkTask[]>([]);
 
     const [isTaskCreateFrom, setTaskCreateForm] = useState<boolean>(false);
     const [isTaskSelectForm, setTaskSelectForm] = useState<boolean>(false);
@@ -32,6 +35,10 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({
     const [lock, setLock] = useState<boolean>(false);
 
     const [createHW, createStatus] = useCreateHomeworkMutation();
+
+    const [choosenTasks, changeChoosenTasks] = useListItems(
+        [] as HomeworkTask[],
+    );
 
     useEffect(() => {
         if (createStatus.isLoading) {
@@ -54,7 +61,7 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({
         if (!title || !deadline) {
             return;
         }
-        if (!desc && !tasks.length) {
+        if (!desc && !choosenTasks.length) {
             return;
         }
 
@@ -64,25 +71,25 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({
                 deadlineTime: deadline.toISOString(),
                 title: title,
                 description: desc,
-                tasks: tasks.map((t) => t.id),
+                tasks: choosenTasks.map((t) => t.id),
             },
         }).then(() => {
             form.hwTitle.value = '';
             form.hwDescr.value = '';
             form.hwDeadline.value = '';
-            setTasks([]);
+            changeChoosenTasks([]);
 
             onSubmitSuccess?.();
         });
     };
 
     const handleCreateTaskSuccess = (task: HomeworkTask) => {
-        setTasks((prev) => [...prev, task]);
+        changeChoosenTasks((prev) => [...prev, objToItem(task)]);
         setTaskCreateForm(false);
     };
 
     const handleSelectTasks = (selected: HomeworkTask[]) => {
-        setTasks((prev) => [...prev, ...selected]);
+        changeChoosenTasks((prev) => [...prev, ...arrayToItem(selected)]);
         setTaskSelectForm(false);
     };
 
@@ -156,9 +163,16 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({
                                 direction="vertical"
                                 classes={styles.list}
                             >
-                                <HomeworkTaskList
-                                    listState={[tasks, setTasks]}
-                                    allowDelete
+                                <ListFC
+                                    itemsState={[
+                                        choosenTasks,
+                                        changeChoosenTasks,
+                                    ]}
+                                    renderItem={HomeworkTaskItem}
+                                    renderItemProps={{
+                                        allowSelect: false,
+                                        allowDelete: true,
+                                    }}
                                 />
                             </Container>
                             <Container

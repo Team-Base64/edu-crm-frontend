@@ -12,7 +12,7 @@ import { UiComponentProps } from '@ui-kit/interfaces';
 import { HomeworkSolution } from '@app/features/homeworkSolution/homeworkSolutionModel';
 import { ReviewPayload } from '@app/features/homeworkSolutionReview/reviewModel';
 import { useCreateReviewMutation } from '@app/features/homeworkSolutionReview/reviewSlice';
-import CheckBox from '@ui-kit/CheckBox/CheckBox';
+import CheckBox from '@ui-kit/Checkbox/Checkbox';
 import Label from '@ui-kit/Label/Label';
 import Hint from '@ui-kit/Hint/Hint';
 import { clearComment, getComment } from '@components/ReviewTask/utils';
@@ -140,7 +140,10 @@ const Review: React.FC<ReviewProps> = ({ classes, solution }) => {
                                     Результат проверки
                                 </Text>
                                 <Container classes={styles.state}>
-                                    <CheckBox state={[approved, setApproved]} />
+                                    <CheckBox
+                                        checked={approved}
+                                        onChange={() => setApproved(!approved)}
+                                    />
                                     <Label
                                         type="p"
                                         size={1}
