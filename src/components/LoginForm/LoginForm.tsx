@@ -107,15 +107,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
                             }}
                             placeholder={'DEV Любое'}
                             icon={<Icon name={'user'} />}
-                            button={
-                                <Icon
-                                    name={'close'}
-                                    onClick={() => {
-                                        if (!usernameRef.current) return;
-                                        usernameRef.current.value = '';
-                                    }}
-                                />
-                            }
                             type={'text'}
                             error={{
                                 text: loginError.errorText,
@@ -124,7 +115,15 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
                             onChange={({ target }) =>
                                 loginError.setStringError(target.value)
                             }
-                        />
+                        >
+                            <Icon
+                                name={'close'}
+                                onClick={() => {
+                                    if (!usernameRef.current) return;
+                                    usernameRef.current.value = '';
+                                }}
+                            />
+                        </Input>
                         <Input
                             inputRef={passwordRef}
                             label={{
@@ -138,29 +137,28 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
                                 text: passwordError.errorText,
                                 position: 'right',
                             }}
-                            button={
-                                <Icon
-                                    name={
-                                        passwordVisibility === 'text'
-                                            ? 'eye'
-                                            : 'eyeCrossed'
-                                    }
-                                    onClick={() => {
-                                        if (!passwordRef.current) return;
-
-                                        setPasswordVisibility((prevState) =>
-                                            prevState === 'password'
-                                                ? 'text'
-                                                : 'password',
-                                        );
-                                    }}
-                                />
-                            }
                             type={'text'}
                             onChange={({ target }) => {
                                 passwordError.setStringError(target.value);
                             }}
-                        />
+                        >
+                            <Icon
+                                name={
+                                    passwordVisibility === 'text'
+                                        ? 'eye'
+                                        : 'eyeCrossed'
+                                }
+                                onClick={() => {
+                                    if (!passwordRef.current) return;
+
+                                    setPasswordVisibility((prevState) =>
+                                        prevState === 'password'
+                                            ? 'text'
+                                            : 'password',
+                                    );
+                                }}
+                            />
+                        </Input>
                     </Container>
                     <Button
                         disabled={isLoading}

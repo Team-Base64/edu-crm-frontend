@@ -48,6 +48,7 @@ const Input: React.FC<InputProps> = ({
     button,
     inputRef,
     error,
+    children,
     ...rest
 }) => {
     return (
@@ -84,6 +85,7 @@ const Input: React.FC<InputProps> = ({
                         className={styles.input}
                         {...rest}
                     />
+                    {children}
                     {button && button}
                 </Container>
             </Tooltip>
