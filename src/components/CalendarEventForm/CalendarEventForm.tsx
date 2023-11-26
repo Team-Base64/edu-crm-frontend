@@ -17,7 +17,9 @@ import { unselectedId } from '@app/const/consts.ts';
 import { useEmptyStringValidation } from '../../hooks/validation/string.ts';
 import {
     useActualDateValidation,
+    useActualTimeValidation,
     useIsMoreOrEqualDateValidation,
+    useIsMoreOrEqualTimeValidation,
 } from '../../hooks/validation/date.ts';
 
 interface AddEvenFormProps extends UiComponentProps {
@@ -26,8 +28,6 @@ interface AddEvenFormProps extends UiComponentProps {
     title: string;
     handleOverlayClose: () => void;
 }
-
-export type dateInput = Date | null;
 
 export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
     useMutation,
@@ -49,34 +49,12 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
 
     const titleError = useEmptyStringValidation();
     const startDateError = useActualDateValidation('actualDate');
-    const startTimeError = useActualDateValidation('actualTime');
+    const startTimeError = useActualTimeValidation('actualTime');
     const endDateError = useIsMoreOrEqualDateValidation('moreOrEqualEndDate');
-    const endTimeError = useIsMoreOrEqualDateValidation('moreOrEqualEndTime');
+    const endTimeError = useIsMoreOrEqualTimeValidation('moreOrEqualEndTime');
 
     const handleFromSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-
-        console.log(
-            useTitle.title,
-            useStartTime.time,
-            useStartTime.time,
-            useEndDate.date,
-            useEndTime.time,
-        );
-        console.log(
-            titleError.errorText,
-            startDateError.errorText,
-            startTimeError.errorText,
-            endDateError.errorText,
-            endTimeError.errorText,
-        );
-        console.log(
-            !titleError.errorText &&
-                !startDateError.errorText &&
-                !startTimeError.errorText &&
-                !endDateError.errorText &&
-                !endTimeError.errorText,
-        );
 
         if (
             !titleError.errorText &&
@@ -92,9 +70,18 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
     const handleButtonSubmit = () => {
         titleError.setDateError(useTitle.title ?? '');
         startDateError.setDateError(useStartDate.date);
-        startTimeError.setDateError(useStartTime.time);
+        startTimeError.setDateError(
+            useStartDate.date ?? new Date(),
+            useStartTime.time,
+        );
         endDateError.setDateError(useEndDate.date, useStartDate.date);
-        endTimeError.setDateError(useEndTime.time, useEndTime.time);
+        endTimeError.setDateError(
+            { date: useEndDate.date ?? new Date(), time: useEndTime.time },
+            {
+                date: useStartDate.date ?? new Date(),
+                time: useStartTime.time,
+            },
+        );
     };
 
     return (
@@ -134,9 +121,7 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                         text: startDateError.errorText,
                         position: 'left',
                     }}
-                    onChange={({ target }) =>
-                        startDateError.setDateError(target.valueAsDate)
-                    }
+                    onChangeDate={(date) => startDateError.setDateError(date)}
                 ></DatePicker>
                 <TimePicker
                     classes={styles.addEventFormStartDate}
@@ -146,8 +131,11 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                         text: startTimeError.errorText,
                         position: 'right',
                     }}
-                    onChange={({ target }) =>
-                        startTimeError.setDateError(target.valueAsDate)
+                    onChangeDate={(date) =>
+                        startTimeError.setDateError(
+                            useStartDate.date ?? new Date(),
+                            date,
+                        )
                     }
                 ></TimePicker>
                 <DatePicker
@@ -158,11 +146,8 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                         text: endDateError.errorText,
                         position: 'left',
                     }}
-                    onChange={({ target }) =>
-                        endDateError.setDateError(
-                            target.valueAsDate,
-                            useStartDate.date,
-                        )
+                    onChangeDate={(date) =>
+                        endDateError.setDateError(date, useStartDate.date)
                     }
                 ></DatePicker>
                 <TimePicker
@@ -173,12 +158,15 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                         text: endTimeError.errorText,
                         position: 'right',
                     }}
-                    onChange={({ target }) =>
+                    onChangeDate={(date) => {
                         endTimeError.setDateError(
-                            target.valueAsDate,
-                            useEndTime.time,
-                        )
-                    }
+                            { date: useEndDate.date ?? new Date(), time: date },
+                            {
+                                date: useStartDate.date ?? new Date(),
+                                time: useStartTime.time,
+                            },
+                        );
+                    }}
                 ></TimePicker>
                 <Input
                     type={'text'}

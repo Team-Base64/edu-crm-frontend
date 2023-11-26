@@ -1,9 +1,9 @@
 import {
+    dateInput,
     getNextYearDate,
-    setZeroDate,
+    setTime,
     setZeroTime,
 } from '../utils/common/dateRepresentation.ts';
-import { dateInput } from '@components/CalendarEventForm/CalendarEventForm.tsx';
 
 const dateErrorMessages = {
     actualDate: 'Выберете актуальную дату',
@@ -15,31 +15,30 @@ const dateErrorMessages = {
 };
 
 export type DateErrorMessages = keyof typeof dateErrorMessages;
+export type DateAndTimeJoin = {
+    date: Date;
+    time: dateInput;
+};
+
+export const getReadyForTimeValidation = (dates: DateAndTimeJoin[]) => {
+    return dates.map(({ date, time }) => setTime(date ?? new Date(), time));
+};
+
+export const getReadyForDateValidation = (dates: dateInput[]) => {
+    dates.forEach((date) => (date instanceof Date ? setZeroTime(date) : date));
+    return dates;
+};
 
 const isDateTooOld = (errorType: DateErrorMessages, date: Date) => {
     const actualDate = new Date();
-    getReadyToValidate(errorType, [date, actualDate]);
+    if (errorType.toLowerCase().includes('date')) {
+        getReadyForDateValidation([actualDate]);
+    }
+
     return (
         date.getTime() >= actualDate.getTime() &&
         date.getTime() <= getNextYearDate().getTime()
     );
-};
-
-const getReadyForTimeValidation = (dates: Date[]) => {
-    dates.forEach((date) => setZeroDate(date));
-};
-
-const getReadyForDateValidation = (dates: Date[]) => {
-    dates.forEach((date) => setZeroTime(date));
-};
-
-const getReadyToValidate = (errorType: DateErrorMessages, dates: Date[]) => {
-    if (errorType.toLowerCase().includes('time')) {
-        getReadyForTimeValidation(dates);
-    }
-    if (errorType.toLowerCase().includes('date')) {
-        getReadyForDateValidation(dates);
-    }
 };
 export const isEmptyDateValidation = (
     errorType: DateErrorMessages,
@@ -58,11 +57,10 @@ export const isActualDate = (errorType: DateErrorMessages, date: dateInput) => {
 };
 
 export const isMoreOrEqualDate = (
-    errorType: DateErrorMessages,
     dateToCheck: Date,
     dateToCompareWith: Date,
 ) => {
-    getReadyToValidate(errorType, [dateToCheck, dateToCompareWith]);
+    // getReadyToValidate(errorType, [dateToCheck, dateToCompareWith]);
     return dateToCheck.getTime() >= dateToCompareWith.getTime();
 };
 

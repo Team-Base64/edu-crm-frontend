@@ -1,10 +1,11 @@
 import React from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import Input, { InputErrorType } from '@ui-kit/Input/Input.tsx';
-import { dateInput } from '@components/CalendarEventForm/CalendarEventForm.tsx';
 import {
+    dateInput,
     getInputDateRepresentation,
     getNextYearDate,
+    valueAsDateTimezoneOffset,
 } from '../../utils/common/dateRepresentation.ts';
 
 interface DatePickerProps extends UiComponentProps {
@@ -14,7 +15,7 @@ interface DatePickerProps extends UiComponentProps {
     };
     label: string;
     error: InputErrorType;
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onChangeDate: (date: dateInput) => void;
 }
 
 export const DatePicker: React.FC<DatePickerProps> = ({
@@ -22,14 +23,17 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     classes,
     label,
     error,
-    onChange,
+    onChangeDate,
 }) => {
     return (
         <Input
             type={'date'}
             onChange={(event) => {
-                useDate.setDate(event.target.valueAsDate);
-                onChange(event);
+                const date = valueAsDateTimezoneOffset(
+                    event.target.valueAsDate,
+                );
+                useDate.setDate(date);
+                onChangeDate(date);
             }}
             min={getInputDateRepresentation(new Date())}
             max={getInputDateRepresentation(getNextYearDate())}
