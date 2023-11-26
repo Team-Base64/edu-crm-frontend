@@ -1,97 +1,88 @@
-import { getNextYearDate } from '../utils/common/dateRepresentation.ts';
+import {
+    getNextYearDate,
+    setZeroDate,
+    setZeroTime,
+} from '../utils/common/dateRepresentation.ts';
+import { dateInput } from '@components/CalendarEventForm/CalendarEventForm.tsx';
 
-export const isEmptyDateValidation = (date: Date | null) =>
-    date ? '' : 'Поле должно быть заполнено';
-
-export const isActualDate = (date: Date | null) => {
-    const isEmpty = isEmptyDateValidation(date);
-    if (isEmpty) {
-        return isEmpty;
-    } else {
-        return isDateNotTooOld(date as Date) ? '' : 'Выберете актуальную дату';
-    }
+const dateErrorMessages = {
+    actualDate: 'Выберете актуальную дату',
+    actualTime: 'Выберете актуальное время',
+    emptyTime: 'Выберете время',
+    emptyDate: 'Выберете дату',
+    moreOrEqualEndDate: 'Дата окончания должна быть не позже даты начала',
+    moreOrEqualEndTime: 'Время окончания должно быть не позже времени начала',
 };
 
-export const isActualTime = (date: Date | null) => {
-    console.log(date);
-    const isEmpty = isEmptyDateValidation(date);
-    if (isEmpty) {
-        return isEmpty;
-    } else {
-        console.log(isTimeTooOld(date as Date));
-        return isTimeTooOld(date as Date) ? 'Выберете актуальное время' : '';
-    }
-};
+export type DateErrorMessages = keyof typeof dateErrorMessages;
 
-const isDateNotTooOld = (date: Date) => {
+const isDateTooOld = (errorType: DateErrorMessages, date: Date) => {
     const actualDate = new Date();
-    actualDate.setHours(0, 0, 0, 0);
-    // console.log(actualDate, date, date >= actualDate);
-    return date >= actualDate && date <= getNextYearDate();
+    getReadyToValidate(errorType, [date, actualDate]);
+    return (
+        date.getTime() >= actualDate.getTime() &&
+        date.getTime() <= getNextYearDate().getTime()
+    );
 };
 
-const isTimeTooOld = (date: Date) => {
-    // const actualDate = new Date();
-    // setZeroDate(actualDate);
-    // setZeroDate(date);
-    // return date >= actualDate && date <= getNextYearDate();
-    console.log(date);
-    return false;
+const getReadyForTimeValidation = (dates: Date[]) => {
+    dates.forEach((date) => setZeroDate(date));
 };
 
-export const isFirstArgLessDate = (
-    initialDate: Date,
+const getReadyForDateValidation = (dates: Date[]) => {
+    dates.forEach((date) => setZeroTime(date));
+};
+
+const getReadyToValidate = (errorType: DateErrorMessages, dates: Date[]) => {
+    if (errorType.toLowerCase().includes('time')) {
+        getReadyForTimeValidation(dates);
+    }
+    if (errorType.toLowerCase().includes('date')) {
+        getReadyForDateValidation(dates);
+    }
+};
+export const isEmptyDateValidation = (
+    errorType: DateErrorMessages,
+    date: dateInput,
+) => (date ? '' : dateErrorMessages[errorType]);
+
+export const isActualDate = (errorType: DateErrorMessages, date: dateInput) => {
+    const isEmpty = isEmptyDateValidation(errorType, date);
+    if (isEmpty || !(date instanceof Date)) {
+        return isEmpty;
+    } else {
+        return isDateTooOld(errorType, date)
+            ? ''
+            : dateErrorMessages[errorType];
+    }
+};
+
+export const isMoreOrEqualDate = (
+    errorType: DateErrorMessages,
+    dateToCheck: Date,
     dateToCompareWith: Date,
 ) => {
-    return initialDate <= dateToCompareWith;
+    getReadyToValidate(errorType, [dateToCheck, dateToCompareWith]);
+    return dateToCheck.getTime() >= dateToCompareWith.getTime();
 };
 
-export const isFirstArgLessOrEqualDate = (
-    initialDate: Date,
-    dateToCompareWith: Date,
-) => initialDate < dateToCompareWith;
-
-export const getIsFirstArgLessDateValidation = (
-    initialDate: Date | null,
-    dateToCompareWith: Date | null,
-    errorText: string,
-) =>
-    getDateValidation(
-        initialDate,
-        dateToCompareWith,
-        errorText,
-        isFirstArgLessDate,
-    );
-
-export const getIsFirstArgLessOrEqualDateValidation = (
-    initialDate: Date | null,
-    dateToCompareWith: Date | null,
-    errorText: string,
-) =>
-    getDateValidation(
-        initialDate,
-        dateToCompareWith,
-        errorText,
-        isFirstArgLessOrEqualDate,
-    );
-export const getDateValidation = (
-    initialDate: Date | null,
-    dateToCompareWith: Date | null,
-    errorText: string,
+export function getDateValidation(
+    errorType: DateErrorMessages,
     checkFunc: (initialDate: Date, dateToCompareWith: Date) => boolean,
-) => {
-    const isInitialEmpty = isActualDate(initialDate);
-    const isToCompareEmpty = isActualDate(dateToCompareWith);
+    dateToCheck: dateInput,
+    dateToCompareWith: dateInput,
+) {
+    const isInitialEmpty = isActualDate(errorType, dateToCheck);
+    const isToCompareEmpty = isActualDate(errorType, dateToCompareWith);
 
-    if (isInitialEmpty) {
+    if (isInitialEmpty || !(dateToCheck instanceof Date)) {
         return isInitialEmpty;
     }
 
-    if (isToCompareEmpty) {
+    if (isToCompareEmpty || !(dateToCompareWith instanceof Date)) {
         return '';
     }
-
-    return checkFunc(initialDate as Date, dateToCompareWith as Date)
-        ? errorText
-        : '';
-};
+    return checkFunc(dateToCheck, dateToCompareWith)
+        ? ''
+        : dateErrorMessages[errorType];
+}

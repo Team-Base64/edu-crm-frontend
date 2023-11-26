@@ -12,15 +12,7 @@ export const calendarHandlers = [
     http.get(`${appPaths.basePath}${calendarPaths.getEvents}`, () =>
         HttpResponse.json(
             {
-                events: [
-                    getEventsFirstMockData,
-                    getEventsSecondMockData,
-                    getEventsSecondMockData,
-                    getEventsSecondMockData,
-                    getEventsSecondMockData,
-                    getEventsSecondMockData,
-                    getEventsSecondMockData,
-                ],
+                events: [getEventsFirstMockData, getEventsSecondMockData],
             },
             {
                 status: 200,
@@ -29,6 +21,15 @@ export const calendarHandlers = [
         ),
     ),
     http.post(`${appPaths.basePath}${calendarPaths.addEvent}`, () => {
+        HttpResponse.json(
+            {},
+            {
+                status: 200,
+                headers: { ...defaultHeadersMock },
+            },
+        );
+    }),
+    http.post(`${appPaths.basePath}${calendarPaths.editEvent}`, () => {
         HttpResponse.json(
             {},
             {

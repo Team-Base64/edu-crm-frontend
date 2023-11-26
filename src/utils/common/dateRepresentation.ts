@@ -41,6 +41,11 @@ export const setZeroDate = (date: Date) => {
     return date;
 };
 
+export const setZeroTime = (date: Date) => {
+    date.setHours(0, 0, 0, 0);
+    return date;
+};
+
 export const setTime = (setTodate: Date, timeToSet: Date) => {
     setTodate.setHours(timeToSet.getHours());
     setTodate.setMinutes(timeToSet.getMinutes());
