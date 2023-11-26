@@ -27,7 +27,7 @@ export const teacherApi = appApi.injectEndpoints({
                     }
                 } catch (error) {
                     console.error(error);
-                    dispatch(setMe(true));
+                    dispatch(setMe(false));
                 }
             },
         }),
@@ -71,9 +71,7 @@ export const teacherApi = appApi.injectEndpoints({
                 };
             },
 
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            async onQueryStarted(args, { dispatch, queryFulfilled }) {
+            async onQueryStarted(_, { dispatch, queryFulfilled }) {
                 try {
                     const { meta } = await queryFulfilled;
                     if (meta && meta.response && meta.response.ok) {
@@ -90,9 +88,5 @@ export const teacherApi = appApi.injectEndpoints({
     }),
 });
 
-export const {
-    useCheckAuthQuery,
-    useLoginMutation,
-    useRegisterMutation,
-    usePrefetch,
-} = teacherApi;
+export const { useCheckAuthQuery, useLoginMutation, useRegisterMutation } =
+    teacherApi;

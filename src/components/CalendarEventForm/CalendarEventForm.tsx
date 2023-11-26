@@ -68,7 +68,7 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
     };
 
     const handleButtonSubmit = () => {
-        titleError.setDateError(useTitle.title ?? '');
+        titleError.setStringError(useTitle.title ?? '');
         startDateError.setDateError(useStartDate.date);
         startTimeError.setDateError(
             useStartDate.date ?? new Date(),
@@ -103,7 +103,7 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                     defaultValue={useTitle.title}
                     onChange={({ target }) => {
                         useTitle.setTitle(target.value);
-                        titleError.setDateError(target.value);
+                        titleError.setStringError(target.value);
                     }}
                     label={{ text: 'Название', type: 'h', size: 5 }}
                     classes={styles.addEventFormTitle}

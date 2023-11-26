@@ -6,7 +6,7 @@ export const useEmptyStringValidation = () => {
 
     return {
         errorText: stringError,
-        setDateError: (text: string) =>
+        setStringError: (text: string) =>
             setStringError(getEmptyStringValidation(text)),
     };
 };
