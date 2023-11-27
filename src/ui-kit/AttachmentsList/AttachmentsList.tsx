@@ -25,6 +25,7 @@ export const AttachmentsList: React.FC<ChatAttachmentsListProps> = ({
     };
 
     const iterableData = staticAttachments ?? files;
+    const isStaticAttachments = !!staticAttachments;
 
     const filesLayout = iterableData.map((file, index) => {
         return (
@@ -32,14 +33,22 @@ export const AttachmentsList: React.FC<ChatAttachmentsListProps> = ({
                 onRemoveClick={onRemoveClick.bind(this, index)}
                 key={index + new Date().getUTCSeconds()}
                 file={file}
+                isStatic={isStaticAttachments}
             ></Attachment>
         );
     });
 
+    const getContainerClasses = () => {
+        const backgroundColorClass = isStaticAttachments
+            ? ''
+            : styles.chatAttachListAddAttach;
+        return [styles.chatAttachList, backgroundColorClass].join(' ');
+    };
+
     return (
         <Container
             direction={'vertical'}
-            classes={filesLayout?.length ? styles.chatAttachList : ''}
+            classes={filesLayout?.length ? getContainerClasses() : ''}
             layout={'sub'}
         >
             {filesLayout}
