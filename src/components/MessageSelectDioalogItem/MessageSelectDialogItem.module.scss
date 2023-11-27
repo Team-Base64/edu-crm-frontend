@@ -1,6 +1,5 @@
 @mixin select-dialog-item {
   justify-content: flex-start;
-  width: 100%;
 
   &:hover {
     background-color: var(--color-bg-dark-light);
@@ -32,16 +31,21 @@
   }
 }
 
+@mixin select-dialog-container {
+  width: 100%;
+  margin: auto;
+}
 
 .message-select-dialog-item {
   @include select-dialog-item;
+  @include select-dialog-container;
 
   &:hover {
     background-color: var(--ui-kit-btn-link-bg-hover);
   }
 
   &-selected {
-    width: 100%;
+    @include select-dialog-container;
     background-color: var(--color-accent-light);
   }
 }

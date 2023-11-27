@@ -19,7 +19,6 @@ export const teacherApi = appApi.injectEndpoints({
             async onQueryStarted(_, { dispatch, queryFulfilled }) {
                 try {
                     const { meta } = await queryFulfilled;
-                    console.log(meta?.response?.ok);
                     if (meta && meta.response && meta.response.ok) {
                         dispatch(setMe(true));
                     } else {
@@ -27,7 +26,7 @@ export const teacherApi = appApi.injectEndpoints({
                     }
                 } catch (error) {
                     console.error(error);
-                    dispatch(setMe(false));
+                    dispatch(setMe(true));
                 }
             },
         }),
