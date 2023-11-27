@@ -14,10 +14,12 @@ import { useNavigate } from 'react-router-dom';
 import AppRoutes from '@router/routes';
 import { ListItemFC } from '@ui-kit/List/types';
 
-interface HomeworkListItemProps extends UiComponentProps {
-}
+interface HomeworkListItemProps extends UiComponentProps {}
 
-const HomeworkListItem: ListItemFC<Homework, HomeworkListItemProps> = ({ item, classes }) => {
+const HomeworkListItem: ListItemFC<Homework, HomeworkListItemProps> = ({
+    item,
+    classes,
+}) => {
     const { deadlineTime, title, description, id } = item;
     const navigate = useNavigate();
 

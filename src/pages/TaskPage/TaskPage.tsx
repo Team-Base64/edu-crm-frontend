@@ -15,7 +15,7 @@ import { useListItems } from '@ui-kit/List/hooks';
 import { arrayToItem } from '@ui-kit/List/helpers';
 import ShowQueryState from '@components/ShowQueryState/ShowQueryState';
 
-interface TaskPageProps extends UiComponentProps { }
+interface TaskPageProps extends UiComponentProps {}
 
 const TaskPage: React.FC<TaskPageProps> = () => {
     const [showCreateForm, setShowCreateForm] = useState<boolean>(false);
@@ -73,7 +73,7 @@ const TaskPage: React.FC<TaskPageProps> = () => {
                         }}
                         containerProps={{
                             direction: 'grid',
-                            classes: styles.listContainer
+                            classes: styles.listContainer,
                         }}
                         classes={styles.list}
                     />

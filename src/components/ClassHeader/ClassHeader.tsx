@@ -15,7 +15,7 @@ interface ClassHeaderProps extends UiComponentProps {
 }
 
 const ClassHeader: React.FC<ClassHeaderProps> = ({ classId }) => {
-    const { data,  isSuccess, ...status } = useGetClassByIdQuery({
+    const { data, isSuccess, ...status } = useGetClassByIdQuery({
         id: classId,
     });
     const [hint, setHint] = useState<boolean>(false);
@@ -34,7 +34,7 @@ const ClassHeader: React.FC<ClassHeaderProps> = ({ classId }) => {
             classes={styles.widget}
             layout="defaultBase"
         >
-            <ShowQueryState status={status}/>
+            <ShowQueryState status={status} />
             {isSuccess && (
                 <>
                     <Container

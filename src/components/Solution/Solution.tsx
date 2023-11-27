@@ -46,7 +46,7 @@ const Solution: React.FC<SolutionProps> = ({ id, classes }) => {
             >
                 Содержание решения:
             </Text>
-            <ShowQueryState status={status}/>
+            <ShowQueryState status={status} />
             {isSuccess && (
                 <>
                     {/* <Container direction='vertical'>

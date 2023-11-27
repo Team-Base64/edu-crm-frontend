@@ -78,7 +78,10 @@ const HomeworkPage: React.FC = () => {
                     >
                         Задачи:
                     </Text>
-                    <HomeworkTaskList homework={data.homework} classes={styles.contentItem} />
+                    <HomeworkTaskList
+                        homework={data.homework}
+                        classes={styles.contentItem}
+                    />
                     <Text
                         type="h"
                         size={4}

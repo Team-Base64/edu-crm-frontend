@@ -2,7 +2,6 @@ import { useGetTaskQuery } from '@app/features/homeworkTask/homeworkTaskSlice';
 import Button from '@ui-kit/Button/Button';
 import Container from '@ui-kit/Container/Container';
 import Icon from '@ui-kit/Icon/Icon';
-import Spinner from '@ui-kit/Spinner/Spinner';
 import TextArea from '@ui-kit/TextArea/TextArea';
 import React, { useRef } from 'react';
 
@@ -58,7 +57,7 @@ const ReviewTask: React.FC<ReviewTaskProps> = ({ taskID, title }) => {
             direction="vertical"
             gap="l"
         >
-           <ShowQueryState status={status}/>
+            <ShowQueryState status={status} />
             {isSuccess && (
                 <>
                     <Container direction="vertical">

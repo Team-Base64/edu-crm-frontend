@@ -27,7 +27,9 @@ export const ClassMemberItem: React.FC<ClassMemberItemProps> = ({
     role = 'Ученик',
     classes,
 }) => {
-    const { data, isSuccess, ...status } = useGetStudentQuery({ id: studentID });
+    const { data, isSuccess, ...status } = useGetStudentQuery({
+        id: studentID,
+    });
     return (
         <>
             <ShowQueryState status={status} />
@@ -44,20 +46,17 @@ export const ClassMemberItem: React.FC<ClassMemberItemProps> = ({
             )}
         </>
     );
-}
+};
 
 interface ClassMemberListItemProps extends UiComponentProps {
     role?: string;
     chatID?: number;
 }
 
-export const ClassMemberListItem: ListItemFC<Student, ClassMemberListItemProps> = ({
-    item,
-    role = 'Ученик',
-    onClick,
-    classes,
-    chatID,
-}) => {
+export const ClassMemberListItem: ListItemFC<
+    Student,
+    ClassMemberListItemProps
+> = ({ item, role = 'Ученик', onClick, classes, chatID }) => {
     const { name, avatarSrc } = item;
 
     const navigate = useNavigate();

@@ -10,20 +10,20 @@ const emptyItemTypes = {
     loading: 'Загрузка...',
     error: 'Произошла ошибка',
     default: 'Здесь пока пусто',
-}
+};
 type EmptyItemType = keyof typeof emptyItemTypes;
 
 const emptyItemAlign = {
     start: styles.start,
-    end:styles.end,
+    end: styles.end,
     center: styles.center,
-}
+};
 type EmptyItemAlign = keyof typeof emptyItemAlign;
 
 interface EmptyItemProps extends UiComponentProps {
     text?: string;
     type?: EmptyItemType;
-    align ?: EmptyItemAlign;
+    align?: EmptyItemAlign;
 }
 
 const EmptyItem: React.FC<EmptyItemProps> = ({
@@ -39,7 +39,12 @@ const EmptyItem: React.FC<EmptyItemProps> = ({
             layout="defaultBase"
         >
             {type === 'loading' && <Spinner classes={styles.spinner} />}
-            {type === 'error' && <Icon name='alert' classes={styles.icon} />}
+            {type === 'error' && (
+                <Icon
+                    name="alert"
+                    classes={styles.icon}
+                />
+            )}
             <Text
                 type="p"
                 size={1}

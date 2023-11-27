@@ -17,7 +17,7 @@ import { arrayToItem } from '@ui-kit/List/helpers';
 import { ClassListItem } from '@components/ClassItem/ClassItem';
 import ShowQueryState from '@components/ShowQueryState/ShowQueryState';
 
-interface ClassesPageProps extends UiComponentProps { }
+interface ClassesPageProps extends UiComponentProps {}
 
 const ClassesPage: React.FC<ClassesPageProps> = () => {
     const [showCreateForm, setShowCreateForm] = useState<boolean>(false);
@@ -27,9 +27,7 @@ const ClassesPage: React.FC<ClassesPageProps> = () => {
 
     useEffect(() => {
         if (!data) return;
-        setItems(
-            arrayToItem(data.classes)
-        );
+        setItems(arrayToItem(data.classes));
     }, [setItems, data]);
 
     const handleSuccessCreate = (id: string | number) => {
@@ -83,7 +81,7 @@ const ClassesPage: React.FC<ClassesPageProps> = () => {
                             classes: styles.listContainer,
                         }}
                     >
-                        <EmptyItem text='У вас пока нет классов' />
+                        <EmptyItem text="У вас пока нет классов" />
                     </ListFC>
                 )}
             </Container>

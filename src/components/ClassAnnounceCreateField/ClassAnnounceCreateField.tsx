@@ -95,7 +95,10 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
                     onChange={handleChange}
                     onKeydownCallback={handleSubmit}
                 />
-                <Hint text='Сообщения доступны, если в классе есть ученики' state={[hint, toggleHint]} />
+                <Hint
+                    text="Сообщения доступны, если в классе есть ученики"
+                    state={[hint, toggleHint]}
+                />
 
                 <Button
                     disabled={lock || disabled}
@@ -107,7 +110,10 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
                         <Spinner classes={styles.spinner} />
                     ) : (
                         <Icon
-                            classes={[styles.btnIcon, disabled ? styles.btnIconDisabled : ''].join(' ')}
+                            classes={[
+                                styles.btnIcon,
+                                disabled ? styles.btnIconDisabled : '',
+                            ].join(' ')}
                             name="chatSend"
                         />
                     )}

@@ -1,11 +1,9 @@
 import { HomeworkSolution } from '@app/features/homeworkSolution/homeworkSolutionModel';
 import { useGetHomeworkSolutionsQuery } from '@app/features/homeworkSolution/homeworkSolutionSlice';
 import Container from '@ui-kit/Container/Container';
-import Spinner from '@ui-kit/Spinner/Spinner';
 import React, { useEffect, useId, useState } from 'react';
 import styles from './SolutionSelect.module.scss';
 import Text from '@ui-kit/Text/Text';
-import Icon from '@ui-kit/Icon/Icon';
 import { NavLink } from 'react-router-dom';
 import Button from '@ui-kit/Button/Button';
 import AppRoutes from '@router/routes';
@@ -82,16 +80,10 @@ const SolutionSelect: React.FC<SolutionSelectProps> = ({ solution }) => {
                 .filter((s) => s.studentID === studentID)
                 .sort((a, b) => getDelta(b.createTime, a.createTime)), // && s.id !== id
         );
-    }, [
-        update,
-        solution,
-        isSuccess,
-        otherHwSolutions?.solutions,
-        studentID,
-    ]);
+    }, [update, solution, isSuccess, otherHwSolutions?.solutions, studentID]);
     return (
         <>
-            <ShowQueryState status={status}/>
+            <ShowQueryState status={status} />
             {isSuccess && filteredOtherSolutions && (
                 <Container
                     gap="s"

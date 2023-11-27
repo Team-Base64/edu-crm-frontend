@@ -11,11 +11,11 @@ interface ClassSolutionsAllProps extends UiComponentProps {
     classID: number;
 }
 
-const ClassSolutionsAll: React.FC<ClassSolutionsAllProps> = ({ 
+const ClassSolutionsAll: React.FC<ClassSolutionsAllProps> = ({
     classID,
-    classes
- }) => {
-    const { data, isSuccess, ...status} = useGetClassSolutionsQuery({
+    classes,
+}) => {
+    const { data, isSuccess, ...status } = useGetClassSolutionsQuery({
         class_id: classID,
     });
 
@@ -32,7 +32,7 @@ const ClassSolutionsAll: React.FC<ClassSolutionsAllProps> = ({
             >
                 Все решения класса
             </Text>
-            <ShowQueryState status={status}/>
+            <ShowQueryState status={status} />
             {isSuccess && (
                 <SolutionsGroup
                     classes={styles.content}

@@ -49,7 +49,10 @@ const HomeworkSolutionWidget: React.FC<HomeworkSolutionWidgetProps> = ({
                 isShowing={isOverlay}
                 closeOverlay={() => setIsOverlay(false)}
             >
-                <ClassSolutionsAll classID={Number(classId)} classes={styles.fullPage}/>
+                <ClassSolutionsAll
+                    classID={Number(classId)}
+                    classes={styles.fullPage}
+                />
             </Overlay>
 
             <Widget

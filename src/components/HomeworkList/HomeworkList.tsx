@@ -15,8 +15,8 @@ interface HomeworkListProps extends UiComponentProps {
     limit?: number;
 }
 
-const HomeworkList: React.FC<HomeworkListProps> = ({ 
-    classId, 
+const HomeworkList: React.FC<HomeworkListProps> = ({
+    classId,
     limit,
     classes,
 }) => {
@@ -40,7 +40,7 @@ const HomeworkList: React.FC<HomeworkListProps> = ({
                     renderItemProps={{}}
                     classes={classes}
                 >
-                    <EmptyItem text='Пока нет дз' />
+                    <EmptyItem text="Пока нет дз" />
                 </ListFC>
             )}
         </>

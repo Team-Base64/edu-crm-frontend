@@ -22,7 +22,9 @@ interface ClassItemProps extends UiComponentProps {
 }
 
 export const ClassItem: React.FC<ClassItemProps> = ({ classID }) => {
-    const { data, isSuccess, ...status } = useGetClassByIdQuery({ id: classID });
+    const { data, isSuccess, ...status } = useGetClassByIdQuery({
+        id: classID,
+    });
     return (
         <>
             <ShowQueryState status={status} />
@@ -36,16 +38,17 @@ export const ClassItem: React.FC<ClassItemProps> = ({ classID }) => {
             )}
         </>
     );
-}
+};
 
-interface ClassListItemProps extends UiComponentProps {
-}
+interface ClassListItemProps extends UiComponentProps {}
 
-export const ClassListItem: ListItemFC<ClassData, ClassListItemProps> = ({ item, classes }) => {
+export const ClassListItem: ListItemFC<ClassData, ClassListItemProps> = ({
+    item,
+    classes,
+}) => {
     const { id, title, description, inviteToken } = item;
     const [hint, setHint] = useState<boolean>(false);
     const navigate = useNavigate();
-
 
     const handleCardClick = (e: React.MouseEvent) => {
         e.preventDefault();
@@ -66,7 +69,6 @@ export const ClassListItem: ListItemFC<ClassData, ClassListItemProps> = ({ item,
                 classes={[styles.card, classes].join(' ')}
                 onClick={handleCardClick}
             >
-
                 <Container classes={styles.content}>
                     <Container
                         direction={'vertical'}
@@ -86,8 +88,7 @@ export const ClassListItem: ListItemFC<ClassData, ClassListItemProps> = ({ item,
                             size={1}
                             classes={styles.text}
                         >
-                            {description &&
-                                description.length
+                            {description && description.length
                                 ? description
                                 : 'Без описания'}
                         </Text>

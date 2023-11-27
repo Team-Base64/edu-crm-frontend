@@ -17,7 +17,7 @@ import { HomeworkTask } from '@app/features/homeworkTask/homeworkTaskModel';
 import { Item } from '@ui-kit/List/types';
 import { useGetTasksQuery } from '@app/features/homeworkTask/homeworkTaskSlice';
 import { useListItems } from '@ui-kit/List/hooks';
-import { arrayToItem, objToItem } from '@ui-kit/List/helpers';
+import { arrayToItem } from '@ui-kit/List/helpers';
 import HomeworkTaskItem from '@components/HomeworkTaskItem/HomeworkTaskItem';
 import EmptyItem from '@components/EmptyItem/EmptyItem';
 import Input from '@ui-kit/Input/Input';
@@ -65,25 +65,26 @@ const HomeworkTaskChoose = React.forwardRef<
     useEffect(() => {
         if (!data) return;
         const newItems = arrayToItem(
-            data.tasks
-                .filter(dataItem => !tasks
-                    .some(taskItem => dataItem.id === taskItem.id))
+            data.tasks.filter(
+                (dataItem) =>
+                    !tasks.some((taskItem) => dataItem.id === taskItem.id),
+            ),
         );
-        newItems.forEach(item => {
-            if(newTaskIDs.includes(item.id)) {
+        newItems.forEach((item) => {
+            if (newTaskIDs.includes(item.id)) {
                 item.selected = true;
-                changeNewTaskIDs(prev => prev.filter(id => id !== item.id));
+                changeNewTaskIDs((prev) => prev.filter((id) => id !== item.id));
             }
-        })
+        });
         changeTasks([...tasks, ...newItems]);
-    }, [changeTasks, data]);
+    }, [changeTasks, data, newTaskIDs, tasks]);
 
     useEffect(() => {
         changeChoosen(tasks.filter((t) => t.selected));
     }, [tasks, changeChoosen]);
 
     const handleNewTask = (task: HomeworkTask) => {
-        changeNewTaskIDs(prev => [...prev, task.id]);
+        changeNewTaskIDs((prev) => [...prev, task.id]);
         setTaskCreateForm(false);
     };
 

@@ -7,7 +7,7 @@ import ListFC from '@ui-kit/List/List';
 import { useListItems } from '@ui-kit/List/hooks';
 import { Student } from '@app/features/stundent/stundentModel';
 import { arrayToItem } from '@ui-kit/List/helpers';
-import {ClassMemberListItem} from '@components/ClassMemberItem/ClassMemberItem';
+import { ClassMemberListItem } from '@components/ClassMemberItem/ClassMemberItem';
 // import styles from './ClassMemberList.module.scss';
 
 interface ClassMemberListProps extends UiComponentProps {
@@ -35,14 +35,14 @@ const ClassMemberList: React.FC<ClassMemberListProps> = ({
             <ShowQueryState status={status} />
             {isSuccess && (
                 <ListFC
-                itemsState={[items.slice(0, limit), setItems]}
-                renderItem={ClassMemberListItem}
-                renderItemProps={{
-                    role: 'Ученик',
-                    classes: classes,
-                    chatID: Number(classId),
-                }}
-                classes={classes}
+                    itemsState={[items.slice(0, limit), setItems]}
+                    renderItem={ClassMemberListItem}
+                    renderItemProps={{
+                        role: 'Ученик',
+                        classes: classes,
+                        chatID: Number(classId),
+                    }}
+                    classes={classes}
                 >
                     <EmptyItem text="Пока нет участников" />
                 </ListFC>

@@ -13,13 +13,19 @@ interface ClassAnnounceWidgetProps extends UiComponentProps {
 const ClassAnnounceWidget: React.FC<ClassAnnounceWidgetProps> = ({
     classId,
 }) => {
-    const { data, isSuccess, ...status } = useGetClassStudentsQuery({ class_id: classId });
+    const { data, isSuccess, ...status } = useGetClassStudentsQuery({
+        class_id: classId,
+    });
     return (
         <Container direction="vertical">
             <ShowQueryState status={status} />
             {isSuccess && (
                 <>
-                    <ClassAnnounceCreateField classID={classId} disabled={!data.students.length} /> {/* avatarSrc="" */}
+                    <ClassAnnounceCreateField
+                        classID={classId}
+                        disabled={!data.students.length}
+                    />{' '}
+                    {/* avatarSrc="" */}
                     <ClassAnnounceList classId={classId} />
                 </>
             )}

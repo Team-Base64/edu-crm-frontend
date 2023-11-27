@@ -5,9 +5,7 @@ import { HomeworkSolution } from '@app/features/homeworkSolution/homeworkSolutio
 import EmptyItem from '@components/EmptyItem/EmptyItem';
 import styles from './SolutionsGroup.module.scss';
 import Icon from '@ui-kit/Icon/Icon';
-import {
-    SolutionHeaderHomeworkData,
-} from '@components/SolutionHeader/SolutionHeader';
+import { SolutionHeaderHomeworkData } from '@components/SolutionHeader/SolutionHeader';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import getDate from 'utils/common/PrettyDate/common/date';
 import getTime from 'utils/common/PrettyDate/common/time';
@@ -75,7 +73,7 @@ const SolutionItem: React.FC<SolutionItemProps> = ({ data }) => {
     );
 };
 
-interface SolutionGroupProps { }
+interface SolutionGroupProps {}
 
 const SolutionGroup: GroupFC<SolutionGroupProps, HomeworkSolution> = ({
     keys,
@@ -167,7 +165,7 @@ const SolutionGroup: GroupFC<SolutionGroupProps, HomeworkSolution> = ({
         </Container>
     );
 };
-interface SolutionListProps { }
+interface SolutionListProps {}
 
 const SolutionList: ListFC<SolutionListProps, HomeworkSolution> = ({
     items,
@@ -234,7 +232,7 @@ const SolutionsGroup: React.FC<SolutionsGroupProps> = ({
                     />
                 </Container>
             ) : (
-                <EmptyItem text='Пока нет решений'/>
+                <EmptyItem text="Пока нет решений" />
             )}
         </Container>
     );

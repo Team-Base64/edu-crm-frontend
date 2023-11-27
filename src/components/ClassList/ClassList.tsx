@@ -18,9 +18,7 @@ const ClassList: React.FC<ClassListProps> = ({ limit, classes }) => {
     const [items, setItems] = useListItems([] as ClassData[]);
     useEffect(() => {
         if (!data) return;
-        setItems(
-            arrayToItem(data.classes)
-        )
+        setItems(arrayToItem(data.classes));
     }, [setItems, data]);
 
     return (

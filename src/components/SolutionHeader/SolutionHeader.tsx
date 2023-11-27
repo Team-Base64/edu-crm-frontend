@@ -14,15 +14,13 @@ import Updatable from '@ui-kit/Updatable/Updatable';
 import SolutionSelect from '@components/Solution/SolutionSelect';
 import ShowQueryState from '@components/ShowQueryState/ShowQueryState';
 
-
 interface SolutionHeaderHomeworkDataProps extends UiComponentProps {
     homeworkID: number;
 }
 
-export const SolutionHeaderHomeworkData: React.FC<SolutionHeaderHomeworkDataProps> = ({
-    homeworkID,
-    classes
-}) => {
+export const SolutionHeaderHomeworkData: React.FC<
+    SolutionHeaderHomeworkDataProps
+> = ({ homeworkID, classes }) => {
     const { data, isSuccess, ...status } = useGetHomeworkQuery({
         id: homeworkID,
     });
@@ -150,7 +148,7 @@ const SolutionHeaderPassStatus: React.FC<SolutionHeaderPassStatusProps> = ({
 
 interface SolutionHeaderProps extends UiComponentProps {
     solution: HomeworkSolution;
-};
+}
 
 const SolutionHeader: React.FC<SolutionHeaderProps> = ({
     solution,
