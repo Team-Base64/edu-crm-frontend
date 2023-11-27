@@ -14,7 +14,7 @@ interface SendMessageAreaProps extends UiComponentProps {
 }
 
 const Messenger: React.FC<SendMessageAreaProps> = ({ chatID, classes }) => {
-    const { data, isLoading, isSuccess, status } = useGetLiveMessagesQuery({
+    const { data, isLoading } = useGetLiveMessagesQuery({
         channel: 'chat',
         chatID,
     });
@@ -39,15 +39,6 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatID, classes }) => {
         );
     });
 
-    console.log('Messenger', chatID, data?.messages[chatID], data?.messages);
-    console.log(
-        'Messenger 2',
-        isSuccess,
-        chatID !== unselectedId,
-        status,
-        messageBlock,
-    );
-
     const contentToRender = (
         <>
             <Container
@@ -71,7 +62,7 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatID, classes }) => {
             layout={'defaultBase'}
         >
             {isLoading && <span>loading...</span>}
-            {isSuccess && chatID !== unselectedId ? (
+            {chatID !== unselectedId ? (
                 contentToRender
             ) : (
                 <Text
