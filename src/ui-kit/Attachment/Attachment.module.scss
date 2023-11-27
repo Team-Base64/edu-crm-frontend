@@ -1,8 +1,7 @@
 .chat-attachment-list {
   grid-template-rows: min-content;
-  grid-template-columns: min-content min-content auto min-content;
+  grid-template-columns: min-content 1fr min-content;
   align-items: center;
-  justify-items: end;
 
   &--file-remove {
     grid-row: 1;
@@ -18,7 +17,7 @@
     grid-row: 1;
     grid-column: 1;
     &--icon {
-      height: 32px;
+      height: var(--space-big);
       fill: var(--color-hover);
       stroke: var(--color-text-default);
     }
@@ -29,5 +28,6 @@
     grid-column: 2;
     white-space: nowrap;
     margin-left: 8px;
+    overflow-x: hidden;
   }
 }
