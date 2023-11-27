@@ -5,9 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import AppRoutes from '@router/routes.ts';
 
 export const LogoutPage: React.FC = () => {
-    const [, { isError, error }] = useLogoutMutation();
+    const [, { isError, error, isSuccess, isLoading, status }] =
+        useLogoutMutation();
 
     const navigate = useNavigate();
+
+    console.log(isSuccess, isLoading, status);
 
     useEffect(() => {
         if (isError) {

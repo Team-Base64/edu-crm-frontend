@@ -5,7 +5,6 @@ import { usePrefetchImmediately } from '@app/hooks/preFetch.ts';
 
 const App: React.FC = () => {
     usePrefetchImmediately('checkAuth', null);
-
     return (
         <div className={styles.app}>
             <AppRouter />

@@ -27,7 +27,7 @@ export const teacherApi = appApi.injectEndpoints({
                     }
                 } catch (error) {
                     console.error(error);
-                    dispatch(setMe(true));
+                    dispatch(setMe(false));
                 }
             },
         }),
@@ -62,20 +62,23 @@ export const teacherApi = appApi.injectEndpoints({
             query: () => {
                 return {
                     url: teacherPaths.logout,
-                    method: 'POST',
+                    method: 'DELETE',
                 };
             },
 
-            async onQueryStarted(_, { dispatch, queryFulfilled }) {
-                try {
-                    const { meta } = await queryFulfilled;
-                    if (meta && meta.response && meta.response.ok) {
-                        dispatch(setMe(false));
-                    }
-                } catch (error) {
-                    console.error(error);
-                }
-            },
+            // async onQueryStarted(_, { dispatch, queryFulfilled }) {
+            //     console.log('asda');
+            //
+            //     try {
+            //         const { meta } = await queryFulfilled;
+            //         console.log(meta);
+            //         if (meta && meta.response && meta.response.ok) {
+            //             dispatch(setMe(false));
+            //         }
+            //     } catch (error) {
+            //         console.error(error);
+            //     }
+            // },
         }),
 
         register: build.mutation<
