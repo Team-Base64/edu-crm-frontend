@@ -1,6 +1,6 @@
 import appApi from '@app/appApi.ts';
 
-import { Channel, getSocket, messageWS } from '@app/websocket';
+import { getSocket, messageWS } from '@app/websocket';
 import {
     apiChatMessageType,
     ChatMessageType,
