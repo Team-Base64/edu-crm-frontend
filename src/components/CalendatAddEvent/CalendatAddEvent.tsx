@@ -27,7 +27,6 @@ export const CalendarAddEvent: React.FC<CalendarAddEventProps> = ({
         <>
             <Button
                 type={'primary'}
-                // classes={styles.calendarControlsAddEvent}
                 onClick={() => setAddEventWindowShowing(true)}
             >
                 <Text
