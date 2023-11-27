@@ -2,6 +2,7 @@ import React from 'react';
 import { ListFCProps } from './types';
 import EmptyItem from '@components/EmptyItem/EmptyItem';
 import Container from '@ui-kit/Container/Container';
+import styles from './List.module.scss';
 
 const ListFC = <Data extends {}, ListItemFCProps extends {}>(
     props: ListFCProps<Data, ListItemFCProps>,
@@ -29,7 +30,7 @@ const ListFC = <Data extends {}, ListItemFCProps extends {}>(
     };
 
     return (
-        <ul className={classes}>
+        <ul className={[styles.ul, classes].join(' ')}>
             <Container
                 direction="vertical"
                 {...containerProps}
