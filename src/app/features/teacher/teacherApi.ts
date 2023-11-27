@@ -58,6 +58,25 @@ export const teacherApi = appApi.injectEndpoints({
                 }
             },
         }),
+        logout: build.mutation<unknown, unknown>({
+            query: () => {
+                return {
+                    url: teacherPaths.logout,
+                    method: 'POST',
+                };
+            },
+
+            async onQueryStarted(_, { dispatch, queryFulfilled }) {
+                try {
+                    const { meta } = await queryFulfilled;
+                    if (meta && meta.response && meta.response.ok) {
+                        dispatch(setMe(false));
+                    }
+                } catch (error) {
+                    console.error(error);
+                }
+            },
+        }),
 
         register: build.mutation<
             { me: boolean },
@@ -88,5 +107,9 @@ export const teacherApi = appApi.injectEndpoints({
     }),
 });
 
-export const { useCheckAuthQuery, useLoginMutation, useRegisterMutation } =
-    teacherApi;
+export const {
+    useCheckAuthQuery,
+    useLoginMutation,
+    useRegisterMutation,
+    useLogoutMutation,
+} = teacherApi;

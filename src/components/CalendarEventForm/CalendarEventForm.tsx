@@ -26,6 +26,7 @@ interface AddEvenFormProps extends UiComponentProps {
     useMutation: eventMutationsType;
     eventData?: CalendarEventType | null;
     title: string;
+    sumbitButtonTitle: string;
     handleOverlayClose: () => void;
 }
 
@@ -33,6 +34,7 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
     useMutation,
     eventData = null,
     title,
+    sumbitButtonTitle,
     handleOverlayClose,
 }) => {
     const {
@@ -198,7 +200,7 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                         type={'h'}
                         size={5}
                     >
-                        Добавить
+                        {sumbitButtonTitle}
                     </Text>
                 </Button>
                 <Button

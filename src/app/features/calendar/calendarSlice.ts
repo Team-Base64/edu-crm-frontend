@@ -19,6 +19,7 @@ export const calendarSlice = appApi.injectEndpoints({
                     body: eventData,
                 };
             },
+            invalidatesTags: ['getEvents'],
         }),
         editEvent: build.mutation<unknown, CalendarCreateEventType>({
             query: (eventData) => {
@@ -28,6 +29,7 @@ export const calendarSlice = appApi.injectEndpoints({
                     body: eventData,
                 };
             },
+            invalidatesTags: ['getEvents'],
         }),
         getEvents: build.query<
             { calendarEvents: CalendarEventSelectByIDType },
