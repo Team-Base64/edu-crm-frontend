@@ -21,6 +21,8 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatID, classes }) => {
 
     const messagesRef = useRef<HTMLDivElement>(null);
 
+    console.log('Messenger', chatID, data?.messages[chatID], data?.messages);
+
     useEffect(() => {
         if (messagesRef.current instanceof HTMLElement) {
             messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
@@ -51,7 +53,6 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatID, classes }) => {
             <SendMessageArea
                 id={chatID}
                 name={'SendMessageArea'}
-                // onMessageSend={onMessageSendClick}
             ></SendMessageArea>
         </>
     );
