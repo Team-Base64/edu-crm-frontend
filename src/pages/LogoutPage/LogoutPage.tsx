@@ -5,16 +5,16 @@ import { useNavigate } from 'react-router-dom';
 import AppRoutes from '@router/routes.ts';
 
 export const LogoutPage: React.FC = () => {
-    const [, { isSuccess, error }] = useLogoutMutation();
+    const [, { isError, error }] = useLogoutMutation();
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (isSuccess) {
-            navigate(`/${AppRoutes.login}`, {});
-        } else {
+        if (isError) {
             navigate(-1);
             console.error(error);
+        } else {
+            navigate(`/${AppRoutes.login}`, {});
         }
     });
 
