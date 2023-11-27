@@ -14,11 +14,10 @@ interface SendMessageAreaProps extends UiComponentProps {
 }
 
 const Messenger: React.FC<SendMessageAreaProps> = ({ chatID, classes }) => {
-    const { data, isLoading, isSuccess, isError, error } =
-        useGetLiveMessagesQuery({
-            channel: 'chat',
-            chatID,
-        });
+    const { data, isLoading, isSuccess } = useGetLiveMessagesQuery({
+        channel: 'chat',
+        chatID,
+    });
 
     const messagesRef = useRef<HTMLDivElement>(null);
 
