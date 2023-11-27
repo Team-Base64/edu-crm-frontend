@@ -2,21 +2,20 @@ import Container from '@ui-kit/Container/Container';
 import Text from '@ui-kit/Text/Text';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import React, { useState } from 'react';
-
 import styles from './ClassHeader.module.scss';
 import { useGetClassByIdQuery } from '@app/features/class/classSlice';
 import Button from '@ui-kit/Button/Button';
 import Icon from '@ui-kit/Icon/Icon';
 import Hint from '@ui-kit/Hint/Hint';
 import { copyInviteToken } from 'utils/class/copyInviteToken';
-import Spinner from '@ui-kit/Spinner/Spinner';
+import ShowQueryState from '@components/ShowQueryState/ShowQueryState';
 
 interface ClassHeaderProps extends UiComponentProps {
     classId: string | number;
 }
 
 const ClassHeader: React.FC<ClassHeaderProps> = ({ classId }) => {
-    const { data, isError, isLoading, isSuccess } = useGetClassByIdQuery({
+    const { data,  isSuccess, ...status } = useGetClassByIdQuery({
         id: classId,
     });
     const [hint, setHint] = useState<boolean>(false);
@@ -35,33 +34,7 @@ const ClassHeader: React.FC<ClassHeaderProps> = ({ classId }) => {
             classes={styles.widget}
             layout="defaultBase"
         >
-            {isLoading && (
-                <>
-                    <Spinner classes={styles.statusSpinner} />
-                    <Text
-                        type="p"
-                        size={1}
-                        classes={styles.statusText}
-                    >
-                        Загрузка...
-                    </Text>
-                </>
-            )}
-            {isError && (
-                <>
-                    <Icon
-                        name="alert"
-                        classes={styles.statusIcon}
-                    />
-                    <Text
-                        type="p"
-                        size={1}
-                        classes={styles.statusText}
-                    >
-                        Загрузка...
-                    </Text>
-                </>
-            )}
+            <ShowQueryState status={status}/>
             {isSuccess && (
                 <>
                     <Container

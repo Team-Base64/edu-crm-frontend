@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces';
-import ClassList from '@components/ClassList/ClassList';
 import Container from '@ui-kit/Container/Container';
 import styles from './ClassesPage.module.scss';
 import Text from '@ui-kit/Text/Text';
@@ -9,12 +8,29 @@ import Icon from '@ui-kit/Icon/Icon';
 import Overlay from '@ui-kit/Overlay/Overlay';
 import ClassCreateForm from '@components/CreateClassForm/ClassCreateForm';
 import { useNavigate } from 'react-router-dom';
+import ListFC from '@ui-kit/List/List';
+import EmptyItem from '@components/EmptyItem/EmptyItem';
+import { useGetClassesQuery } from '@app/features/class/classSlice';
+import { useListItems } from '@ui-kit/List/hooks';
+import { ClassData } from '@app/features/class/classModel';
+import { arrayToItem } from '@ui-kit/List/helpers';
+import { ClassListItem } from '@components/ClassItem/ClassItem';
+import ShowQueryState from '@components/ShowQueryState/ShowQueryState';
 
-interface ClassesPageProps extends UiComponentProps {}
+interface ClassesPageProps extends UiComponentProps { }
 
 const ClassesPage: React.FC<ClassesPageProps> = () => {
     const [showCreateForm, setShowCreateForm] = useState<boolean>(false);
     const navigate = useNavigate();
+    const { data, isSuccess, ...status } = useGetClassesQuery(null);
+    const [items, setItems] = useListItems([] as ClassData[]);
+
+    useEffect(() => {
+        if (!data) return;
+        setItems(
+            arrayToItem(data.classes)
+        );
+    }, [setItems, data]);
 
     const handleSuccessCreate = (id: string | number) => {
         setShowCreateForm(false);
@@ -55,12 +71,21 @@ const ClassesPage: React.FC<ClassesPageProps> = () => {
                         </Text>
                     </Button>
                 </Container>
-                <Container
-                    direction={'horizontal'}
-                    classes={styles.list}
-                >
-                    <ClassList classes={styles.item} />
-                </Container>
+
+                <ShowQueryState status={status} />
+                {isSuccess && (
+                    <ListFC
+                        itemsState={[items, setItems]}
+                        renderItem={ClassListItem}
+                        renderItemProps={{}}
+                        containerProps={{
+                            direction: 'grid',
+                            classes: styles.listContainer,
+                        }}
+                    >
+                        <EmptyItem text='У вас пока нет классов' />
+                    </ListFC>
+                )}
             </Container>
             <Overlay
                 isShowing={showCreateForm}

@@ -12,13 +12,13 @@ import getTime from 'utils/common/PrettyDate/common/time';
 import { Homework } from '@app/features/homework/homeworkModel';
 import { useNavigate } from 'react-router-dom';
 import AppRoutes from '@router/routes';
+import { ListItemFC } from '@ui-kit/List/types';
 
-interface HomeworkItemProps extends UiComponentProps {
-    homework: Homework;
+interface HomeworkListItemProps extends UiComponentProps {
 }
 
-const HomeworkItem: React.FC<HomeworkItemProps> = ({ homework, classes }) => {
-    const { deadlineTime, title, description, id } = homework;
+const HomeworkListItem: ListItemFC<Homework, HomeworkListItemProps> = ({ item, classes }) => {
+    const { deadlineTime, title, description, id } = item;
     const navigate = useNavigate();
 
     let stateClassName = styles.notPass;
@@ -87,4 +87,4 @@ const HomeworkItem: React.FC<HomeworkItemProps> = ({ homework, classes }) => {
     );
 };
 
-export default HomeworkItem;
+export default HomeworkListItem;

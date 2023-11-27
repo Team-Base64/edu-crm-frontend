@@ -3,15 +3,14 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styles from './HomeworkPage.module.scss';
 import Text from '@ui-kit/Text/Text';
 import { useGetHomeworkQuery } from '@app/features/homework/homeworkSlice';
-import Spinner from '@ui-kit/Spinner/Spinner';
 import { SolutionHeaderHomeworkData } from '@components/SolutionHeader/SolutionHeader';
-import ClassItem from '@components/ClassItem/ClassItem';
-import Icon from '@ui-kit/Icon/Icon';
+import { ClassItem } from '@components/ClassItem/ClassItem';
 import ClassMemberList from '@components/ClassMemberList/ClassMemberList';
 import React from 'react';
 import HomeworkSolutionsAll from '@components/HomeworkSolutionsAll/HomeworkSolutionsAll';
 import AppRoutes from '@router/routes';
 import HomeworkTaskList from '@components/HomeworkTaskList/HomeworkTaskList';
+import ShowQueryState from '@components/ShowQueryState/ShowQueryState';
 
 const useGetHomeworkID = () => {
     const location = useLocation();
@@ -33,7 +32,7 @@ const useGetHomeworkID = () => {
 
 const HomeworkPage: React.FC = () => {
     const id = useGetHomeworkID();
-    const { data, isLoading, isError, isSuccess } = useGetHomeworkQuery({
+    const { data, isSuccess, ...status } = useGetHomeworkQuery({
         id: id,
     });
 
@@ -51,33 +50,7 @@ const HomeworkPage: React.FC = () => {
             >
                 Домашнее задание id{id}
             </Text>
-            {isLoading && (
-                <Container classes={styles.status}>
-                    <Spinner classes={styles.statusSpinner} />
-                    <Text
-                        type="p"
-                        size={1}
-                        classes={styles.statusText}
-                    >
-                        Загрузка...
-                    </Text>
-                </Container>
-            )}
-            {isError && (
-                <Container classes={styles.status}>
-                    <Icon
-                        name="alert"
-                        classes={styles.statusIcon}
-                    />
-                    <Text
-                        type="p"
-                        size={1}
-                        classes={styles.statusText}
-                    >
-                        Произошла ошибка...
-                    </Text>
-                </Container>
-            )}
+            <ShowQueryState status={status} />
             {isSuccess && (
                 <Container
                     direction="grid"
@@ -105,7 +78,7 @@ const HomeworkPage: React.FC = () => {
                     >
                         Задачи:
                     </Text>
-                    <HomeworkTaskList homework={data.homework} classes={styles.contentItem}/>
+                    <HomeworkTaskList homework={data.homework} classes={styles.contentItem} />
                     <Text
                         type="h"
                         size={4}

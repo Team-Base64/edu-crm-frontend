@@ -2,17 +2,20 @@ import { useGetClassSolutionsQuery } from '@app/features/homeworkSolution/homewo
 import Container from '@ui-kit/Container/Container';
 import Text from '@ui-kit/Text/Text';
 import React from 'react';
-import Spinner from '@ui-kit/Spinner/Spinner';
 import styles from './ClassSolutionsAll.module.scss';
-import Icon from '@ui-kit/Icon/Icon';
 import SolutionsGroup from '@components/SolutionsGroup/SolutionsGroup';
+import ShowQueryState from '@components/ShowQueryState/ShowQueryState';
+import { UiComponentProps } from '@ui-kit/interfaces';
 
-interface ClassSolutionsAllProps {
+interface ClassSolutionsAllProps extends UiComponentProps {
     classID: number;
 }
 
-const ClassSolutionsAll: React.FC<ClassSolutionsAllProps> = ({ classID }) => {
-    const { data, isSuccess, isLoading, isError } = useGetClassSolutionsQuery({
+const ClassSolutionsAll: React.FC<ClassSolutionsAllProps> = ({ 
+    classID,
+    classes
+ }) => {
+    const { data, isSuccess, ...status} = useGetClassSolutionsQuery({
         class_id: classID,
     });
 
@@ -20,7 +23,7 @@ const ClassSolutionsAll: React.FC<ClassSolutionsAllProps> = ({ classID }) => {
         <Container
             direction="vertical"
             layout="defaultBase"
-            classes={styles.widget}
+            classes={[styles.widget, classes].join(' ')}
         >
             <Text
                 type="h"
@@ -29,33 +32,7 @@ const ClassSolutionsAll: React.FC<ClassSolutionsAllProps> = ({ classID }) => {
             >
                 Все решения класса
             </Text>
-            {isLoading && (
-                <Container>
-                    <Spinner classes={styles.statusSpinner} />
-                    <Text
-                        type="p"
-                        size={1}
-                        classes={styles.statusText}
-                    >
-                        Загрузка...
-                    </Text>
-                </Container>
-            )}
-            {isError && (
-                <Container>
-                    <Icon
-                        name="alert"
-                        classes={styles.statusIcon}
-                    />
-                    <Text
-                        type="p"
-                        size={1}
-                        classes={styles.statusText}
-                    >
-                        Ошибка получения данных
-                    </Text>
-                </Container>
-            )}
+            <ShowQueryState status={status}/>
             {isSuccess && (
                 <SolutionsGroup
                     classes={styles.content}

@@ -91,10 +91,10 @@ const ClassHomeworksWidget: React.FC<ClassHomeworksWidgetProps> = ({
                     >
                         <Text
                             type="h"
-                            size={4}
+                            size={3}
                             weight="bold"
                         >
-                            {'Все домашние задания группы'}
+                            {'Все домашние задания группы: '}
                         </Text>
                     </Container>
                     <HomeworkList

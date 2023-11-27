@@ -3,20 +3,6 @@
 
 }
 
-.status {
-    &-spinner {
-        stroke: #333;
-    }
-
-    &-text {
-        color: #333;
-    }
-
-    &-icon {
-        fill: #333;
-    }
-}
-
 .invite {
     background-color: var(--color-accent-super-light);
     user-select: none;

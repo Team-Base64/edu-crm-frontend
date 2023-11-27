@@ -7,6 +7,7 @@ import React from 'react';
 import SolutionHeader from '@components/SolutionHeader/SolutionHeader';
 import Solution from '@components/Solution/Solution';
 import AppRoutes from '@router/routes';
+import ShowQueryState from '@components/ShowQueryState/ShowQueryState';
 
 const useGetSolutionID = () => {
     const location = useLocation();
@@ -28,7 +29,7 @@ const useGetSolutionID = () => {
 
 const HomeworkSolutionPage: React.FC = () => {
     const id = useGetSolutionID();
-    const { data, isSuccess } = useGetSolutionQuery({ id: id });
+    const { data, isSuccess, ...status } = useGetSolutionQuery({ id: id });
 
     return (
         <Container
@@ -36,24 +37,25 @@ const HomeworkSolutionPage: React.FC = () => {
             gap="l"
             classes={styles.page}
         >
-            {isSuccess && <SolutionHeader solution={data.solution} />}
-            <Container
-                gap="l"
-                classes={styles.content}
-            >
-                {isSuccess && (
-                    <Solution
-                        id={id}
-                        classes={styles.solution}
-                    />
-                )}
-                {isSuccess && (
-                    <Review
-                        solution={data.solution}
-                        classes={styles.review}
-                    />
-                )}
-            </Container>
+            <ShowQueryState status={status} />
+            {isSuccess && (
+                <>
+                    <SolutionHeader solution={data.solution} />
+                    <Container
+                        gap="l"
+                        classes={styles.content}
+                    >
+                        <Solution
+                            id={id}
+                            classes={styles.solution}
+                        />
+                        <Review
+                            solution={data.solution}
+                            classes={styles.review}
+                        />
+                    </Container>
+                </>
+            )}
         </Container>
     );
 };

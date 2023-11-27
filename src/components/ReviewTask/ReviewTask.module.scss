@@ -2,20 +2,6 @@
     background-color: var(--color-accent-super-light);
 }
 
-.status {
-    &-icon {
-        fill: #333;
-    }
-
-    &-text {
-        color: #333;
-    }
-
-    &-spinner {
-        stroke: #333;
-    }
-}
-
 .review {
     width: 100%;
 }

@@ -13,13 +13,14 @@ import ListFC from '@ui-kit/List/List';
 import HomeworkTaskItem from '@components/HomeworkTaskItem/HomeworkTaskItem';
 import { useListItems } from '@ui-kit/List/hooks';
 import { arrayToItem } from '@ui-kit/List/helpers';
+import ShowQueryState from '@components/ShowQueryState/ShowQueryState';
 
 interface TaskPageProps extends UiComponentProps { }
 
 const TaskPage: React.FC<TaskPageProps> = () => {
     const [showCreateForm, setShowCreateForm] = useState<boolean>(false);
     const [tasks, setTasks] = useListItems([] as HomeworkTask[]);
-    const { data } = useGetTasksQuery(null);
+    const { data, isSuccess, ...status } = useGetTasksQuery(null);
 
     useEffect(() => {
         if (!data) return;
@@ -60,20 +61,23 @@ const TaskPage: React.FC<TaskPageProps> = () => {
                         </Text>
                     </Button>
                 </Container>
-                <ListFC
-                    itemsState={[tasks, setTasks]}
-                    renderItem={HomeworkTaskItem}
-                    renderItemProps={{
-                        allowDelete: false,
-                        allowSelect: false,
-                        classes: styles.listItem,
-                    }}
-                    containerProps={{
-                        direction:'grid',
-                        classes: styles.listContainer
-                    }}
-                    classes={styles.list}
-                />
+                <ShowQueryState status={status} />
+                {isSuccess && (
+                    <ListFC
+                        itemsState={[tasks, setTasks]}
+                        renderItem={HomeworkTaskItem}
+                        renderItemProps={{
+                            allowDelete: false,
+                            allowSelect: false,
+                            classes: styles.listItem,
+                        }}
+                        containerProps={{
+                            direction: 'grid',
+                            classes: styles.listContainer
+                        }}
+                        classes={styles.list}
+                    />
+                )}
             </Container>
             <Overlay
                 isShowing={showCreateForm}

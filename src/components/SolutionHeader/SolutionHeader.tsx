@@ -4,10 +4,7 @@ import { UiComponentProps } from '@ui-kit/interfaces';
 import React, { useEffect, useState } from 'react';
 import styles from './SolutionHeader.module.scss';
 import Text, { TextProps } from '@ui-kit/Text/Text';
-import ClassMemberItem from '@components/ClassMemberItem/ClassMemberItem';
-import { useGetStudentQuery } from '@app/features/stundent/stundentSlice';
-import Spinner from '@ui-kit/Spinner/Spinner';
-import Icon from '@ui-kit/Icon/Icon';
+import { ClassMemberItem } from '@components/ClassMemberItem/ClassMemberItem';
 import { useGetHomeworkQuery } from '@app/features/homework/homeworkSlice';
 import getDate from 'utils/common/PrettyDate/common/date';
 import getTime from 'utils/common/PrettyDate/common/time';
@@ -15,111 +12,25 @@ import prettyDate from 'utils/common/PrettyDate/datePrettify';
 import { getDelta } from 'utils/common/PrettyDate/common/delta';
 import Updatable from '@ui-kit/Updatable/Updatable';
 import SolutionSelect from '@components/Solution/SolutionSelect';
+import ShowQueryState from '@components/ShowQueryState/ShowQueryState';
 
-interface SolutionHeaderAuthorProps extends UiComponentProps {
-    studentID: number;
-}
-
-export const SolutionHeaderAuthor: React.FC<SolutionHeaderAuthorProps> = ({
-    studentID,
-    classes,
-}) => {
-    const { data, isLoading, isError, isSuccess } = useGetStudentQuery({
-        id: studentID,
-    });
-    if (isLoading) {
-        return (
-            <>
-                <Spinner classes={styles.statusSpinner} />
-                <Text
-                    type="p"
-                    size={1}
-                    classes={styles.statusText}
-                >
-                    Загрузка...
-                </Text>
-            </>
-        );
-    }
-
-    if (isError || !data?.student) {
-        return (
-            <>
-                <Icon
-                    name="alert"
-                    classes={styles.statusIcon}
-                />
-                <Text
-                    type="p"
-                    size={1}
-                    classes={styles.statusText}
-                >
-                    Загрузка...
-                </Text>
-            </>
-        );
-    }
-    return (
-        <>
-            {isSuccess && data.student && (
-                <ClassMemberItem
-                    classes={[styles.authorItem, classes].join(' ')}
-                    student={data.student}
-                    role="Ученик"
-                    chatID={-1}
-                />
-            )}
-        </>
-    );
-};
 
 interface SolutionHeaderHomeworkDataProps extends UiComponentProps {
     homeworkID: number;
 }
 
-export const SolutionHeaderHomeworkData: React.FC<
-    SolutionHeaderHomeworkDataProps
-> = ({ homeworkID, classes }) => {
-    const { data, isLoading, isError, isSuccess } = useGetHomeworkQuery({
+export const SolutionHeaderHomeworkData: React.FC<SolutionHeaderHomeworkDataProps> = ({
+    homeworkID,
+    classes
+}) => {
+    const { data, isSuccess, ...status } = useGetHomeworkQuery({
         id: homeworkID,
     });
 
-    if (isLoading) {
-        return (
-            <>
-                <Spinner classes={styles.statusSpinner} />
-                <Text
-                    type="p"
-                    size={1}
-                    classes={styles.statusText}
-                >
-                    Загрузка...
-                </Text>
-            </>
-        );
-    }
-
-    if (isError && !data?.homework) {
-        return (
-            <>
-                <Icon
-                    name="alert"
-                    classes={styles.statusIcon}
-                />
-                <Text
-                    type="p"
-                    size={1}
-                    classes={styles.statusText}
-                >
-                    Загрузка...
-                </Text>
-            </>
-        );
-    }
-
     return (
         <>
-            {isSuccess && data.homework && (
+            <ShowQueryState status={status} />
+            {isSuccess && (
                 <Container
                     direction="vertical"
                     classes={classes}
@@ -194,56 +105,29 @@ interface SolutionHeaderPassStatusProps {
 const SolutionHeaderPassStatus: React.FC<SolutionHeaderPassStatusProps> = ({
     solution,
 }) => {
-    const { data, isLoading, isError, isSuccess } = useGetHomeworkQuery({
+    const { data, isSuccess, ...status } = useGetHomeworkQuery({
         id: solution.hwID,
     });
     const [passStatus, changePassStatus] = useState<React.ReactNode>('');
 
     useEffect(() => {
-        if (isSuccess && data.homework) {
-            const inTime =
-                getDelta(data.homework.deadlineTime, solution.createTime) > 0;
-            changePassStatus(
-                <Text
-                    type="p"
-                    size={1}
-                    classes={inTime ? styles.intime : styles.outtime}
-                >
-                    {inTime ? 'В срок' : 'После срока'}
-                </Text>,
-            );
-        }
-    }, [data, changePassStatus, isSuccess, solution.createTime]);
+        if (!data) return;
+        const inTime =
+            getDelta(data.homework.deadlineTime, solution.createTime) > 0;
+        changePassStatus(
+            <Text
+                type="p"
+                size={1}
+                classes={inTime ? styles.intime : styles.outtime}
+            >
+                {inTime ? 'В срок' : 'После срока'}
+            </Text>,
+        );
+    }, [data, changePassStatus, solution.createTime]);
 
     return (
         <>
-            {isLoading && (
-                <Container classes={styles.status}>
-                    <Spinner classes={styles.statusSpinner} />
-                    <Text
-                        type="p"
-                        size={1}
-                        classes={styles.statusText}
-                    >
-                        Загрузка...
-                    </Text>
-                </Container>
-            )}
-            {isError && (
-                <Container classes={styles.status}>
-                    <Icon
-                        name="alert"
-                        classes={styles.statusIcon}
-                    />
-                    <Text
-                        type="p"
-                        size={1}
-                        classes={styles.statusText}
-                    >
-                        Произошла ошибка...
-                    </Text>
-                </Container>
-            )}
+            <ShowQueryState status={status} />
             {isSuccess && (
                 <>
                     <Updatable
@@ -266,7 +150,7 @@ const SolutionHeaderPassStatus: React.FC<SolutionHeaderPassStatusProps> = ({
 
 interface SolutionHeaderProps extends UiComponentProps {
     solution: HomeworkSolution;
-}
+};
 
 const SolutionHeader: React.FC<SolutionHeaderProps> = ({
     solution,
@@ -300,7 +184,7 @@ const SolutionHeader: React.FC<SolutionHeaderProps> = ({
                         gap="l"
                         classes={styles.contentItem}
                     >
-                        <SolutionHeaderAuthor studentID={solution.studentID} />
+                        <ClassMemberItem studentID={solution.studentID} />
                     </Container>
                 </Container>
                 <Container classes={styles.content}>

@@ -8,19 +8,23 @@ import styles from './ClassAnnounceCreateField.module.scss';
 import { useCreateAnnouncementMutation } from '@app/features/announcement/announcementSlice';
 import Button from '@ui-kit/Button/Button';
 import Spinner from '@ui-kit/Spinner/Spinner';
+import Hint from '@ui-kit/Hint/Hint';
 
 interface ClassAnnounceCreateFieldProps {
     // avatarSrc: string;
     classID: number | string;
+    disabled: boolean;
 }
 
 const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
     // avatarSrc,
     classID,
+    disabled,
 }) => {
     const [lock, setLock] = useState<boolean>(false);
     const formRef = useRef<HTMLFormElement>(null);
     const [submit, submitStatus] = useCreateAnnouncementMutation();
+    const [hint, toggleHint] = useState<boolean>(disabled);
 
     useEffect(() => {
         if (submitStatus.isLoading) {
@@ -91,8 +95,10 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
                     onChange={handleChange}
                     onKeydownCallback={handleSubmit}
                 />
+                <Hint text='Сообщения доступны, если в классе есть ученики' state={[hint, toggleHint]} />
+
                 <Button
-                    disabled={lock}
+                    disabled={lock || disabled}
                     type="link"
                     onClick={handleSubmit}
                     classes={styles.btn}
@@ -101,7 +107,7 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
                         <Spinner classes={styles.spinner} />
                     ) : (
                         <Icon
-                            classes={styles.btnIcon}
+                            classes={[styles.btnIcon, disabled ? styles.btnIconDisabled : ''].join(' ')}
                             name="chatSend"
                         />
                     )}

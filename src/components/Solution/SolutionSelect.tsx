@@ -12,6 +12,7 @@ import AppRoutes from '@router/routes';
 import { getDelta } from 'utils/common/PrettyDate/common/delta';
 import getDate from 'utils/common/PrettyDate/common/date';
 import getTime from 'utils/common/PrettyDate/common/time';
+import ShowQueryState from '@components/ShowQueryState/ShowQueryState';
 
 interface SolutionSelectItemProps {
     solution: HomeworkSolution;
@@ -65,9 +66,8 @@ const SolutionSelect: React.FC<SolutionSelectProps> = ({ solution }) => {
     const { hwID, studentID } = solution;
     const {
         data: otherHwSolutions,
-        isLoading,
         isSuccess,
-        isError,
+        ...status
     } = useGetHomeworkSolutionsQuery({
         homeworkID: hwID,
     });
@@ -84,7 +84,6 @@ const SolutionSelect: React.FC<SolutionSelectProps> = ({ solution }) => {
         );
     }, [
         update,
-        isLoading,
         solution,
         isSuccess,
         otherHwSolutions?.solutions,
@@ -92,33 +91,7 @@ const SolutionSelect: React.FC<SolutionSelectProps> = ({ solution }) => {
     ]);
     return (
         <>
-            {isLoading && (
-                <Container>
-                    <Spinner classes={styles.statusSpinner} />
-                    <Text
-                        type="p"
-                        size={1}
-                        classes={styles.statusText}
-                    >
-                        Загрузка....
-                    </Text>
-                </Container>
-            )}
-            {isError && (
-                <Container>
-                    <Icon
-                        name="alert"
-                        classes={styles.statusIcon}
-                    />
-                    <Text
-                        type="p"
-                        size={1}
-                        classes={styles.statusText}
-                    >
-                        Произошла ошибка
-                    </Text>
-                </Container>
-            )}
+            <ShowQueryState status={status}/>
             {isSuccess && filteredOtherSolutions && (
                 <Container
                     gap="s"

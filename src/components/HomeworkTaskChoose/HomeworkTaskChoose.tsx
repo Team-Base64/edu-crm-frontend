@@ -41,7 +41,7 @@ const HomeworkTaskChoose = React.forwardRef<
 >(({ lock, chooseState, classes }, ref) => {
     const { data } = useGetTasksQuery(null);
     const [, changeChoosen] = chooseState;
-
+    const [newTaskIDs, changeNewTaskIDs] = useState<number[]>([]);
     const searchRef = useRef<HTMLInputElement>(null);
     const [query, setQuery] = useState<string>('');
 
@@ -64,7 +64,18 @@ const HomeworkTaskChoose = React.forwardRef<
 
     useEffect(() => {
         if (!data) return;
-        changeTasks(arrayToItem(data.tasks));
+        const newItems = arrayToItem(
+            data.tasks
+                .filter(dataItem => !tasks
+                    .some(taskItem => dataItem.id === taskItem.id))
+        );
+        newItems.forEach(item => {
+            if(newTaskIDs.includes(item.id)) {
+                item.selected = true;
+                changeNewTaskIDs(prev => prev.filter(id => id !== item.id));
+            }
+        })
+        changeTasks([...tasks, ...newItems]);
     }, [changeTasks, data]);
 
     useEffect(() => {
@@ -72,10 +83,7 @@ const HomeworkTaskChoose = React.forwardRef<
     }, [tasks, changeChoosen]);
 
     const handleNewTask = (task: HomeworkTask) => {
-        changeTasks((items) => [
-            ...items,
-            { ...objToItem(task), selected: true },
-        ]);
+        changeNewTaskIDs(prev => [...prev, task.id]);
         setTaskCreateForm(false);
     };
 

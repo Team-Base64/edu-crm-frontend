@@ -10,35 +10,50 @@ import { useNavigate } from 'react-router-dom';
 import { copyInviteToken } from 'utils/class/copyInviteToken';
 import Hint from '@ui-kit/Hint/Hint';
 import { useGetClassByIdQuery } from '@app/features/class/classSlice';
-import Spinner from '@ui-kit/Spinner/Spinner';
 import AppRoutes from '@router/routes';
+import { ListItemFC } from '@ui-kit/List/types';
+import { ClassData } from '@app/features/class/classModel';
+import { objToItem } from '@ui-kit/List/helpers';
+import { noop } from '@app/const/consts';
+import ShowQueryState from '@components/ShowQueryState/ShowQueryState';
 
 interface ClassItemProps extends UiComponentProps {
     classID: number;
 }
 
-const ClassItem: React.FC<ClassItemProps> = ({ classID, classes }) => {
-    const { data, isLoading, isError, isSuccess } = useGetClassByIdQuery({
-        id: classID,
-    });
-    // const { id, title, description, inviteToken } = data;
+export const ClassItem: React.FC<ClassItemProps> = ({ classID }) => {
+    const { data, isSuccess, ...status } = useGetClassByIdQuery({ id: classID });
+    return (
+        <>
+            <ShowQueryState status={status} />
+            {isSuccess && (
+                <ClassListItem
+                    item={objToItem(data.class)}
+                    onSelect={noop}
+                    onDelete={noop}
+                    index={0}
+                />
+            )}
+        </>
+    );
+}
+
+interface ClassListItemProps extends UiComponentProps {
+}
+
+export const ClassListItem: ListItemFC<ClassData, ClassListItemProps> = ({ item, classes }) => {
+    const { id, title, description, inviteToken } = item;
     const [hint, setHint] = useState<boolean>(false);
     const navigate = useNavigate();
 
+
     const handleCardClick = (e: React.MouseEvent) => {
         e.preventDefault();
-
-        if (!data) return;
-
-        navigate(`/${AppRoutes.classes}/${data.class.id}`);
+        navigate(`/${AppRoutes.classes}/${id}`);
     };
 
     const handleInvite: React.MouseEventHandler = (e) => {
         e.stopPropagation();
-
-        if (!data) return;
-
-        const { title, inviteToken } = data.class;
         copyInviteToken('', title, inviteToken);
         setHint(true);
     };
@@ -51,107 +66,75 @@ const ClassItem: React.FC<ClassItemProps> = ({ classID, classes }) => {
                 classes={[styles.card, classes].join(' ')}
                 onClick={handleCardClick}
             >
-                {isLoading && (
-                    <Container classes={styles.status}>
-                        <Spinner classes={styles.statusSpinner} />
+
+                <Container classes={styles.content}>
+                    <Container
+                        direction={'vertical'}
+                        classes={styles.wrapper}
+                        gap="l"
+                    >
+                        <Text
+                            type={'h'}
+                            size={4}
+                            weight={'bold'}
+                            classes={styles.text}
+                        >
+                            {title}
+                        </Text>
+                        <Text
+                            type={'p'}
+                            size={1}
+                            classes={styles.text}
+                        >
+                            {description &&
+                                description.length
+                                ? description
+                                : 'Без описания'}
+                        </Text>
+                    </Container>
+                </Container>
+
+                <Container
+                    classes={styles.invite}
+                    layout="defaultBase"
+                >
+                    <Container classes={styles.inviteWrapper}>
                         <Text
                             type="p"
                             size={1}
-                            classes={styles.statusText}
+                            classes={styles.inviteToken}
                         >
-                            Загрузка...
+                            {inviteToken}
                         </Text>
                     </Container>
-                )}
-                {isError && (
-                    <Container classes={styles.status}>
+                    <Button
+                        type="link"
+                        classes={styles.inviteBtn}
+                        onClick={handleInvite}
+                    >
                         <Icon
-                            name="alert"
-                            classes={styles.statusIcon}
+                            name="copyLine"
+                            classes={styles.inviteBtnIcon}
                         />
-                        <Text
-                            type="p"
-                            size={1}
-                            classes={styles.statusText}
-                        >
-                            Произошла ошибка...
-                        </Text>
-                    </Container>
-                )}
-                {isSuccess && data.class && (
-                    <>
-                        <Container classes={styles.content}>
-                            <Container
-                                direction={'vertical'}
-                                classes={styles.wrapper}
-                                gap="l"
-                            >
-                                <Text
-                                    type={'h'}
-                                    size={4}
-                                    weight={'bold'}
-                                    classes={styles.text}
-                                >
-                                    {data.class.title}
-                                </Text>
-                                <Text
-                                    type={'p'}
-                                    size={1}
-                                    classes={styles.text}
-                                >
-                                    {data.class.description &&
-                                    data.class.description.length
-                                        ? data.class.description
-                                        : 'Без описания'}
-                                </Text>
-                            </Container>
-                        </Container>
+                    </Button>
+                    <Hint
+                        classes={styles.inviteHint}
+                        text="Приглашение скопировано в буфер обмена!"
+                        timeoutSec={3}
+                        state={[hint, setHint]}
+                    />
+                </Container>
 
-                        <Container
-                            classes={styles.invite}
-                            layout="defaultBase"
-                        >
-                            <Container classes={styles.inviteWrapper}>
-                                <Text
-                                    type="p"
-                                    size={1}
-                                    classes={styles.inviteToken}
-                                >
-                                    {data.class.inviteToken}
-                                </Text>
-                            </Container>
-                            <Button
-                                type="link"
-                                classes={styles.inviteBtn}
-                                onClick={handleInvite}
-                            >
-                                <Icon
-                                    name="copyLine"
-                                    classes={styles.inviteBtnIcon}
-                                />
-                            </Button>
-                            <Hint
-                                classes={styles.inviteHint}
-                                text="Приглашение скопировано в буфер обмена!"
-                                timeoutSec={3}
-                                state={[hint, setHint]}
-                            />
-                        </Container>
-
-                        <Button
-                            type={'link'}
-                            classes={styles.btn}
-                        >
-                            <Icon
-                                name={'arrowRight'}
-                                classes={styles.btnIcon}
-                            />
-                        </Button>
-                    </>
-                )}
+                <Button
+                    type={'link'}
+                    classes={styles.btn}
+                >
+                    <Icon
+                        name={'arrowRight'}
+                        classes={styles.btnIcon}
+                    />
+                </Button>
             </Container>
         </>
     );
 };
-
-export default ClassItem;

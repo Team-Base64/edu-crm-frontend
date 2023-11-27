@@ -11,6 +11,7 @@ import Text from '@ui-kit/Text/Text';
 import { commentStorePath } from './utils';
 import { Attachment } from '@ui-kit/Attachment/Attachment';
 import { noop } from '@app/const/consts';
+import ShowQueryState from '@components/ShowQueryState/ShowQueryState';
 
 interface ReviewTaskProps {
     title?: string;
@@ -26,7 +27,7 @@ const templates = {
 type Template = keyof typeof templates;
 
 const ReviewTask: React.FC<ReviewTaskProps> = ({ taskID, title }) => {
-    const { data, isLoading, isError, isSuccess } = useGetTaskQuery({
+    const { data, isSuccess, ...status } = useGetTaskQuery({
         id: taskID,
     });
     const commentRef = useRef<HTMLTextAreaElement>(null);
@@ -57,35 +58,7 @@ const ReviewTask: React.FC<ReviewTaskProps> = ({ taskID, title }) => {
             direction="vertical"
             gap="l"
         >
-            {isLoading && (
-                <>
-                    <Spinner classes={styles.statusSpinner} />
-                    <Text
-                        type="p"
-                        size={1}
-                        weight="regular"
-                        classes={styles.statusText}
-                    >
-                        Загрузка
-                    </Text>
-                </>
-            )}
-            {isError && (
-                <>
-                    <Icon
-                        name="alert"
-                        classes={styles.statusIcon}
-                    />
-                    <Text
-                        type="p"
-                        size={1}
-                        weight="regular"
-                        classes={styles.statusText}
-                    >
-                        Произошла ошибка
-                    </Text>
-                </>
-            )}
+           <ShowQueryState status={status}/>
             {isSuccess && (
                 <>
                     <Container direction="vertical">

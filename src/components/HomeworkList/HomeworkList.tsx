@@ -1,11 +1,13 @@
 import HomeworkItem from '@components/HomeworkItem/HomeworkItem';
 import { UiComponentProps } from '@ui-kit/interfaces';
-import React, { useId } from 'react';
+import React, { useEffect } from 'react';
 import { useGetClassHomeworksQuery } from '@app/features/homework/homeworkSlice';
 import EmptyItem from '@components/EmptyItem/EmptyItem';
-import Icon from '@ui-kit/Icon/Icon';
-import Spinner from '@ui-kit/Spinner/Spinner';
-
+import { useListItems } from '@ui-kit/List/hooks';
+import { Homework } from '@app/features/homework/homeworkModel';
+import { arrayToItem } from '@ui-kit/List/helpers';
+import ShowQueryState from '@components/ShowQueryState/ShowQueryState';
+import ListFC from '@ui-kit/List/List';
 // import styles from './HomeworkList.module.scss';
 
 interface HomeworkListProps extends UiComponentProps {
@@ -13,44 +15,33 @@ interface HomeworkListProps extends UiComponentProps {
     limit?: number;
 }
 
-const HomeworkList: React.FC<HomeworkListProps> = ({ classId, limit }) => {
-    const listId = useId();
-    const { data, isError, isLoading } = useGetClassHomeworksQuery({
+const HomeworkList: React.FC<HomeworkListProps> = ({ 
+    classId, 
+    limit,
+    classes,
+}) => {
+    const { data, isSuccess, ...status } = useGetClassHomeworksQuery({
         id: classId,
     });
+    const [items, setItems] = useListItems([] as Homework[]);
 
-    if (isLoading) {
-        return (
-            <>
-                <EmptyItem text="Загрузка...">
-                    <Spinner />
-                </EmptyItem>
-            </>
-        );
-    }
-
-    if (isError || !data?.homeworks) {
-        return (
-            <>
-                <EmptyItem text="Произошла ошибка">
-                    <Icon name="alert" />
-                </EmptyItem>
-            </>
-        );
-    }
-
-    const list = data.homeworks;
+    useEffect(() => {
+        if (!data) return;
+        setItems(arrayToItem(data.homeworks));
+    }, [setItems, data]);
 
     return (
         <>
-            {!list.length ? (
-                <EmptyItem text="Пока нет дз" />
-            ) : (
-                list.slice(0, limit).map((homework) => (
-                    <React.Fragment key={`${listId}-${homework.id}`}>
-                        <HomeworkItem homework={homework} />
-                    </React.Fragment>
-                ))
+            <ShowQueryState status={status} />
+            {isSuccess && (
+                <ListFC
+                    itemsState={[items.slice(0, limit), setItems]}
+                    renderItem={HomeworkItem}
+                    renderItemProps={{}}
+                    classes={classes}
+                >
+                    <EmptyItem text='Пока нет дз' />
+                </ListFC>
             )}
         </>
     );

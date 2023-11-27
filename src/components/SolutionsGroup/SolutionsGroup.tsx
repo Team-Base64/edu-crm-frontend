@@ -6,7 +6,6 @@ import EmptyItem from '@components/EmptyItem/EmptyItem';
 import styles from './SolutionsGroup.module.scss';
 import Icon from '@ui-kit/Icon/Icon';
 import {
-    SolutionHeaderAuthor,
     SolutionHeaderHomeworkData,
 } from '@components/SolutionHeader/SolutionHeader';
 import { UiComponentProps } from '@ui-kit/interfaces';
@@ -16,6 +15,7 @@ import Button from '@ui-kit/Button/Button';
 import DeepGroup, { GroupFC, ListFC } from '@ui-kit/DeepGroup/DeepGroup';
 import { useNavigate } from 'react-router-dom';
 import AppRoutes from '@router/routes';
+import { ClassMemberItem } from '@components/ClassMemberItem/ClassMemberItem';
 
 interface SolutionItemProps extends UiComponentProps {
     data: HomeworkSolution;
@@ -92,7 +92,7 @@ const SolutionGroup: GroupFC<SolutionGroupProps, HomeworkSolution> = ({
     if (keys.studentID !== undefined) {
         headerText = 'Выполнил';
         headerConent = (
-            <SolutionHeaderAuthor
+            <ClassMemberItem
                 classes={styles.author}
                 studentID={keys.studentID}
             />

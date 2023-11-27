@@ -10,21 +10,55 @@ import styles from './ClassMemberItem.module.scss';
 import { Student } from '@app/features/stundent/stundentModel';
 import { useNavigate } from 'react-router-dom';
 import AppRoutes, { routerQueryParams } from '@router/routes.ts';
+import { ListItemFC } from '@ui-kit/List/types';
+import { useGetStudentQuery } from '@app/features/stundent/stundentSlice';
+import ShowQueryState from '@components/ShowQueryState/ShowQueryState';
+import { objToItem } from '@ui-kit/List/helpers';
+import { noop } from '@app/const/consts';
 
 interface ClassMemberItemProps extends UiComponentProps {
-    student: Student;
-    role: string;
-    chatID: number;
+    studentID: number;
+    chatID?: number;
+    role?: string;
+}
+export const ClassMemberItem: React.FC<ClassMemberItemProps> = ({
+    studentID,
+    chatID,
+    role = 'Ученик',
+    classes,
+}) => {
+    const { data, isSuccess, ...status } = useGetStudentQuery({ id: studentID });
+    return (
+        <>
+            <ShowQueryState status={status} />
+            {isSuccess && (
+                <ClassMemberListItem
+                    item={objToItem(data.student)}
+                    onSelect={noop}
+                    onDelete={noop}
+                    index={0}
+                    chatID={chatID}
+                    role={role}
+                    classes={classes}
+                />
+            )}
+        </>
+    );
 }
 
-const ClassMemberItem: React.FC<ClassMemberItemProps> = ({
-    student,
-    role,
+interface ClassMemberListItemProps extends UiComponentProps {
+    role?: string;
+    chatID?: number;
+}
+
+export const ClassMemberListItem: ListItemFC<Student, ClassMemberListItemProps> = ({
+    item,
+    role = 'Ученик',
     onClick,
     classes,
     chatID,
 }) => {
-    const { name, avatarSrc } = student;
+    const { name, avatarSrc } = item;
 
     const navigate = useNavigate();
     const handleChatClick = () => {
@@ -70,18 +104,18 @@ const ClassMemberItem: React.FC<ClassMemberItemProps> = ({
                     </Text>
                 </Container>
             </Container>
-            <Button
-                classes={styles.btn}
-                onClick={handleChatClick}
-                type="link"
-            >
-                <Icon
-                    classes={styles.icon}
-                    name="chatRightFill"
-                />
-            </Button>
+            {chatID && (
+                <Button
+                    classes={styles.btn}
+                    onClick={handleChatClick}
+                    type="link"
+                >
+                    <Icon
+                        classes={styles.icon}
+                        name="chatRightFill"
+                    />
+                </Button>
+            )}
         </Container>
     );
 };
-
-export default ClassMemberItem;

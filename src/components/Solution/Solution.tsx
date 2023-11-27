@@ -8,17 +8,16 @@ import { IframeViewer } from '@ui-kit/IframeViewer/IframeViewer';
 import { Attachment } from '@ui-kit/Attachment/Attachment';
 import { noop } from '@app/const/consts';
 import { useGetSolutionQuery } from '@app/features/homeworkSolution/homeworkSolutionSlice';
-import Spinner from '@ui-kit/Spinner/Spinner';
-import Icon from '@ui-kit/Icon/Icon';
 import { useState } from 'react';
 import Hint from '@ui-kit/Hint/Hint';
+import ShowQueryState from '@components/ShowQueryState/ShowQueryState';
 
 interface SolutionProps extends UiComponentProps {
     id: number | string;
 }
 
 const Solution: React.FC<SolutionProps> = ({ id, classes }) => {
-    const { data, isLoading, isError, isSuccess } = useGetSolutionQuery({
+    const { data, isSuccess, ...status } = useGetSolutionQuery({
         id: id,
     });
     const [currentAttach, setCurrentAttach] = useState<string>('');
@@ -47,33 +46,7 @@ const Solution: React.FC<SolutionProps> = ({ id, classes }) => {
             >
                 Содержание решения:
             </Text>
-            {isLoading && (
-                <>
-                    <Spinner classes={styles.statusSpinner} />
-                    <Text
-                        type="p"
-                        size={1}
-                        classes={styles.statusText}
-                    >
-                        Загрузка...
-                    </Text>
-                </>
-            )}
-            {isError && (
-                <>
-                    <Icon
-                        name="alert"
-                        classes={styles.statusIcon}
-                    />
-                    <Text
-                        type="p"
-                        size={1}
-                        classes={styles.statusText}
-                    >
-                        Загрузка...
-                    </Text>
-                </>
-            )}
+            <ShowQueryState status={status}/>
             {isSuccess && (
                 <>
                     {/* <Container direction='vertical'>
