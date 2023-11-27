@@ -4,4 +4,5 @@
   gap: 8px;
   content: '';
   overflow-y: scroll;
+  max-height: calc(2 * var(--space-huge));
 }
