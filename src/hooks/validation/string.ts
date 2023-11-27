@@ -8,5 +8,6 @@ export const useEmptyStringValidation = () => {
         errorText: stringError,
         setStringError: (text: string) =>
             setStringError(getEmptyStringValidation(text)),
+        setError: (text: string) => setStringError(text),
     };
 };

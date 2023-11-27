@@ -3,7 +3,6 @@ import { UiComponentProps } from '@ui-kit/interfaces';
 import Input from '@ui-kit/Input/Input';
 import Button from '@ui-kit/Button/Button';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Spinner from '@ui-kit/Spinner/Spinner';
 import AppRoutes from '@router/routes';
 import Icon from '@ui-kit/Icon/Icon';
 import Container from '@ui-kit/Container/Container';
@@ -74,9 +73,17 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
             );
         }
         if (isError) {
-            console.error(error);
+            loginError.setError('Произошла ошибка');
         }
-    }, [error, fromLocation, isError, isLoading, isSuccess, navigate]);
+    }, [
+        error,
+        fromLocation,
+        isError,
+        isLoading,
+        isSuccess,
+        loginError,
+        navigate,
+    ]);
 
     return (
         <>
@@ -165,7 +172,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
                         classes={styles.loginFormSubmitButton}
                         onClick={handleButtonSubmit}
                     >
-                        {isLoading && <Spinner />}
                         <Text
                             type={'h'}
                             size={5}
