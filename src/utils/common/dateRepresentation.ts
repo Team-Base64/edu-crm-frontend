@@ -1,3 +1,5 @@
+export type dateInput = Date | null;
+
 export const getDialogDate = (dateString: string) => {
     const date = new Date(dateString);
     const currentDate = new Date();
@@ -41,9 +43,35 @@ export const setZeroDate = (date: Date) => {
     return date;
 };
 
-export const setTime = (setTodate: Date, timeToSet: Date) => {
-    setTodate.setHours(timeToSet.getHours());
-    setTodate.setMinutes(timeToSet.getMinutes());
-    setTodate.setSeconds(timeToSet.getSeconds());
-    return setTodate;
+export const getZeroDate = (date: Date) => {
+    const newDate = new Date(date);
+    return setZeroDate(newDate);
+};
+
+export const setZeroTime = (date: Date) => {
+    // const newDate = new Date(date);
+    date.setHours(0, 0, 0, 0);
+    return date;
+};
+
+export const setTime = (date: Date, time: Date | null) => {
+    // const newDate = new Date(date);
+    if (time instanceof Date) {
+        date.setHours(time.getHours());
+        date.setMinutes(time.getMinutes());
+        date.setSeconds(time.getSeconds());
+    }
+    return date;
+};
+
+export const valueAsDateTimezoneOffset = (date: dateInput) => {
+    if (date instanceof Date) {
+        date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+    }
+    return date;
+};
+
+export const valueAsPayloadTimezoneOffset = (date: Date) => {
+    date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+    return date;
 };

@@ -1,5 +1,5 @@
 import { MessageEvent, WebSocketServer } from 'ws';
-import { messagesMock } from './const/constMocks.ts';
+import { messagesMock } from './const/chatMocks';
 
 const webSocketServer = new WebSocketServer({
     port: 8081,

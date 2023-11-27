@@ -58,6 +58,28 @@ export const teacherApi = appApi.injectEndpoints({
                 }
             },
         }),
+        logout: build.mutation<unknown, unknown>({
+            query: () => {
+                return {
+                    url: teacherPaths.logout,
+                    method: 'DELETE',
+                };
+            },
+
+            // async onQueryStarted(_, { dispatch, queryFulfilled }) {
+            //     console.log('asda');
+            //
+            //     try {
+            //         const { meta } = await queryFulfilled;
+            //         console.log(meta);
+            //         if (meta && meta.response && meta.response.ok) {
+            //             dispatch(setMe(false));
+            //         }
+            //     } catch (error) {
+            //         console.error(error);
+            //     }
+            // },
+        }),
 
         register: build.mutation<
             { me: boolean },
@@ -71,9 +93,7 @@ export const teacherApi = appApi.injectEndpoints({
                 };
             },
 
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            async onQueryStarted(args, { dispatch, queryFulfilled }) {
+            async onQueryStarted(_, { dispatch, queryFulfilled }) {
                 try {
                     const { meta } = await queryFulfilled;
                     if (meta && meta.response && meta.response.ok) {
@@ -94,5 +114,5 @@ export const {
     useCheckAuthQuery,
     useLoginMutation,
     useRegisterMutation,
-    usePrefetch,
+    useLogoutMutation,
 } = teacherApi;

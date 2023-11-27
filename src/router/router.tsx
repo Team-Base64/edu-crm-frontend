@@ -1,6 +1,4 @@
 import MainLayout from '@components/MainLayout/MainLayout';
-// import RequireAuth from '@hoc/RequireAuth';
-// import LandingPage from '@pages/LandingPage';
 import LoginPage from '@pages/LoginPage/LoginPage';
 import NotFoundPage from '@pages/NotFoundPage';
 import React from 'react';
@@ -15,6 +13,7 @@ import TaskPage from '@pages/TaskPage/TaskPage';
 import HomeworkPage from '@pages/HomeworkPage/HomeworkPage';
 import HomeworkSolutionPage from '@pages/HomeworkSolutionPage/HomeworkSolutionPage';
 import RequireAuth from '@hoc/RequireAuth';
+import { LogoutPage } from '@pages/LogoutPage/LogoutPage.tsx';
 
 const AppRouter: React.FC = () => {
     return (
@@ -91,6 +90,10 @@ const AppRouter: React.FC = () => {
                         <Route
                             path={AppRoutes.calendar}
                             element={<CalendarPage />}
+                        />
+                        <Route
+                            path={AppRoutes.logout}
+                            element={<LogoutPage />}
                         />
                     </Route>
                 </Route>

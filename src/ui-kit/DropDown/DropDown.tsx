@@ -41,7 +41,7 @@ export const DropDown: React.FC<DropDownProps> = ({
                 id={options.toString()}
                 className={[styles.dropDownDataList].join(' ')}
                 onChange={onChange}
-                value={selectedValue}
+                defaultValue={selectedValue}
             >
                 {optionsElements}
             </select>

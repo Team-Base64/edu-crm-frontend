@@ -2,15 +2,14 @@ import React, { FormEvent, useEffect, useRef, useState } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import Input from '@ui-kit/Input/Input';
 import Button from '@ui-kit/Button/Button';
-import { useLoginMutation } from '@app/features/teacher/teacherApi';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Spinner from '@ui-kit/Spinner/Spinner';
 import AppRoutes from '@router/routes';
 import Icon from '@ui-kit/Icon/Icon';
 import Container from '@ui-kit/Container/Container';
 import Text from '@ui-kit/Text/Text';
 import styles from './LoginForm.module.scss';
-import { getEmptyStringValidation } from '../../validation/string.ts';
+import { useEmptyStringValidation } from '../../hooks/validation/string.ts';
+import { useLoginMutation } from '@app/features/teacher/teacherApi';
 
 interface LoginFormProps extends UiComponentProps {}
 
@@ -33,25 +32,33 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
         passwordRef.current.type = passwordVisibility;
     }, [passwordVisibility]);
 
-    const [loginError, setLoginErorr] = useState<string>('');
-    const [passwordError, setPasswordErorr] = useState<string>('');
+    const loginError = useEmptyStringValidation();
+    const passwordError = useEmptyStringValidation();
 
     const fromLocation = location?.state?.from;
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const username = usernameRef.current?.value;
         const password = passwordRef.current?.value;
+
         if (!username || !password) {
-            setLoginErorr(getEmptyStringValidation(username));
-            setPasswordErorr(getEmptyStringValidation(password));
             return;
         }
+
         login({
             payload: {
                 login: username,
                 password: password,
             },
         });
+    };
+
+    const handleButtonSubmit = () => {
+        if (!loginError.errorText || !passwordError.errorText) {
+            loginError.setStringError(usernameRef.current?.value ?? '');
+            passwordError.setStringError(passwordRef.current?.value ?? '');
+            return;
+        }
     };
 
     useEffect(() => {
@@ -66,9 +73,17 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
             );
         }
         if (isError) {
-            console.error(error);
+            loginError.setError('Произошла ошибка');
         }
-    }, [error, fromLocation, isError, isLoading, isSuccess, navigate]);
+    }, [
+        error,
+        fromLocation,
+        isError,
+        isLoading,
+        isSuccess,
+        loginError,
+        navigate,
+    ]);
 
     return (
         <>
@@ -86,7 +101,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
                     Пожалуйста, войдите
                 </Text>
                 <form
-                    onSubmit={handleSubmit}
+                    onSubmit={handleFormSubmit}
                     className={styles.loginForm}
                 >
                     <Container direction={'vertical'}>
@@ -99,23 +114,23 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
                             }}
                             placeholder={'DEV Любое'}
                             icon={<Icon name={'user'} />}
-                            button={
-                                <Icon
-                                    name={'close'}
-                                    onClick={() => {
-                                        if (!usernameRef.current) return;
-                                        usernameRef.current.value = '';
-                                    }}
-                                />
-                            }
                             type={'text'}
-                            error={{ text: loginError, position: 'right' }}
+                            error={{
+                                text: loginError.errorText,
+                                position: 'right',
+                            }}
                             onChange={({ target }) =>
-                                setLoginErorr(
-                                    getEmptyStringValidation(target.value),
-                                )
+                                loginError.setStringError(target.value)
                             }
-                        />
+                        >
+                            <Icon
+                                name={'close'}
+                                onClick={() => {
+                                    if (!usernameRef.current) return;
+                                    usernameRef.current.value = '';
+                                }}
+                            />
+                        </Input>
                         <Input
                             inputRef={passwordRef}
                             label={{
@@ -125,38 +140,38 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
                             }}
                             placeholder={'DEV пароль 123'}
                             icon={<Icon name={'lock'} />}
-                            error={{ text: passwordError, position: 'right' }}
-                            button={
-                                <Icon
-                                    name={
-                                        passwordVisibility === 'text'
-                                            ? 'eye'
-                                            : 'eyeCrossed'
-                                    }
-                                    onClick={() => {
-                                        if (!passwordRef.current) return;
-
-                                        setPasswordVisibility((prevState) =>
-                                            prevState === 'password'
-                                                ? 'text'
-                                                : 'password',
-                                        );
-                                    }}
-                                />
-                            }
+                            error={{
+                                text: passwordError.errorText,
+                                position: 'right',
+                            }}
                             type={'text'}
                             onChange={({ target }) => {
-                                setPasswordErorr(
-                                    getEmptyStringValidation(target.value),
-                                );
+                                passwordError.setStringError(target.value);
                             }}
-                        />
+                        >
+                            <Icon
+                                name={
+                                    passwordVisibility === 'text'
+                                        ? 'eye'
+                                        : 'eyeCrossed'
+                                }
+                                onClick={() => {
+                                    if (!passwordRef.current) return;
+
+                                    setPasswordVisibility((prevState) =>
+                                        prevState === 'password'
+                                            ? 'text'
+                                            : 'password',
+                                    );
+                                }}
+                            />
+                        </Input>
                     </Container>
                     <Button
                         disabled={isLoading}
                         classes={styles.loginFormSubmitButton}
+                        onClick={handleButtonSubmit}
                     >
-                        {isLoading && <Spinner />}
                         <Text
                             type={'h'}
                             size={5}

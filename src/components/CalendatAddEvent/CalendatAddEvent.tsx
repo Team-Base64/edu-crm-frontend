@@ -27,7 +27,6 @@ export const CalendarAddEvent: React.FC<CalendarAddEventProps> = ({
         <>
             <Button
                 type={'primary'}
-                // classes={styles.calendarControlsAddEvent}
                 onClick={() => setAddEventWindowShowing(true)}
             >
                 <Text
@@ -44,6 +43,7 @@ export const CalendarAddEvent: React.FC<CalendarAddEventProps> = ({
                 <CalendarEventForm
                     useMutation={useAddEventMutation}
                     title={'Создание события'}
+                    sumbitButtonTitle={'Добавить'}
                     handleOverlayClose={handleOverlayClose}
                 ></CalendarEventForm>
             </Overlay>

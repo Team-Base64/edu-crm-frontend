@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import styles from './CalendarEventForm.module.scss';
 import Container from '@ui-kit/Container/Container.tsx';
@@ -14,26 +14,27 @@ import {
     eventMutationsType,
 } from '@app/features/calendar/calendarModel.ts';
 import { unselectedId } from '@app/const/consts.ts';
+import { useEmptyStringValidation } from '../../hooks/validation/string.ts';
 import {
-    getIsFirstArgLessOrEqualDateValidation,
-    isActualDate,
-    isActualTime,
-} from '../../validation/date.ts';
-import { getEmptyStringValidation } from '../../validation/string.ts';
+    useActualDateValidation,
+    useActualTimeValidation,
+    useIsMoreOrEqualDateValidation,
+    useIsMoreOrEqualTimeValidation,
+} from '../../hooks/validation/date.ts';
 
 interface AddEvenFormProps extends UiComponentProps {
     useMutation: eventMutationsType;
     eventData?: CalendarEventType | null;
     title: string;
+    sumbitButtonTitle: string;
     handleOverlayClose: () => void;
 }
-
-export type dateInput = Date | null;
 
 export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
     useMutation,
     eventData = null,
     title,
+    sumbitButtonTitle,
     handleOverlayClose,
 }) => {
     const {
@@ -48,49 +49,45 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
         handleSubmit,
     } = useAddEvent(handleOverlayClose, useMutation()[0], eventData);
 
-    const [titleError, setTitleError] = useState<string>('');
-    const [startDateError, setStartDateError] = useState<string>('');
-    const [startTimeError, setStartTimeError] = useState<string>('');
-    const [endDateError, setEndDateError] = useState<string>('');
-    const [endTimeError, setEndTimeError] = useState<string>('');
+    const titleError = useEmptyStringValidation();
+    const startDateError = useActualDateValidation('actualDate');
+    const startTimeError = useActualTimeValidation('actualTime');
+    const endDateError = useIsMoreOrEqualDateValidation('moreOrEqualEndDate');
+    const endTimeError = useIsMoreOrEqualTimeValidation('moreOrEqualEndTime');
+
+    const handleFromSubmit = (event: React.FormEvent) => {
+        event.preventDefault();
+
+        if (
+            !titleError.errorText &&
+            !startDateError.errorText &&
+            !startTimeError.errorText &&
+            !endDateError.errorText &&
+            !endTimeError.errorText
+        ) {
+            handleSubmit();
+        }
+    };
+
+    const handleButtonSubmit = () => {
+        titleError.setStringError(useTitle.title ?? '');
+        startDateError.setDateError(useStartDate.date);
+        startTimeError.setDateError(
+            useStartDate.date ?? new Date(),
+            useStartTime.time,
+        );
+        endDateError.setDateError(useEndDate.date, useStartDate.date);
+        endTimeError.setDateError(
+            { date: useEndDate.date ?? new Date(), time: useEndTime.time },
+            {
+                date: useStartDate.date ?? new Date(),
+                time: useStartTime.time,
+            },
+        );
+    };
 
     return (
-        <form
-            onSubmit={(event) => {
-                event.preventDefault();
-                console.log(
-                    useTitle.title,
-                    titleError,
-                    startDateError,
-                    endDateError,
-                    endTimeError,
-                    !titleError &&
-                        !startDateError &&
-                        !endDateError &&
-                        !endTimeError,
-                );
-                setTitleError(getEmptyStringValidation(useTitle.title));
-                setStartDateError(isActualDate(useStartDate.date));
-                setStartTimeError(isActualTime(useStartTime.time));
-                setEndDateError(
-                    getIsFirstArgLessOrEqualDateValidation(
-                        useEndDate.date,
-                        useStartDate.date,
-                        'Время окончания должна быть не позже даты начала',
-                    ),
-                );
-                setEndTimeError(isActualTime(useEndTime.time));
-
-                if (
-                    !titleError &&
-                    !startDateError &&
-                    !endDateError &&
-                    !endTimeError
-                ) {
-                    handleSubmit();
-                }
-            }}
-        >
+        <form onSubmit={handleFromSubmit}>
             <Container
                 direction={'grid'}
                 layout={'defaultBase'}
@@ -108,12 +105,12 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                     defaultValue={useTitle.title}
                     onChange={({ target }) => {
                         useTitle.setTitle(target.value);
-                        setTitleError(getEmptyStringValidation(target.value));
+                        titleError.setStringError(target.value);
                     }}
                     label={{ text: 'Название', type: 'h', size: 5 }}
                     classes={styles.addEventFormTitle}
                     error={{
-                        text: titleError,
+                        text: titleError.errorText,
                         position: 'right',
                     }}
                     placeholder={'Введите название события'}
@@ -123,23 +120,24 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                     useDate={useStartDate}
                     label={'Дата начала'}
                     error={{
-                        text: startDateError,
+                        text: startDateError.errorText,
                         position: 'left',
                     }}
-                    onChange={({ target }) => {
-                        setStartDateError(isActualDate(new Date(target.value)));
-                    }}
+                    onChangeDate={(date) => startDateError.setDateError(date)}
                 ></DatePicker>
                 <TimePicker
                     classes={styles.addEventFormStartDate}
                     useTime={useStartTime}
                     label={'Время начала'}
                     error={{
-                        text: startTimeError,
+                        text: startTimeError.errorText,
                         position: 'right',
                     }}
-                    onChange={({ target }) =>
-                        setStartTimeError(isActualTime(target.valueAsDate))
+                    onChangeDate={(date) =>
+                        startTimeError.setDateError(
+                            useStartDate.date ?? new Date(),
+                            date,
+                        )
                     }
                 ></TimePicker>
                 <DatePicker
@@ -147,17 +145,11 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                     useDate={useEndDate}
                     label={'Дата окончания'}
                     error={{
-                        text: endDateError,
+                        text: endDateError.errorText,
                         position: 'left',
                     }}
-                    onChange={({ target }) =>
-                        setEndDateError(
-                            getIsFirstArgLessOrEqualDateValidation(
-                                target.valueAsDate,
-                                useStartDate.date,
-                                'Время окончания должна быть не позже даты начала',
-                            ),
-                        )
+                    onChangeDate={(date) =>
+                        endDateError.setDateError(date, useStartDate.date)
                     }
                 ></DatePicker>
                 <TimePicker
@@ -165,12 +157,18 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                     useTime={useEndTime}
                     label={'Время окончания'}
                     error={{
-                        text: endTimeError,
+                        text: endTimeError.errorText,
                         position: 'right',
                     }}
-                    onChange={({ target }) =>
-                        setEndTimeError(isActualTime(target.valueAsDate))
-                    }
+                    onChangeDate={(date) => {
+                        endTimeError.setDateError(
+                            { date: useEndDate.date ?? new Date(), time: date },
+                            {
+                                date: useStartDate.date ?? new Date(),
+                                time: useStartTime.time,
+                            },
+                        );
+                    }}
                 ></TimePicker>
                 <Input
                     type={'text'}
@@ -185,24 +183,24 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                 <DropDown
                     options={Array.from(classData.keys())}
                     classes={styles.addEventFormClassPicker}
-                    onChange={(event) =>
+                    onChange={({ target }) => {
                         useSelectedClass.setSelected(
-                            classData.get(event.target.value) ?? unselectedId,
-                        )
-                    }
+                            Number(target.value) ?? unselectedId,
+                        );
+                    }}
                     values={Array.from(classData.values())}
                     selectedValue={useSelectedClass.selected}
                     label={'Класс'}
                 ></DropDown>
                 <Button
                     classes={styles.addEventFormSubmitButton}
-                    // onClick={(event) => event.preventDefault()}
+                    onClick={handleButtonSubmit}
                 >
                     <Text
                         type={'h'}
                         size={5}
                     >
-                        Добавить
+                        {sumbitButtonTitle}
                     </Text>
                 </Button>
                 <Button

@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { dateInput } from '@components/CalendarEventForm/CalendarEventForm.tsx';
 import {
     CalendarEventType,
     eventMutationsType,
 } from '@app/features/calendar/calendarModel.ts';
 import { useGetClassesQuery } from '@app/features/class/classSlice.ts';
 import { unselectedId } from '@app/const/consts.ts';
+import { dateInput, setTime } from '../utils/common/dateRepresentation.ts';
 
 export default function useAddEvent(
     handleOverlayClose: () => void,
@@ -48,28 +48,20 @@ export default function useAddEvent(
     );
 
     const handleSubmit = () => {
-        // fix validation
         if (title && startDate && startTime && endDate && endTime) {
-            startDate.setHours(startTime.getHours());
-            startDate.setMinutes(startTime.getMinutes());
-            endDate.setHours(endTime.getHours());
-            endDate.setMinutes(endTime.getMinutes());
-
             sendEvent({
                 title,
                 description: description ?? '',
-                startDate: startDate.toISOString(),
-                endDate: endDate.toISOString(),
+                startDate: setTime(startDate, startTime).toISOString(),
+                endDate: setTime(endDate, endTime).toISOString(),
                 classid: selectedClassId ?? unselectedId,
             })
-                .then(() => {
-                    // setTitle('');
-                    // setStartDate(new Date());
-                    // setStartTime(new Date());
-                    // setEndDate(new Date());
-                    // setEndTime(new Date());
-                    // setDescription('');
-                    handleOverlayClose();
+                .then((response) => {
+                    if ('error' in response) {
+                        throw Error(response.error.toString());
+                    } else {
+                        handleOverlayClose();
+                    }
                 })
                 .catch((error) => console.error(error));
         }

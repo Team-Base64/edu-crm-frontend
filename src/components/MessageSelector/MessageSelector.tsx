@@ -28,7 +28,9 @@ const MessageSelector: React.FC<MessageSelectorProps> = ({
         ).toLowerCase();
 
     const dialogList = Object.values(data?.dialogs ?? {})
-        .sort((a, b) => (new Date(a.date) < new Date(b.date) ? 1 : -1))
+        .sort((a, b) =>
+            new Date(a.date).getTime() < new Date(b.date).getTime() ? 1 : -1,
+        )
         .filter(
             (dialog) =>
                 (dialog.studentName &&
