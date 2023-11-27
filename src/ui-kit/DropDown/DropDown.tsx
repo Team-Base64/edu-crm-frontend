@@ -18,8 +18,6 @@ export const DropDown: React.FC<DropDownProps> = ({
     selectedValue,
     label,
 }) => {
-    console.log(selectedValue, values);
-
     const optionsElements = options.map((option, index) => (
         <option
             key={option + index}

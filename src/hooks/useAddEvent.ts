@@ -47,8 +47,6 @@ export default function useAddEvent(
         event?.classid ?? unselectedId,
     );
 
-    console.log('event?.classid', event?.classid, selectedClassId);
-
     const handleSubmit = () => {
         if (title && startDate && startTime && endDate && endTime) {
             sendEvent({
