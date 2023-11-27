@@ -8,6 +8,7 @@ import styles from './Messenger.module.scss';
 import { useGetLiveMessagesQuery } from '@app/features/chat/chatSlice.ts';
 import Text from '@ui-kit/Text/Text.tsx';
 import { unselectedId } from '@app/const/consts.ts';
+import Spinner from '@ui-kit/Spinner/Spinner.tsx';
 
 interface SendMessageAreaProps extends UiComponentProps {
     chatID: number;
@@ -61,18 +62,8 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatID, classes }) => {
             classes={[styles.messenger, classes].join(' ')}
             layout={'defaultBase'}
         >
-            {isLoading && <span>loading...</span>}
-            {chatID !== unselectedId ? (
-                contentToRender
-            ) : (
-                <Text
-                    type={'h'}
-                    size={3}
-                    classes={styles.messengerContainerUnselectedChatText}
-                >
-                    Выберете чат, чтобы начать общаться
-                </Text>
-            )}
+            {isLoading && <Spinner></Spinner>}
+            {contentToRender}
         </Container>
     );
 };

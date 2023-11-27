@@ -7,6 +7,7 @@ import { MessengerHeader } from '@components/MessangerHeader/MessengerHeader.tsx
 import { unselectedId } from '@app/const/consts.ts';
 import { useSearchParams } from 'react-router-dom';
 import { routerQueryParams } from '@router/routes.ts';
+import Text from '@ui-kit/Text/Text.tsx';
 export const ChatPage: React.FC = () => {
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -14,6 +15,16 @@ export const ChatPage: React.FC = () => {
         searchParams.has('chatid')
             ? Number(searchParams.get(routerQueryParams.messenger.chatid))
             : unselectedId;
+
+    const messengerPlaceholder = (
+        <Text
+            type={'h'}
+            size={3}
+            classes={styles.chatUnselectedMessangerText}
+        >
+            Выберете чат, чтобы начать общаться
+        </Text>
+    );
 
     return (
         <Container
@@ -28,10 +39,14 @@ export const ChatPage: React.FC = () => {
                 chatID={getChatIdParam()}
                 classes={styles.messengerHeader}
             ></MessengerHeader>
-            <Messenger
-                chatID={getChatIdParam()}
-                classes={styles.messenger}
-            ></Messenger>
+            {getChatIdParam() !== unselectedId ? (
+                <Messenger
+                    chatID={getChatIdParam()}
+                    classes={styles.messenger}
+                ></Messenger>
+            ) : (
+                messengerPlaceholder
+            )}
         </Container>
     );
 };

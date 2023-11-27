@@ -7,9 +7,5 @@
     @include mixins.default-scrollbar-style;
 
     overflow-y: scroll;
-
-    &--unselected-chat-text {
-      margin: auto
-    }
   }
 }
