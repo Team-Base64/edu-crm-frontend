@@ -1,5 +1,6 @@
 @mixin select-dialog-item {
   justify-content: flex-start;
+  width: 100%;
 
   &:hover {
     background-color: var(--color-bg-dark-light);
@@ -40,6 +41,7 @@
   }
 
   &-selected {
+    width: 100%;
     background-color: var(--color-accent-light);
   }
 }

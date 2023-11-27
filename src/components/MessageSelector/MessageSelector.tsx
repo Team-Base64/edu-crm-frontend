@@ -8,6 +8,7 @@ import { useGetDialogsQuery } from '@app/features/dialog/dialogSlice';
 import { SetURLSearchParams } from 'react-router-dom';
 import { routerQueryParams } from '@router/routes.ts';
 import { updateOneSearchParam } from '../../utils/router/searchParams.ts';
+import Spinner from '@ui-kit/Spinner/Spinner.tsx';
 
 interface MessageSelectorProps extends UiComponentProps {
     useQueryParams: [URLSearchParams, SetURLSearchParams];
@@ -17,8 +18,7 @@ const MessageSelector: React.FC<MessageSelectorProps> = ({
     useQueryParams,
     classes,
 }) => {
-    const { data, isLoading, isSuccess, isError, error } =
-        useGetDialogsQuery(null);
+    const { data, isLoading, isSuccess } = useGetDialogsQuery(null);
 
     const [searchParams, setSearchParams] = useQueryParams;
 
@@ -71,9 +71,10 @@ const MessageSelector: React.FC<MessageSelectorProps> = ({
             <SearchDialogList
                 useQueryParams={[searchParams, getSearchParam, setSearchParams]}
             ></SearchDialogList>
-            {isSuccess && dialogList}
-            {isError && <p>{JSON.stringify(error)}</p>}
-            {isLoading && <p>loading...</p>}
+            <div className={styles.messageSelectorDialogs}>
+                {isSuccess && dialogList}
+                {isLoading && <Spinner></Spinner>}
+            </div>
         </Container>
     );
 };
