@@ -4,13 +4,9 @@
     gap: 32px;
 }
 
-.list {
-    display: flex;
-    flex-grow: 1;
-}
-
 .listContainer {
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-rows: max-content;
     width: 100%;
 }
 
