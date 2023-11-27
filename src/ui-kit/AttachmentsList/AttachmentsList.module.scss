@@ -2,11 +2,14 @@
 
 .chat-attach-list {
   @include mixins.default-scrollbar-style;
-  background-color: var(--color-bg-default);
   padding: 8px;
   gap: 8px;
   content: '';
   overflow-y: scroll;
   overflow-x: hidden;
   max-height: calc(2 * var(--space-huge));
+
+  &-add-attach {
+    background-color: var(--color-bg-default);
+  }
 }
