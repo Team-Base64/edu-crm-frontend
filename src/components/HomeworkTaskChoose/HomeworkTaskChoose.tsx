@@ -24,10 +24,7 @@ import Input from '@ui-kit/Input/Input';
 import { UiComponentProps } from '@ui-kit/interfaces';
 
 interface HomeworkTaskChooseProps extends UiComponentProps {
-    chooseState: [
-        Item<HomeworkTask>[],
-        React.Dispatch<React.SetStateAction<Item<HomeworkTask>[]>>,
-    ];
+    changeChoosen: React.Dispatch<React.SetStateAction<Item<HomeworkTask>[]>>;
     lock: boolean;
 }
 
@@ -38,9 +35,8 @@ export type HomeworkTaskChooseRef = {
 const HomeworkTaskChoose = React.forwardRef<
     HomeworkTaskChooseRef,
     HomeworkTaskChooseProps
->(({ lock, chooseState, classes }, ref) => {
+>(({ lock, changeChoosen, classes }, ref) => {
     const { data } = useGetTasksQuery(null);
-    const [, changeChoosen] = chooseState;
     const [newTaskIDs, changeNewTaskIDs] = useState<number[]>([]);
     const searchRef = useRef<HTMLInputElement>(null);
     const [query, setQuery] = useState<string>('');
@@ -52,7 +48,6 @@ const HomeworkTaskChoose = React.forwardRef<
         ref,
         () => ({
             clearSelect() {
-                console.log('ClearSelect');
                 changeTasks((items) =>
                     items.map((i) => ({ ...i, selected: false })),
                 );
@@ -77,7 +72,10 @@ const HomeworkTaskChoose = React.forwardRef<
             }
         });
         changeTasks([...tasks, ...newItems]);
-    }, [changeTasks, data, newTaskIDs, tasks]);
+        
+        // Miss deps help to fix unlinit re-render
+        // eslint-disable-next-line
+    }, [data, changeTasks, changeNewTaskIDs]);
 
     useEffect(() => {
         changeChoosen(tasks.filter((t) => t.selected));

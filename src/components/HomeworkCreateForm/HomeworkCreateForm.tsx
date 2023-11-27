@@ -145,7 +145,7 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({
                         </Text>
                         <HomeworkTaskChoose
                             ref={chooseRef}
-                            chooseState={[choosenTasks, changeChoosenTasks]}
+                            changeChoosen={changeChoosenTasks}
                             lock={lock}
                             classes={styles.tasks}
                         />
