@@ -70,3 +70,8 @@ export const valueAsDateTimezoneOffset = (date: dateInput) => {
     }
     return date;
 };
+
+export const valueAsPayloadTimezoneOffset = (date: Date) => {
+    date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+    return date;
+};

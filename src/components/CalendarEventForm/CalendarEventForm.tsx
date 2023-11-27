@@ -181,11 +181,11 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                 <DropDown
                     options={Array.from(classData.keys())}
                     classes={styles.addEventFormClassPicker}
-                    onChange={(event) =>
+                    onChange={({ target }) => {
                         useSelectedClass.setSelected(
-                            classData.get(event.target.value) ?? unselectedId,
-                        )
-                    }
+                            Number(target.value) ?? unselectedId,
+                        );
+                    }}
                     values={Array.from(classData.values())}
                     selectedValue={useSelectedClass.selected}
                     label={'Класс'}
