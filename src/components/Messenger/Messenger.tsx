@@ -75,7 +75,6 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatID, classes }) => {
                     Выберете чат, чтобы начать общаться
                 </Text>
             )}
-            {isError && <span>{error.toString()}</span>}
         </Container>
     );
 };
