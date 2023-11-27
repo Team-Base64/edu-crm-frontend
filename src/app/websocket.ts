@@ -1,4 +1,4 @@
-export type Channel = 'general' | 'chat';
+export type Channel = 'general' | 'chat' | 'newchat';
 
 export type messageWS = {
     channel: Channel;

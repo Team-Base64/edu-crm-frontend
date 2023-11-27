@@ -63,22 +63,23 @@ export const teacherApi = appApi.injectEndpoints({
                 return {
                     url: teacherPaths.logout,
                     method: 'DELETE',
+                    body: {},
                 };
             },
 
-            // async onQueryStarted(_, { dispatch, queryFulfilled }) {
-            //     console.log('asda');
-            //
-            //     try {
-            //         const { meta } = await queryFulfilled;
-            //         console.log(meta);
-            //         if (meta && meta.response && meta.response.ok) {
-            //             dispatch(setMe(false));
-            //         }
-            //     } catch (error) {
-            //         console.error(error);
-            //     }
-            // },
+            async onQueryStarted(_, { dispatch, queryFulfilled }) {
+                console.log('asda');
+
+                try {
+                    const { meta } = await queryFulfilled;
+                    console.log(meta);
+                    if (meta && meta.response && meta.response.ok) {
+                        dispatch(setMe(false));
+                    }
+                } catch (error) {
+                    console.error(error);
+                }
+            },
         }),
 
         register: build.mutation<

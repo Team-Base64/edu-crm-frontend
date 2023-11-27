@@ -71,17 +71,15 @@ export const chatSlice = appApi.injectEndpoints({
 
                     socket.onmessage = (event: MessageEvent) => {
                         const data = JSON.parse(event.data);
-                        if (data.channel !== channel) {
-                            console.warn(data.channel, channel);
-                            return;
-                        }
 
-                        updateCachedData((draft) => {
-                            draft.messages[data.chatID] = [
-                                ...(draft.messages[data.chatID] ?? []),
-                                data,
-                            ];
-                        });
+                        if (data.channel === channel) {
+                            updateCachedData((draft) => {
+                                draft.messages[data.chatID] = [
+                                    ...(draft.messages[data.chatID] ?? []),
+                                    data,
+                                ];
+                            });
+                        }
                         dispatch(
                             dialogSlice.util.invalidateTags(['getDialogs']),
                         );

@@ -8,6 +8,7 @@ import Text from '@ui-kit/Text/Text.tsx';
 import Overlay from '@ui-kit/Overlay/Overlay.tsx';
 import { MediaPreview } from '@components/MediaPreview/MediaPreview.tsx';
 import { checkIfImageByExtension } from '../../utils/attaches/attachesExtensions.ts';
+import Tooltip from '@ui-kit/TooltipKit/Tooltip.tsx';
 
 interface ChatAttachmentProps extends UiComponentProps {
     allowOpen?: () => boolean;
@@ -69,16 +70,23 @@ export const Attachment: React.FC<ChatAttachmentProps> = ({
                     ></Icon>
                 </Button>
             )}
-            <Icon
-                name={
-                    checkIfImageByExtension(getFileName() ?? '')
-                        ? 'imageIcon'
-                        : 'fileIcon'
-                }
-                classes={styles.chatAttachmentListFileIcon}
-                size={''}
-                onClick={handleClick}
-            ></Icon>
+            <Tooltip
+                visibility={'onHover'}
+                place={'right'}
+                text={'Нажмите, чтобы просмотреть файл'}
+                classes={styles.chatAttachmentListFile}
+            >
+                <Icon
+                    name={
+                        checkIfImageByExtension(getFileName() ?? '')
+                            ? 'imageIcon'
+                            : 'fileIcon'
+                    }
+                    classes={styles.chatAttachmentListFileIcon}
+                    size={''}
+                    onClick={handleClick}
+                ></Icon>
+            </Tooltip>
             <Text
                 type={'p'}
                 size={1}

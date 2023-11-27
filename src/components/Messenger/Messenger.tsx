@@ -6,19 +6,17 @@ import Container from '@ui-kit/Container/Container.tsx';
 import styles from './Messenger.module.scss';
 
 import { useGetLiveMessagesQuery } from '@app/features/chat/chatSlice.ts';
-import Text from '@ui-kit/Text/Text.tsx';
-import { unselectedId } from '@app/const/consts.ts';
+import Spinner from '@ui-kit/Spinner/Spinner.tsx';
 
 interface SendMessageAreaProps extends UiComponentProps {
     chatID: number;
 }
 
 const Messenger: React.FC<SendMessageAreaProps> = ({ chatID, classes }) => {
-    const { data, isLoading, isSuccess, isError, error } =
-        useGetLiveMessagesQuery({
-            channel: 'chat',
-            chatID,
-        });
+    const { data, isLoading } = useGetLiveMessagesQuery({
+        channel: 'chat',
+        chatID,
+    });
 
     const messagesRef = useRef<HTMLDivElement>(null);
 
@@ -52,7 +50,6 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatID, classes }) => {
             <SendMessageArea
                 id={chatID}
                 name={'SendMessageArea'}
-                // onMessageSend={onMessageSendClick}
             ></SendMessageArea>
         </>
     );
@@ -63,19 +60,8 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatID, classes }) => {
             classes={[styles.messenger, classes].join(' ')}
             layout={'defaultBase'}
         >
-            {isLoading && <span>loading...</span>}
-            {isSuccess && chatID !== unselectedId ? (
-                contentToRender
-            ) : (
-                <Text
-                    type={'h'}
-                    size={3}
-                    classes={styles.messengerContainerUnselectedChatText}
-                >
-                    Выберете чат, чтобы начать общаться
-                </Text>
-            )}
-            {isError && <span>{error.toString()}</span>}
+            {isLoading && <Spinner></Spinner>}
+            {contentToRender}
         </Container>
     );
 };
