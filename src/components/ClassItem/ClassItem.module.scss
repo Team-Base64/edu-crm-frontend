@@ -1,5 +1,5 @@
 .card {
-  grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr) max-content;
+  grid-template-columns: minmax(100px, 1fr) minmax(auto, 1fr) max-content;
   background-color: var(--color-accent-super-light);
   padding-right: 8px;
 }
@@ -17,50 +17,6 @@
   text-wrap: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-}
-
-.invite {
-  grid-column: 2;
-  overflow: hidden;
-  align-items: center;
-  padding: 8px 16px;
-  justify-content: space-between;
-  position: relative;
-
-  &-wrapper {
-    flex-grow: 1;
-    overflow: hidden;
-    min-width: 50px;
-    justify-content: center;
-  }
-
-  &-token {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    text-wrap: nowrap;
-  }
-
-
-  &-btn {
-    padding: 8px !important;
-
-    &-icon {
-      fill: #333;
-    }
-  }
-
-
-  &-hint {
-    max-width: 100%;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-
-    text-overflow: ellipsis;
-    overflow: hidden;
-  }
 }
 
 .btn {

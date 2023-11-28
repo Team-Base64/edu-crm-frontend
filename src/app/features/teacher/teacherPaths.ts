@@ -3,4 +3,5 @@ export const teacherPaths = {
     login: 'login',
     register: 'signup',
     logout: 'logout',
+    profile: 'profile',
 };

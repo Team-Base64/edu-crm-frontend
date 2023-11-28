@@ -1,5 +1,6 @@
 import appApi from '@app/appApi';
 import {
+    Teacher,
     TeacherLoginPayload,
     TeacherRegisterPayload,
 } from '@app/features/teacher/teacherModel';
@@ -107,6 +108,15 @@ export const teacherApi = appApi.injectEndpoints({
                 }
             },
         }),
+
+        profile: build.query<{ teacher: Teacher }, unknown>({
+            query: () => {
+                return {
+                    url: teacherPaths.profile,
+                    method: 'GET',
+                };
+            },
+        }),
     }),
 });
 
@@ -115,4 +125,5 @@ export const {
     useLoginMutation,
     useRegisterMutation,
     useLogoutMutation,
+    useProfileQuery,
 } = teacherApi;

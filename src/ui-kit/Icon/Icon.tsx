@@ -37,6 +37,7 @@ const iconName = {
     alert: Icons.Alert,
     infoCircle: Icons.InfoCircle,
     imageIcon: Icons.ImageIcon,
+    fullscreen: Icons.FullScreen,
 };
 
 export type IconName = keyof typeof iconName;

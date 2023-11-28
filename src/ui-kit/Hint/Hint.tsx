@@ -21,6 +21,11 @@ const Hint: React.FC<HintProps> = ({
 }) => {
     const [hint, showHint] = state;
 
+    const handleClose : React.MouseEventHandler = (e) => {
+        e.stopPropagation();
+        showHint(false);
+    }
+
     useEffect(() => {
         if (timeoutSec && hint) {
             setTimeout(() => {
@@ -53,7 +58,7 @@ const Hint: React.FC<HintProps> = ({
                         name="close"
                         size="small"
                         classes={styles.hintClose}
-                        onClick={() => showHint(false)}
+                        onClick={handleClose}
                     />
                 </Container>
             )}

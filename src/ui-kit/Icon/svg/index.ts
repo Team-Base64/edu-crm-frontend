@@ -31,3 +31,4 @@ export { default as InfoCircle } from './info-circle-svgrepo-com.svg?react';
 export { default as ArrowDown } from './system_arrow-down-line.svg?react';
 export { default as ArrowUp } from './system_arrow-up-s-line.svg?react';
 export { default as ImageIcon } from './image-icon.svg?react';
+export { default as FullScreen } from './full-screen-904-svgrepo-com.svg?react';
