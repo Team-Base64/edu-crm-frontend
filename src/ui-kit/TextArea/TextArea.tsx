@@ -15,6 +15,7 @@ interface TextAreaProps extends UiComponentProps {
     label?: LabelProps;
     autoResize?: boolean;
     minRows?: number;
+    focusRows?: number;
     maxRows?: number;
     onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
     onKeydownCallback?: () => void;
@@ -37,6 +38,7 @@ const TextArea: React.FC<TextAreaProps> = ({
     border = 'noBorder',
     autoResize = false,
     minRows = 1,
+    focusRows = 2,
     maxRows = 10,
     onChange,
     onKeydownCallback = noop,
@@ -50,7 +52,16 @@ const TextArea: React.FC<TextAreaProps> = ({
         event,
     ) => {
         if (event.code === 'Enter' && event.ctrlKey) {
+            event.preventDefault();
+            if (!textareaRef.current) return;
+            textareaRef.current.value += '\r\n';
+            textareaRef.current.dispatchEvent(new Event('input', { bubbles: true }));
+            return;
+        }
+        if (event.code === 'Enter' && !event.ctrlKey) {
+            event.preventDefault();
             onKeydownCallback();
+            return;
         }
     };
 
@@ -68,14 +79,15 @@ const TextArea: React.FC<TextAreaProps> = ({
             parseFloat(areaStyles.borderTopWidth) +
             parseFloat(areaStyles.borderBottomWidth);
 
-        area.style.height = border + padding + minRows * lineHeight + 'px';
-
         if (area === document.activeElement) {
+            area.style.height = border + padding + focusRows * lineHeight + 'px';
             area.style.height =
                 Math.min(
                     border + area.scrollHeight,
                     border + padding + lineHeight * maxRows,
                 ) + 'px';
+        } else {
+            area.style.height = border + padding + minRows * lineHeight + 'px';
         }
     };
 
@@ -109,7 +121,7 @@ const TextArea: React.FC<TextAreaProps> = ({
                 onBlur={resizeTextarea}
                 className={[styles.textarea, borderType[border]].join(' ')}
                 {...rest}
-            ></textarea>
+            />
         </Container>
     );
 };

@@ -134,13 +134,14 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({ id, name }) => {
                     textareaText={''}
                     border={'border'}
                     minRows={1}
+                    focusRows={3}
                     maxRows={5}
                     autoResize
                     onChange={handleMessageChange}
                     onKeydownCallback={sendMessageHandler}
                     textareaRef={textAreaRef}
                     maxLength={1500}
-                ></TextArea>
+                />
 
                 <Button
                     onClick={handleClick}

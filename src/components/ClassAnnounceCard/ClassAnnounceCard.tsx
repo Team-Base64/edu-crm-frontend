@@ -1,4 +1,3 @@
-// import Avatar from '@ui-kit/Avatar/Avatar';
 import Container from '@ui-kit/Container/Container';
 import Icon from '@ui-kit/Icon/Icon';
 import Text, { TextProps } from '@ui-kit/Text/Text';
@@ -9,11 +8,9 @@ import styles from './ClassAnnounceCard.module.scss';
 import prettyDate from 'utils/common/PrettyDate/datePrettify';
 import { Announcement } from '@app/features/announcement/announcementModel';
 import Updatable from '@ui-kit/Updatable/Updatable';
+import { AttachmentsList } from '@ui-kit/AttachmentsList/AttachmentsList';
 
 interface ClassAnnounceCardProps extends UiComponentProps {
-    // firstName: string;
-    // lastName?: string;
-    // avatarSrc: string;
     data: Announcement;
     onEdit?: () => void;
     onDelete?: () => void;
@@ -24,12 +21,9 @@ const ClassAnnounceCard: React.FC<ClassAnnounceCardProps> = ({
     onClick,
     onDelete,
     onEdit,
-    // firstName,
-    // lastName,
-    // avatarSrc,
     data,
 }) => {
-    const { text, createTime } = data;
+    const { text, createTime, attaches } = data;
     const handleEdit = (e: React.MouseEvent) => {
         e.stopPropagation();
         onEdit?.();
@@ -39,8 +33,6 @@ const ClassAnnounceCard: React.FC<ClassAnnounceCardProps> = ({
         e.stopPropagation();
         onDelete?.();
     };
-
-    // useUpdate();
 
     return (
         <Container
@@ -57,22 +49,6 @@ const ClassAnnounceCard: React.FC<ClassAnnounceCardProps> = ({
                     classes={[styles.info].join(' ')}
                     direction="horizontal"
                 >
-                    {/* 
-                    <Avatar
-                        classes={[styles.avatar].join(' ')}
-                        src={avatarSrc}
-                        alt={firstName + ' avatar'}
-                    />
-                    <Text
-                        classes={[styles.name].join(' ')}
-                        type="h"
-                        size={4}
-                        weight="bold"
-                    >
-                        {firstName + (lastName ? ' ' + lastName : '')}
-                    </Text> 
-                    */}
-
                     <Updatable
                         element={Text}
                         updateProps={(): TextProps => ({
@@ -117,6 +93,10 @@ const ClassAnnounceCard: React.FC<ClassAnnounceCardProps> = ({
                 >
                     {text}
                 </Text>
+                <AttachmentsList
+                    staticAttachments={attaches}
+                    classes={styles.attaches}
+                />
             </Container>
         </Container>
     );

@@ -1,4 +1,3 @@
-// import Avatar from '@ui-kit/Avatar/Avatar';
 import Container from '@ui-kit/Container/Container';
 import Icon from '@ui-kit/Icon/Icon';
 import TextArea from '@ui-kit/TextArea/TextArea';
@@ -9,15 +8,18 @@ import { useCreateAnnouncementMutation } from '@app/features/announcement/announ
 import Button from '@ui-kit/Button/Button';
 import Spinner from '@ui-kit/Spinner/Spinner';
 import Hint from '@ui-kit/Hint/Hint';
+import { AttachFile } from '@ui-kit/AttachFile/AttachFile';
+import { AttachmentsList } from '@ui-kit/AttachmentsList/AttachmentsList';
+import { Attachment } from '@ui-kit/Attachment/Attachment';
+import useSendAttaches from 'hooks/useSendAttaches';
+import { SerializeAttachesFromBackend } from 'utils/attaches/attachesSerializers';
 
 interface ClassAnnounceCreateFieldProps {
-    // avatarSrc: string;
     classID: number | string;
     disabled: boolean;
 }
 
 const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
-    // avatarSrc,
     classID,
     disabled,
 }) => {
@@ -25,16 +27,9 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
     const formRef = useRef<HTMLFormElement>(null);
     const [submit, submitStatus] = useCreateAnnouncementMutation();
     const [hint, toggleHint] = useState<boolean>(disabled);
+    const { attaches, setAttaches, attachesSendPromise } = useSendAttaches('chat');
 
-    useEffect(() => {
-        if (submitStatus.isLoading) {
-            setLock(true);
-        } else {
-            setLock(false);
-        }
-    }, [submitStatus.isLoading]);
-
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const form = formRef.current;
         if (!form) return;
 
@@ -42,20 +37,38 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
 
         if (!text.length) return;
 
-        submit({
-            class_id: classID,
-            payload: {
-                text: text,
-                attaches: [],
-            },
-        })
-            .then(() => {
-                form.announce.value = '';
-                localStorage.setItem(`${classID}/announce`, '');
-            })
-            .catch((e) => {
-                console.log('Create feed err ', e);
+        setLock(true);
+
+
+        try {
+            let loaded: string[] = [];
+
+            if (attaches) {
+                const result = await attachesSendPromise();
+                loaded = SerializeAttachesFromBackend(result);
+            }
+
+            setAttaches([]);
+
+            const resp = await submit({
+                class_id: classID,
+                payload: {
+                    text: text,
+                    attaches: loaded,
+                },
             });
+
+            if (!('data' in resp)) {
+                throw new Error(JSON.stringify(resp.error));
+            }
+
+            form.announce.value = '';
+            localStorage.setItem(`${classID}/announce`, '');
+        } catch (e) {
+            console.log(e);
+        } finally {
+            setLock(false);
+        }
     };
 
     const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -66,16 +79,9 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
     return (
         <Container
             classes={styles.card}
-            direction="horizontal"
+            direction='vertical'
             layout="defaultBase"
         >
-            {/*
-            <Avatar
-                classes={styles.avatar}
-                src={avatarSrc}
-                alt="Your avatar"
-            />
-            */}
             <form
                 onSubmit={(e) => e.preventDefault()}
                 ref={formRef}
@@ -94,31 +100,53 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
                     autoResize={true}
                     onChange={handleChange}
                     onKeydownCallback={handleSubmit}
+                    minRows={1}
+                    focusRows={3}
+                    maxRows={5}
                 />
                 <Hint
                     text="Сообщения доступны, если в классе есть ученики"
                     state={[hint, toggleHint]}
                 />
-
-                <Button
-                    disabled={lock || disabled}
-                    type="link"
-                    onClick={handleSubmit}
-                    classes={styles.btn}
+                <Container
+                    direction='vertical'
+                    classes={styles.nav}
                 >
-                    {lock ? (
-                        <Spinner classes={styles.spinner} />
-                    ) : (
+                    <AttachFile
+                        maxFilesToAttach={10}
+                        useFiles={[attaches, setAttaches]}
+                    >
                         <Icon
+                            name='attachIcon'
                             classes={[
                                 styles.btnIcon,
                                 disabled ? styles.btnIconDisabled : '',
-                            ].join(' ')}
-                            name="chatSend"
-                        />
-                    )}
-                </Button>
+                            ].join(' ')} />
+                    </AttachFile>
+                    <Button
+                        disabled={lock || disabled}
+                        type="link"
+                        onClick={handleSubmit}
+                        classes={styles.btn}
+                    >
+                        {lock ? (
+                            <Spinner classes={styles.spinner} />
+                        ) : (
+                            <Icon
+                                classes={[
+                                    styles.btnIcon,
+                                    disabled ? styles.btnIconDisabled : '',
+                                ].join(' ')}
+                                name="chatSend"
+                            />
+                        )}
+                    </Button>
+                </Container>
             </form>
+            <AttachmentsList
+                useFiles={[attaches, setAttaches]}
+                classes={styles.attaches}
+            />
         </Container>
     );
 };

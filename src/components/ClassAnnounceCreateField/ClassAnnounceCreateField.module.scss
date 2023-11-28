@@ -1,27 +1,30 @@
 .card {
     align-items: center;
 
-    & .area {
-        padding: 4px;
+    & .form {
+        all: unset;
+        display: flex;
+        position: relative;
         width: 100%;
-        max-height: 200px;
+
+        & .nav {
+            width: min-content;
+        }
+
+        & .area {
+            width: 100%;
+
+            & textarea {
+                min-height: 100%;
+            }
+        }
     }
 
-    .avatar {
-        flex-grow: 0;
-        flex-shrink: 0;
-        margin-bottom: auto;
-    }
-
-}
-
-.form {
-    all: unset;
-    display: flex;
-    position: relative;
-    width: 100%;
-    & > div {
+    & .attaches {
         width: 100%;
+        display: grid;
+        background-color: inherit;
+        grid-template-columns: repeat(auto-fit, minmax(25%, 1fr));
     }
 }
 

@@ -13,6 +13,7 @@ interface ChatAttachmentsListProps extends UiComponentProps {
 export const AttachmentsList: React.FC<ChatAttachmentsListProps> = ({
     useFiles = [[], noop],
     staticAttachments,
+    classes,
 }) => {
     const [files, setFiles] = useFiles;
     const onRemoveClick = (index: number) => {
@@ -48,7 +49,7 @@ export const AttachmentsList: React.FC<ChatAttachmentsListProps> = ({
     return (
         <Container
             direction={'vertical'}
-            classes={filesLayout?.length ? getContainerClasses() : ''}
+            classes={[classes, filesLayout?.length ? getContainerClasses() : ''].join(' ')}
             layout={'sub'}
         >
             {filesLayout}
