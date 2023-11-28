@@ -72,7 +72,7 @@ const HomeworkTaskChoose = React.forwardRef<
             }
         });
         changeTasks([...tasks, ...newItems]);
-        
+
         // Miss deps help to fix unlinit re-render
         // eslint-disable-next-line
     }, [data, changeTasks, changeNewTaskIDs]);

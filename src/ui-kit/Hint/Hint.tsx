@@ -21,10 +21,10 @@ const Hint: React.FC<HintProps> = ({
 }) => {
     const [hint, showHint] = state;
 
-    const handleClose : React.MouseEventHandler = (e) => {
+    const handleClose: React.MouseEventHandler = (e) => {
         e.stopPropagation();
         showHint(false);
-    }
+    };
 
     useEffect(() => {
         if (timeoutSec && hint) {

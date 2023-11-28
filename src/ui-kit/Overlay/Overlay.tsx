@@ -75,10 +75,10 @@ const Overlay: React.FC<OverpayProps> = ({
         [closeOverlay, id],
     );
 
-    const handleClick : React.MouseEventHandler = (e) => {
+    const handleClick: React.MouseEventHandler = (e) => {
         e.stopPropagation();
         closeOverlay();
-    }
+    };
 
     useEffect(() => {
         document.addEventListener('keydown', handleKeydown);

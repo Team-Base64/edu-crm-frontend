@@ -87,10 +87,10 @@ export const ClassListItem: ListItemFC<ClassData, ClassListItemProps> = ({
                     </Container>
                 </Container>
 
-               <ClassInvite
-               token={inviteToken}
-               classTitle={title}
-               />
+                <ClassInvite
+                    token={inviteToken}
+                    classTitle={title}
+                />
 
                 <Button
                     type={'link'}
