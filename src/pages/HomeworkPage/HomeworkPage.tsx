@@ -48,7 +48,7 @@ const HomeworkPage: React.FC = () => {
                 size={3}
                 weight="bold"
             >
-                Домашнее задание id{id}
+                Домашнее задание #{id}
             </Text>
             <ShowQueryState status={status} />
             {isSuccess && (
