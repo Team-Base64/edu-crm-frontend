@@ -23,6 +23,7 @@ const Avatar: React.FC<AvatarProps> = ({
     onClick,
     classes,
 }) => {
+    src = 'https://educrm.us.to/filestorage/mock-avatar.png';
     return (
         <div
             onClick={onClick}
