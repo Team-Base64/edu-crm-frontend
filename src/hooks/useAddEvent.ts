@@ -55,7 +55,7 @@ export default function useAddEvent(
                 startDate: setTime(startDate, startTime).toISOString(),
                 endDate: setTime(endDate, endTime).toISOString(),
                 classid: selectedClassId ?? unselectedId,
-                id: event?.id ?? unselectedId,
+                id: event?.id ?? '',
             })
                 .then((response) => {
                     if ('error' in response) {

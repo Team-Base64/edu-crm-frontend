@@ -6,15 +6,13 @@ export type CalendarCreateEventType = {
     startDate: string;
     endDate: string;
     classid: number;
-    id: number;
+    id: string;
 };
 
-export interface CalendarEventType extends CalendarCreateEventType {
-    id: number;
-}
+export interface CalendarEventType extends CalendarCreateEventType {}
 
 export interface CalendarEventSelectByIDType {
-    [index: number]: CalendarEventType;
+    [index: string]: CalendarEventType;
 }
 
 export type CalendarEventDeleteType = { id: CalendarEventType['id'] };
