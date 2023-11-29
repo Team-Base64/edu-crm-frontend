@@ -17,7 +17,11 @@ export default function useAddEvent(
         param: 'startDate' | 'endDate',
     ) => {
         if (event) {
-            return new Date(event[param]);
+            const date = new Date(event[param]);
+            // date.setHours(date.getHours() + 3);
+            // console.log(event[param], date.getHours());
+            // console.log(date);
+            return date;
         }
         return null;
     };

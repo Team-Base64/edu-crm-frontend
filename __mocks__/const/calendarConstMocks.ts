@@ -6,8 +6,8 @@ import {
 export const getEventsFirstMockData: CalendarEventType = {
     title: 'title',
     description: 'description',
-    startDate: new Date().toISOString(),
-    endDate: new Date().toISOString(),
+    startDate: '2023-11-30T19:45:00+03:00',
+    endDate: '2023-11-30T20:45:00+03:00',
     id: 123,
     classid: 1,
 };
