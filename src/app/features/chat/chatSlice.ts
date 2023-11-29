@@ -65,6 +65,7 @@ export const chatSlice = appApi.injectEndpoints({
                     dispatch,
                 },
             ) {
+                console.warn('asdasd');
                 const socket = getSocket();
                 try {
                     await cacheDataLoaded;
@@ -94,9 +95,6 @@ export const chatSlice = appApi.injectEndpoints({
         sendMessage: build.mutation<unknown, { message: postChatMessageType }>({
             queryFn: (args) => {
                 const socket = getSocket();
-                //fix
-                args.message.chatID;
-                args.message.socialType;
                 socket.send(JSON.stringify(args.message));
                 return { data: [] };
             },

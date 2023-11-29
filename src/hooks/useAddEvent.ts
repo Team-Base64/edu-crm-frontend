@@ -67,6 +67,11 @@ export default function useAddEvent(
                 .catch((error) => console.error(error));
         }
     };
+    console.log(event?.classid, data?.classes[0].id, selectedClassId);
+    console.log(
+        event?.classid ?? data?.classes[0].id,
+        event?.classid ?? data?.classes[0].id ?? unselectedId,
+    );
 
     return {
         useTitle: { title, setTitle },
