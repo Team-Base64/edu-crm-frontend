@@ -44,9 +44,8 @@ export default function useAddEvent(
     });
 
     const [selectedClassId, setSelectedClass] = useState<number>(
-        event?.classid ?? data?.classes[0].id ?? unselectedId,
+        event?.classid ?? unselectedId,
     );
-
     const handleSubmit = () => {
         if (title && startDate && startTime && endDate && endTime) {
             sendEvent({
@@ -54,7 +53,10 @@ export default function useAddEvent(
                 description: description ?? '',
                 startDate: setTime(startDate, startTime).toISOString(),
                 endDate: setTime(endDate, endTime).toISOString(),
-                classid: selectedClassId ?? data?.classes[0].id ?? unselectedId,
+                classid:
+                    selectedClassId === unselectedId
+                        ? Array.from(classData.values())[0] ?? unselectedId
+                        : selectedClassId,
                 id: event?.id ?? '',
             })
                 .then((response) => {
