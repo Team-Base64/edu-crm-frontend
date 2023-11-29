@@ -6,6 +6,7 @@ export type CalendarCreateEventType = {
     startDate: string;
     endDate: string;
     classid: number;
+    id: number;
 };
 
 export interface CalendarEventType extends CalendarCreateEventType {
