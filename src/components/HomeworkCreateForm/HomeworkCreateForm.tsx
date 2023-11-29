@@ -120,7 +120,6 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({
                                 size: 4,
                             }}
                             placeholder="Можно оставить пустым"
-                            border="border"
                         />
                         <Input
                             name="hwDeadline"

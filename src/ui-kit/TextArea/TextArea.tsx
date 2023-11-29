@@ -6,6 +6,16 @@ import { useThrottle } from '@ui-kit/_hooks/useThrottle';
 import Label, { LabelProps } from '@ui-kit/Label/Label';
 import { noop } from '@app/const/consts.ts';
 
+const borderType = {
+    thin: styles.textareaBorderThin,
+    default: styles.textareaBorderDefault,
+    thick: styles.textareaBorderThick,
+    none: '',
+};
+
+type BorderType = keyof typeof borderType;
+
+
 interface TextAreaProps extends UiComponentProps {
     name?: string;
     textareaText?: string;
@@ -23,19 +33,13 @@ interface TextAreaProps extends UiComponentProps {
     maxLength?: number;
 }
 
-const borderType = {
-    border: styles.textareaBorder,
-    noBorder: '',
-};
-type BorderType = keyof typeof borderType;
-
 const TextArea: React.FC<TextAreaProps> = ({
     name,
     textareaText,
     placeholder,
     label,
     spellcheck,
-    border = 'noBorder',
+    border = 'default',
     autoResize = false,
     minRows = 1,
     focusRows = 2,

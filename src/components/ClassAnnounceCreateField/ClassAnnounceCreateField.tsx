@@ -95,7 +95,6 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
                     textareaText={
                         localStorage.getItem(`${classID}/announce`) || undefined
                     }
-                    border={'noBorder'}
                     autoResize={true}
                     onChange={handleChange}
                     onKeydownCallback={handleSubmit}

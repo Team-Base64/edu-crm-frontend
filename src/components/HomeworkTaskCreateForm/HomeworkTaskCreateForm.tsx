@@ -110,7 +110,6 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({
                             placeholder="Опишите суть задачи"
                             minRows={4}
                             maxRows={8}
-                            border="border"
                             name="descr"
                         />
 
