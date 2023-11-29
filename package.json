@@ -19,11 +19,16 @@
     "set:env": "export $(xargs <.env)"
   },
   "dependencies": {
+    "@fullcalendar/core": "^6.1.9",
+    "@fullcalendar/daygrid": "^6.1.9",
+    "@fullcalendar/google-calendar": "^6.1.9",
+    "@fullcalendar/react": "^6.1.9",
     "@reduxjs/toolkit": "^1.9.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.1.2",
     "react-router-dom": "^6.17.0",
+    "undefined": "^0.1.0",
     "uuidv4": "^6.2.13"
   },
   "devDependencies": {

@@ -204,7 +204,7 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                     </Text>
                 </Button>
                 <Button
-                    type={'secondary'}
+                    type={'outlined'}
                     onClick={handleOverlayClose}
                     classes={styles.addEventFormCancelButton}
                     action={'button'}

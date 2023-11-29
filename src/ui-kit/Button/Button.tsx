@@ -13,9 +13,10 @@ export type ButtonSize = keyof typeof btnSize;
 
 const btnType = {
     primary: styles.primary,
-    secondary: styles.secondary,
+    outlined: styles.outlined,
     link: styles.link,
     static: styles.static,
+    secondary: styles.secondary,
 };
 type ButtonType = keyof typeof btnType;
 
