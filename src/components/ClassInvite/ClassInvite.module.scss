@@ -46,7 +46,10 @@
 
     & .step {
         background-color: var(--color-accent-super-light);
+    }
 
+    & .link {
+        cursor: pointer;
     }
 }
 

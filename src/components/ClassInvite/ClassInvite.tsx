@@ -9,6 +9,7 @@ import Overlay from '@ui-kit/Overlay/Overlay';
 import { useProfileQuery } from '@app/features/teacher/teacherApi';
 import ShowQueryState from '@components/ShowQueryState/ShowQueryState';
 import {
+    TgBotLink,
     VkBotLink,
     copyToClipboard,
     tutorialMessage,
@@ -148,79 +149,103 @@ const ClassInvite: React.FC<ClassInviteProps> = ({
                                     classes={styles.step}
                                 >
                                     <Text
-                                        type="p"
+                                        type='p'
                                         size={1}
-                                        classes={styles.text}
                                     >
-                                        <Container
-                                            classes={styles.container}
-                                            gap="s"
-                                        >
-                                            1. Ученик должен должен написать
-                                            боту в
-                                            <Button type="link">
-                                                <a
-                                                    href={`${VkBotLink}`}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
+                                        1. Ученик должен должен зайти в бота
+                                    </Text>
+                                    <Container
+                                        direction="vertical"
+                                        layout="defaultBase"
+                                        classes={styles.step}
+                                        gap='m'
+                                    >
+                                        <span>
+                                            <a
+                                                href={`${VkBotLink}`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className={styles.link}
+                                            >
+                                                <Text
+                                                    type='p'
+                                                    size={1}
+                                                    weight='bold'
                                                 >
-                                                    <Text
-                                                        type="p"
-                                                        size={1}
-                                                        weight="bold"
-                                                    >
-                                                        Вконтакте
-                                                    </Text>
-                                                </a>
-                                            </Button>
-                                            или
-                                            <Button type="link">
-                                                <a
-                                                    href={`${VkBotLink}`}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                >
-                                                    <Text
-                                                        type="p"
-                                                        size={1}
-                                                        weight="bold"
-                                                    >
-                                                        Телеграм
-                                                    </Text>
-                                                </a>
-                                            </Button>
-                                            команду
+                                                    {' Вконтакте '}
+                                                </Text>
+                                            </a>
                                             <Text
-                                                type="p"
+                                                type='p'
                                                 size={1}
-                                                weight="bold"
+                                            >
+                                                и нажать кнопку
+                                            </Text>
+                                            <Text
+                                                type='p'
+                                                size={1}
+                                                weight='bold'
+                                            >
+                                                {' Начать '}
+                                            </Text>
+                                        </span>
+                                        <span>
+
+                                            <a
+                                                href={`${TgBotLink}`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className={styles.link}
+                                            >
+                                                <Text
+                                                    type='p'
+                                                    size={1}
+                                                    weight='bold'
+                                                >
+                                                    {' Телеграм '}
+                                                </Text>
+                                            </a>
+                                            <Text
+                                                type='p'
+                                                size={1}
+                                            >
+                                                и написать команду
+                                            </Text>
+                                            <Text
+                                                type='p'
+                                                size={1}
+                                                weight='bold'
                                             >
                                                 {' /start '}
                                             </Text>
-                                            и следовать инструкциям
-                                        </Container>
+                                        </span>
+                                    </Container>
+                                    <Text
+                                        type='p'
+                                        size={1}
+                                    >
+                                        и следовать инструкциям
                                     </Text>
                                 </Container>
                                 <Container
-                                    direction="vertical"
                                     layout="defaultBase"
                                     classes={styles.step}
                                 >
-                                    <Text
-                                        type="p"
-                                        size={1}
-                                        classes={styles.text}
-                                    >
-                                        2. В момент, когда бот попросит токен,
-                                        ученик должен отправить токен
+                                    <span>
                                         <Text
-                                            type="p"
+                                            type='p'
                                             size={1}
-                                            weight="bold"
+                                        >
+                                            2. В момент, когда бот попросить отправить токен, ученик должен отправить:
+                                        </Text>
+                                        <Text
+                                            type='p'
+                                            size={1}
+                                            weight='bold'
                                         >
                                             {` ${token} `}
                                         </Text>
-                                    </Text>
+                                    </span>
                                 </Container>
                             </Container>
 
@@ -251,7 +276,8 @@ const ClassInvite: React.FC<ClassInviteProps> = ({
                         </Container>
                     </Overlay>
                 </>
-            )}
+            )
+            }
         </>
     );
 };

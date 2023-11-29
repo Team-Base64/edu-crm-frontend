@@ -8,3 +8,11 @@
     margin: auto;
   }
 }
+
+
+.calentarStyle {
+  padding: 16px;
+  & .st-dtitle {
+    background-color: var(--color-accent-super-light);
+  }
+}

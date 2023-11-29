@@ -1,4 +1,4 @@
-export const VkBotLink = 'https://vk.com/im?sel=-222976710';
+export const VkBotLink = 'https://vk.com/im?sel=-223657144';
 export const TgBotLink = 'https://t.me/educrmmaster2bot';
 
 export const copyToClipboard = (text: string) => {
@@ -10,13 +10,15 @@ export const tutorialMessage = (
     classTitle: string,
     token: string,
 ) => {
-    return `${teacherName} приглашает вас в класс '${classTitle}'
+    return `${teacherName} приглашает вас в класс "${classTitle}"
         
         Для подключения:
 
-        1) Напишите /start боту:
-        \t\tВконтакте: ${VkBotLink}
-        \t\tТелеграмм: ${TgBotLink}
+        1) Напишите зайдите в бота:
+        \t\tа) Вконтакте: ${VkBotLink}
+        \t\t\tи нажмите кнопку Начать
+        \t\tб) Телеграмм: ${TgBotLink}
+        \t\t\tи напишите команду /start
         2) Отправьте ему токен:
         \t\t${token}`;
 };
