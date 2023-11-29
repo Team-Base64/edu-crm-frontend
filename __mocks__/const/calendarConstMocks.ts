@@ -8,7 +8,7 @@ export const getEventsFirstMockData: CalendarEventType = {
     description: 'description',
     startDate: '2023-11-30T19:45:00+03:00',
     endDate: '2023-11-30T20:45:00+03:00',
-    id: 123,
+    id: '123',
     classid: 1,
 };
 
@@ -19,7 +19,7 @@ export const getEventsSecondMockData: CalendarEventType = {
 
     startDate: new Date('August 9, 2024 23:15:30').toISOString(),
     endDate: new Date('August 20, 2024 00:01').toISOString(),
-    id: 124,
+    id: '124',
     classid: 2,
 };
 
