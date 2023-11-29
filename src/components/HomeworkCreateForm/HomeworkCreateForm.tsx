@@ -13,6 +13,7 @@ import { useListItems } from '@ui-kit/List/hooks';
 import HomeworkTaskChoose, {
     HomeworkTaskChooseRef,
 } from '@components/HomeworkTaskChoose/HomeworkTaskChoose';
+import { dateToLocalISO } from 'utils/common/PrettyDate/common/iso';
 
 interface HomeworkCreateFormProps extends UiComponentProps {
     onSubmitSuccess?: () => void;
@@ -128,7 +129,8 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({
                                 type: 'h',
                                 size: 4,
                             }}
-                            type="date"
+                            type='datetime-local'
+                            min={dateToLocalISO(new Date()).slice(0, -13)}
                         />
                     </form>
 

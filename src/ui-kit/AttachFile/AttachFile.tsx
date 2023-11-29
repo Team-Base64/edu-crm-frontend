@@ -6,12 +6,14 @@ import Button from '@ui-kit/Button/Button.tsx';
 interface AttachFileProps extends UiComponentProps {
     useFiles: [File[], React.Dispatch<React.SetStateAction<File[]>>];
     maxFilesToAttach: number;
+    disabled ?: boolean;
 }
 
 export const AttachFile: React.FC<AttachFileProps> = ({
     useFiles,
     maxFilesToAttach,
     children,
+    disabled = false,
 }) => {
     const [settedFiles, setFilesState] = useFiles;
     const inputRef = useRef<HTMLInputElement>(null);
@@ -42,6 +44,7 @@ export const AttachFile: React.FC<AttachFileProps> = ({
                 className={styles.attachFileLabel}
             >
                 <Button
+                    disabled={disabled}
                     type={'link'}
                     size={'m'}
                     onClick={() => inputRef.current?.click()}

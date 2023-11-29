@@ -1,7 +1,7 @@
 import Container from '@ui-kit/Container/Container';
 import Icon from '@ui-kit/Icon/Icon';
 import TextArea from '@ui-kit/TextArea/TextArea';
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, useRef, useState } from 'react';
 
 import styles from './ClassAnnounceCreateField.module.scss';
 import { useCreateAnnouncementMutation } from '@app/features/announcement/announcementSlice';
@@ -10,7 +10,6 @@ import Spinner from '@ui-kit/Spinner/Spinner';
 import Hint from '@ui-kit/Hint/Hint';
 import { AttachFile } from '@ui-kit/AttachFile/AttachFile';
 import { AttachmentsList } from '@ui-kit/AttachmentsList/AttachmentsList';
-import { Attachment } from '@ui-kit/Attachment/Attachment';
 import useSendAttaches from 'hooks/useSendAttaches';
 import { SerializeAttachesFromBackend } from 'utils/attaches/attachesSerializers';
 
@@ -25,7 +24,7 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
 }) => {
     const [lock, setLock] = useState<boolean>(false);
     const formRef = useRef<HTMLFormElement>(null);
-    const [submit, submitStatus] = useCreateAnnouncementMutation();
+    const [submit, _] = useCreateAnnouncementMutation();
     const [hint, toggleHint] = useState<boolean>(disabled);
     const { attaches, setAttaches, attachesSendPromise } = useSendAttaches('chat');
 
@@ -115,6 +114,7 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
                     <AttachFile
                         maxFilesToAttach={10}
                         useFiles={[attaches, setAttaches]}
+                        disabled={lock || disabled}
                     >
                         <Icon
                             name='attachIcon'
