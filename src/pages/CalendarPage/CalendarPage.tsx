@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import styles from './CalendarPage.module.scss';
-import { Calendar } from '@components/Calendar/Calendar.tsx';
+import { MyCalendar } from '@components/Calendar/Calendar.tsx';
 import { CalendarControls } from '@components/CalendarControls/CalendarControls.tsx';
 import Container from '@ui-kit/Container/Container.tsx';
 
@@ -15,11 +15,11 @@ export const CalendarPage: React.FC<CalendarPageProps> = () => {
             direction={'grid'}
             classes={styles.calendarPage}
         >
-            <Calendar
+            <MyCalendar
                 classes={styles.calendarPageCalendar}
                 mode={'MONTH'}
                 iframeRef={iframeRef}
-            ></Calendar>
+            ></MyCalendar>
             <CalendarControls
                 classes={styles.calendarPageControls}
                 iframeRef={iframeRef}

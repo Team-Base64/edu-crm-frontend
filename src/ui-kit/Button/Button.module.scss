@@ -61,6 +61,31 @@
     }
   }
 
+  &.outlined {
+    background: none;
+    $border-radius: getVar(border, width, default);
+    border: $border-radius solid getVar(btn, outlined, border, color, default);
+    color: getVar(btn, outlined, font, color);
+
+    &:hover {
+      background-color: getVar(btn, outlined, bg, hover);
+    }
+
+    &:focus-visible {
+      $border-radius: getVar(border, width, bold);
+      border: $border-radius solid getVar(btn, outlined, border, color, focus);
+    }
+
+    &:active {
+      background-color: getVar(btn, outlined, bg, active);
+    }
+
+    &:disabled {
+      color: getVar(btn, outlined, font, color, disabled);
+      border: getVar(border, width, default) solid getVar(btn, outlined, border, color, disabled);
+    }
+  }
+
   &.link {
     background: none;
     border: none;
