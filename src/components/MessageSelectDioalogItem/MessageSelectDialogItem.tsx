@@ -48,7 +48,7 @@ const MessageSelectDialogItem: React.FC<MessageSelectDialogItemProps> = ({
                     color={'light'}
                     classes={styles.messageSelectDialogItemTextMessage}
                 >
-                    {data.text}
+                    {data.text ? data.text : 'Вложения'}
                 </Text>
                 <Text
                     type={'p'}

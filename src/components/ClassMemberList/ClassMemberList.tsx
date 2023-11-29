@@ -40,7 +40,7 @@ const ClassMemberList: React.FC<ClassMemberListProps> = ({
                     renderItemProps={{
                         role: 'Ученик',
                         classes: classes,
-                        chatID: Number(classId),
+                        students: data.students,
                     }}
                     classes={classes}
                 >
