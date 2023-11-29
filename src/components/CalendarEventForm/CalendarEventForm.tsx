@@ -21,6 +21,7 @@ import {
     useIsMoreOrEqualDateValidation,
     useIsMoreOrEqualTimeValidation,
 } from '../../hooks/validation/date.ts';
+import Icon from '@ui-kit/Icon/Icon.tsx';
 
 interface AddEvenFormProps extends UiComponentProps {
     useMutation: eventMutationsType;
@@ -96,6 +97,7 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                 <Text
                     type={'h'}
                     size={3}
+                    weight='bold'
                     classes={styles.addEventFormFormName}
                 >
                     {title}
@@ -193,25 +195,35 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                     label={'Класс'}
                 ></DropDown>
                 <Button
-                    classes={styles.addEventFormSubmitButton}
+                    classes={[styles.addEventFormSubmitButton, styles.btn].join(' ')}
                     onClick={handleButtonSubmit}
                 >
+                    <Icon
+                        name='approve'
+                        classes={styles.icon}
+                    />
                     <Text
-                        type={'h'}
-                        size={5}
+                        type={'p'}
+                        size={1}
+                        weight='bold'
+                        classes={styles.text}
+
                     >
                         {sumbitButtonTitle}
                     </Text>
                 </Button>
                 <Button
-                    type={'secondary'}
+                    type={'link'}
                     onClick={handleOverlayClose}
-                    classes={styles.addEventFormCancelButton}
+                    classes={[styles.addEventFormCancelButton, styles.btn].join(' ')}
                     action={'button'}
                 >
+                    <Icon name='close' classes={styles.iconClose} />
                     <Text
-                        type={'h'}
-                        size={5}
+                        type={'p'}
+                        size={1}
+                        weight='bold'
+                        classes={styles.textClose}
                     >
                         Закрыть
                     </Text>
