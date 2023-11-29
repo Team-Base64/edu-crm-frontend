@@ -56,10 +56,10 @@ const HomeworkSolutionPage: React.FC = () => {
                                 classes={styles.review}
                             />
                         ) : (
-                          <ReviewResult
-                            solution={data.solution}
-                            classes={styles.review}
-                          />  
+                            <ReviewResult
+                                solution={data.solution}
+                                classes={styles.review}
+                            />
                         )}
                     </Container>
                 </>

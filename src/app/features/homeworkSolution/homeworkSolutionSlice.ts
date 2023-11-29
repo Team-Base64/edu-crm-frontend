@@ -20,7 +20,7 @@ export const homeworkSolutionSlice = appApi
                 },
                 providesTags: (res) => {
                     if (!res) return ['Solutions'];
-                    return res.solutions.map(s => ({
+                    return res.solutions.map((s) => ({
                         type: 'Solutions',
                         id: s.id,
                     }));
@@ -33,13 +33,15 @@ export const homeworkSolutionSlice = appApi
             >({
                 query: ({ homeworkID }) => {
                     return {
-                        url: homeworkSolutionPaths.homeworkSolutions(homeworkID),
+                        url: homeworkSolutionPaths.homeworkSolutions(
+                            homeworkID,
+                        ),
                         method: 'GET',
                     };
                 },
                 providesTags: (res) => {
                     if (!res) return ['Solutions'];
-                    return res.solutions.map(s => ({
+                    return res.solutions.map((s) => ({
                         type: 'Solutions',
                         id: s.id,
                     }));
@@ -58,10 +60,12 @@ export const homeworkSolutionSlice = appApi
                 },
                 providesTags: (res, _, arg) => {
                     if (!res) return ['Solutions'];
-                    return [{
-                        type: 'Solutions',
-                        id: arg.id,
-                    }];
+                    return [
+                        {
+                            type: 'Solutions',
+                            id: arg.id,
+                        },
+                    ];
                 },
             }),
         }),

@@ -22,11 +22,7 @@ interface ReviewProps extends UiComponentProps {
     onSuccess?: () => void;
 }
 
-const Review: React.FC<ReviewProps> = ({
-    classes,
-    solution,
-    onSuccess
-}) => {
+const Review: React.FC<ReviewProps> = ({ classes, solution, onSuccess }) => {
     const { data, isError, isLoading, isSuccess } = useGetHomeworkQuery({
         id: solution.hwID,
     });

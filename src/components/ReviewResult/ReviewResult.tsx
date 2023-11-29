@@ -1,17 +1,17 @@
-import { HomeworkSolution } from "@app/features/homeworkSolution/homeworkSolutionModel";
-import Review from "@components/Review/Review";
-import Button from "@ui-kit/Button/Button";
-import Container from "@ui-kit/Container/Container";
-import Overlay from "@ui-kit/Overlay/Overlay";
-import Text from "@ui-kit/Text/Text";
-import { UiComponentProps } from "@ui-kit/interfaces";
-import React, { useId, useState } from "react";
+import { HomeworkSolution } from '@app/features/homeworkSolution/homeworkSolutionModel';
+import Review from '@components/Review/Review';
+import Button from '@ui-kit/Button/Button';
+import Container from '@ui-kit/Container/Container';
+import Overlay from '@ui-kit/Overlay/Overlay';
+import Text from '@ui-kit/Text/Text';
+import { UiComponentProps } from '@ui-kit/interfaces';
+import React, { useId, useState } from 'react';
 import styles from './ReviewResult.module.scss';
-import Icon from "@ui-kit/Icon/Icon";
+import Icon from '@ui-kit/Icon/Icon';
 
 interface ReviewResultProps extends UiComponentProps {
-    solution: HomeworkSolution,
-    allowChange?: boolean,
+    solution: HomeworkSolution;
+    allowChange?: boolean;
 }
 
 const ReviewResult: React.FC<ReviewResultProps> = ({
@@ -24,8 +24,8 @@ const ReviewResult: React.FC<ReviewResultProps> = ({
     return (
         <Container
             gap="l"
-            direction='vertical'
-            layout='defaultBase'
+            direction="vertical"
+            layout="defaultBase"
             classes={classes}
         >
             <Text
@@ -35,8 +35,7 @@ const ReviewResult: React.FC<ReviewResultProps> = ({
             >
                 Ваш отзыв:
             </Text>
-            <Container
-                direction='vertical'>
+            <Container direction="vertical">
                 {solution.teacherEvaluation
                     .split(/\\n|\n/g)
                     .slice(1)
@@ -45,7 +44,12 @@ const ReviewResult: React.FC<ReviewResultProps> = ({
                             <Text
                                 type="p"
                                 size={1}
-                                weight={part.startsWith('Задание') || part.startsWith('Результат') ? 'bold' : 'regular'}
+                                weight={
+                                    part.startsWith('Задание') ||
+                                    part.startsWith('Результат')
+                                        ? 'bold'
+                                        : 'regular'
+                                }
                             >
                                 {part}
                             </Text>
@@ -59,7 +63,7 @@ const ReviewResult: React.FC<ReviewResultProps> = ({
                         classes={styles.btn}
                     >
                         <Icon
-                            name='pencilLine'
+                            name="pencilLine"
                             classes={styles.icon}
                         />
                         <Text
@@ -85,6 +89,6 @@ const ReviewResult: React.FC<ReviewResultProps> = ({
             )}
         </Container>
     );
-}
+};
 
 export default ReviewResult;

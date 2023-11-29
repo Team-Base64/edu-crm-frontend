@@ -1,4 +1,3 @@
-import appApi from '@app/appApi';
 import { ReviewPayload } from './reviewModel';
 import { reviewPaths } from './reviewPaths';
 import { homeworkSolutionSlice } from '../homeworkSolution/homeworkSolutionSlice';
@@ -17,7 +16,7 @@ export const reviewSlice = homeworkSolutionSlice.injectEndpoints({
                 };
             },
             invalidatesTags: (_, __, arg) => {
-                return [{type: 'Solutions', id: arg.solutionID}];
+                return [{ type: 'Solutions', id: arg.solutionID }];
             },
         }),
     }),

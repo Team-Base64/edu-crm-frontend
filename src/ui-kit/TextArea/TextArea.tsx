@@ -15,7 +15,6 @@ const borderType = {
 
 type BorderType = keyof typeof borderType;
 
-
 interface TextAreaProps extends UiComponentProps {
     name?: string;
     textareaText?: string;
