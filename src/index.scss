@@ -1,13 +1,10 @@
 @use 'styles/variables';
 
-body *:not(svg path) {
+body *:not(svg path ) {
   //all: unset;
   box-sizing: border-box;
 }
-
-button {
-  all: unset;
-}
+// div table thead tr tbody th colgroup a td
 
 html,
 body {
