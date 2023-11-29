@@ -46,7 +46,7 @@ const HomeworkTaskItem: ListItemFC<HomeworkTask, HomeworkTaskItemProps> = ({
                         size={4}
                         weight="bold"
                     >
-                        {title ? title : `Задача id${id}`}
+                        {title ? title : `Задача #${id}`}
                     </Text>
                     <Text
                         type="p"
