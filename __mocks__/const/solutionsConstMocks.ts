@@ -15,6 +15,7 @@ export const solutionsMock: HomeworkSolution[] = [
         createTime: new Date(Date.now() - 100000000).toISOString(),
         status: 'new',
         teacherEvaluation: '',
+        text: 'Hello\nWorld',
     },
     {
         id: 111,

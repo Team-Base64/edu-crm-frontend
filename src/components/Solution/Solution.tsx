@@ -69,7 +69,7 @@ const Solution: React.FC<SolutionProps> = ({ id, classes }) => {
                             size={1}
                         >
                             {data.solution.text?.length
-                                ? data.solution.text
+                                ? `${data.solution.text}`
                                 : 'Сообщение не приложено'}
                         </Text>
                     </Container>
