@@ -6,7 +6,7 @@ export type HomeworkSolution = {
     studentID: number;
     createTime: string;
     text?: string;
-    file: string; // ‘host/…./file.pdf
+    files: string[];
     status: HomeworkSolutionStatus;
     teacherEvaluation: string;
 };

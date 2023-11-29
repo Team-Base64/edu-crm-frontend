@@ -20,8 +20,8 @@ interface ClassMemberItemProps extends UiComponentProps {
     studentID: number;
     // chatID?: number;
     role?: string;
-    students: Student[];
-    index: number;
+    // students: Student[];
+    // index: number;
 }
 export const ClassMemberItem: React.FC<ClassMemberItemProps> = ({
     studentID,

@@ -49,7 +49,10 @@ export const AttachmentsList: React.FC<ChatAttachmentsListProps> = ({
     return (
         <Container
             direction={'vertical'}
-            classes={[classes, filesLayout?.length ? getContainerClasses() : ''].join(' ')}
+            classes={[
+                classes,
+                filesLayout?.length ? getContainerClasses() : '',
+            ].join(' ')}
             layout={'sub'}
         >
             {filesLayout}

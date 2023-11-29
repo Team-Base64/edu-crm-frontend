@@ -132,7 +132,6 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({ id, name }) => {
                     name={name}
                     spellcheck={true}
                     textareaText={''}
-                    border={'border'}
                     minRows={1}
                     focusRows={3}
                     maxRows={5}

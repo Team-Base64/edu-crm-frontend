@@ -1,0 +1,13 @@
+.changeForm {
+    width: 80vw;
+}
+
+.btn {
+    & .icon {
+        fill: white;
+    }
+
+    & .text {
+        color: white;
+    }
+}

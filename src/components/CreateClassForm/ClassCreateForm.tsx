@@ -94,7 +94,6 @@ const ClassCreateForm: React.FC<ClassCreateFormProps> = ({
                         textareaRef={textareaRef}
                         minRows={2}
                         maxRows={6}
-                        border="border"
                         name="classDescription"
                         label={{
                             text: 'Описание',

@@ -8,6 +8,7 @@ import SolutionHeader from '@components/SolutionHeader/SolutionHeader';
 import Solution from '@components/Solution/Solution';
 import AppRoutes from '@router/routes';
 import ShowQueryState from '@components/ShowQueryState/ShowQueryState';
+import ReviewResult from '@components/ReviewResult/ReviewResult';
 
 const useGetSolutionID = () => {
     const location = useLocation();
@@ -49,10 +50,17 @@ const HomeworkSolutionPage: React.FC = () => {
                             id={id}
                             classes={styles.solution}
                         />
-                        <Review
-                            solution={data.solution}
-                            classes={styles.review}
-                        />
+                        {data.solution.status === 'new' ? (
+                            <Review
+                                solution={data.solution}
+                                classes={styles.review}
+                            />
+                        ) : (
+                            <ReviewResult
+                                solution={data.solution}
+                                classes={styles.review}
+                            />
+                        )}
                     </Container>
                 </>
             )}

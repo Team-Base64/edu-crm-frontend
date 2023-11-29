@@ -97,7 +97,6 @@ const ReviewTask: React.FC<ReviewTaskProps> = ({ taskID, title }) => {
                                 weight: 'bold',
                             }}
                             placeholder="Комментарий..."
-                            border="border"
                             autoResize
                             maxRows={20}
                             minRows={4}

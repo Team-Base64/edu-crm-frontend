@@ -19,9 +19,10 @@ import { clearComment, getComment } from '@components/ReviewTask/utils';
 
 interface ReviewProps extends UiComponentProps {
     solution: HomeworkSolution;
+    onSuccess?: () => void;
 }
 
-const Review: React.FC<ReviewProps> = ({ classes, solution }) => {
+const Review: React.FC<ReviewProps> = ({ classes, solution, onSuccess }) => {
     const { data, isError, isLoading, isSuccess } = useGetHomeworkQuery({
         id: solution.hwID,
     });
@@ -69,6 +70,7 @@ const Review: React.FC<ReviewProps> = ({ classes, solution }) => {
                 setLock(false);
                 if (!data) return;
                 data.homework.tasks.map((id) => clearComment(formRef, id));
+                onSuccess?.();
             })
             .catch((e) => {
                 console.log(e);

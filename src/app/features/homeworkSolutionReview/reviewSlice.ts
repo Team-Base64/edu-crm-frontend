@@ -1,8 +1,8 @@
-import appApi from '@app/appApi';
 import { ReviewPayload } from './reviewModel';
 import { reviewPaths } from './reviewPaths';
+import { homeworkSolutionSlice } from '../homeworkSolution/homeworkSolutionSlice';
 
-export const reviewSlice = appApi.injectEndpoints({
+export const reviewSlice = homeworkSolutionSlice.injectEndpoints({
     endpoints: (build) => ({
         createReview: build.mutation<
             unknown,
@@ -14,6 +14,9 @@ export const reviewSlice = appApi.injectEndpoints({
                     method: 'PUT',
                     body: JSON.stringify(payload),
                 };
+            },
+            invalidatesTags: (_, __, arg) => {
+                return [{ type: 'Solutions', id: arg.solutionID }];
             },
         }),
     }),

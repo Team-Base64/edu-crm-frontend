@@ -6,6 +6,15 @@ import { useThrottle } from '@ui-kit/_hooks/useThrottle';
 import Label, { LabelProps } from '@ui-kit/Label/Label';
 import { noop } from '@app/const/consts.ts';
 
+const borderType = {
+    thin: styles.textareaBorderThin,
+    default: styles.textareaBorderDefault,
+    thick: styles.textareaBorderThick,
+    none: '',
+};
+
+type BorderType = keyof typeof borderType;
+
 interface TextAreaProps extends UiComponentProps {
     name?: string;
     textareaText?: string;
@@ -23,19 +32,13 @@ interface TextAreaProps extends UiComponentProps {
     maxLength?: number;
 }
 
-const borderType = {
-    border: styles.textareaBorder,
-    noBorder: '',
-};
-type BorderType = keyof typeof borderType;
-
 const TextArea: React.FC<TextAreaProps> = ({
     name,
     textareaText,
     placeholder,
     label,
     spellcheck,
-    border = 'noBorder',
+    border = 'default',
     autoResize = false,
     minRows = 1,
     focusRows = 2,
@@ -55,7 +58,9 @@ const TextArea: React.FC<TextAreaProps> = ({
             event.preventDefault();
             if (!textareaRef.current) return;
             textareaRef.current.value += '\r\n';
-            textareaRef.current.dispatchEvent(new Event('input', { bubbles: true }));
+            textareaRef.current.dispatchEvent(
+                new Event('input', { bubbles: true }),
+            );
             return;
         }
         if (event.code === 'Enter' && !event.ctrlKey) {
@@ -80,7 +85,8 @@ const TextArea: React.FC<TextAreaProps> = ({
             parseFloat(areaStyles.borderBottomWidth);
 
         if (area === document.activeElement) {
-            area.style.height = border + padding + focusRows * lineHeight + 'px';
+            area.style.height =
+                border + padding + focusRows * lineHeight + 'px';
             area.style.height =
                 Math.min(
                     border + area.scrollHeight,

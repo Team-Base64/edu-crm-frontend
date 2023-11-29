@@ -63,13 +63,10 @@ export const teacherApi = appApi.injectEndpoints({
                 return {
                     url: teacherPaths.logout,
                     method: 'DELETE',
-                    body: {},
                 };
             },
 
             async onQueryStarted(_, { dispatch, queryFulfilled }) {
-                console.log('asda');
-
                 try {
                     const { meta } = await queryFulfilled;
                     console.log(meta);

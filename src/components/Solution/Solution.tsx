@@ -1,6 +1,6 @@
 import Container from '@ui-kit/Container/Container';
 import { UiComponentProps } from '@ui-kit/interfaces';
-
+import React from 'react';
 import styles from './Solution.module.scss';
 import Text from '@ui-kit/Text/Text';
 import Label from '@ui-kit/Label/Label';
@@ -8,7 +8,7 @@ import { IframeViewer } from '@ui-kit/IframeViewer/IframeViewer';
 import { Attachment } from '@ui-kit/Attachment/Attachment';
 import { noop } from '@app/const/consts';
 import { useGetSolutionQuery } from '@app/features/homeworkSolution/homeworkSolutionSlice';
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import Hint from '@ui-kit/Hint/Hint';
 import ShowQueryState from '@components/ShowQueryState/ShowQueryState';
 
@@ -22,6 +22,7 @@ const Solution: React.FC<SolutionProps> = ({ id, classes }) => {
     });
     const [currentAttach, setCurrentAttach] = useState<string>('');
     const hintState = useState<boolean>(true);
+    const key = useId();
 
     const handleAttachClick = (file: string) => {
         if (currentAttach === file) {
@@ -64,14 +65,27 @@ const Solution: React.FC<SolutionProps> = ({ id, classes }) => {
                             size={4}
                             weight="bold"
                         />
-                        <Text
-                            type="p"
-                            size={1}
-                        >
-                            {data.solution.text?.length
-                                ? data.solution.text
-                                : 'Сообщение не приложено'}
-                        </Text>
+                        {data.solution.text?.length ? (
+                            data.solution.text
+                                .split(/\\n|\n/g)
+                                .map((part, index) => (
+                                    <React.Fragment key={`${key}-${index}`}>
+                                        <Text
+                                            type="p"
+                                            size={1}
+                                        >
+                                            {part}
+                                        </Text>
+                                    </React.Fragment>
+                                ))
+                        ) : (
+                            <Text
+                                type="p"
+                                size={1}
+                            >
+                                Сообщение не приложено
+                            </Text>
+                        )}
                     </Container>
                     <Container direction="vertical">
                         <Label
@@ -86,15 +100,24 @@ const Solution: React.FC<SolutionProps> = ({ id, classes }) => {
                                 'Чтобы посмотреть нажмите на вложение, чтобы развернуть нажмите дважды'
                             }
                         />
-                        <Attachment
-                            classes={styles.attach}
-                            allowOpen={() =>
-                                handleAttachClick(data.solution.file)
-                            }
-                            file={data.solution.file}
-                            onRemoveClick={noop}
-                            isStatic={true}
-                        />
+                        {data.solution.files.length ? (
+                            data.solution.files.map((file) => (
+                                <Attachment
+                                    classes={styles.attach}
+                                    allowOpen={() => handleAttachClick(file)}
+                                    file={file}
+                                    onRemoveClick={noop}
+                                    isStatic={true}
+                                />
+                            ))
+                        ) : (
+                            <Text
+                                type="p"
+                                size={1}
+                            >
+                                Без вложений
+                            </Text>
+                        )}
                     </Container>
                     <IframeViewer
                         classes={styles.preview}

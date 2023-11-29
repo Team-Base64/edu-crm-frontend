@@ -40,3 +40,21 @@
     grid-row: 8;
   }
 }
+
+.btn {
+  & .text {
+    color: white;
+
+    &-close {
+      color: gray;
+    }
+  }
+
+  & .icon {
+    fill: white;
+
+    &-close {
+      fill: gray;
+    }
+  }
+}

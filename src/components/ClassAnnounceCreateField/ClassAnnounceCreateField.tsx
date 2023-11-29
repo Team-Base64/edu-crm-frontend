@@ -1,7 +1,7 @@
 import Container from '@ui-kit/Container/Container';
 import Icon from '@ui-kit/Icon/Icon';
 import TextArea from '@ui-kit/TextArea/TextArea';
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, useRef, useState } from 'react';
 
 import styles from './ClassAnnounceCreateField.module.scss';
 import { useCreateAnnouncementMutation } from '@app/features/announcement/announcementSlice';
@@ -10,7 +10,6 @@ import Spinner from '@ui-kit/Spinner/Spinner';
 import Hint from '@ui-kit/Hint/Hint';
 import { AttachFile } from '@ui-kit/AttachFile/AttachFile';
 import { AttachmentsList } from '@ui-kit/AttachmentsList/AttachmentsList';
-import { Attachment } from '@ui-kit/Attachment/Attachment';
 import useSendAttaches from 'hooks/useSendAttaches';
 import { SerializeAttachesFromBackend } from 'utils/attaches/attachesSerializers';
 
@@ -25,9 +24,10 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
 }) => {
     const [lock, setLock] = useState<boolean>(false);
     const formRef = useRef<HTMLFormElement>(null);
-    const [submit, submitStatus] = useCreateAnnouncementMutation();
+    const [submit, _] = useCreateAnnouncementMutation();
     const [hint, toggleHint] = useState<boolean>(disabled);
-    const { attaches, setAttaches, attachesSendPromise } = useSendAttaches('chat');
+    const { attaches, setAttaches, attachesSendPromise } =
+        useSendAttaches('chat');
 
     const handleSubmit = async () => {
         const form = formRef.current;
@@ -38,7 +38,6 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
         if (!text.length) return;
 
         setLock(true);
-
 
         try {
             let loaded: string[] = [];
@@ -79,7 +78,7 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
     return (
         <Container
             classes={styles.card}
-            direction='vertical'
+            direction="vertical"
             layout="defaultBase"
         >
             <form
@@ -96,7 +95,6 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
                     textareaText={
                         localStorage.getItem(`${classID}/announce`) || undefined
                     }
-                    border={'noBorder'}
                     autoResize={true}
                     onChange={handleChange}
                     onKeydownCallback={handleSubmit}
@@ -109,19 +107,21 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
                     state={[hint, toggleHint]}
                 />
                 <Container
-                    direction='vertical'
+                    direction="vertical"
                     classes={styles.nav}
                 >
                     <AttachFile
                         maxFilesToAttach={10}
                         useFiles={[attaches, setAttaches]}
+                        disabled={lock || disabled}
                     >
                         <Icon
-                            name='attachIcon'
+                            name="attachIcon"
                             classes={[
                                 styles.btnIcon,
                                 disabled ? styles.btnIconDisabled : '',
-                            ].join(' ')} />
+                            ].join(' ')}
+                        />
                     </AttachFile>
                     <Button
                         disabled={lock || disabled}
