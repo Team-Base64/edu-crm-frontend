@@ -64,14 +64,25 @@ const Solution: React.FC<SolutionProps> = ({ id, classes }) => {
                             size={4}
                             weight="bold"
                         />
-                        <Text
-                            type="p"
-                            size={1}
-                        >
-                            {data.solution.text?.length
-                                ? `${data.solution.text}`
-                                : 'Сообщение не приложено'}
-                        </Text>
+                        {data.solution.text?.length ? (
+                            data.solution.text
+                                .split(/\\n|\n/g)
+                                .map(part => (
+                                    <Text
+                                        type="p"
+                                        size={1}
+                                    >
+                                        {part}
+                                    </Text>
+                                ))
+                        ) : (
+                            <Text
+                                type="p"
+                                size={1}
+                            >
+                                Сообщение не приложено
+                            </Text>
+                        )}
                     </Container>
                     <Container direction="vertical">
                         <Label
