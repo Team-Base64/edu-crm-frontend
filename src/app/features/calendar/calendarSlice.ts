@@ -8,6 +8,7 @@ import {
     calendarGetID,
 } from '@app/features/calendar/calendarModel.ts';
 import appPaths from '@app/appPaths';
+import { valueAsPayloadTimezoneOffset } from '../../../utils/common/dateRepresentation.ts';
 
 export const calendarSlice = appApi.injectEndpoints({
     endpoints: (build) => ({
@@ -47,7 +48,15 @@ export const calendarSlice = appApi.injectEndpoints({
                 const newDialogs: CalendarEventSelectByIDType = {};
 
                 calendarEvents.events.forEach((event) => {
-                    newDialogs[event.id] = event;
+                    newDialogs[event.id] = {
+                        ...event,
+                        startDate: valueAsPayloadTimezoneOffset(
+                            event.startDate,
+                        ).toISOString(),
+                        endDate: valueAsPayloadTimezoneOffset(
+                            event.endDate,
+                        ).toISOString(),
+                    };
                 });
 
                 return { calendarEvents: newDialogs };

@@ -11,7 +11,6 @@ import Overlay from '@ui-kit/Overlay/Overlay.tsx';
 import {
     getUTCDate,
     getUTCTime,
-    valueAsPayloadTimezoneOffset,
 } from '../../utils/common/dateRepresentation.ts';
 
 interface CalendarEventProps extends UiComponentProps {
@@ -61,17 +60,9 @@ export const CalendarEvent: React.FC<CalendarEventProps> = ({
             >
                 Дата начала:
                 {' ' +
-                    getUTCDate(
-                        valueAsPayloadTimezoneOffset(
-                            new Date(eventData.startDate),
-                        ) ?? new Date(),
-                    ) +
+                    getUTCDate(new Date(eventData.startDate)) +
                     ' ' +
-                    getUTCTime(
-                        valueAsPayloadTimezoneOffset(
-                            new Date(eventData.startDate),
-                        ) ?? new Date(),
-                    )}
+                    getUTCTime(new Date(eventData.startDate))}
             </Text>
             <Text
                 type={'p'}
@@ -79,21 +70,9 @@ export const CalendarEvent: React.FC<CalendarEventProps> = ({
             >
                 Дата окончания:
                 {' ' +
-                    getUTCDate(
-                        new Date(
-                            valueAsPayloadTimezoneOffset(
-                                new Date(eventData.endDate),
-                            ) ?? new Date(),
-                        ),
-                    ) +
+                    getUTCDate(new Date(eventData.endDate)) +
                     ' ' +
-                    getUTCTime(
-                        new Date(
-                            valueAsPayloadTimezoneOffset(
-                                new Date(eventData.endDate),
-                            ) ?? new Date(),
-                        ),
-                    )}
+                    getUTCTime(new Date(eventData.endDate))}
             </Text>
             <Button
                 type={'secondary'}

@@ -71,7 +71,8 @@ export const valueAsDateTimezoneOffset = (date: dateInput) => {
     return date;
 };
 
-export const valueAsPayloadTimezoneOffset = (date: Date) => {
+export const valueAsPayloadTimezoneOffset = (dateISO: string) => {
+    const date = new Date(dateISO);
     date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
     return date;
 };
