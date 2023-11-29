@@ -65,9 +65,9 @@ export const setTime = (date: Date, time: Date | null) => {
 };
 
 export const valueAsDateTimezoneOffset = (date: dateInput) => {
-    // if (date instanceof Date) {
-    //     date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
-    // }
+    if (date instanceof Date) {
+        date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+    }
     return date;
 };
 
