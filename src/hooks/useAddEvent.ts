@@ -44,7 +44,7 @@ export default function useAddEvent(
     });
 
     const [selectedClassId, setSelectedClass] = useState<number>(
-        event?.classid ?? unselectedId,
+        event?.classid ?? data?.classes[0].id ?? unselectedId,
     );
 
     const handleSubmit = () => {
