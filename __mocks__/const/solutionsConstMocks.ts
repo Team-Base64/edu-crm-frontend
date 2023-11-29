@@ -10,7 +10,7 @@ export const solutionsMock: HomeworkSolution[] = [
     {
         id: 0,
         hwID: 0,
-        file: pdf,
+        files: [pdf, attach, pdf, attach],
         studentID: 0,
         createTime: new Date(Date.now() - 100000000).toISOString(),
         status: 'new',
@@ -19,7 +19,7 @@ export const solutionsMock: HomeworkSolution[] = [
     {
         id: 111,
         hwID: 0,
-        file: pdf,
+        files: [pdf],
         studentID: 0,
         createTime: new Date(Date.now() - 5000000).toISOString(),
         status: 'new',
@@ -28,7 +28,7 @@ export const solutionsMock: HomeworkSolution[] = [
     {
         id: 112,
         hwID: 0,
-        file: pdf,
+        files: [pdf],
         studentID: 0,
         createTime: new Date(Date.now() - 500000).toISOString(),
         status: 'new',
@@ -37,7 +37,7 @@ export const solutionsMock: HomeworkSolution[] = [
     {
         id: 113,
         hwID: 0,
-        file: pdf,
+        files: [pdf],
         studentID: 0,
         createTime: new Date(Date.now() - 50000).toISOString(),
         status: 'new',
@@ -46,7 +46,7 @@ export const solutionsMock: HomeworkSolution[] = [
     {
         id: 114,
         hwID: 0,
-        file: pdf,
+        files: [pdf],
         studentID: 0,
         createTime: new Date(Date.now() - 5000).toISOString(),
         status: 'new',
@@ -55,7 +55,7 @@ export const solutionsMock: HomeworkSolution[] = [
     {
         id: 115,
         hwID: 0,
-        file: pdf,
+        files: [pdf],
         studentID: 0,
         createTime: new Date(Date.now() - 500).toISOString(),
         status: 'new',
@@ -64,7 +64,7 @@ export const solutionsMock: HomeworkSolution[] = [
     {
         id: 1,
         hwID: 1,
-        file: attach,
+        files: [pdf],
         studentID: 1,
         createTime: new Date(Date.now() - 1000000).toISOString(),
         status: 'new',
@@ -73,7 +73,7 @@ export const solutionsMock: HomeworkSolution[] = [
     {
         id: 100,
         hwID: 1,
-        file: attach,
+        files: [pdf],
         studentID: 1,
         createTime: new Date(Date.now() - 500000).toISOString(),
         status: 'new',
@@ -82,7 +82,7 @@ export const solutionsMock: HomeworkSolution[] = [
     {
         id: 2,
         hwID: 2,
-        file: attach,
+        files: [pdf],
         studentID: 2,
         createTime: new Date(Date.now() - 5000000).toISOString(),
         status: 'new',
@@ -92,7 +92,7 @@ export const solutionsMock: HomeworkSolution[] = [
     {
         id: 3,
         hwID: 1,
-        file: attach,
+        files: [pdf],
         studentID: 0,
         createTime: new Date(Date.now() - 40000000).toISOString(),
         status: 'new',

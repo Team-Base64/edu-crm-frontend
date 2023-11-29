@@ -86,15 +86,24 @@ const Solution: React.FC<SolutionProps> = ({ id, classes }) => {
                                 'Чтобы посмотреть нажмите на вложение, чтобы развернуть нажмите дважды'
                             }
                         />
-                        <Attachment
-                            classes={styles.attach}
-                            allowOpen={() =>
-                                handleAttachClick(data.solution.file)
-                            }
-                            file={data.solution.file}
-                            onRemoveClick={noop}
-                            isStatic={true}
-                        />
+                        {data.solution.files.length ? (
+                            data.solution.files.map((file) => (
+                                <Attachment
+                                    classes={styles.attach}
+                                    allowOpen={() => handleAttachClick(file)}
+                                    file={file}
+                                    onRemoveClick={noop}
+                                    isStatic={true}
+                                />
+                            ))
+                        ) : (
+                            <Text
+                                type="p"
+                                size={1}
+                            >
+                                Без вложений
+                            </Text>
+                        )}
                     </Container>
                     <IframeViewer
                         classes={styles.preview}

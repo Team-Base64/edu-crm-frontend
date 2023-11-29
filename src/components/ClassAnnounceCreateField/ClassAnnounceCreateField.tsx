@@ -26,7 +26,8 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
     const formRef = useRef<HTMLFormElement>(null);
     const [submit, _] = useCreateAnnouncementMutation();
     const [hint, toggleHint] = useState<boolean>(disabled);
-    const { attaches, setAttaches, attachesSendPromise } = useSendAttaches('chat');
+    const { attaches, setAttaches, attachesSendPromise } =
+        useSendAttaches('chat');
 
     const handleSubmit = async () => {
         const form = formRef.current;
@@ -37,7 +38,6 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
         if (!text.length) return;
 
         setLock(true);
-
 
         try {
             let loaded: string[] = [];
@@ -78,7 +78,7 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
     return (
         <Container
             classes={styles.card}
-            direction='vertical'
+            direction="vertical"
             layout="defaultBase"
         >
             <form
@@ -108,7 +108,7 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
                     state={[hint, toggleHint]}
                 />
                 <Container
-                    direction='vertical'
+                    direction="vertical"
                     classes={styles.nav}
                 >
                     <AttachFile
@@ -117,11 +117,12 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
                         disabled={lock || disabled}
                     >
                         <Icon
-                            name='attachIcon'
+                            name="attachIcon"
                             classes={[
                                 styles.btnIcon,
                                 disabled ? styles.btnIconDisabled : '',
-                            ].join(' ')} />
+                            ].join(' ')}
+                        />
                     </AttachFile>
                     <Button
                         disabled={lock || disabled}

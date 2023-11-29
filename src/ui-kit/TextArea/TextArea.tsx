@@ -55,7 +55,9 @@ const TextArea: React.FC<TextAreaProps> = ({
             event.preventDefault();
             if (!textareaRef.current) return;
             textareaRef.current.value += '\r\n';
-            textareaRef.current.dispatchEvent(new Event('input', { bubbles: true }));
+            textareaRef.current.dispatchEvent(
+                new Event('input', { bubbles: true }),
+            );
             return;
         }
         if (event.code === 'Enter' && !event.ctrlKey) {
@@ -80,7 +82,8 @@ const TextArea: React.FC<TextAreaProps> = ({
             parseFloat(areaStyles.borderBottomWidth);
 
         if (area === document.activeElement) {
-            area.style.height = border + padding + focusRows * lineHeight + 'px';
+            area.style.height =
+                border + padding + focusRows * lineHeight + 'px';
             area.style.height =
                 Math.min(
                     border + area.scrollHeight,

@@ -129,7 +129,7 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({
                                 type: 'h',
                                 size: 4,
                             }}
-                            type='datetime-local'
+                            type="datetime-local"
                             min={dateToLocalISO(new Date()).slice(0, -13)}
                         />
                     </form>
