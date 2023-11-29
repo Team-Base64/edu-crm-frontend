@@ -54,7 +54,7 @@ export default function useAddEvent(
                 description: description ?? '',
                 startDate: setTime(startDate, startTime).toISOString(),
                 endDate: setTime(endDate, endTime).toISOString(),
-                classid: selectedClassId ?? unselectedId,
+                classid: selectedClassId ?? data?.classes[0].id ?? unselectedId,
                 id: event?.id ?? '',
             })
                 .then((response) => {
@@ -67,11 +67,6 @@ export default function useAddEvent(
                 .catch((error) => console.error(error));
         }
     };
-    console.log(event?.classid, data?.classes[0].id, selectedClassId);
-    console.log(
-        event?.classid ?? data?.classes[0].id,
-        event?.classid ?? data?.classes[0].id ?? unselectedId,
-    );
 
     return {
         useTitle: { title, setTitle },
