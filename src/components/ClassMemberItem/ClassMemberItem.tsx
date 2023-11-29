@@ -18,12 +18,13 @@ import { noop } from '@app/const/consts';
 
 interface ClassMemberItemProps extends UiComponentProps {
     studentID: number;
-    chatID?: number;
+    // chatID?: number;
     role?: string;
+    students: Student[];
+    index: number;
 }
 export const ClassMemberItem: React.FC<ClassMemberItemProps> = ({
     studentID,
-    chatID,
     role = 'Ученик',
     classes,
 }) => {
@@ -39,7 +40,7 @@ export const ClassMemberItem: React.FC<ClassMemberItemProps> = ({
                     onSelect={noop}
                     onDelete={noop}
                     index={0}
-                    chatID={chatID}
+                    students={[data.student]}
                     role={role}
                     classes={classes}
                 />
@@ -50,20 +51,23 @@ export const ClassMemberItem: React.FC<ClassMemberItemProps> = ({
 
 interface ClassMemberListItemProps extends UiComponentProps {
     role?: string;
-    chatID?: number;
+    // chatID?: number;
+    students: Student[];
 }
 
 export const ClassMemberListItem: ListItemFC<
     Student,
     ClassMemberListItemProps
-> = ({ item, role = 'Ученик', onClick, classes, chatID }) => {
+> = ({ item, role = 'Ученик', onClick, classes, students, index }) => {
     const { name, avatarSrc } = item;
 
     const navigate = useNavigate();
     const handleChatClick = () => {
-        navigate(
-            `/${AppRoutes.messenger}?${routerQueryParams.messenger.chatid}=${chatID}`,
-        );
+        if (students[index]) {
+            navigate(
+                `/${AppRoutes.messenger}?${routerQueryParams.messenger.chatid}=${students[index].chatID}`,
+            );
+        }
     };
 
     return (
@@ -103,7 +107,7 @@ export const ClassMemberListItem: ListItemFC<
                     </Text>
                 </Container>
             </Container>
-            {chatID && (
+            {students[index] && (
                 <Button
                     classes={styles.btn}
                     onClick={handleChatClick}
