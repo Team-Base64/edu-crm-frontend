@@ -1,8 +1,12 @@
 @use 'styles/variables';
 
 body *:not(svg path) {
-  all: unset;
+  //all: unset;
   box-sizing: border-box;
+}
+
+button {
+  all: unset;
 }
 
 html,
