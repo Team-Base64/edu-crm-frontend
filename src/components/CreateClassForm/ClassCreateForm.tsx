@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import Input from '@ui-kit/Input/Input';
 import Button from '@ui-kit/Button/Button';
@@ -8,49 +8,59 @@ import Container from '@ui-kit/Container/Container';
 import Text from '@ui-kit/Text/Text';
 import TextArea from '@ui-kit/TextArea/TextArea';
 import { useCreateClassMutation } from '@app/features/class/classSlice';
-import { useNavigate } from 'react-router-dom';
 import styles from './ClassCreateForm.module.scss';
 
 interface ClassCreateFormProps extends UiComponentProps {
-    onSuccess?: () => void;
+    onSuccess?: (id: string | number) => void;
 }
 
-const ClassCreateForm: React.FC<ClassCreateFormProps> = ({ classes }) => {
-    const [createClass, { data, isLoading, isSuccess }] =
-        useCreateClassMutation();
-
-    const navigate = useNavigate();
-
-    const titleRef = useRef<HTMLInputElement>(null);
-    const descRef = useRef<HTMLTextAreaElement>(null);
-
-    useEffect(() => {
-        if (isSuccess && data) {
-            return navigate(data.class.id.toString());
-        }
-    }, [data, isLoading, isSuccess, navigate]);
+const ClassCreateForm: React.FC<ClassCreateFormProps> = ({
+    classes,
+    onSuccess,
+}) => {
+    const [createClass] = useCreateClassMutation();
+    const formRef = useRef<HTMLFormElement>(null);
+    const [lock, setLock] = useState<boolean>(false);
 
     const handleSubmit = () => {
-        if (!titleRef.current || !descRef.current) {
+        const form = formRef.current;
+        if (!form) {
             return;
         }
 
-        const title = titleRef.current.value;
-        const descr = descRef.current.value;
-        if (!title) {
+        const title = form.classTitle.value as string;
+        const descr = form.classDescription.value as string;
+        if (!title.length) {
             return;
         }
+        setLock(true);
 
         createClass({
             payload: {
                 title: title,
                 description: descr,
             },
-        });
+        })
+            .then((resp) => {
+                if ('data' in resp) {
+                    onSuccess?.(resp.data.class.id);
+                }
+            })
+            .catch((e) => {
+                console.log(e);
+            })
+            .finally(() => {
+                setLock(false);
+            });
     };
 
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+
     return (
-        <>
+        <form
+            ref={formRef}
+            onSubmit={(e) => e.preventDefault()}
+        >
             <Container
                 direction={'vertical'}
                 layout={'defaultBase'}
@@ -64,36 +74,59 @@ const ClassCreateForm: React.FC<ClassCreateFormProps> = ({ classes }) => {
                 >
                     Создание класса
                 </Text>
-                <form>
-                    <Container direction={'vertical'}>
-                        <Input
-                            inputRef={titleRef}
-                            label={'Название'}
-                            placeholder={'Например: Даша Математика'}
-                            type={'text'}
-                        />
-                        <TextArea
-                            textareaRef={descRef}
-                            minRows={2}
-                            maxRows={6}
-                            border="border"
-                            labelText="Описание"
-                        />
-                    </Container>
-                </form>
+                <Container
+                    direction={'vertical'}
+                    gap="l"
+                >
+                    <Input
+                        disabled={lock}
+                        label={{
+                            text: 'Название',
+                            type: 'h',
+                            size: 4,
+                        }}
+                        placeholder={'Например: Даша Математика'}
+                        type={'text'}
+                        name="classTitle"
+                    />
+                    <TextArea
+                        // TODO disabled={lock}
+                        textareaRef={textareaRef}
+                        minRows={2}
+                        maxRows={6}
+                        name="classDescription"
+                        label={{
+                            text: 'Описание',
+                            type: 'h',
+                            size: 4,
+                        }}
+                    />
+                </Container>
+
                 <Button
                     onClick={handleSubmit}
-                    disabled={isLoading}
+                    disabled={lock}
                 >
-                    {isLoading && <Spinner />}
-                    <Icon
-                        name="addLine"
-                        classes={styles.btnIcon}
-                    />
-                    Создать
+                    {lock && <Spinner classes={styles.btnSpinner} />}
+                    {!lock && (
+                        <>
+                            <Icon
+                                name="addLine"
+                                classes={styles.btnIcon}
+                            />
+                            <Text
+                                type="p"
+                                size={1}
+                                weight="bold"
+                                classes={styles.btnText}
+                            >
+                                Создать
+                            </Text>
+                        </>
+                    )}
                 </Button>
             </Container>
-        </>
+        </form>
     );
 };
 

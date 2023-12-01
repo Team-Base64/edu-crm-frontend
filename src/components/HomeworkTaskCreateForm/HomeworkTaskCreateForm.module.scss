@@ -1,0 +1,34 @@
+.widget {
+    min-width: 50vw;
+}
+
+.submit {
+    width: min-content;
+    &-text {
+        color: white;
+    }
+    &-icon {
+        fill: white;
+    }
+}
+
+.content {
+    align-items: end;
+    width: 100%;
+    & > div {
+        width: 100%;
+    }
+}
+
+.area {
+    
+}
+
+.form {
+    display: flex;
+    position: relative;
+    width: 100%;
+    & > div {
+        width: 100%;
+    }
+}

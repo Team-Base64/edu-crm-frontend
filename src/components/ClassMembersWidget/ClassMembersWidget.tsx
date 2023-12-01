@@ -59,10 +59,10 @@ const ClassMembersWidget: React.FC<ClassMembersWidgetProps> = ({
                     >
                         <Text
                             type="h"
-                            size={4}
+                            size={3}
                             weight="bold"
                         >
-                            {'Все участники группы'}
+                            {'Все участники группы:'}
                         </Text>
                     </Container>
                     <ClassMemberList

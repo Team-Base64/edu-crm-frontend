@@ -4,9 +4,9 @@ import Overlay from '@ui-kit/Overlay/Overlay';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import React, { useState } from 'react';
 import styles from './HomeworkSolutionWidget.module.scss';
-import Container from '@ui-kit/Container/Container';
 import Text from '@ui-kit/Text/Text';
 import HomeworkSolutionList from '@components/HomeworkSolutionList/HomeworkSolutionList';
+import ClassSolutionsAll from '@components/ClassSolutionsAll/ClassSolutionsAll';
 
 interface HomeworkSolutionWidgetProps extends UiComponentProps {
     classId: string | number;
@@ -49,27 +49,10 @@ const HomeworkSolutionWidget: React.FC<HomeworkSolutionWidgetProps> = ({
                 isShowing={isOverlay}
                 closeOverlay={() => setIsOverlay(false)}
             >
-                <Container
-                    direction="vertical"
-                    layout="defaultBase"
-                >
-                    <Container
-                        layout="defaultBase"
-                        classes={styles.title}
-                    >
-                        <Text
-                            type="h"
-                            size={4}
-                            weight="bold"
-                        >
-                            {'Все решения группы'}
-                        </Text>
-                    </Container>
-                    <HomeworkSolutionList
-                        classId={classId}
-                        classes={styles.fullPage}
-                    />
-                </Container>
+                <ClassSolutionsAll
+                    classID={Number(classId)}
+                    classes={styles.fullPage}
+                />
             </Overlay>
 
             <Widget
@@ -80,6 +63,8 @@ const HomeworkSolutionWidget: React.FC<HomeworkSolutionWidgetProps> = ({
                 <HomeworkSolutionList
                     classId={classId}
                     limit={2}
+                    emptyTitle="Пока нет решений"
+                    showStatus="all"
                 />
             </Widget>
         </>

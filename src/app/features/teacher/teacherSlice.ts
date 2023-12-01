@@ -1,12 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Teacher } from '@app/features/teacher/teacherModel';
 
-interface ITeacherState {
-    me: Teacher | null;
-}
-
-const initialState: ITeacherState = {
-    me: null,
+const initialState: { me: boolean } = {
+    me: false,
 };
 
 export const teacherSlice = createSlice({
@@ -14,7 +9,7 @@ export const teacherSlice = createSlice({
     name: 'teacherSlice',
     reducers: {
         logout: () => initialState,
-        setMe: (state, action: PayloadAction<Teacher>) => {
+        setMe: (state, action: PayloadAction<boolean>) => {
             state.me = action.payload;
         },
     },

@@ -16,6 +16,8 @@ const iconName = {
     pencilLine: Icons.PencilLine,
     addLine: Icons.AddLine,
     arrowRight: Icons.ArrowRight,
+    arrowUp: Icons.ArrowUp,
+    arrowDown: Icons.ArrowDown,
     closeCircle: Icons.CloseCircle,
     copyLine: Icons.CopyLine,
     deleteBinLine: Icons.DeleteBinLine,
@@ -28,7 +30,16 @@ const iconName = {
     eye: Icons.EyeLine,
     eyeCrossed: Icons.EyeCrossedLine,
     lock: Icons.LockLine,
+    approve: Icons.ApproveLine,
+    save: Icons.SaveLine,
+    book: Icons.BookLine,
+    ulist: Icons.UList,
+    alert: Icons.Alert,
+    infoCircle: Icons.InfoCircle,
+    imageIcon: Icons.ImageIcon,
+    fullscreen: Icons.FullScreen,
 };
+
 export type IconName = keyof typeof iconName;
 
 const iconSize = {

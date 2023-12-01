@@ -1,17 +1,27 @@
 .card {
-  justify-content: space-between;
-  min-width: 0;
+  grid-template-columns: minmax(100px, 1fr) minmax(auto, 1fr) max-content;
   background-color: var(--color-accent-super-light);
-  cursor: pointer;
+  padding-right: 8px;
+}
 
-  & .wrapper {
-    min-width: 0;
-    overflow: hidden;
-  }
+.content {
+  grid-column: 1;
+}
 
-  & .text {
-    text-overflow: ellipsis;
-    text-wrap: nowrap;
-    overflow: hidden;
+.wrapper {
+  min-width: 100px;
+  overflow: hidden;
+}
+
+.text {
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.btn {
+  grid-column: 3;
+  &-icon {
+    fill: var(--color-accent-default);
   }
 }

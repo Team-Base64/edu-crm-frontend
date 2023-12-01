@@ -26,11 +26,12 @@ const layoutType = {
 
 type LayoutType = keyof typeof layoutType;
 
-interface ContainerProps extends UiComponentProps {
+export interface ContainerProps extends UiComponentProps {
     direction?: ContainerDirection;
     gap?: ContainerGap;
     containerRef?: React.Ref<HTMLDivElement>;
     layout?: LayoutType;
+    style?: React.CSSProperties;
 }
 
 const Container: React.FC<ContainerProps> = ({
@@ -41,6 +42,7 @@ const Container: React.FC<ContainerProps> = ({
     classes,
     containerRef,
     layout = '',
+    style,
 }) => {
     return (
         <div
@@ -53,6 +55,7 @@ const Container: React.FC<ContainerProps> = ({
             ].join(' ')}
             onClick={onClick}
             ref={containerRef}
+            style={style}
         >
             {children}
         </div>

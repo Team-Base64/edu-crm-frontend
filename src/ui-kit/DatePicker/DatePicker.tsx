@@ -1,19 +1,46 @@
 import React from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
-import Input from '@ui-kit/Input/Input.tsx';
-import { dateInput } from '@components/AddEventForm/AddEventForm.tsx';
+import Input, { InputErrorType } from '@ui-kit/Input/Input.tsx';
+import {
+    dateInput,
+    getInputDateRepresentation,
+    getNextYearDate,
+    valueAsDateTimezoneOffset,
+} from '../../utils/common/dateRepresentation.ts';
 
 interface DatePickerProps extends UiComponentProps {
-    setDate: React.Dispatch<React.SetStateAction<dateInput>>;
+    useDate: {
+        date: dateInput;
+        setDate: React.Dispatch<React.SetStateAction<dateInput>>;
+    };
+    label: string;
+    error: InputErrorType;
+    onChangeDate: (date: dateInput) => void;
 }
 
-export const DatePicker: React.FC<DatePickerProps> = ({ setDate }) => {
+export const DatePicker: React.FC<DatePickerProps> = ({
+    useDate,
+    classes,
+    label,
+    error,
+    onChangeDate,
+}) => {
     return (
         <Input
             type={'date'}
-            onChange={(event) => setDate(event.target.valueAsDate)}
-            // value={new Date().toLocaleDateString('en-CA')}
-            min={new Date().toLocaleDateString('en-CA')}
+            onChange={(event) => {
+                const date = valueAsDateTimezoneOffset(
+                    event.target.valueAsDate,
+                );
+                useDate.setDate(date);
+                onChangeDate(date);
+            }}
+            min={getInputDateRepresentation(new Date())}
+            max={getInputDateRepresentation(getNextYearDate())}
+            defaultValue={getInputDateRepresentation(useDate.date)}
+            classes={classes}
+            label={{ text: label, type: 'h', size: 5 }}
+            error={error}
         ></Input>
     );
 };

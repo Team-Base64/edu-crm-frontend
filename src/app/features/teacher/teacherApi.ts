@@ -9,28 +9,31 @@ import { setMe } from '@app/features/teacher/teacherSlice';
 
 export const teacherApi = appApi.injectEndpoints({
     endpoints: (build) => ({
-        getMe: build.query<{ me: Teacher }, unknown>({
+        checkAuth: build.query<{ me: boolean }, unknown>({
             query: () => {
                 return {
-                    url: teacherPaths.me,
+                    url: teacherPaths.checkAuth,
                     method: 'GET',
                 };
             },
 
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            async onQueryStarted(args, { dispatch, queryFulfilled }) {
+            async onQueryStarted(_, { dispatch, queryFulfilled }) {
                 try {
-                    const { data } = await queryFulfilled;
-                    dispatch(setMe(data.me));
+                    const { meta } = await queryFulfilled;
+                    if (meta && meta.response && meta.response.ok) {
+                        dispatch(setMe(true));
+                    } else {
+                        dispatch(setMe(false));
+                    }
                 } catch (error) {
-                    console.log(error);
+                    console.error(error);
+                    dispatch(setMe(false));
                 }
             },
         }),
 
         login: build.mutation<
-            { me: Teacher },
+            { me: boolean },
             { payload: TeacherLoginPayload }
         >({
             query: ({ payload }) => {
@@ -41,22 +44,43 @@ export const teacherApi = appApi.injectEndpoints({
                 };
             },
 
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            async onQueryStarted(args, { dispatch, queryFulfilled }) {
+            async onQueryStarted(_, { dispatch, queryFulfilled }) {
                 try {
-                    console.log('APP login wait fullfilled');
-                    const { data } = await queryFulfilled;
-                    console.log('APP login fullfilled', data);
-                    dispatch(setMe(data.me));
+                    const { meta } = await queryFulfilled;
+                    if (meta && meta.response && meta.response.ok) {
+                        dispatch(setMe(true));
+                    } else {
+                        dispatch(setMe(false));
+                    }
                 } catch (error) {
-                    console.log(error);
+                    console.error(error);
+                    dispatch(setMe(false));
+                }
+            },
+        }),
+        logout: build.mutation<unknown, unknown>({
+            query: () => {
+                return {
+                    url: teacherPaths.logout,
+                    method: 'DELETE',
+                };
+            },
+
+            async onQueryStarted(_, { dispatch, queryFulfilled }) {
+                try {
+                    const { meta } = await queryFulfilled;
+                    console.log(meta);
+                    if (meta && meta.response && meta.response.ok) {
+                        dispatch(setMe(false));
+                    }
+                } catch (error) {
+                    console.error(error);
                 }
             },
         }),
 
         register: build.mutation<
-            { me: Teacher },
+            { me: boolean },
             { payload: TeacherRegisterPayload }
         >({
             query: ({ payload }) => {
@@ -67,19 +91,36 @@ export const teacherApi = appApi.injectEndpoints({
                 };
             },
 
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            async onQueryStarted(args, { dispatch, queryFulfilled }) {
+            async onQueryStarted(_, { dispatch, queryFulfilled }) {
                 try {
-                    const { data } = await queryFulfilled;
-                    dispatch(setMe(data.me));
+                    const { meta } = await queryFulfilled;
+                    if (meta && meta.response && meta.response.ok) {
+                        dispatch(setMe(true));
+                    } else {
+                        dispatch(setMe(false));
+                    }
                 } catch (error) {
-                    console.log(error);
+                    console.error(error);
+                    dispatch(setMe(false));
                 }
+            },
+        }),
+
+        profile: build.query<{ teacher: Teacher }, unknown>({
+            query: () => {
+                return {
+                    url: teacherPaths.profile,
+                    method: 'GET',
+                };
             },
         }),
     }),
 });
 
-export const { useGetMeQuery, useLoginMutation, useRegisterMutation } =
-    teacherApi;
+export const {
+    useCheckAuthQuery,
+    useLoginMutation,
+    useRegisterMutation,
+    useLogoutMutation,
+    useProfileQuery,
+} = teacherApi;

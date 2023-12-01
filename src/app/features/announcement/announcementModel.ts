@@ -1,9 +1,11 @@
 export type Announcement = {
-    id: string | number;
+    id: number;
     text: string;
-    createTime: number;
+    createTime: string;
+    attaches: string[];
 };
 
 export type AnnouncementCreatePayload = {
     text: string;
+    attaches: string[];
 };

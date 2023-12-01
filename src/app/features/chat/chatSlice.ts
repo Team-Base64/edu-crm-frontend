@@ -7,12 +7,13 @@ import {
     postChatMessageType,
 } from '@app/features/chat/chatModel';
 import { chatPaths } from '@app/features/chat/chatPaths';
+import { dialogSlice } from '@app/features/dialog/dialogSlice.ts';
 
 export const chatSlice = appApi.injectEndpoints({
     endpoints: (build) => ({
         getLiveMessages: build.query<apiChatMessageType, messageWS>({
-            query: ({ chatid }) => ({
-                url: chatPaths.dialog(chatid),
+            query: ({ chatID }) => ({
+                url: chatPaths.dialog(chatID),
                 method: 'GET',
             }),
             transformResponse(
@@ -21,10 +22,10 @@ export const chatSlice = appApi.injectEndpoints({
                 arg,
             ) {
                 const messages = {
-                    [arg.chatid]: baseQueryReturnValue.messages,
+                    [arg.chatID]: baseQueryReturnValue.messages,
                 };
                 const wasFetched = {
-                    [arg.chatid]: true,
+                    [arg.chatID]: true,
                 };
                 return { messages, wasFetched };
             },
@@ -37,9 +38,9 @@ export const chatSlice = appApi.injectEndpoints({
                     'wasFetched' in endpointState.data
                 ) {
                     return (
-                        currentArg.chatid !== previousArg.chatid &&
+                        currentArg.chatID !== previousArg.chatID &&
                         !(endpointState.data as apiChatMessageType).wasFetched[
-                            currentArg.chatid
+                            currentArg.chatID
                         ]
                     );
                 }
@@ -57,25 +58,32 @@ export const chatSlice = appApi.injectEndpoints({
             },
             async onCacheEntryAdded(
                 { channel },
-                { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
+                {
+                    updateCachedData,
+                    cacheDataLoaded,
+                    cacheEntryRemoved,
+                    dispatch,
+                },
             ) {
+                console.warn('asdasd');
                 const socket = getSocket();
                 try {
                     await cacheDataLoaded;
 
                     socket.onmessage = (event: MessageEvent) => {
                         const data = JSON.parse(event.data);
-                        if (data.channel !== channel) {
-                            console.warn(data.channel, channel);
-                            return;
-                        }
 
-                        updateCachedData((draft) => {
-                            draft.messages[data.chatid] = [
-                                ...(draft.messages[data.chatid] ?? []),
-                                data,
-                            ];
-                        });
+                        if (data.channel === channel) {
+                            updateCachedData((draft) => {
+                                draft.messages[data.chatID] = [
+                                    ...(draft.messages[data.chatID] ?? []),
+                                    data,
+                                ];
+                            });
+                        }
+                        dispatch(
+                            dialogSlice.util.invalidateTags(['getDialogs']),
+                        );
                     };
                 } catch {
                     console.error('error ws api');
@@ -87,8 +95,6 @@ export const chatSlice = appApi.injectEndpoints({
         sendMessage: build.mutation<unknown, { message: postChatMessageType }>({
             queryFn: (args) => {
                 const socket = getSocket();
-                args.message.chatID;
-                args.message.socialType;
                 socket.send(JSON.stringify(args.message));
                 return { data: [] };
             },
@@ -100,7 +106,7 @@ export const chatSlice = appApi.injectEndpoints({
                 dispatch(
                     chatSlice.util.updateQueryData(
                         'getLiveMessages',
-                        { channel: 'chat', chatid: message.chatID },
+                        { channel: 'chat', chatID: message.chatID },
                         (draft) => {
                             draft.messages[message.chatID] = [
                                 ...(draft.messages[message.chatID] ?? []),

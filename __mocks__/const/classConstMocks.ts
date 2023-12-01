@@ -1,24 +1,22 @@
 import { ClassData } from '../../src/app/features/class/classModel';
 
-export const classNewMock: ClassData = {
-    id: 0,
-    title: 'NEW class #100',
-    description: 'NEW class desc #100',
-    inviteToken: '32647374',
-};
-
 export const classListMock: ClassData[] = [
-    classNewMock,
+    {
+        id: 0,
+        title: 'Mock class #0',
+        description: 'Only for dev 0',
+        inviteToken: 'mgekl',
+    },
     {
         id: 1,
         title: 'Mock class #1',
         description: 'Only for dev 1',
-        inviteToken: 'mgekl',
+        inviteToken: 'dawbdl',
     },
     {
         id: 2,
         title: 'Mock class #2',
         description: 'Only for dev 2',
-        inviteToken: 'dawbdl',
+        inviteToken: 'kimkdaworksfleamodjuiwajkd2u3183i21jnejdknwamesfmkeuuef',
     },
 ];

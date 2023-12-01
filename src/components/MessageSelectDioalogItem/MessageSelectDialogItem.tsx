@@ -10,23 +10,29 @@ import { dialogSelectType } from '@app/features/dialog/dialogModel';
 interface MessageSelectDialogItemProps extends UiComponentProps {
     data: dialogSelectType;
     selectDialog: () => void;
+    isSelected: boolean;
 }
 
 const MessageSelectDialogItem: React.FC<MessageSelectDialogItemProps> = ({
     data,
     selectDialog,
+    isSelected,
 }) => {
     return (
         <Button
-            type={'link'}
+            type={'static'}
             onClick={selectDialog}
             size={'l'}
             border={''}
-            classes={styles.messageSelectDialogItem}
+            classes={
+                isSelected
+                    ? styles.messageSelectDialogItemSelected
+                    : styles.messageSelectDialogItem
+            }
         >
             <Avatar
                 src={data.cover}
-                alt={`аватар диалога с ${data.name}`}
+                alt={`аватар диалога с ${data.studentName}`}
             ></Avatar>
             <div className={styles.messageSelectDialogItemText}>
                 <Text
@@ -34,7 +40,7 @@ const MessageSelectDialogItem: React.FC<MessageSelectDialogItemProps> = ({
                     size={5}
                     classes={styles.messageSelectDialogItemTextTitle}
                 >
-                    {data.name}
+                    {data.studentName}
                 </Text>
                 <Text
                     type={'p'}
@@ -42,7 +48,7 @@ const MessageSelectDialogItem: React.FC<MessageSelectDialogItemProps> = ({
                     color={'light'}
                     classes={styles.messageSelectDialogItemTextMessage}
                 >
-                    {data.text}
+                    {data.text ? data.text : 'Вложения'}
                 </Text>
                 <Text
                     type={'p'}

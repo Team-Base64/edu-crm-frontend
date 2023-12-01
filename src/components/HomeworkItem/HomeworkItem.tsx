@@ -6,36 +6,43 @@ import React from 'react';
 import Text from '@ui-kit/Text/Text';
 
 import styles from './HomeworkItem.module.scss';
+import getDate from 'utils/common/PrettyDate/common/date';
+import { getDeltaNow } from 'utils/common/PrettyDate/common/delta';
+import getTime from 'utils/common/PrettyDate/common/time';
+import { Homework } from '@app/features/homework/homeworkModel';
+import { useNavigate } from 'react-router-dom';
+import AppRoutes from '@router/routes';
+import { ListItemFC } from '@ui-kit/List/types';
 
-interface HomeworkItemProps extends UiComponentProps {
-    id: string | number;
-    title: string;
-    description?: string;
-    deadlineTime: number;
-}
+interface HomeworkListItemProps extends UiComponentProps {}
 
-const HomeworkItem: React.FC<HomeworkItemProps> = ({
-    title,
-    description,
-    deadlineTime,
-    onClick,
+const HomeworkListItem: ListItemFC<Homework, HomeworkListItemProps> = ({
+    item,
     classes,
 }) => {
+    const { deadlineTime, title, description, id } = item;
+    const navigate = useNavigate();
+
     let stateClassName = styles.notPass;
     const stateStr =
-        'До ' + new Date(deadlineTime).toLocaleDateString('ru-RU').slice(0, -5);
+        'До ' + getDate(deadlineTime, false) + ' ' + getTime(deadlineTime);
 
-    if (Date.now() < deadlineTime) {
+    if (getDeltaNow(deadlineTime) > 0) {
         stateClassName = styles.notPass;
     } else {
         stateClassName = styles.pass;
     }
 
+    const handleClick: React.MouseEventHandler = (e) => {
+        e.stopPropagation();
+        return navigate(`/${AppRoutes.homeworks}/${id}`);
+    };
+
     return (
         <Container
             classes={[styles.card, classes].join(' ')}
             direction="horizontal"
-            onClick={onClick}
+            onClick={handleClick}
         >
             <Container
                 classes={styles.wrapper}
@@ -69,7 +76,7 @@ const HomeworkItem: React.FC<HomeworkItemProps> = ({
                 </Text>
                 <Button
                     classes={styles.btn}
-                    onClick={onClick}
+                    onClick={handleClick}
                     type="link"
                 >
                     <Icon
@@ -82,4 +89,4 @@ const HomeworkItem: React.FC<HomeworkItemProps> = ({
     );
 };
 
-export default HomeworkItem;
+export default HomeworkListItem;

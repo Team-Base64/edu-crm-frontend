@@ -24,6 +24,7 @@ const ClassHomeworksWidget: React.FC<ClassHomeworksWidgetProps> = ({
     const handleShowAll = (e: React.MouseEvent) => {
         e.stopPropagation();
         setFullPage(true);
+        setFullPage(true);
     };
 
     const showAllButton = (
@@ -65,7 +66,14 @@ const ClassHomeworksWidget: React.FC<ClassHomeworksWidgetProps> = ({
                         name="addLine"
                         classes={styles.btnCreateIcon}
                     />
-                    Создать
+                    <Text
+                        type="p"
+                        size={1}
+                        weight="bold"
+                        classes={styles.btnCreateText}
+                    >
+                        Создать
+                    </Text>
                 </Button>
             </Widget>
             {/* FULL PAGE WIGET */}
@@ -83,10 +91,10 @@ const ClassHomeworksWidget: React.FC<ClassHomeworksWidgetProps> = ({
                     >
                         <Text
                             type="h"
-                            size={4}
+                            size={3}
                             weight="bold"
                         >
-                            {'Все домашние задания группы'}
+                            {'Все домашние задания группы: '}
                         </Text>
                     </Container>
                     <HomeworkList
@@ -102,7 +110,7 @@ const ClassHomeworksWidget: React.FC<ClassHomeworksWidgetProps> = ({
             >
                 <HomeworkCreateForm
                     classId={classId}
-                    onSuccess={() => setCreateForm(false)}
+                    onSubmitSuccess={() => setCreateForm(false)}
                 />
             </Overlay>
         </>

@@ -5,6 +5,9 @@ import ClassAnnounceCard from '@components/ClassAnnounceCard/ClassAnnounceCard';
 import Container from '@ui-kit/Container/Container';
 import { useGetClassAnnouncementsQuery } from '@app/features/announcement/announcementSlice';
 import EmptyItem from '@components/EmptyItem/EmptyItem';
+import Icon from '@ui-kit/Icon/Icon';
+import Spinner from '@ui-kit/Spinner/Spinner';
+import { getDelta } from 'utils/common/PrettyDate/common/delta';
 
 interface ClassAnnounceListProps extends UiComponentProps {
     classId: string | number;
@@ -12,20 +15,29 @@ interface ClassAnnounceListProps extends UiComponentProps {
 
 const ClassAnnounceList: React.FC<ClassAnnounceListProps> = ({ classId }) => {
     const listId = useId();
-    const { data, isError, error } = useGetClassAnnouncementsQuery({
+    const { data, isError, isLoading } = useGetClassAnnouncementsQuery({
         class_id: classId,
     });
 
-    if (!data?.posts || isError) {
+    if (isLoading) {
+        return (
+            <EmptyItem text="Загрузка...">
+                <Spinner />
+            </EmptyItem>
+        );
+    }
+
+    if (isError || !data?.posts) {
         return (
             <>
-                {isError && JSON.stringify(error)}
-                {!isError && 'Some error'}
+                <EmptyItem text="Произошла ошибка">
+                    <Icon name="alert" />
+                </EmptyItem>
             </>
         );
     }
 
-    const list = data.posts;
+    const list = [...data.posts];
     return (
         <Container
             direction="vertical"
@@ -37,17 +49,20 @@ const ClassAnnounceList: React.FC<ClassAnnounceListProps> = ({ classId }) => {
                     text="В этом классе пока нет объявлений"
                 />
             ) : (
-                list.map(({ id, text, createTime: time }) => (
-                    <React.Fragment key={`${listId}-${id}`}>
-                        <ClassAnnounceCard
-                            firstName="George"
-                            lastName="Illarionov"
-                            avatarSrc=""
-                            text={text}
-                            time={Number(time)}
-                        />
-                    </React.Fragment>
-                ))
+                list
+                    .sort((a, b) => {
+                        return getDelta(b.createTime, a.createTime);
+                    })
+                    .map((item) => (
+                        <React.Fragment key={`${listId}-${item.id}`}>
+                            <ClassAnnounceCard
+                                // firstName="George"
+                                // lastName="Illarionov"
+                                // avatarSrc=""
+                                data={item}
+                            />
+                        </React.Fragment>
+                    ))
             )}
         </Container>
     );

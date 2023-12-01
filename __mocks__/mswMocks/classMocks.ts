@@ -1,22 +1,28 @@
-import { http, HttpResponse } from 'msw';
+import { http, HttpHandler, HttpResponse } from 'msw';
 
 import appPaths from '../../src/app/appPaths';
 
 import { defaultHeadersMock } from '../const/constMocks.ts';
-import { classListMock, classNewMock } from '../const/classConstMocks.ts';
+import { classListMock } from '../const/classConstMocks.ts';
 import { classHomeworksMock } from '../const/homeworkConstMocks.ts';
 import { classStudentsMock } from '../const/studentConstMocks.ts';
 import { classSolutionsMock } from '../const/solutionsConstMocks.ts';
+import {
+    ClassCreatePayload,
+    ClassData,
+} from '@app/features/class/classModel.ts';
 import { classAnnouncementsMock } from '../const/announceConstMocks.ts';
 
-export const classHandlers = [
+export const classHandlers: HttpHandler[] = [
     // Get class
     http.get(`${appPaths.basePath}${appPaths.class(':id')}`, ({ params }) => {
-        const { id } = params;
+        const id = Number(params.id);
+        const clas = classListMock.filter((i) => i.id === id).at(0);
+        if (!clas) throw new Error(`No class ${id}`);
         try {
             return HttpResponse.json(
                 {
-                    class: classListMock[Number(id)],
+                    class: clas,
                 },
                 {
                     status: 200,
@@ -57,135 +63,44 @@ export const classHandlers = [
         }
     }),
 
-    // Get class users
-    http.get(
-        `${appPaths.basePath}${appPaths.classStudents(':id')}`,
-        ({ params }) => {
-            const { id } = params;
-            try {
-                return HttpResponse.json(
-                    {
-                        students: classStudentsMock[Number(id)],
-                    },
-                    {
-                        status: 200,
-                        headers: { ...defaultHeadersMock },
-                    },
-                );
-            } catch (e) {
-                return HttpResponse.json(
-                    {},
-                    {
-                        status: 404,
-                        headers: { ...defaultHeadersMock },
-                    },
-                );
-            }
-        },
-    ),
-
-    // Get class anoounces
-    http.get(
-        `${appPaths.basePath}${appPaths.classAnnouncements(':id')}`,
-        ({ params }) => {
-            const { id } = params;
-            try {
-                return HttpResponse.json(
-                    {
-                        posts: classAnnouncementsMock[Number(id)],
-                    },
-                    {
-                        status: 200,
-                        headers: { ...defaultHeadersMock },
-                    },
-                );
-            } catch (e) {
-                return HttpResponse.json(
-                    {},
-                    {
-                        status: 404,
-                        headers: { ...defaultHeadersMock },
-                    },
-                );
-            }
-        },
-    ),
-
-    // Get class homeworks
-    http.get(
-        `${appPaths.basePath}${appPaths.classHomeworks(':id')}`,
-        ({ params }) => {
-            const { id } = params;
-            try {
-                return HttpResponse.json(
-                    {
-                        homeworks: classHomeworksMock[Number(id)],
-                    },
-                    {
-                        status: 200,
-                        headers: { ...defaultHeadersMock },
-                    },
-                );
-            } catch (e) {
-                return HttpResponse.json(
-                    {},
-                    {
-                        status: 404,
-                        headers: { ...defaultHeadersMock },
-                    },
-                );
-            }
-        },
-    ),
-
-    // Get class solutions
-    http.get(
-        `${appPaths.basePath}${appPaths.classSolutions(':id')}`,
-        ({ params }) => {
-            const { id } = params;
-            try {
-                return HttpResponse.json(
-                    {
-                        solutions: classSolutionsMock[Number(id)],
-                    },
-                    {
-                        status: 200,
-                        headers: { ...defaultHeadersMock },
-                    },
-                );
-            } catch (e) {
-                return HttpResponse.json(
-                    {},
-                    {
-                        status: 404,
-                        headers: { ...defaultHeadersMock },
-                    },
-                );
-            }
-        },
-    ),
-
     // CreateClass
-    http.post(`${appPaths.basePath}${appPaths.classCreate}`, async () => {
-        try {
-            return HttpResponse.json(
-                {
-                    class: classNewMock,
-                },
-                {
-                    status: 200,
-                    headers: { ...defaultHeadersMock },
-                },
-            );
-        } catch (e) {
-            console.log(e);
-            return HttpResponse.json(
-                {},
-                {
-                    status: 500,
-                    headers: { ...defaultHeadersMock },
-                },
-            );
-        }
-    }),
+    http.post<never, ClassCreatePayload>(
+        `${appPaths.basePath}${appPaths.classCreate}`,
+        async (info) => {
+            try {
+                const payload = await info.request.json();
+
+                const clN: ClassData = {
+                    ...payload,
+                    id: Date.now(),
+                    inviteToken: Date.now().toString(),
+                };
+
+                classListMock.push(clN);
+                classHomeworksMock[Number(clN.id)] = [];
+                classStudentsMock[Number(clN.id)] = [];
+                classSolutionsMock[Number(clN.id)] = [];
+                classAnnouncementsMock[Number(clN.id)] = [];
+
+                return HttpResponse.json(
+                    {
+                        class: clN,
+                    },
+                    {
+                        status: 200,
+                        headers: { ...defaultHeadersMock },
+                    },
+                );
+            } catch (e) {
+                console.log(e);
+                return HttpResponse.json(
+                    {},
+                    {
+                        status: 500,
+                        headers: { ...defaultHeadersMock },
+                    },
+                );
+            }
+        },
+    ),
 ];

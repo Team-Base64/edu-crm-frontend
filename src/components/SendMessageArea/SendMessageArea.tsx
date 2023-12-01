@@ -12,17 +12,14 @@ import { useGetDialogsQuery } from '@app/features/dialog/dialogSlice.ts';
 import useSendAttaches from '../../hooks/useSendAttaches.ts';
 import { SerializeAttachesFromBackend } from '../../utils/attaches/attachesSerializers.ts';
 
+import { localStoragePath, unselectedId } from '@app/const/consts.ts';
+
 interface SendMessageAreaProps extends UiComponentProps {
-    id: string;
+    id: number;
     name: string;
-    onMessageSend: (text: string) => void;
 }
 
-const SendMessageArea: React.FC<SendMessageAreaProps> = ({
-    id,
-    name,
-    onMessageSend,
-}) => {
+const SendMessageArea: React.FC<SendMessageAreaProps> = ({ id, name }) => {
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
     const [isDisabledSend, setIsDisabledSend] = useState(true);
@@ -34,12 +31,26 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
     const { attaches, setAttaches, attachesSendPromise } =
         useSendAttaches('chat');
 
+    const toSendMessage = (text: string, attaches: string[]) => {
+        if (dialogData.data && id !== unselectedId) {
+            sendMessage({
+                message: {
+                    chatID: id,
+                    text: text.trim(),
+                    ismine: true,
+                    date: new Date().toISOString(),
+                    socialType: dialogData.data.dialogs[id].socialType,
+                    attaches,
+                },
+            });
+        }
+    };
+
     const sendMessageHandler = () => {
         if (!textAreaRef.current) {
             return;
         }
 
-        console.log('attaches count: ', attaches.length);
         if (attaches.length) {
             attachesSendPromise()
                 .then((result) => {
@@ -55,7 +66,7 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
                                 attaches,
                                 socialType:
                                     dialogData.data.dialogs[Number(id)]
-                                        .socialtype,
+                                        .socialType,
                             },
                         });
                     }
@@ -69,10 +80,11 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
                 .catch((error) => console.error('sendAttaches: ', error));
         } else {
             setAttaches([]);
-            onMessageSend(textAreaRef.current.value);
+            toSendMessage(textAreaRef.current.value, []);
             textAreaRef.current.value = '';
         }
-        localStorage.setItem(`chatArea/${id}`, '');
+
+        localStorage.setItem(`${localStoragePath.chatArea}${id}`, '');
     };
 
     const handleClick = (e: React.MouseEvent) => {
@@ -81,7 +93,8 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
     };
 
     useEffect(() => {
-        const savedMsg = localStorage.getItem(`chatArea/${id}`) ?? '';
+        const savedMsg =
+            localStorage.getItem(`${localStoragePath.chatArea}/${id}`) ?? '';
         if (!textAreaRef.current) return;
         textAreaRef.current.value = savedMsg;
         setIsDisabledSend(!textAreaRef.current.value && !attaches.length);
@@ -90,7 +103,7 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
     const handleMessageChange: ChangeEventHandler<HTMLTextAreaElement> = ({
         target,
     }) => {
-        localStorage.setItem(`chatArea/${id}`, target.value);
+        localStorage.setItem(`${localStoragePath.chatArea}${id}`, target.value);
         setIsDisabledSend(!target.value && !attaches.length);
     };
 
@@ -115,18 +128,19 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({
                     ></Icon>
                 </AttachFile>
                 <TextArea
+                    classes={styles.sendMessageAreaInput}
                     name={name}
                     spellcheck={true}
                     textareaText={''}
-                    border={'border'}
                     minRows={1}
+                    focusRows={3}
                     maxRows={5}
                     autoResize
                     onChange={handleMessageChange}
                     onKeydownCallback={sendMessageHandler}
                     textareaRef={textAreaRef}
                     maxLength={1500}
-                ></TextArea>
+                />
 
                 <Button
                     onClick={handleClick}

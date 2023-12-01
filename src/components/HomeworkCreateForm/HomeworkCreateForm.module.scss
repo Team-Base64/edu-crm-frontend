@@ -1,23 +1,23 @@
+.widget {
+    width: 80vw;
+}
+
+.submit {
+    &-text {
+        color: white;
+    }
+
+    &-icon {
+        fill: white;
+    }
+}
+
 .content {
     gap: 16px;
     margin: 16px 0 32px 0;
 }
 
-.content-nav {
-
-    & .add-btn {
-        background-color: rgba(0, 157, 0, 0.42);
-
-        &-icon {
-            fill: white;
-        }
-    }
-
-    & .set-btn {
-        background-color: rgba(78, 78, 78, 0.42);
-
-        &-icon {
-            fill: white;
-        }
-    }
+.tasks {
+    max-height: 500px;
+    min-height: max-content;
 }

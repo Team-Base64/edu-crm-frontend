@@ -1,0 +1,40 @@
+.page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.content {
+    grid-template-columns: max-content 1fr;
+
+    &-title {
+        grid-column: 1;
+    }
+
+    &-item {
+        grid-column: 2;
+        max-width: 100%;
+    }
+}
+
+.participantList {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+.participantItem {
+    width: 100%;
+}
+
+.classItem {
+    max-width: max-content;
+}
+
+.solutions {
+    padding:  0;
+}

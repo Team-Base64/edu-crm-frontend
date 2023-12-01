@@ -3,6 +3,7 @@ import asStrings from '@helpers/AsStrings';
 const AppRoutes = asStrings({
     base: '/',
     none: '*',
+    page404: 'page_not_found',
 
     test: 'test',
 
@@ -11,10 +12,22 @@ const AppRoutes = asStrings({
     class: ':id',
     messenger: 'messenger',
     settings: 'settings',
+    tasks: 'tasks',
+    homeworks: 'homeworks',
+    homework: ':id',
+    solutions: 'solutions',
+    solution: ':id',
 
     login: 'login',
     signup: 'signup',
     logout: 'logout',
 });
+
+export const routerQueryParams = {
+    messenger: {
+        chatid: 'chatid',
+        search: 'search',
+    },
+};
 
 export default AppRoutes;

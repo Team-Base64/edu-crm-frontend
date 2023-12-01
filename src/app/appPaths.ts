@@ -6,6 +6,8 @@ import { homeworkSolutionPaths } from '@app/features/homeworkSolution/homeworkSo
 import { studentPaths } from '@app/features/stundent/studentPaths';
 import { chatPaths } from '@app/features/chat/chatPaths';
 import { teacherPaths } from '@app/features/teacher/teacherPaths';
+import { homeworkTaskPaths } from './features/homeworkTask/homeworkTaskPaths';
+import { reviewPaths } from './features/homeworkSolutionReview/reviewPaths';
 
 const appPaths = {
     basePath: import.meta.env.VITE_BASE_PATH,
@@ -19,6 +21,8 @@ const appPaths = {
     ...dialogPaths,
     ...chatPaths,
     ...teacherPaths,
+    ...homeworkTaskPaths,
+    ...reviewPaths,
 };
 
 export default appPaths;

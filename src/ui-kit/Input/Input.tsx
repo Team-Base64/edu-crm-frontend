@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from './Input.module.scss';
 import Container from '@ui-kit/Container/Container';
+import Label, { LabelProps } from '@ui-kit/Label/Label';
+import Tooltip, { placementOfTooltip } from '@ui-kit/TooltipKit/Tooltip.tsx';
 
 const inputSizeType = {
     s: styles.small,
@@ -19,16 +21,19 @@ const borderType = {
 
 type BorderType = keyof typeof borderType;
 
+export type InputErrorType = { text: string; position: placementOfTooltip };
+
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-    label?: string;
+    label?: LabelProps;
     errorHint?: string;
     success?: boolean;
     sizeType?: InputSizeType;
     border?: BorderType;
     classes?: string;
-    icon?: JSX.Element;
-    button?: JSX.Element;
+    icon?: React.JSX.Element;
+    button?: React.JSX.Element;
     inputRef?: React.LegacyRef<HTMLInputElement>;
+    error?: InputErrorType;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -42,17 +47,27 @@ const Input: React.FC<InputProps> = ({
     icon,
     button,
     inputRef,
+    error,
+    children,
     ...rest
 }) => {
     return (
-        <>
-            <Container
-                direction={'vertical'}
-                gap={sizeType}
-                classes={[inputSizeType[sizeType], classes].join(' ')}
-            >
-                {label && <label className={styles.title}>{label}</label>}
+        <Container
+            direction={'vertical'}
+            gap={sizeType}
+            classes={[
+                inputSizeType[sizeType],
+                classes,
+                styles.baseContainer,
+            ].join(' ')}
+        >
+            {label && <Label {...label} />}
 
+            <Tooltip
+                text={error?.text ?? ''}
+                place={error ? error.position : 'right'}
+                visibility={error?.text ? 'visible' : 'hidden'}
+            >
                 <Container
                     direction={'horizontal'}
                     gap={sizeType}
@@ -70,13 +85,11 @@ const Input: React.FC<InputProps> = ({
                         className={styles.input}
                         {...rest}
                     />
+                    {children}
                     {button && button}
                 </Container>
-                {errorHint && (
-                    <div className={styles.errorHint}>{errorHint}</div>
-                )}
-            </Container>
-        </>
+            </Tooltip>
+        </Container>
     );
 };
 

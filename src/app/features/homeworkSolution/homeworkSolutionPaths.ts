@@ -1,5 +1,8 @@
 export const homeworkSolutionPaths = {
     solutions: `solutions`,
-    classSolutions: (class_id: string | number) =>
-        `classes/${class_id}/solutions`,
+    solution: (id: number | string) => `solutions/${id}`,
+    classSolutions: (classID: string | number) =>
+        `classes/${classID}/solutions`,
+    homeworkSolutions: (homeworkID: number | string) =>
+        `homeworks/${homeworkID}/solutions`,
 };

@@ -1,0 +1,29 @@
+.header{
+    align-self: center;
+}
+
+.submit {
+    &-text {
+        color: white;
+    }
+
+    &-icon {
+        fill: white;
+    }
+}
+
+.spinner {
+    fill: #333;
+}
+
+.state {
+    align-items: center;
+}
+
+.approved {
+    color: rgb(66, 159, 66);
+}
+
+.reject {
+    color: rgb(227, 65, 40);
+}

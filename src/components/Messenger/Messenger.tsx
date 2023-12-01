@@ -4,25 +4,29 @@ import React, { useEffect, useRef } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import Container from '@ui-kit/Container/Container.tsx';
 import styles from './Messenger.module.scss';
-import {
-    useGetLiveMessagesQuery,
-    useSendMessageMutation,
-} from '@app/features/chat/chatSlice.ts';
-import { useGetDialogsQuery } from '@app/features/dialog/dialogSlice.ts';
+
+import { useGetLiveMessagesQuery } from '@app/features/chat/chatSlice.ts';
+import Spinner from '@ui-kit/Spinner/Spinner.tsx';
 
 interface SendMessageAreaProps extends UiComponentProps {
-    chatid: number;
+    chatID: number;
 }
-const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
-    const { data, isLoading, isSuccess, isError, error } =
-        useGetLiveMessagesQuery({
-            channel: 'chat',
-            chatid,
-        });
 
-    const [sendMessage] = useSendMessageMutation();
+const Messenger: React.FC<SendMessageAreaProps> = ({ chatID, classes }) => {
+    const { data, isLoading } = useGetLiveMessagesQuery({
+        channel: 'chat',
+        chatID,
+    });
 
-    const messageBlock = data?.messages[chatid]?.map((message, index) => {
+    const messagesRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (messagesRef.current instanceof HTMLElement) {
+            messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+        }
+    });
+
+    const messageBlock = data?.messages[chatID]?.map((message, index) => {
         return (
             <MessageItem
                 isMine={message.ismine}
@@ -34,17 +38,21 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
         );
     });
 
-    const messagesRef = useRef<HTMLDivElement>(null);
-
-    const dialogData = useGetDialogsQuery(null);
-
-    useEffect(() => {
-        if (messagesRef.current instanceof HTMLElement) {
-            messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
-        } else {
-            console.error('wrong element type');
-        }
-    });
+    const contentToRender = (
+        <>
+            <Container
+                direction={'vertical'}
+                classes={styles.messengerContainer}
+                containerRef={messagesRef}
+            >
+                {messageBlock}
+            </Container>
+            <SendMessageArea
+                id={chatID}
+                name={'SendMessageArea'}
+            ></SendMessageArea>
+        </>
+    );
 
     return (
         <Container
@@ -52,33 +60,8 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatid, classes }) => {
             classes={[styles.messenger, classes].join(' ')}
             layout={'defaultBase'}
         >
-            <Container
-                direction={'vertical'}
-                classes={styles.messageContainer}
-                containerRef={messagesRef}
-            >
-                {isLoading && <span>loading...</span>}
-                {isSuccess && (chatid !== -1 ? messageBlock : '')}
-                {isError && <span>{error.toString()}</span>}
-            </Container>
-            <SendMessageArea
-                id={chatid.toString()}
-                name={'SendMessageArea'}
-                onMessageSend={(text: string) => {
-                    if (dialogData.data && chatid !== -1) {
-                        sendMessage({
-                            message: {
-                                chatID: chatid,
-                                text: text.trim(),
-                                ismine: true,
-                                date: new Date().toISOString(),
-                                socialType:
-                                    dialogData.data.dialogs[chatid].socialtype,
-                            },
-                        });
-                    }
-                }}
-            ></SendMessageArea>
+            {isLoading && <Spinner></Spinner>}
+            {contentToRender}
         </Container>
     );
 };

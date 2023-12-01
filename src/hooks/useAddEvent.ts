@@ -1,18 +1,41 @@
-import React, { useState } from 'react';
-import { dateInput } from '@components/AddEventForm/AddEventForm.tsx';
-import { eventMutationsType } from '@app/features/calendar/calendarModel.ts';
+import { useState } from 'react';
+import {
+    CalendarEventType,
+    eventMutationsType,
+} from '@app/features/calendar/calendarModel.ts';
 import { useGetClassesQuery } from '@app/features/class/classSlice.ts';
+import { unselectedId } from '@app/const/consts.ts';
+import { dateInput, setTime } from '../utils/common/dateRepresentation.ts';
 
 export default function useAddEvent(
-    setIsShowingState: React.Dispatch<React.SetStateAction<boolean>>,
+    handleOverlayClose: () => void,
     sendEvent: ReturnType<eventMutationsType>[0],
+    event: CalendarEventType | null,
 ) {
-    const [title, setTitle] = useState('');
-    const [startDate, setStartDate] = useState<dateInput>(null);
-    const [startTime, setStartTime] = useState<dateInput>(null);
-    const [endDate, setEndDate] = useState<dateInput>(null);
-    const [endTime, setEndTime] = useState<dateInput>(null);
-    const [description, setDescription] = useState('');
+    const getInitialDate = (
+        event: CalendarEventType | null,
+        param: 'startDate' | 'endDate',
+    ) => {
+        if (event) {
+            return new Date(event[param]);
+        }
+        return null;
+    };
+
+    const [title, setTitle] = useState(event?.title);
+    const [startDate, setStartDate] = useState<dateInput>(
+        getInitialDate(event, 'startDate'),
+    );
+    const [startTime, setStartTime] = useState<dateInput>(
+        getInitialDate(event, 'startDate'),
+    );
+    const [endDate, setEndDate] = useState<dateInput>(
+        getInitialDate(event, 'endDate'),
+    );
+    const [endTime, setEndTime] = useState<dateInput>(
+        getInitialDate(event, 'endDate'),
+    );
+    const [description, setDescription] = useState(event?.description);
 
     const { data } = useGetClassesQuery(null);
     const classData = new Map<string, number>();
@@ -20,33 +43,28 @@ export default function useAddEvent(
         classData.set(classItem.title, classItem.id);
     });
 
-    const [selectedClass, setSelectedClass] = useState<number | undefined>(
-        data?.classes[0].id,
+    const [selectedClassId, setSelectedClass] = useState<number>(
+        event?.classid ?? unselectedId,
     );
-
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        if (startDate && startTime && endDate && endTime) {
-            startDate.setHours(startTime.getHours());
-            startDate.setMinutes(startTime.getMinutes());
-            endDate.setHours(endTime.getHours());
-            endDate.setMinutes(endTime.getMinutes());
-            console.log('selectedClass', selectedClass);
+    const handleSubmit = () => {
+        if (title && startDate && startTime && endDate && endTime) {
             sendEvent({
                 title,
-                description,
-                startDate: startDate.toISOString(),
-                endDate: endDate.toISOString(),
-                classid: selectedClass,
+                description: description ?? '',
+                startDate: setTime(startDate, startTime).toISOString(),
+                endDate: setTime(endDate, endTime).toISOString(),
+                classid:
+                    selectedClassId === unselectedId
+                        ? Array.from(classData.values())[0] ?? unselectedId
+                        : selectedClassId,
+                id: event?.id ?? '',
             })
-                .then(() => {
-                    setTitle('');
-                    setStartDate(null);
-                    setStartTime(null);
-                    setEndDate(null);
-                    setEndTime(null);
-                    setDescription('');
-                    setIsShowingState(false);
+                .then((response) => {
+                    if ('error' in response) {
+                        throw Error(response.error.toString());
+                    } else {
+                        handleOverlayClose();
+                    }
                 })
                 .catch((error) => console.error(error));
         }
@@ -54,12 +72,15 @@ export default function useAddEvent(
 
     return {
         useTitle: { title, setTitle },
-        useStartDate: { startDate, setStartDate },
-        useStartTime: { startTime, setStartTime },
-        useEndDate: { endDate, setEndDate },
-        useEndTime: { endTime, setEndTime },
+        useStartDate: { date: startDate, setDate: setStartDate },
+        useStartTime: { time: startTime, setTime: setStartTime },
+        useEndDate: { date: endDate, setDate: setEndDate },
+        useEndTime: { time: endTime, setTime: setEndTime },
         useDescription: { description, setDescription },
-        useSelectedClass: { selectedClass, setSelectedClass },
+        useSelectedClass: {
+            selected: selectedClassId,
+            setSelected: setSelectedClass,
+        },
         classData,
         handleSubmit,
     };

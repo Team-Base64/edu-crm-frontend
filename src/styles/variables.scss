@@ -109,6 +109,25 @@
 
   --ui-kit-font-type-default: 'Roboto', sans-serif;
 
+  // Checkbox
+
+  --ui-kit-checkbox-size-s: 16px;
+  --ui-kit-checkbox-border-width-s: 2px;
+  --ui-kit-checkbox-border-radius-s: 4px;
+  --ui-kit-checkbox-tick-ratio-s: 1.2;
+  --ui-kit-checkbox-size-m: 20px;
+  --ui-kit-checkbox-border-width-m: 2px;
+  --ui-kit-checkbox-border-radius-m: 4px;
+  --ui-kit-checkbox-tick-ratio-m: 1.2;
+  --ui-kit-checkbox-size-l: 24px;
+  --ui-kit-checkbox-border-width-l: 2px;
+  --ui-kit-checkbox-border-radius-l: 8px;
+  --ui-kit-checkbox-tick-ratio-l: 1.2;
+  --ui-kit-checkbox-tick-color-primary: var(--color-accent-bright);
+  --ui-kit-checkbox-border-color-primary: gray;
+  --ui-kit-checkbox-bg-primary: var(--color-bg-light);
+  --ui-kit-checkbox-bg-checked-primary: var(--color-bg-light);
+
   /* colors */
 
   // accent

@@ -1,63 +1,49 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import Container from '@ui-kit/Container/Container';
 import Input from '@ui-kit/Input/Input';
 import TextArea from '@ui-kit/TextArea/TextArea';
 import Button from '@ui-kit/Button/Button';
 import Icon from '@ui-kit/Icon/Icon';
-import { v4 as uuid } from 'uuid';
 import styles from './HomeworkCreateForm.module.scss';
-import Overlay from '@ui-kit/Overlay/Overlay';
-import Widget from '@components/Widget/Widget';
-import {
-    HomeworkTask,
-    HomeworkTaskRaw,
-} from '@app/features/homework/homeworkModel';
-import EmptyItem from '@components/EmptyItem/EmptyItem';
 import Text from '@ui-kit/Text/Text';
-import TaskItem from './HomeworkTask';
-import TaskCreateForm from './HomeworkTaskCreateForm';
 import { useCreateHomeworkMutation } from '@app/features/homework/homeworkSlice';
-import { useSendChatAttachesMutation } from '@app/features/attaches/attachesSlice.ts';
+import { HomeworkTask } from '@app/features/homeworkTask/homeworkTaskModel';
+import { useListItems } from '@ui-kit/List/hooks';
+import HomeworkTaskChoose, {
+    HomeworkTaskChooseRef,
+} from '@components/HomeworkTaskChoose/HomeworkTaskChoose';
+import { dateToLocalISO } from 'utils/common/PrettyDate/common/iso';
 
 interface HomeworkCreateFormProps extends UiComponentProps {
-    onSuccess?: () => void;
+    onSubmitSuccess?: () => void;
     classId: string | number;
 }
 
-interface Item extends HomeworkTaskRaw {
-    uuid: string;
-}
-
 const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({
-    onSuccess,
+    onSubmitSuccess,
     classId,
 }) => {
-    const [isTaskCreateFrom, setTaskCreateForm] = useState<boolean>(false);
-    const [tasks, setTasks] = useState<Item[]>([]);
     const formRef = useRef<HTMLFormElement>(null);
+    const textAreaRef = useRef<HTMLTextAreaElement>(null);
+    const chooseRef = useRef<HomeworkTaskChooseRef>(null);
 
     const [lock, setLock] = useState<boolean>(false);
-
     const [createHW, createStatus] = useCreateHomeworkMutation();
-    // const [uploadAttach, uploadStatus] = useSendChatAttachesMutation();
-    const [, uploadStatus] = useSendChatAttachesMutation();
 
-    const textAreaRef = useRef<HTMLTextAreaElement>(null);
+    const [choosenTasks, changeChoosenTasks] = useListItems(
+        [] as HomeworkTask[],
+    );
 
     useEffect(() => {
-        if (createStatus.isLoading || uploadStatus.isLoading) {
+        if (createStatus.isLoading) {
             setLock(true);
-        }
-
-        if (!createStatus.isLoading && !uploadStatus.isLoading) {
+        } else {
             setLock(false);
         }
-    }, [createStatus, uploadStatus, setLock]);
+    }, [createStatus, setLock]);
 
-    const handleSubmit = async () => {
-        console.log('Handle submit');
-
+    const handleSubmit = useCallback(async () => {
         const form = formRef.current;
         if (!form) {
             return;
@@ -70,39 +56,9 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({
         if (!title || !deadline) {
             return;
         }
-        console.log('OK');
-
-        if (!desc && !tasks.length) {
+        if (!desc && !choosenTasks.length) {
             return;
         }
-
-        console.log('OK 2');
-
-        const loadedTasks: HomeworkTask[] = [];
-        console.log('Load attaches');
-
-        for (const task of tasks) {
-            const loaded = {
-                description: task.description,
-                id: task.id,
-                attach: '',
-            };
-
-            if (task.attach) {
-                // const resp = await uploadAttach({
-                //     type: 'homework',
-                //     attache: [task.attach],
-                // });
-                // if ('data' in resp) {
-                //     loaded.attach = resp.data.file;
-                // }
-            }
-
-            loadedTasks.push(loaded);
-        }
-
-        console.log('Load done');
-        console.log('Create HW');
 
         createHW({
             payload: {
@@ -110,46 +66,72 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({
                 deadlineTime: deadline.toISOString(),
                 title: title,
                 description: desc,
-                tasks: loadedTasks,
+                tasks: choosenTasks.map((t) => t.id),
             },
-        }).then(() => onSuccess?.());
-    };
+        }).then(() => {
+            form.hwTitle.value = '';
+            form.hwDescr.value = '';
+            form.hwDeadline.value = '';
+            chooseRef.current?.clearSelect();
+
+            onSubmitSuccess?.();
+        });
+    }, [chooseRef, choosenTasks, classId, createHW, onSubmitSuccess]);
 
     return (
         <>
-            <Widget
-                classes={styles.form}
-                title="Создание Домашнего задания"
-                footer={
-                    <Button
-                        disabled={lock}
-                        onClick={handleSubmit}
-                    >
-                        Создать
-                    </Button>
-                }
+            <Container
+                direction="vertical"
+                layout="defaultBase"
+                gap="l"
+                classes={styles.widget}
             >
-                <form
-                    ref={formRef}
-                    onSubmit={(e) => e.preventDefault()}
+                <Text
+                    type="h"
+                    size={3}
+                    weight="bold"
                 >
-                    <Input
-                        name="hwTitle"
-                        label="Заголовок домашнего задания"
-                        placeholder="Например: Повторение "
-                    />
-                    <TextArea
-                        name="hwDescr"
-                        labelText="Описание домашнего задания"
-                        placeholder="Можно оставить пустым"
-                        border="border"
-                        textareaRef={textAreaRef}
-                    />
-                    <Input
-                        name="hwDeadline"
-                        label="Срок сдачи"
-                        type="date"
-                    />
+                    {'Новое домашнее задание'}
+                </Text>
+
+                <Container
+                    direction="vertical"
+                    gap="l"
+                >
+                    <form
+                        ref={formRef}
+                        onSubmit={(e) => e.preventDefault()}
+                    >
+                        <Input
+                            name="hwTitle"
+                            label={{
+                                text: 'Заголовок домашнего задания',
+                                type: 'h',
+                                size: 4,
+                            }}
+                            placeholder="Например: Повторение "
+                        />
+                        <TextArea
+                            textareaRef={textAreaRef}
+                            name="hwDescr"
+                            label={{
+                                text: 'Описание домашнего задания',
+                                type: 'h',
+                                size: 4,
+                            }}
+                            placeholder="Можно оставить пустым"
+                        />
+                        <Input
+                            name="hwDeadline"
+                            label={{
+                                text: 'Срок сдачи',
+                                type: 'h',
+                                size: 4,
+                            }}
+                            type="datetime-local"
+                            min={dateToLocalISO(new Date()).slice(0, -13)}
+                        />
+                    </form>
 
                     <Container
                         direction="vertical"
@@ -162,73 +144,33 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({
                         >
                             Список задач:
                         </Text>
-                        <Container
-                            direction="vertical"
-                            classes={styles.list}
-                        >
-                            {!tasks.length ? (
-                                <EmptyItem />
-                            ) : (
-                                tasks.map((t, i) => (
-                                    <React.Fragment key={t.uuid}>
-                                        <TaskItem
-                                            index={i}
-                                            task={t}
-                                            onDelete={() => {
-                                                setTasks((prev) =>
-                                                    prev.filter(
-                                                        (item) =>
-                                                            item.uuid !==
-                                                            t.uuid,
-                                                    ),
-                                                );
-                                            }}
-                                        />
-                                    </React.Fragment>
-                                ))
-                            )}
-                        </Container>
-                        <Container
-                            direction="horizontal"
-                            classes={styles.contentNav}
-                        >
-                            <Button
-                                disabled={lock}
-                                onClick={() => setTaskCreateForm(true)}
-                                classes={styles.addBtn}
-                            >
-                                <Icon
-                                    name="addLine"
-                                    classes={styles.addBtnIcon}
-                                />
-                                Создать задание
-                            </Button>
-                            <Button
-                                disabled={lock}
-                                classes={styles.setBtn}
-                            >
-                                <Icon
-                                    name="layoutLine"
-                                    classes={styles.setBtnIcon}
-                                />
-                                Выбрать задание
-                            </Button>
-                        </Container>
+                        <HomeworkTaskChoose
+                            ref={chooseRef}
+                            changeChoosen={changeChoosenTasks}
+                            lock={lock}
+                            classes={styles.tasks}
+                        />
                     </Container>
-                </form>
-            </Widget>
-
-            <Overlay
-                isShowing={isTaskCreateFrom}
-                closeOverlay={() => setTaskCreateForm(false)}
-            >
-                <TaskCreateForm
-                    addTask={(t) => {
-                        setTasks((prev) => [...prev, { ...t, uuid: uuid() }]);
-                        setTaskCreateForm(false);
-                    }}
-                />
-            </Overlay>
+                </Container>
+                <Button
+                    disabled={lock}
+                    onClick={handleSubmit}
+                    classes={styles.submit}
+                >
+                    <Icon
+                        name="approve"
+                        classes={styles.submitIcon}
+                    />
+                    <Text
+                        type="p"
+                        weight="bold"
+                        size={1}
+                        classes={styles.submitText}
+                    >
+                        Создать
+                    </Text>
+                </Button>
+            </Container>
         </>
     );
 };

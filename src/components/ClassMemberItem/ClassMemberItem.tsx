@@ -3,34 +3,72 @@ import Button from '@ui-kit/Button/Button';
 import Container from '@ui-kit/Container/Container';
 import Icon from '@ui-kit/Icon/Icon';
 import { UiComponentProps } from '@ui-kit/interfaces';
-import React, { useCallback } from 'react';
+import React from 'react';
 import Text from '@ui-kit/Text/Text';
 
 import styles from './ClassMemberItem.module.scss';
+import { Student } from '@app/features/stundent/stundentModel';
+import { useNavigate } from 'react-router-dom';
+import AppRoutes, { routerQueryParams } from '@router/routes.ts';
+import { ListItemFC } from '@ui-kit/List/types';
+import { useGetStudentQuery } from '@app/features/stundent/stundentSlice';
+import ShowQueryState from '@components/ShowQueryState/ShowQueryState';
+import { objToItem } from '@ui-kit/List/helpers';
+import { noop } from '@app/const/consts';
 
 interface ClassMemberItemProps extends UiComponentProps {
-    id: string | number;
-    name: string;
-    avatarSrc: string;
-    role: string;
-    onMessageClick?: () => void;
+    studentID: number;
+    // chatID?: number;
+    role?: string;
+    // students: Student[];
+    // index: number;
 }
-
-const ClassMemberItem: React.FC<ClassMemberItemProps> = ({
-    name,
-    avatarSrc,
-    role,
-    onMessageClick,
-    onClick,
+export const ClassMemberItem: React.FC<ClassMemberItemProps> = ({
+    studentID,
+    role = 'Ученик',
     classes,
 }) => {
-    const handleChatClick = useCallback(
-        (e: React.MouseEvent) => {
-            e.stopPropagation();
-            onMessageClick?.();
-        },
-        [onMessageClick],
+    const { data, isSuccess, ...status } = useGetStudentQuery({
+        id: studentID,
+    });
+    return (
+        <>
+            <ShowQueryState status={status} />
+            {isSuccess && (
+                <ClassMemberListItem
+                    item={objToItem(data.student)}
+                    onSelect={noop}
+                    onDelete={noop}
+                    index={0}
+                    students={[data.student]}
+                    role={role}
+                    classes={classes}
+                />
+            )}
+        </>
     );
+};
+
+interface ClassMemberListItemProps extends UiComponentProps {
+    role?: string;
+    // chatID?: number;
+    students: Student[];
+}
+
+export const ClassMemberListItem: ListItemFC<
+    Student,
+    ClassMemberListItemProps
+> = ({ item, role = 'Ученик', onClick, classes, students, index }) => {
+    const { name, avatarSrc } = item;
+
+    const navigate = useNavigate();
+    const handleChatClick = () => {
+        if (students[index]) {
+            navigate(
+                `/${AppRoutes.messenger}?${routerQueryParams.messenger.chatid}=${students[index].chatID}`,
+            );
+        }
+    };
 
     return (
         <Container
@@ -69,18 +107,18 @@ const ClassMemberItem: React.FC<ClassMemberItemProps> = ({
                     </Text>
                 </Container>
             </Container>
-            <Button
-                classes={styles.btn}
-                onClick={handleChatClick}
-                type="link"
-            >
-                <Icon
-                    classes={styles.icon}
-                    name="chatRightFill"
-                />
-            </Button>
+            {students[index] && (
+                <Button
+                    classes={styles.btn}
+                    onClick={handleChatClick}
+                    type="link"
+                >
+                    <Icon
+                        classes={styles.icon}
+                        name="chatRightFill"
+                    />
+                </Button>
+            )}
         </Container>
     );
 };
-
-export default ClassMemberItem;

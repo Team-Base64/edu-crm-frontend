@@ -1,7 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import styles from './Image.module.scss';
 import Spinner from '@ui-kit/Spinner/Spinner';
+import Icon from '@ui-kit/Icon/Icon';
+
+const loadTimeoutMS = 2000;
 
 interface ImageProps extends UiComponentProps {
     src: string;
@@ -27,25 +30,40 @@ const Image: React.FC<ImageProps> = ({
     // imgRef,
 }) => {
     const [state, setState] = useState<ImageState>(ImageState.loading);
+    const loadTimer = useRef<NodeJS.Timeout>();
 
     useEffect(() => {
         setState(ImageState.loading);
+
+        loadTimer.current = setTimeout(() => {
+            setState(ImageState.error);
+        }, loadTimeoutMS);
+
+        return () => clearTimeout(loadTimer.current);
     }, [src, setState]);
 
-    const handleLoad = useCallback(() => {
+    const handleLoad = () => {
+        clearTimeout(loadTimer.current);
         setState(ImageState.loaded);
         onLoad?.();
-    }, [setState, onLoad]);
+    };
 
-    const handleError = useCallback(() => {
+    const handleError = () => {
+        clearTimeout(loadTimer.current);
         setState(ImageState.error);
         onError?.();
-    }, [setState, onError]);
+    };
+
     return (
         <div className={[classes, styles.wrapper].join(' ')}>
-            {state === ImageState.loading && <Spinner classes={styles.info} />}
+            {state === ImageState.loading && (
+                <Spinner classes={styles.spinner} />
+            )}
             {state === ImageState.error && (
-                <div className={styles.info}>Error</div>
+                <Icon
+                    classes={styles.error}
+                    name="alert"
+                />
             )}
             <img
                 // ref={imgRef}

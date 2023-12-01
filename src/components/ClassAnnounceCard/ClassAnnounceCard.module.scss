@@ -16,7 +16,15 @@
 }
 
 .content {
+    position: relative;
     & .text {
         text-align:justify;
+    }
+
+    & .attaches {
+        display: grid;
+        background-color: inherit;
+        width: 100%;
+        grid-template-columns: repeat(auto-fit, minmax(25%, 1fr));
     }
 }

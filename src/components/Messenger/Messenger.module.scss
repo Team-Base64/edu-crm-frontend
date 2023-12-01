@@ -1,14 +1,11 @@
 @use '../../styles/mixins' as mixins;
 
 .messenger {
-
   justify-content: space-between;
+
+  &--container {
+    @include mixins.default-scrollbar-style;
+
+    overflow-y: scroll;
+  }
 }
-
-.message-container {
-  @include mixins.default-scrollbar-style;
-
-  overflow-y: scroll;
-}
-
-

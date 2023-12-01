@@ -1,20 +1,19 @@
-import Avatar from '@ui-kit/Avatar/Avatar';
 import Container from '@ui-kit/Container/Container';
 import Icon from '@ui-kit/Icon/Icon';
-import Text from '@ui-kit/Text/Text';
+import Text, { TextProps } from '@ui-kit/Text/Text';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import React from 'react';
 
 import styles from './ClassAnnounceCard.module.scss';
+import prettyDate from 'utils/common/PrettyDate/datePrettify';
+import { Announcement } from '@app/features/announcement/announcementModel';
+import Updatable from '@ui-kit/Updatable/Updatable';
+import { AttachmentsList } from '@ui-kit/AttachmentsList/AttachmentsList';
 
 interface ClassAnnounceCardProps extends UiComponentProps {
-    firstName: string;
-    lastName?: string;
-    avatarSrc: string;
-    time: number;
+    data: Announcement;
     onEdit?: () => void;
     onDelete?: () => void;
-    text: string;
 }
 
 const ClassAnnounceCard: React.FC<ClassAnnounceCardProps> = ({
@@ -22,12 +21,9 @@ const ClassAnnounceCard: React.FC<ClassAnnounceCardProps> = ({
     onClick,
     onDelete,
     onEdit,
-    firstName,
-    lastName,
-    avatarSrc,
-    time,
-    text,
+    data,
 }) => {
+    const { text, createTime, attaches } = data;
     const handleEdit = (e: React.MouseEvent) => {
         e.stopPropagation();
         onEdit?.();
@@ -53,27 +49,17 @@ const ClassAnnounceCard: React.FC<ClassAnnounceCardProps> = ({
                     classes={[styles.info].join(' ')}
                     direction="horizontal"
                 >
-                    <Avatar
-                        classes={[styles.avatar].join(' ')}
-                        src={avatarSrc}
-                        alt={firstName + ' avatar'}
+                    <Updatable
+                        element={Text}
+                        updateProps={(): TextProps => ({
+                            classes: [styles.date].join(' '),
+                            type: 'p',
+                            size: 1,
+                            weight: 'regular',
+                            children: prettyDate(createTime),
+                        })}
+                        interval={1}
                     />
-                    <Text
-                        classes={[styles.name].join(' ')}
-                        type="h"
-                        size={4}
-                        weight="bold"
-                    >
-                        {firstName + (lastName ? ' ' + lastName : '')}
-                    </Text>
-                    <Text
-                        classes={[styles.date].join(' ')}
-                        type="p"
-                        size={1}
-                        weight="regular"
-                    >
-                        {new Date(time).toLocaleString('ru-RU')}
-                    </Text>
                 </Container>
                 <Container
                     classes={[styles.toolbar].join(' ')}
@@ -107,6 +93,10 @@ const ClassAnnounceCard: React.FC<ClassAnnounceCardProps> = ({
                 >
                     {text}
                 </Text>
+                <AttachmentsList
+                    staticAttachments={attaches}
+                    classes={styles.attaches}
+                />
             </Container>
         </Container>
     );

@@ -1,5 +1,4 @@
 import { MessageEvent, WebSocketServer } from 'ws';
-import { messagesMock } from './const/constMocks.ts';
 
 const webSocketServer = new WebSocketServer({
     port: 8081,
@@ -11,7 +10,14 @@ webSocketServer.on('connection', (socket) => {
         console.log('Received a message from the client: ', data);
     };
 
-    const message = messagesMock[0];
+    const message = {
+        ismine: false,
+        text: 'asjdindoasndioandaoin ter ioandoi as odniond asndinasdia ansdnasndioas oasndio',
+        date: new Date().toISOString(),
+        channel: 'chat',
+        chatID: 1,
+        id: 1,
+    };
 
     setInterval(() => {
         message.ismine = false;

@@ -5,7 +5,12 @@ import { classHandlers } from './mswMocks/classMocks.ts';
 import { studentHandlers } from './mswMocks/studentMocks.ts';
 import { homeworkHandlers } from './mswMocks/homeworkMoks.ts';
 import { teacherHandlers } from './mswMocks/teacherMocks';
-import { calendarHandlers } from './mswMocks/calendatMocks.ts';
+import { taskHandlers } from './mswMocks/taskMocks.ts';
+import { solutionsHandlers } from './mswMocks/solutionMocks.ts';
+import { calendarHandlers } from './mswMocks/calendarMocks.ts';
+import { reviewHandlers } from './mswMocks/reviewMocks.ts';
+import { announceHandlers } from './mswMocks/announceMocks.ts';
+
 const handlers = [
     ...chatHandlers,
     ...generalHandlers,
@@ -13,6 +18,10 @@ const handlers = [
     ...studentHandlers,
     ...homeworkHandlers,
     ...teacherHandlers,
+    ...taskHandlers,
+    ...solutionsHandlers,
+    ...reviewHandlers,
+    ...announceHandlers,
     ...calendarHandlers,
 ];
 export const worker = setupWorker(...handlers);

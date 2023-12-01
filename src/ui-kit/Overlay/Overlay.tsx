@@ -64,6 +64,7 @@ const Overlay: React.FC<OverpayProps> = ({
 
     const handleKeydown = useCallback(
         (e: KeyboardEvent) => {
+            e.stopPropagation();
             const { code } = e;
             if (code === 'Escape' && overlays) {
                 if (id === overlays.at(-1)) {
@@ -74,6 +75,11 @@ const Overlay: React.FC<OverpayProps> = ({
         [closeOverlay, id],
     );
 
+    const handleClick: React.MouseEventHandler = (e) => {
+        e.stopPropagation();
+        closeOverlay();
+    };
+
     useEffect(() => {
         document.addEventListener('keydown', handleKeydown);
         return () => document.removeEventListener('keydown', handleKeydown);
@@ -83,11 +89,11 @@ const Overlay: React.FC<OverpayProps> = ({
         <Container
             direction={'vertical'}
             classes={[styles.overlay, overlayStateStyle[state]].join(' ')}
-            onClick={closeOverlay}
+            onClick={handleClick}
         >
             <Button
                 type={'link'}
-                onClick={closeOverlay}
+                onClick={handleClick}
                 classes={styles.closeButton}
             >
                 <Icon

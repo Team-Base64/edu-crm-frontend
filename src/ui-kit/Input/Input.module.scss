@@ -1,7 +1,12 @@
 @use '../functions' as *;
 
+.base-container {
+  width: 100%;
+}
+
 .container {
   background-color: getVar(input, bg, default);
+  width: 100%;
   font-family: getVar(font, type, default);
 
   justify-content: space-between;

@@ -4,42 +4,43 @@ import Container from '@ui-kit/Container/Container';
 import Icon from '@ui-kit/Icon/Icon';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import React from 'react';
-import Text from '@ui-kit/Text/Text';
+import Text, { TextProps } from '@ui-kit/Text/Text';
 
 import styles from './HomeworkSolutionItem.module.scss';
 import { useGetHomeworkQuery } from '@app/features/homework/homeworkSlice';
 import { useGetStudentQuery } from '@app/features/stundent/stundentSlice';
+import { HomeworkSolution } from '@app/features/homeworkSolution/homeworkSolutionModel';
+import { getDelta } from 'utils/common/PrettyDate/common/delta';
+import prettyDate from 'utils/common/PrettyDate/datePrettify';
+import Updatable from '@ui-kit/Updatable/Updatable';
+import { useNavigate } from 'react-router-dom';
+import AppRoutes from '@router/routes';
 
 interface HomeworkSolutionItemProps extends UiComponentProps {
-    id: string | number;
-    homeworkId: string | number;
-    studentId: string | number;
-    passTime?: number;
+    data: HomeworkSolution;
 }
 
 const HomeworkSolutionItem: React.FC<HomeworkSolutionItemProps> = ({
-    homeworkId,
-    studentId,
-    passTime,
-    onClick,
+    data,
     classes,
 }) => {
+    const { id, hwID, studentID, createTime } = data;
+    const navigate = useNavigate();
+
     // Тут нужно зарефакторить этот кал
-    console.log(homeworkId);
-    const homeworkResponse = useGetHomeworkQuery({ id: homeworkId });
+    const homeworkResponse = useGetHomeworkQuery({ id: hwID });
     const homeworkData = homeworkResponse.data?.homework;
-    console.log(homeworkData);
 
     let title = 'Неизвестное дз',
         deadline_time = undefined;
     if (homeworkData) {
         title = homeworkData.title;
         deadline_time = homeworkData.deadlineTime;
+        deadline_time = homeworkData.deadlineTime;
     }
 
-    const studentResponse = useGetStudentQuery({ id: studentId });
+    const studentResponse = useGetStudentQuery({ id: studentID });
     const studentData = studentResponse.data?.student;
-    console.log(studentData);
 
     let avatarSrc = '',
         name = 'Неизвестный ученик';
@@ -49,24 +50,25 @@ const HomeworkSolutionItem: React.FC<HomeworkSolutionItemProps> = ({
     }
 
     let stateClassName = styles.notPass;
-    let stateStr = 'Срок не ясен';
 
-    if (passTime && deadline_time) {
-        const date = new Date(passTime);
-        date.toLocaleDateString();
-        stateStr = 'Сдано ' + date.toLocaleDateString('ru-RU').slice(0, -5);
-        if (passTime <= deadline_time) {
+    if (createTime && deadline_time) {
+        if (getDelta(deadline_time, createTime) < 0) {
             stateClassName = styles.pass;
         } else {
             stateClassName = styles.passDelay;
         }
     }
 
+    const handleClick: React.MouseEventHandler = (e) => {
+        e.stopPropagation();
+        return navigate(`/${AppRoutes.solutions}/${id}`);
+    };
+
     return (
         <Container
             classes={[styles.card, classes].join(' ')}
             direction="horizontal"
-            onClick={onClick}
+            onClick={handleClick}
         >
             <Container
                 classes={styles.wrapper}
@@ -100,17 +102,22 @@ const HomeworkSolutionItem: React.FC<HomeworkSolutionItemProps> = ({
                 </Container>
             </Container>
             <Container direction="horizontal">
-                <Text
-                    type="p"
-                    size={2}
-                    weight="bold"
-                    classes={[styles.state, stateClassName].join(' ')}
-                >
-                    {stateStr}
-                </Text>
+                <Updatable
+                    element={Text}
+                    updateProps={(): TextProps => ({
+                        type: 'p',
+                        size: 2,
+                        weight: 'bold',
+                        classes: [styles.state, stateClassName].join(' '),
+                        children: createTime
+                            ? prettyDate(createTime)
+                            : 'Срок не ясен',
+                    })}
+                    interval={1}
+                />
                 <Button
                     classes={styles.btn}
-                    onClick={onClick}
+                    onClick={handleClick}
                     type="link"
                 >
                     <Icon
