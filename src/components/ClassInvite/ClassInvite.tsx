@@ -149,7 +149,7 @@ const ClassInvite: React.FC<ClassInviteProps> = ({
                                     classes={styles.step}
                                 >
                                     <Text
-                                        type='p'
+                                        type="p"
                                         size={1}
                                     >
                                         1. Ученик должен должен зайти в бота
@@ -158,7 +158,7 @@ const ClassInvite: React.FC<ClassInviteProps> = ({
                                         direction="vertical"
                                         layout="defaultBase"
                                         classes={styles.step}
-                                        gap='m'
+                                        gap="m"
                                     >
                                         <span>
                                             <a
@@ -168,29 +168,28 @@ const ClassInvite: React.FC<ClassInviteProps> = ({
                                                 className={styles.link}
                                             >
                                                 <Text
-                                                    type='p'
+                                                    type="p"
                                                     size={1}
-                                                    weight='bold'
+                                                    weight="bold"
                                                 >
                                                     {' Вконтакте '}
                                                 </Text>
                                             </a>
                                             <Text
-                                                type='p'
+                                                type="p"
                                                 size={1}
                                             >
                                                 и нажать кнопку
                                             </Text>
                                             <Text
-                                                type='p'
+                                                type="p"
                                                 size={1}
-                                                weight='bold'
+                                                weight="bold"
                                             >
                                                 {' Начать '}
                                             </Text>
                                         </span>
                                         <span>
-
                                             <a
                                                 href={`${TgBotLink}`}
                                                 target="_blank"
@@ -198,30 +197,30 @@ const ClassInvite: React.FC<ClassInviteProps> = ({
                                                 className={styles.link}
                                             >
                                                 <Text
-                                                    type='p'
+                                                    type="p"
                                                     size={1}
-                                                    weight='bold'
+                                                    weight="bold"
                                                 >
                                                     {' Телеграм '}
                                                 </Text>
                                             </a>
                                             <Text
-                                                type='p'
+                                                type="p"
                                                 size={1}
                                             >
                                                 и написать команду
                                             </Text>
                                             <Text
-                                                type='p'
+                                                type="p"
                                                 size={1}
-                                                weight='bold'
+                                                weight="bold"
                                             >
                                                 {' /start '}
                                             </Text>
                                         </span>
                                     </Container>
                                     <Text
-                                        type='p'
+                                        type="p"
                                         size={1}
                                     >
                                         и следовать инструкциям
@@ -233,15 +232,17 @@ const ClassInvite: React.FC<ClassInviteProps> = ({
                                 >
                                     <span>
                                         <Text
-                                            type='p'
+                                            type="p"
                                             size={1}
                                         >
-                                            2. В момент, когда бот попросить отправить токен, ученик должен отправить:
+                                            2. В момент, когда бот попросить
+                                            отправить токен, ученик должен
+                                            отправить:
                                         </Text>
                                         <Text
-                                            type='p'
+                                            type="p"
                                             size={1}
-                                            weight='bold'
+                                            weight="bold"
                                         >
                                             {` ${token} `}
                                         </Text>
@@ -276,8 +277,7 @@ const ClassInvite: React.FC<ClassInviteProps> = ({
                         </Container>
                     </Overlay>
                 </>
-            )
-            }
+            )}
         </>
     );
 };

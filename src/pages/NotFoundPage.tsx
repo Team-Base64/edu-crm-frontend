@@ -6,7 +6,6 @@ import React from 'react';
 const NotFoundPage: React.FC = () => {
     // const fromLocation = useLocation();
     // const fromPath = fromLocation?.state?.from.pathname || 'NW';
-
     return (
         <Container direction="vertical">
             <Text

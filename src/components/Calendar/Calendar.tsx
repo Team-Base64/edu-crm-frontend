@@ -37,7 +37,11 @@ export const Calendar: React.FC<CalendarProps> = ({
                 <iframe
                     ref={iframeRef}
                     src={`https://calendar.google.com/calendar/embed?ctz=${timeZone}&hl=ru&showTz=${showTimeZone}&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=1&showCalendars=0&src=${data.googleid}&mode=${mode}`}
-                    className={[styles.calendar, classes, styles.calentarStyle].join(' ')}
+                    className={[
+                        styles.calendar,
+                        classes,
+                        styles.calentarStyle,
+                    ].join(' ')}
                 ></iframe>
             ) : (
                 <Text

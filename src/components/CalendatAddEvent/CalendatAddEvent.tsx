@@ -32,13 +32,13 @@ export const CalendarAddEvent: React.FC<CalendarAddEventProps> = ({
                 classes={styles.btn}
             >
                 <Icon
-                    name='addLine'
+                    name="addLine"
                     classes={styles.icon}
                 />
                 <Text
                     type={'p'}
                     size={1}
-                    weight='bold'
+                    weight="bold"
                     classes={styles.text}
                 >
                     Добавить занятие

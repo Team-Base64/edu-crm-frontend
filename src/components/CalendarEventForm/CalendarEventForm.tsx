@@ -97,7 +97,7 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                 <Text
                     type={'h'}
                     size={3}
-                    weight='bold'
+                    weight="bold"
                     classes={styles.addEventFormFormName}
                 >
                     {title}
@@ -195,19 +195,20 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                     label={'Класс'}
                 ></DropDown>
                 <Button
-                    classes={[styles.addEventFormSubmitButton, styles.btn].join(' ')}
+                    classes={[styles.addEventFormSubmitButton, styles.btn].join(
+                        ' ',
+                    )}
                     onClick={handleButtonSubmit}
                 >
                     <Icon
-                        name='approve'
+                        name="approve"
                         classes={styles.icon}
                     />
                     <Text
                         type={'p'}
                         size={1}
-                        weight='bold'
+                        weight="bold"
                         classes={styles.text}
-
                     >
                         {sumbitButtonTitle}
                     </Text>
@@ -215,14 +216,19 @@ export const CalendarEventForm: React.FC<AddEvenFormProps> = ({
                 <Button
                     type={'link'}
                     onClick={handleOverlayClose}
-                    classes={[styles.addEventFormCancelButton, styles.btn].join(' ')}
+                    classes={[styles.addEventFormCancelButton, styles.btn].join(
+                        ' ',
+                    )}
                     action={'button'}
                 >
-                    <Icon name='close' classes={styles.iconClose} />
+                    <Icon
+                        name="close"
+                        classes={styles.iconClose}
+                    />
                     <Text
                         type={'p'}
                         size={1}
-                        weight='bold'
+                        weight="bold"
                         classes={styles.textClose}
                     >
                         Закрыть
