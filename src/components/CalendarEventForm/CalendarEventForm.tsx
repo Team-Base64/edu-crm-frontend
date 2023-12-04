@@ -177,6 +177,9 @@ export const CalendarEventForm: React.FC<CalendarEventFormProps> = ({
                                     type: 'h',
                                     size: 4,
                                 }}
+                                minRows={2}
+                                maxRows={10}
+                                autoResize
                                 textareaText={form.description.value}
                                 textareaRef={textareaRef}
                                 onChange={form.description.changeMiddleware()}

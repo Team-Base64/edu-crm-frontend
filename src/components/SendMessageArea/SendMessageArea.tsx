@@ -130,6 +130,7 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({ id }) => {
                         focusRows={3}
                         maxRows={5}
                         autoResize
+                        collapseOnBlur
                         onChange={handleMessageChange}
                         onKeydownCallback={handleMessageSend}
                         textareaRef={textAreaRef}
