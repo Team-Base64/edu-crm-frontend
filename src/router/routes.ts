@@ -19,6 +19,7 @@ const AppRoutes = asStrings({
     solution: ':id',
 
     login: 'login',
+    register: 'register',
     signup: 'signup',
     logout: 'logout',
 });

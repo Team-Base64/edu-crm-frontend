@@ -14,6 +14,7 @@ import HomeworkPage from '@pages/HomeworkPage/HomeworkPage';
 import HomeworkSolutionPage from '@pages/HomeworkSolutionPage/HomeworkSolutionPage';
 import RequireAuth from '@hoc/RequireAuth';
 import { LogoutPage } from '@pages/LogoutPage/LogoutPage.tsx';
+import RegisterPage from '@pages/RegisterPage/RegisterPage';
 
 const AppRouter: React.FC = () => {
     return (
@@ -43,6 +44,10 @@ const AppRouter: React.FC = () => {
                     <Route
                         path={AppRoutes.login}
                         element={<LoginPage />}
+                    />
+                    <Route
+                        path={AppRoutes.register}
+                        element={<RegisterPage/>}
                     />
                 </Route>
 
