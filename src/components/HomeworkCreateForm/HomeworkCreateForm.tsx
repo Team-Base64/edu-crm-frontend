@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces';
 import Container from '@ui-kit/Container/Container';
 import Input from '@ui-kit/Input/Input';
@@ -14,6 +14,8 @@ import HomeworkTaskChoose, {
     HomeworkTaskChooseRef,
 } from '@components/HomeworkTaskChoose/HomeworkTaskChoose';
 import { dateToLocalISO } from 'utils/common/PrettyDate/common/iso';
+import Spinner from '@ui-kit/Spinner/Spinner';
+import useForm from '@ui-kit/_hooks/useForm';
 
 interface HomeworkCreateFormProps extends UiComponentProps {
     onSubmitSuccess?: () => void;
@@ -24,59 +26,70 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({
     onSubmitSuccess,
     classId,
 }) => {
-    const formRef = useRef<HTMLFormElement>(null);
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
     const chooseRef = useRef<HomeworkTaskChooseRef>(null);
 
     const [lock, setLock] = useState<boolean>(false);
-    const [createHW, createStatus] = useCreateHomeworkMutation();
+    const [createHW] = useCreateHomeworkMutation();
+
+    const [form, isValid, clear] = useForm({
+        title: {
+            rules: {
+                min: 5,
+                max: 100,
+                trim: true,
+            },
+            initial: '',
+        },
+        description: {
+            rules: {},
+            initial: '',
+        },
+        deadline: {
+            rules: {
+                date: {
+                    minISO: dateToLocalISO(new Date()).slice(0, -13),
+                },
+            },
+            initial: dateToLocalISO(new Date()).slice(0, -13),
+        },
+    });
 
     const [choosenTasks, changeChoosenTasks] = useListItems(
         [] as HomeworkTask[],
     );
 
-    useEffect(() => {
-        if (createStatus.isLoading) {
-            setLock(true);
-        } else {
-            setLock(false);
-        }
-    }, [createStatus, setLock]);
-
-    const handleSubmit = useCallback(async () => {
-        const form = formRef.current;
-        if (!form) {
+    const handleSubmit = () => {
+        if (!isValid || !choosenTasks.length) {
             return;
         }
 
-        const title = form.hwTitle.value;
-        const desc = form.hwDescr.value;
-        const deadline: Date = form.hwDeadline.valueAsDate;
-
-        if (!title || !deadline) {
-            return;
-        }
-        if (!desc && !choosenTasks.length) {
-            return;
-        }
-
+        setLock(true);
         createHW({
             payload: {
                 classID: Number(classId),
-                deadlineTime: deadline.toISOString(),
-                title: title,
-                description: desc,
+                deadlineTime: dateToLocalISO(
+                    new Date(Date.parse(form.deadline.value)),
+                ),
+                title: form.title.value,
+                description: form.description.value,
                 tasks: choosenTasks.map((t) => t.id),
             },
-        }).then(() => {
-            form.hwTitle.value = '';
-            form.hwDescr.value = '';
-            form.hwDeadline.value = '';
-            chooseRef.current?.clearSelect();
-
-            onSubmitSuccess?.();
-        });
-    }, [chooseRef, choosenTasks, classId, createHW, onSubmitSuccess]);
+        })
+            .then((resp) => {
+                if ('error' in resp)
+                    throw new Error(JSON.stringify(resp.error));
+                chooseRef.current?.clearSelect();
+                clear();
+                onSubmitSuccess?.();
+            })
+            .catch((e) => {
+                console.log(e);
+            })
+            .finally(() => {
+                setLock(false);
+            });
+    };
 
     return (
         <>
@@ -98,31 +111,31 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({
                     direction="vertical"
                     gap="l"
                 >
-                    <form
-                        ref={formRef}
-                        onSubmit={(e) => e.preventDefault()}
-                    >
+                    <form onSubmit={(e) => e.preventDefault()}>
                         <Input
-                            name="hwTitle"
                             label={{
                                 text: 'Заголовок домашнего задания',
                                 type: 'h',
                                 size: 4,
                             }}
                             placeholder="Например: Повторение "
+                            onChange={form.title.changeMiddleware()}
+                            errors={form.title.errors}
+                            value={form.title.value}
                         />
                         <TextArea
                             textareaRef={textAreaRef}
-                            name="hwDescr"
                             label={{
                                 text: 'Описание домашнего задания',
                                 type: 'h',
                                 size: 4,
                             }}
                             placeholder="Можно оставить пустым"
+                            onChange={form.description.changeMiddleware()}
+                            errors={form.description.errors}
+                            textareaText={form.description.value}
                         />
                         <Input
-                            name="hwDeadline"
                             label={{
                                 text: 'Срок сдачи',
                                 type: 'h',
@@ -130,6 +143,9 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({
                             }}
                             type="datetime-local"
                             min={dateToLocalISO(new Date()).slice(0, -13)}
+                            value={form.deadline.value}
+                            onChange={form.deadline.changeMiddleware()}
+                            errors={form.deadline.errors}
                         />
                     </form>
 
@@ -153,22 +169,28 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({
                     </Container>
                 </Container>
                 <Button
-                    disabled={lock}
+                    disabled={lock || !isValid || !choosenTasks.length}
                     onClick={handleSubmit}
                     classes={styles.submit}
                 >
-                    <Icon
-                        name="approve"
-                        classes={styles.submitIcon}
-                    />
-                    <Text
-                        type="p"
-                        weight="bold"
-                        size={1}
-                        classes={styles.submitText}
-                    >
-                        Создать
-                    </Text>
+                    {lock ? (
+                        <Spinner classes="spinner" />
+                    ) : (
+                        <>
+                            <Icon
+                                name="approve"
+                                classes={styles.submitIcon}
+                            />
+                            <Text
+                                type="p"
+                                weight="bold"
+                                size={1}
+                                classes={styles.submitText}
+                            >
+                                Создать
+                            </Text>
+                        </>
+                    )}
                 </Button>
             </Container>
         </>

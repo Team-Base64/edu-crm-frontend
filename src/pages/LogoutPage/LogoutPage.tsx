@@ -9,11 +9,10 @@ export const LogoutPage: React.FC = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log('LOGOUT');
         logout(null).then(() => {
             navigate(`/${AppRoutes.login}`);
         });
-    }, []);
+    }, [logout, navigate]);
 
     return (
         <ShowQueryState

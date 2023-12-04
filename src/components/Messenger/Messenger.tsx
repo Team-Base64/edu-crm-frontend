@@ -47,10 +47,7 @@ const Messenger: React.FC<SendMessageAreaProps> = ({ chatID, classes }) => {
             >
                 {messageBlock}
             </Container>
-            <SendMessageArea
-                id={chatID}
-                name={'SendMessageArea'}
-            ></SendMessageArea>
+            <SendMessageArea id={chatID}></SendMessageArea>
         </>
     );
 

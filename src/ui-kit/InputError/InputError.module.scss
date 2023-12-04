@@ -1,0 +1,17 @@
+@use '../functions' as *;
+
+.list {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.item {
+    overflow: hidden;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+}
+
+.text {
+    color: getVar(color, error);
+}

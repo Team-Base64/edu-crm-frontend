@@ -19,8 +19,8 @@ export const CalendarControls: React.FC<CalendarControlsProps> = ({
             classes={[classes, styles.calendarControls].join(' ')}
             direction={'vertical'}
         >
-            <CalendarAddEvent iframeRef={iframeRef}></CalendarAddEvent>
-            <CalendarEventsList iframeRef={iframeRef}></CalendarEventsList>
+            <CalendarAddEvent iframeRef={iframeRef} />
+            <CalendarEventsList iframeRef={iframeRef} />
         </Container>
     );
 };

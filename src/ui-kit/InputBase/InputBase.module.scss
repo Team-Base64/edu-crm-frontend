@@ -1,0 +1,115 @@
+@use '../functions' as *;
+
+.container {
+    width: 100%;
+
+    &:has(.input:disabled) {
+        & .errors {
+            display: none;
+        }
+
+        & .label {
+            color: getVar(input, label, color, disabled);
+        }
+    }
+}
+
+.wrapper {
+    width: 100%;
+    flex: 1;
+    justify-content: space-between;
+    align-items: center;
+    font-family: getVar(font, type, default);
+
+    &:has(.input:disabled) {
+        background-color: getVar(input, bg, disabled);
+        border-color: getVar(input, border, color, disabled);
+    }
+
+    &:not(:has(.input:disabled)) {
+        background-color: getVar(input, bg, default);
+
+        &:hover {
+
+            background-color: getVar(input, bg, hover);
+            border-color: getVar(input, border, color, hover);
+        }
+
+        &.invalid {
+            background-color: getVar(input, bg, error);
+            border-color: getVar(input, border, color, error);
+        }
+    }
+
+    &:has(.input:focus-visible) {
+        background-color: getVar(input, bg, focus);
+        border-color: getVar(input, border, color, focus);
+    }
+}
+
+.label {
+    width: 100%;
+    color: getVar(input, label, color);
+}
+
+.input {
+    width: 100%;
+    min-height: 100%;
+}
+
+.errors {
+    width: 100%;
+}
+
+.large {
+    & .wrapper {
+        padding: 0 getVar(padding, l, r, large);
+    }
+
+    & .input {
+        padding: getVar(padding, t, b, large) 0;
+        font-size: getVar(input, font-size, large);
+    }
+}
+
+.medium {
+    & .wrapper {
+        padding: 0 getVar(padding, l, r, medium);
+    }
+
+    & .input {
+        padding: getVar(padding, t, b, medium) 0;
+        font-size: getVar(input, font-size, medium);
+    }
+}
+
+.small {
+    & .wrapper {
+        padding: getVar(padding, t, b, small) getVar(padding, l, r, medium);
+    }
+
+    & .input {
+        font-size: getVar(input, font-size, small);
+        padding: getVar(padding, t, b, small) 0;
+    }
+}
+
+.border {
+    &-thin {
+        $border-width: getVar(border, width, thin);
+        border: $border-width solid getVar(input, border, color);
+        border-radius: getVar(border, radius, large);
+    }
+
+    &-default {
+        $border-width: getVar(border, width, default);
+        border: $border-width solid getVar(input, border, color);
+        border-radius: getVar(border, radius, large);
+    }
+
+    &-thick {
+        $border-width: getVar(border, width, bold);
+        border: $border-width solid getVar(input, border, color);
+        border-radius: getVar(border, radius, large);
+    }
+}

@@ -1,27 +1,15 @@
-import React, { KeyboardEventHandler, useEffect, useId } from 'react';
-import { UiComponentProps } from '@ui-kit/interfaces.ts';
+import React, { KeyboardEventHandler, useEffect } from 'react';
 import styles from '@ui-kit/TextArea/TextArea.module.scss';
-import Container from '@ui-kit/Container/Container';
+import basestyles from '../InputBase/InputBase.module.scss';
 import { useThrottle } from '@ui-kit/_hooks/useThrottle';
-import Label, { LabelProps } from '@ui-kit/Label/Label';
 import { noop } from '@app/const/consts.ts';
+import InputBase, { InputBaseProps } from '@ui-kit/InputBase/InputBase';
 
-const borderType = {
-    thin: styles.textareaBorderThin,
-    default: styles.textareaBorderDefault,
-    thick: styles.textareaBorderThick,
-    none: '',
-};
-
-type BorderType = keyof typeof borderType;
-
-interface TextAreaProps extends UiComponentProps {
+interface TextAreaProps extends InputBaseProps {
     name?: string;
     textareaText?: string;
     placeholder?: string;
     spellcheck?: boolean;
-    border?: BorderType;
-    label?: LabelProps;
     autoResize?: boolean;
     minRows?: number;
     focusRows?: number;
@@ -29,28 +17,24 @@ interface TextAreaProps extends UiComponentProps {
     onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
     onKeydownCallback?: () => void;
     textareaRef: React.RefObject<HTMLTextAreaElement>;
-    maxLength?: number;
+    disabled?: boolean;
 }
 
 const TextArea: React.FC<TextAreaProps> = ({
     name,
     textareaText,
     placeholder,
-    label,
     spellcheck,
-    border = 'default',
     autoResize = false,
     minRows = 1,
-    focusRows = 2,
+    focusRows = minRows,
     maxRows = 10,
     onChange,
     onKeydownCallback = noop,
     textareaRef,
-    classes,
+    disabled = false,
     ...rest
 }) => {
-    const id = useId();
-
     const handleAreaKeydown: KeyboardEventHandler<HTMLTextAreaElement> = (
         event,
     ) => {
@@ -109,26 +93,21 @@ const TextArea: React.FC<TextAreaProps> = ({
     };
 
     return (
-        <Container
-            direction="vertical"
-            classes={classes}
-        >
-            {label && <Label {...label} />}
+        <InputBase {...rest}>
             <textarea
-                id={id}
-                ref={textareaRef}
+                className={[styles.textarea, basestyles.input].join(' ')}
                 name={name}
-                spellCheck={spellcheck}
-                defaultValue={textareaText}
+                value={textareaText}
                 placeholder={placeholder}
+                disabled={disabled}
+                spellCheck={spellcheck}
                 onChange={handleChange}
                 onKeyDown={handleAreaKeydown}
                 onFocusCapture={resizeTextarea}
                 onBlur={resizeTextarea}
-                className={[styles.textarea, borderType[border]].join(' ')}
-                {...rest}
+                ref={textareaRef}
             />
-        </Container>
+        </InputBase>
     );
 };
 

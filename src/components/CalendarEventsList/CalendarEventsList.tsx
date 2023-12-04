@@ -6,8 +6,8 @@ import {
     useGetEventsQuery,
 } from '@app/features/calendar/calendarSlice.ts';
 import { CalendarEvent } from '@components/CalendarEvent/CalendarEvent.tsx';
-import { CalendarEventType } from '@app/features/calendar/calendarModel.ts';
 import styles from './CalendarEventsList.module.scss';
+import ShowQueryState from '@components/ShowQueryState/ShowQueryState';
 
 interface CalendarEventsListProps extends UiComponentProps {
     iframeRef: React.RefObject<HTMLIFrameElement>;
@@ -16,26 +16,24 @@ interface CalendarEventsListProps extends UiComponentProps {
 export const CalendarEventsList: React.FC<CalendarEventsListProps> = ({
     iframeRef,
 }) => {
-    const { data } = useGetEventsQuery(null);
+    const { data, isSuccess, ...status } = useGetEventsQuery(null);
     const [deleteEvent] = useDeleteEventMutation();
-
-    const calendarEvents = Object.values(data?.calendarEvents ?? {}).map(
-        (eventData: CalendarEventType, index: number) => (
-            <CalendarEvent
-                eventData={eventData}
-                key={`${eventData.id}-${eventData.classid}-${index}`}
-                onDeleteClick={() => deleteEvent({ id: eventData.id })}
-                iframeRef={iframeRef}
-            ></CalendarEvent>
-        ),
-    );
 
     return (
         <Container
             direction={'vertical'}
             classes={styles.calendarEventsList}
         >
-            {calendarEvents}
+            <ShowQueryState status={status} />
+            {isSuccess &&
+                Object.values(data.calendarEvents).map((eventData, index) => (
+                    <CalendarEvent
+                        eventData={eventData}
+                        key={`${eventData.id}-${eventData.classid}-${index}`}
+                        onDeleteClick={() => deleteEvent({ id: eventData.id })}
+                        iframeRef={iframeRef}
+                    />
+                ))}
         </Container>
     );
 };

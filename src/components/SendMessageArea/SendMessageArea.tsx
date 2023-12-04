@@ -13,98 +13,93 @@ import useSendAttaches from '../../hooks/useSendAttaches.ts';
 import { SerializeAttachesFromBackend } from '../../utils/attaches/attachesSerializers.ts';
 
 import { localStoragePath, unselectedId } from '@app/const/consts.ts';
+import { useValidation } from '@ui-kit/_hooks/useValidation.ts';
+import Spinner from '@ui-kit/Spinner/Spinner.tsx';
+import ShowQueryState from '@components/ShowQueryState/ShowQueryState.tsx';
 
 interface SendMessageAreaProps extends UiComponentProps {
     id: number;
-    name: string;
 }
 
-const SendMessageArea: React.FC<SendMessageAreaProps> = ({ id, name }) => {
-    const textAreaRef = useRef<HTMLTextAreaElement>(null);
-
-    const [isDisabledSend, setIsDisabledSend] = useState(true);
-
+const SendMessageArea: React.FC<SendMessageAreaProps> = ({ id }) => {
     const [sendMessage] = useSendMessageMutation();
-
-    const dialogData = useGetDialogsQuery(null);
-
+    const { data: dialogData, isSuccess, ...status } = useGetDialogsQuery(null);
     const { attaches, setAttaches, attachesSendPromise } =
         useSendAttaches('chat');
+    const [message, setMessage] = useState<string>(
+        localStorage.getItem(`${localStoragePath.chatArea}/${id}`) || '',
+    );
 
-    const toSendMessage = (text: string, attaches: string[]) => {
-        if (dialogData.data && id !== unselectedId) {
-            sendMessage({
-                message: {
-                    chatID: id,
-                    text: text.trim(),
-                    ismine: true,
-                    date: new Date().toISOString(),
-                    socialType: dialogData.data.dialogs[id].socialType,
-                    attaches,
-                },
-            });
-        }
-    };
+    const formRef = useRef<HTMLFormElement>(null);
+    const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-    const sendMessageHandler = () => {
-        if (!textAreaRef.current) {
-            return;
-        }
+    const [disabled, setDisabled] = useState(true);
+    const [lock, setLock] = useState(false);
+    const [names, handlers, errors, isValid] = useValidation({
+        area: {
+            max: 4090,
+            trim: true,
+        },
+    });
 
-        if (attaches.length) {
-            attachesSendPromise()
-                .then((result) => {
-                    console.log('result.data.file: ', result);
-                    const attaches = SerializeAttachesFromBackend(result);
-                    if (dialogData.data) {
-                        sendMessage({
-                            message: {
-                                text: textAreaRef.current?.value ?? '',
-                                chatID: Number(id),
-                                ismine: true,
-                                date: new Date().toISOString(),
-                                attaches,
-                                socialType:
-                                    dialogData.data.dialogs[Number(id)]
-                                        .socialType,
-                            },
-                        });
-                    }
-                })
-                .then(() => {
-                    setAttaches([]);
-                    if (textAreaRef.current) {
-                        textAreaRef.current.value = '';
-                    }
-                })
-                .catch((error) => console.error('sendAttaches: ', error));
-        } else {
-            setAttaches([]);
-            toSendMessage(textAreaRef.current.value, []);
-            textAreaRef.current.value = '';
-        }
+    useEffect(() => {
+        localStorage.setItem(`${localStoragePath.chatArea}/${id}`, message);
+    }, [message]);
 
-        localStorage.setItem(`${localStoragePath.chatArea}${id}`, '');
-    };
-
-    const handleClick = (e: React.MouseEvent) => {
-        e.preventDefault();
-        sendMessageHandler();
+    const handleMessageChange: ChangeEventHandler<HTMLTextAreaElement> = (
+        e,
+    ) => {
+        handlers.area(e);
+        localStorage.setItem(
+            `${localStoragePath.chatArea}${id}`,
+            e.target.value,
+        );
+        setMessage(e.target.value);
     };
 
     useEffect(() => {
-        const savedMsg =
-            localStorage.getItem(`${localStoragePath.chatArea}/${id}`) ?? '';
-        if (!textAreaRef.current) return;
-        textAreaRef.current.value = savedMsg;
-        setIsDisabledSend(!textAreaRef.current.value && !attaches.length);
-    }, [id, setIsDisabledSend, attaches]);
+        setDisabled(!message.trim().length && !attaches.length);
+    }, [message, attaches]);
 
-    const handleMessageChange: ChangeEventHandler<HTMLTextAreaElement> = ({
-        target,
-    }) => {
-        localStorage.setItem(`${localStoragePath.chatArea}${id}`, target.value);
-        setIsDisabledSend(!target.value && !attaches.length);
+    const handleMessageSend = async () => {
+        if (
+            !isValid ||
+            disabled ||
+            lock ||
+            id === unselectedId ||
+            !dialogData
+        ) {
+            return;
+        }
+
+        setLock(true);
+
+        try {
+            let loaded: string[] = [];
+
+            if (attaches) {
+                const resp = await attachesSendPromise();
+                loaded = SerializeAttachesFromBackend(resp);
+            }
+
+            await sendMessage({
+                message: {
+                    chatID: id,
+                    text: message.trim(),
+                    ismine: true,
+                    date: new Date().toISOString(),
+                    socialType: dialogData.dialogs[id].socialType,
+                    attaches: loaded,
+                },
+            });
+
+            setMessage('');
+            setAttaches([]);
+        } catch (e) {
+            console.log(e);
+        } finally {
+            setLock(false);
+        }
     };
 
     return (
@@ -112,51 +107,55 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({ id, name }) => {
             classes={styles.sendMessageArea}
             direction={'vertical'}
         >
-            <form
-                className={styles.form}
-                name={'sendMessage form'}
-                method={'post'}
-                onSubmit={(e) => e.preventDefault()}
-            >
-                <AttachFile
-                    useFiles={[attaches, setAttaches]}
-                    maxFilesToAttach={5}
+            <ShowQueryState status={status} />
+            {isSuccess && (
+                <form
+                    className={styles.form}
+                    onSubmit={(e) => e.preventDefault()}
+                    ref={formRef}
                 >
-                    <Icon
-                        name={'attachIcon'}
-                        size={'large'}
-                    ></Icon>
-                </AttachFile>
-                <TextArea
-                    classes={styles.sendMessageAreaInput}
-                    name={name}
-                    spellcheck={true}
-                    textareaText={''}
-                    minRows={1}
-                    focusRows={3}
-                    maxRows={5}
-                    autoResize
-                    onChange={handleMessageChange}
-                    onKeydownCallback={sendMessageHandler}
-                    textareaRef={textAreaRef}
-                    maxLength={1500}
-                />
-
-                <Button
-                    onClick={handleClick}
-                    type={'link'}
-                    disabled={isDisabledSend}
-                >
-                    <Icon
-                        name={'chatSend'}
-                        classes={styles.sendMessageAreaButton}
-                        size={'large'}
+                    <AttachFile
+                        useFiles={[attaches, setAttaches]}
+                        maxFilesToAttach={10}
+                    >
+                        <Icon
+                            name={'attachIcon'}
+                            size={'large'}
+                        />
+                    </AttachFile>
+                    <TextArea
+                        classes={styles.sendMessageAreaInput}
+                        spellcheck={true}
+                        minRows={2}
+                        focusRows={3}
+                        maxRows={5}
+                        autoResize
+                        onChange={handleMessageChange}
+                        onKeydownCallback={handleMessageSend}
+                        textareaRef={textAreaRef}
+                        name={names.area}
+                        textareaText={message}
+                        errors={errors.area.msgs}
                     />
-                </Button>
-            </form>
-            <AttachmentsList
-                useFiles={[attaches, setAttaches]}
-            ></AttachmentsList>
+
+                    <Button
+                        onClick={handleMessageSend}
+                        // type={'link'}
+                        disabled={!isValid || disabled || lock}
+                    >
+                        {lock ? (
+                            <Spinner classes={styles.spinner} />
+                        ) : (
+                            <Icon
+                                name={'chatSend'}
+                                classes={styles.sendMessageAreaButton}
+                                size={'large'}
+                            />
+                        )}
+                    </Button>
+                </form>
+            )}
+            <AttachmentsList useFiles={[attaches, setAttaches]} />
         </Container>
     );
 };

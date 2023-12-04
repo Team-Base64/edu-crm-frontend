@@ -33,12 +33,12 @@
   --ui-kit-input-bg-error: inherit;
   --ui-kit-input-bg-success: inherit;
 
-  --ui-kit-input-outline-color: gray;
-  --ui-kit-input-outline-color-disabled: lightgray;
-  --ui-kit-input-outline-color-focus: #b26201;
-  --ui-kit-input-outline-color-error: red;
-  --ui-kit-input-outline-color-success: green;
-  --ui-kit-input-outline-color-hover: inherit;
+  --ui-kit-input-border-color: gray;
+  --ui-kit-input-border-color-disabled: lightgray;
+  --ui-kit-input-border-color-focus: #b26201;
+  --ui-kit-input-border-color-error: red;
+  --ui-kit-input-border-color-success: green;
+  --ui-kit-input-border-color-hover: inherit;
 
   --ui-kit-input-text-color-disabled: gray;
 
@@ -55,6 +55,7 @@
   --ui-kit-input-error-hint-font-size-small: 14px;
 
   // End input
+  --ui-kit-color-error: red;
 
   // Splitter
 

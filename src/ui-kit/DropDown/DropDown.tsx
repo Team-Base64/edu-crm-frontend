@@ -1,50 +1,75 @@
-import React from 'react';
+import React, { useId } from 'react';
 import styles from './DropDown.module.scss';
-import Text from '@ui-kit/Text/Text.tsx';
+import InputBase, { InputBaseProps } from '@ui-kit/InputBase/InputBase';
+import basestyles from '../InputBase/InputBase.module.scss';
+import Icon from '@ui-kit/Icon/Icon';
+import Button from '@ui-kit/Button/Button';
 
-interface DropDownProps extends React.InputHTMLAttributes<HTMLSelectElement> {
-    options: string[];
-    classes: string;
-    values: number[];
-    selectedValue?: number;
-    label: string;
+interface DropDownProps extends Omit<InputBaseProps, 'button'> {
+    //React.InputHTMLAttributes<HTMLSelectElement> {
+    values: (number | string)[];
+    placeholder?: number | string;
+    initial?: number | string;
+    name?: string;
+    formatTitle?: (value: number | string) => number | string;
+    disabled?: boolean;
+    onChange?: React.ChangeEventHandler<HTMLSelectElement>;
 }
 
 export const DropDown: React.FC<DropDownProps> = ({
-    options,
-    classes,
-    onChange,
+    formatTitle,
     values,
-    selectedValue,
-    label,
+    initial,
+    placeholder = 'Выберите значение',
+    disabled = false,
+    classes,
+    name,
+    onChange,
+    ...rest
 }) => {
-    const optionsElements = options.map((option, index) => (
+    const key = useId();
+    const options = [
         <option
-            key={option + index}
-            className={styles.dropDownOption}
-            value={values[index]}
+            style={{ display: 'none' }}
+            key={`${key}-null`}
+            value={'initial-placeholder'}
         >
-            {option}
-        </option>
-    ));
-    return (
-        <div className={[styles.dropDown, classes].join(' ')}>
-            <label className={styles.dropDownLabel}>
-                <Text
-                    type={'h'}
-                    size={5}
-                >
-                    {label}
-                </Text>
-            </label>
-            <select
-                id={options.toString()}
-                className={[styles.dropDownDataList].join(' ')}
-                onChange={onChange}
-                defaultValue={selectedValue}
+            {placeholder}
+        </option>,
+        ...values.map((value) => (
+            <option
+                key={`${key}-${value}`}
+                value={value}
             >
-                {optionsElements}
+                {formatTitle ? formatTitle(value) : value}
+            </option>
+        )),
+    ];
+    const initialOption =
+        values.find((v) => v.toString() === initial?.toString()) ??
+        'initial-placeholder';
+    return (
+        <InputBase
+            {...rest}
+            classes={[styles.select, classes].join(' ')}
+            button={
+                <Button
+                    type="link"
+                    disabled={disabled}
+                >
+                    <Icon name="arrowDown" />
+                </Button>
+            }
+        >
+            <select
+                name={name}
+                className={basestyles.input}
+                onChange={onChange}
+                defaultValue={initialOption}
+                disabled={disabled}
+            >
+                {options}
             </select>
-        </div>
+        </InputBase>
     );
 };

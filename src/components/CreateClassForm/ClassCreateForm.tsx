@@ -9,6 +9,7 @@ import Text from '@ui-kit/Text/Text';
 import TextArea from '@ui-kit/TextArea/TextArea';
 import { useCreateClassMutation } from '@app/features/class/classSlice';
 import styles from './ClassCreateForm.module.scss';
+import useForm from '@ui-kit/_hooks/useForm';
 
 interface ClassCreateFormProps extends UiComponentProps {
     onSuccess?: (id: string | number) => void;
@@ -19,32 +20,44 @@ const ClassCreateForm: React.FC<ClassCreateFormProps> = ({
     onSuccess,
 }) => {
     const [createClass] = useCreateClassMutation();
-    const formRef = useRef<HTMLFormElement>(null);
     const [lock, setLock] = useState<boolean>(false);
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+    const [form, isValid, clear] = useForm({
+        title: {
+            rules: {
+                min: 5,
+                max: 100,
+                trim: true,
+            },
+            initial: '',
+        },
+        description: {
+            rules: {
+                trim: true,
+            },
+            initial: '',
+        },
+    });
 
     const handleSubmit = () => {
-        const form = formRef.current;
-        if (!form) {
-            return;
-        }
+        if (!isValid) return;
 
-        const title = form.classTitle.value as string;
-        const descr = form.classDescription.value as string;
-        if (!title.length) {
-            return;
-        }
         setLock(true);
 
         createClass({
             payload: {
-                title: title,
-                description: descr,
+                title: form.title.value,
+                description: form.description.value,
             },
         })
             .then((resp) => {
-                if ('data' in resp) {
-                    onSuccess?.(resp.data.class.id);
-                }
+                if ('error' in resp)
+                    throw new Error(JSON.stringify(resp.error));
+
+                clear();
+
+                onSuccess?.(resp.data.class.id);
             })
             .catch((e) => {
                 console.log(e);
@@ -54,13 +67,8 @@ const ClassCreateForm: React.FC<ClassCreateFormProps> = ({
             });
     };
 
-    const textareaRef = useRef<HTMLTextAreaElement>(null);
-
     return (
-        <form
-            ref={formRef}
-            onSubmit={(e) => e.preventDefault()}
-        >
+        <form onSubmit={(e) => e.preventDefault()}>
             <Container
                 direction={'vertical'}
                 layout={'defaultBase'}
@@ -85,30 +93,35 @@ const ClassCreateForm: React.FC<ClassCreateFormProps> = ({
                             type: 'h',
                             size: 4,
                         }}
-                        placeholder={'Например: Даша Математика'}
-                        type={'text'}
-                        name="classTitle"
+                        placeholder={'Например: ЕГЭ математика'}
+                        errors={form.title.errors}
+                        onChange={form.title.changeMiddleware()}
                     />
                     <TextArea
-                        // TODO disabled={lock}
+                        disabled={lock}
                         textareaRef={textareaRef}
                         minRows={2}
+                        focusRows={5}
                         maxRows={6}
-                        name="classDescription"
+                        autoResize
                         label={{
                             text: 'Описание',
                             type: 'h',
                             size: 4,
                         }}
+                        placeholder="Можно оставить пустым"
+                        errors={form.description.errors}
+                        onChange={form.description.changeMiddleware()}
                     />
                 </Container>
 
                 <Button
                     onClick={handleSubmit}
-                    disabled={lock}
+                    disabled={lock || !isValid}
                 >
-                    {lock && <Spinner classes={styles.btnSpinner} />}
-                    {!lock && (
+                    {lock ? (
+                        <Spinner classes={styles.btnSpinner} />
+                    ) : (
                         <>
                             <Icon
                                 name="addLine"

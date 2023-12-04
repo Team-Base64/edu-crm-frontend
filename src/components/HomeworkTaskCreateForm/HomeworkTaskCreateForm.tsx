@@ -13,6 +13,7 @@ import styles from './HomeworkTaskCreateForm.module.scss';
 import { AttachmentsList } from '@ui-kit/AttachmentsList/AttachmentsList';
 import useSendAttaches from 'hooks/useSendAttaches';
 import { SerializeAttachesFromBackend } from 'utils/attaches/attachesSerializers';
+import useForm from '@ui-kit/_hooks/useForm';
 
 interface TaskCreateFormProps extends UiComponentProps {
     onSubmitSuccess?: (t: HomeworkTask) => void;
@@ -22,20 +23,23 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({
     onSubmitSuccess,
     classes,
 }) => {
-    const formRef = useRef<HTMLFormElement>(null);
     const { attaches, setAttaches, attachesSendPromise } =
         useSendAttaches('homework');
     const [createTask] = useCreateTaskMutation();
     const [lock, setLock] = useState<boolean>(false);
 
-    const handleSubmit = async () => {
-        const form = formRef.current;
-        if (!form) {
-            return;
-        }
+    const [form, isValid, clear] = useForm({
+        description: {
+            rules: {},
+            initial: '',
+        },
+    });
 
-        const description = form.descr.value as string;
-        if (!description.length && !attaches?.length) {
+    const handleSubmit = async () => {
+        if (
+            !isValid ||
+            (!form.description.value.trim().length && !attaches.length)
+        ) {
             return;
         }
 
@@ -51,28 +55,28 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({
 
             const resp = await createTask({
                 payload: {
-                    description: description,
+                    description: form.description.value.trim(),
                     attach: loaded[0] || '',
                 },
             });
 
-            if ('data' in resp) {
-                const id = resp.data.id;
+            if ('error' in resp) throw new Error(JSON.stringify(resp.error));
 
-                onSubmitSuccess?.({
-                    id: id,
-                    description: description,
-                    attach: loaded.at(0) || '',
-                });
+            const id = resp.data.id;
 
-                setAttaches([]);
-                form.descr.value = '';
-            }
+            setAttaches([]);
+            clear();
+
+            onSubmitSuccess?.({
+                id: id,
+                description: form.description.value,
+                attach: loaded.at(0) || '',
+            });
         } catch (e) {
             console.log(e);
+        } finally {
+            setLock(false);
         }
-
-        setLock(false);
     };
 
     const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -93,7 +97,6 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({
                     Создание задания
                 </Text>
                 <form
-                    ref={formRef}
                     onSubmit={(e) => e.preventDefault()}
                     className={styles.form}
                 >
@@ -105,12 +108,15 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({
                                 text: 'Описание:',
                                 type: 'h',
                                 size: 4,
-                                // weight: 'bold',
                             }}
-                            placeholder="Опишите суть задачи"
+                            placeholder="Обязательно, если нет вложений"
+                            autoResize
                             minRows={4}
-                            maxRows={8}
-                            name="descr"
+                            focusRows={8}
+                            maxRows={16}
+                            errors={form.description.errors}
+                            onChange={form.description.changeMiddleware()}
+                            textareaText={form.description.value}
                         />
 
                         <AttachFile
@@ -129,7 +135,12 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({
 
                 <Button
                     onClick={handleSubmit}
-                    disabled={lock}
+                    disabled={
+                        lock ||
+                        !isValid ||
+                        (!form.description.value.trim().length &&
+                            !attaches.length)
+                    }
                 >
                     <Icon
                         name="approve"

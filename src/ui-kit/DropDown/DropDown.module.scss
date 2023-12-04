@@ -1,5 +1,9 @@
 @use '../functions' as *;
 
+.select {
+  cursor: pointer;
+}
+
 .drop-down {
   position: relative;
   font-family: getVar(font, type, default);

@@ -81,7 +81,7 @@ export const CalendarEvent: React.FC<CalendarEventProps> = ({
                 <Icon
                     size={'small'}
                     name={'pencilLine'}
-                ></Icon>
+                />
                 <Text
                     type={'p'}
                     size={5}
@@ -96,7 +96,7 @@ export const CalendarEvent: React.FC<CalendarEventProps> = ({
                 <Icon
                     size={'small'}
                     name={'deleteBinLine'}
-                ></Icon>
+                />
                 <Text
                     type={'p'}
                     size={5}
@@ -111,10 +111,9 @@ export const CalendarEvent: React.FC<CalendarEventProps> = ({
                 <CalendarEventForm
                     useMutation={useEditEventMutation}
                     eventData={eventData}
-                    title={'Изменение события'}
-                    sumbitButtonTitle={'Изменить'}
-                    handleOverlayClose={handleOverlayClose}
-                ></CalendarEventForm>
+                    onSuccess={handleOverlayClose}
+                    onClose={handleOverlayClose}
+                />
             </Overlay>
         </Container>
     );
