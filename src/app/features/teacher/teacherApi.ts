@@ -72,6 +72,7 @@ export const teacherApi = appApi.injectEndpoints({
                     console.log(meta);
                     if (meta && meta.response && meta.response.ok) {
                         dispatch(setMe(false));
+                        dispatch(appApi.util.resetApiState());
                     }
                 } catch (error) {
                     console.error(error);

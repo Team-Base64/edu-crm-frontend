@@ -56,7 +56,7 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({
             const resp = await createTask({
                 payload: {
                     description: form.description.value.trim(),
-                    attach: loaded[0] || '',
+                    attaches: loaded,
                 },
             });
 
@@ -70,7 +70,7 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({
             onSubmitSuccess?.({
                 id: id,
                 description: form.description.value,
-                attach: loaded.at(0) || '',
+                attaches: loaded,
             });
         } catch (e) {
             console.log(e);
@@ -121,7 +121,7 @@ const TaskCreateForm: React.FC<TaskCreateFormProps> = ({
 
                         <AttachFile
                             useFiles={[attaches, setAttaches]}
-                            maxFilesToAttach={1}
+                            maxFilesToAttach={10}
                         >
                             <Icon
                                 name={'attachIcon'}
