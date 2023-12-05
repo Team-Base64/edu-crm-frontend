@@ -6,11 +6,8 @@ import { UiComponentProps } from '@ui-kit/interfaces';
 import styles from './HomeworkTaskItem.module.scss';
 import { HomeworkTask } from '@app/features/homeworkTask/homeworkTaskModel';
 import CheckBox from '@ui-kit/Checkbox/Checkbox';
-import { Attachment } from '@ui-kit/Attachment/Attachment';
-import { noop } from '@app/const/consts';
 import { ListItemFC } from '@ui-kit/List/types';
 import { AttachmentsList } from '@ui-kit/AttachmentsList/AttachmentsList';
-import EmptyItem from '@components/EmptyItem/EmptyItem';
 
 interface HomeworkTaskItemProps extends UiComponentProps {
     title?: string;

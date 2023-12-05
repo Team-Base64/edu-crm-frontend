@@ -3,7 +3,6 @@ import LoginForm from '@components/LoginForm/LoginForm';
 import Container from '@ui-kit/Container/Container';
 import styles from './LoginPage.module.scss';
 import Button from '@ui-kit/Button/Button';
-import Icon from '@ui-kit/Icon/Icon';
 import Text from '@ui-kit/Text/Text';
 import { useNavigate } from 'react-router-dom';
 import AppRoutes from '@router/routes';

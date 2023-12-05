@@ -8,7 +8,6 @@ import React, { useRef } from 'react';
 import styles from './ReviewTask.module.scss';
 import Text from '@ui-kit/Text/Text';
 import { commentStorePath } from './utils';
-import { Attachment } from '@ui-kit/Attachment/Attachment';
 import { noop } from '@app/const/consts';
 import ShowQueryState from '@components/ShowQueryState/ShowQueryState';
 import HomeworkTaskItem from '@components/HomeworkTaskItem/HomeworkTaskItem';
@@ -67,6 +66,7 @@ const ReviewTask: React.FC<ReviewTaskProps> = ({ taskID, title }) => {
                         index={-1}
                         onDelete={noop}
                         onSelect={noop}
+                        title={title}
                     />
                     <Container
                         direction="horizontal"
