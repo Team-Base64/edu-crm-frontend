@@ -47,7 +47,7 @@ const AppRouter: React.FC = () => {
                     />
                     <Route
                         path={AppRoutes.register}
-                        element={<RegisterPage/>}
+                        element={<RegisterPage />}
                     />
                 </Route>
 

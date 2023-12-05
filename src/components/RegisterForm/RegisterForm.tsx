@@ -13,7 +13,7 @@ import Spinner from '@ui-kit/Spinner/Spinner.tsx';
 import Hint from '@ui-kit/Hint/Hint.tsx';
 import useForm from '@ui-kit/_hooks/useForm';
 
-interface RegisterFormProps extends UiComponentProps { }
+interface RegisterFormProps extends UiComponentProps {}
 
 const RegisterForm: React.FC<RegisterFormProps> = ({ classes }) => {
     const navigate = useNavigate();
@@ -84,7 +84,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ classes }) => {
         },
     });
 
-
     const handleSubmit = () => {
         if (!isValid) {
             return;
@@ -98,7 +97,9 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ classes }) => {
                     form.firstName.value.trim(),
                     form.middleName.value.trim(),
                     form.lastName.value.trim(),
-                ].join(' ').replace('  ', ' '),
+                ]
+                    .join(' ')
+                    .replace('  ', ' '),
                 login: form.login.value,
                 password: form.password.value,
             },

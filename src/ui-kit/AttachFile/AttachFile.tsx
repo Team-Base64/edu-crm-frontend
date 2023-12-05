@@ -1,7 +1,8 @@
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './AttachFile.module.scss';
 import Button from '@ui-kit/Button/Button.tsx';
+import Hint from '@ui-kit/Hint/Hint';
 
 interface AttachFileProps extends UiComponentProps {
     useFiles: [File[], React.Dispatch<React.SetStateAction<File[]>>];
@@ -15,51 +16,54 @@ export const AttachFile: React.FC<AttachFileProps> = ({
     children,
     disabled = false,
 }) => {
-    const [settedFiles, setFilesState] = useFiles;
+    const [lock, setLock] = useState<boolean>(false);
+    const [hint, setHint] = useState<boolean>(false);
+    const [files, changeFiles] = useFiles;
     const inputRef = useRef<HTMLInputElement>(null);
-    const templateHandler = (
-        handler: (files: FileList) => void,
-        { target }: React.FormEvent<HTMLInputElement>,
-    ) => {
-        if (target instanceof HTMLInputElement && target.files) {
-            handler(target.files);
-            target.files = null;
-        }
+
+    const handleChange = () => {
+        if (!inputRef.current) return;
+
+        const inputFiles = Array.from(inputRef.current.files ?? []);
+        inputRef.current.value = '';
+
+        changeFiles((current) =>
+            [...current, ...inputFiles].slice(0, maxFilesToAttach),
+        );
     };
 
-    const handleOnChange = templateHandler.bind(this, (files) => {
-        if (files && files.length + settedFiles.length <= maxFilesToAttach) {
-            setFilesState([...settedFiles, ...Array.from(files ?? [])]);
-        } else {
-            console.warn(
-                `too many files : ${files.length + settedFiles.length}`,
-            );
-        }
-    });
+    useEffect(() => {
+        setLock(files.length >= maxFilesToAttach);
+        setHint(files.length >= maxFilesToAttach);
+    }, [files, setLock]);
 
     return (
         <>
-            <label
-                htmlFor={'attach-input'}
-                className={styles.attachFileLabel}
-            >
+            <label htmlFor={'attach-input'}>
                 <Button
-                    disabled={disabled}
+                    disabled={disabled || lock}
                     type={'link'}
                     size={'m'}
                     onClick={() => inputRef.current?.click()}
+                    classes={styles.btn}
                 >
                     {children}
                 </Button>
+                <Hint
+                    classes={styles.hint}
+                    state={[hint, setHint]}
+                    timeoutSec={5}
+                    text={`Можно прикрепить не более ${maxFilesToAttach} файлов`}
+                />
             </label>
             <input
-                className={styles.attachFile}
+                className={styles.input}
                 type={'file'}
                 id={'attach-input'}
                 accept={'.pdf, image/*'}
-                onChange={handleOnChange}
+                onChange={handleChange}
                 ref={inputRef}
-                multiple={true}
+                multiple={maxFilesToAttach > 1}
             ></input>
         </>
     );

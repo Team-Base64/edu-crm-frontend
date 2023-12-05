@@ -11,7 +11,7 @@ interface TextAreaProps extends InputBaseProps {
     placeholder?: string;
     spellcheck?: boolean;
     autoResize?: boolean;
-    collapseOnBlur ?: boolean;
+    collapseOnBlur?: boolean;
     minRows?: number;
     focusRows?: number;
     maxRows?: number;
@@ -78,7 +78,7 @@ const TextArea: React.FC<TextAreaProps> = ({
                     border + area.scrollHeight,
                     border + padding + lineHeight * maxRows,
                 ) + 'px';
-        } else if(collapseOnBlur) {
+        } else if (collapseOnBlur) {
             area.style.height = border + padding + minRows * lineHeight + 'px';
         }
     };

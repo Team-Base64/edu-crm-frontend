@@ -58,10 +58,8 @@ const HomeworkTaskItem: ListItemFC<HomeworkTask, HomeworkTaskItemProps> = ({
                             {description}
                         </Text>
                     )}
-                    {attaches.length > 0 &&  (
-                        <AttachmentsList
-                            staticAttachments={attaches}
-                        />
+                    {attaches.length > 0 && (
+                        <AttachmentsList staticAttachments={attaches} />
                     )}
                     {allowDelete && (
                         <Button

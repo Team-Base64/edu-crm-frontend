@@ -13,22 +13,22 @@ const LoginPage: React.FC = () => {
 
     const handleRegister = () => {
         return navigate(`/${AppRoutes.register}`);
-    }
+    };
 
     return (
         <Container
             classes={styles.page}
-            direction='vertical'
+            direction="vertical"
         >
             <LoginForm classes={styles.form} />
             <Button
-                type='link'
+                type="link"
                 onClick={handleRegister}
             >
                 <Text
-                    type='p'
+                    type="p"
                     size={1}
-                    weight='bold'
+                    weight="bold"
                 >
                     Ещё нет аккаунта?
                 </Text>

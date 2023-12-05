@@ -1,8 +1,15 @@
-.attach-file {
+.input {
   display: none;
+}
 
-  &--label {
-    fill: var(--color-text-default);
-    cursor: pointer;
+.btn {
+  fill: var(--color-text-default);
+
+  &:disabled {
+    fill: lightgray;
   }
+}
+
+.hint {
+  position: absolute;
 }
