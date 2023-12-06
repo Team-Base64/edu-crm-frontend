@@ -1,4 +1,4 @@
-import React, { Suspense, useRef } from 'react';
+import React, { Suspense, useEffect, useRef } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import styles from './Calendar.module.scss';
 import Spinner from '@ui-kit/Spinner/Spinner.tsx';
@@ -6,7 +6,6 @@ import { useGetCalendarIDQuery } from '@app/features/calendar/calendarSlice.ts';
 import Text from '@ui-kit/Text/Text.tsx';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import FullCalendar from '@fullcalendar/react';
 import { Calendar } from '@fullcalendar/core';
 
 interface CalendarProps extends UiComponentProps {
@@ -19,8 +18,6 @@ export const MyCalendar: React.FC<CalendarProps> = ({
     mode,
     iframeRef,
 }) => {
-    const timeZone = 'Europe%2FMoscow';
-    const showTimeZone = '1';
     const { data, isSuccess } = useGetCalendarIDQuery(null);
 
     const API_ID =
@@ -29,19 +26,32 @@ export const MyCalendar: React.FC<CalendarProps> = ({
 
     const calendarRef = useRef<HTMLDivElement>(null);
 
-    if (calendarRef.current) {
-        const calendar = new Calendar(calendarRef.current, {
-            plugins: [dayGridPlugin, googleCalendarPlugin],
-            initialView: 'dayGridMonth',
-            googleCalendarApiKey: import.meta.env.VITE_API_GOOGLE,
-            events: {
-                googleCalendarId: API_ID,
-            },
-            height: '100%',
-            expandRows: true,
-        });
-        calendar.render();
-    }
+    useEffect(() => {
+        if (calendarRef.current) {
+            const shadowBase = document.createElement('div');
+            const shadowInner = document.createElement('main');
+            const shadowElement = shadowBase.attachShadow({
+                mode: 'closed',
+            });
+            shadowElement.appendChild(shadowInner);
+
+            calendarRef.current.innerHTML = '';
+            calendarRef.current.appendChild(shadowBase);
+
+            const calendar = new Calendar(shadowInner, {
+                plugins: [dayGridPlugin, googleCalendarPlugin],
+                initialView: 'dayGridMonth',
+                googleCalendarApiKey: import.meta.env.VITE_API_GOOGLE,
+                events: {
+                    googleCalendarId: API_ID,
+                },
+                height: '100%',
+                expandRows: true,
+            });
+            console.log('asd');
+            calendar.render();
+        }
+    }, []);
 
     return (
         <Suspense
@@ -55,18 +65,8 @@ export const MyCalendar: React.FC<CalendarProps> = ({
             {API_ID ? (
                 <div
                     className={[styles.calendar, classes].join(' ')}
-                    id={'google-calendar'}
-                >
-                    <div ref={calendarRef}></div>
-                    {/*<FullCalendar*/}
-                    {/*    plugins={[dayGridPlugin, googleCalendarPlugin]}*/}
-                    {/*    initialView="dayGridMonth"*/}
-                    {/*    googleCalendarApiKey={import.meta.env.VITE_API_GOOGLE}*/}
-                    {/*    events={[{ googleCalendarId: API_ID }]}*/}
-                    {/*    height={'100%'}*/}
-                    {/*    expandRows={true}*/}
-                    {/*/>*/}
-                </div>
+                    ref={calendarRef}
+                ></div>
             ) : (
                 <Text
                     type={'h'}
