@@ -4,6 +4,7 @@ export const maxLengthOfMessage = 4096;
 
 export const localStoragePath = {
     chatArea: 'chatArea/',
+    login: 'login',
 };
 
 export const unselectedId = -1;

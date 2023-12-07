@@ -17,7 +17,7 @@ export const CalendarPage: React.FC<CalendarPageProps> = () => {
         >
             <MyCalendar
                 classes={styles.calendarPageCalendar}
-                mode={'MONTH'}
+                viewMode={'month'}
                 iframeRef={iframeRef}
             ></MyCalendar>
             <CalendarControls

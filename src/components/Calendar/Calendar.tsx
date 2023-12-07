@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useRef } from 'react';
+import React, { Suspense, useRef } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import styles from './Calendar.module.scss';
 import Spinner from '@ui-kit/Spinner/Spinner.tsx';
@@ -6,52 +6,64 @@ import { useGetCalendarIDQuery } from '@app/features/calendar/calendarSlice.ts';
 import Text from '@ui-kit/Text/Text.tsx';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
 import { Calendar } from '@fullcalendar/core';
 
 interface CalendarProps extends UiComponentProps {
-    mode: 'WEEK' | 'MONTH';
+    viewMode: viewModeType;
     iframeRef: React.RefObject<HTMLIFrameElement>;
 }
 
+const ViewMode = {
+    week: 'timeGridWeek',
+    month: 'dayGridMonth',
+};
+
+type viewModeType = keyof typeof ViewMode;
+
 export const MyCalendar: React.FC<CalendarProps> = ({
     classes,
-    mode,
+    viewMode,
     iframeRef,
 }) => {
     const { data, isSuccess } = useGetCalendarIDQuery(null);
 
-    const API_ID =
-        // 'a7710d0da9bee0635aa37debf678be1295ad61bbaeff1c7248052b65deb7d91b@group.calendar.google.com';
-        '611a7b115cb31d14e41c9909e07db425548dd3b5fa76a145f3c93ae7410bc142@group.calendar.google.com';
-
     const calendarRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        if (calendarRef.current) {
-            const shadowBase = document.createElement('div');
-            const shadowInner = document.createElement('main');
-            const shadowElement = shadowBase.attachShadow({
-                mode: 'closed',
-            });
-            shadowElement.appendChild(shadowInner);
+    // useEffect(() => {
+    if (calendarRef.current && (isSuccess || true)) {
+        const shadowBase = document.createElement('div');
+        const shadowInner = document.createElement('main');
+        const shadowElement = shadowBase.attachShadow({
+            mode: 'closed',
+        });
+        shadowElement.appendChild(shadowInner);
+        shadowInner.classList.add(styles.calendarShadowDom);
 
-            calendarRef.current.innerHTML = '';
-            calendarRef.current.appendChild(shadowBase);
+        calendarRef.current.innerHTML = '';
+        calendarRef.current.appendChild(shadowBase);
 
-            const calendar = new Calendar(shadowInner, {
-                plugins: [dayGridPlugin, googleCalendarPlugin],
-                initialView: 'dayGridMonth',
-                googleCalendarApiKey: import.meta.env.VITE_API_GOOGLE,
-                events: {
-                    googleCalendarId: API_ID,
-                },
-                height: '100%',
-                expandRows: true,
-            });
-            console.log('asd');
-            calendar.render();
-        }
-    }, []);
+        const calendar = new Calendar(shadowInner, {
+            plugins: [dayGridPlugin, timeGridPlugin, googleCalendarPlugin],
+            locale: 'ru',
+            firstDay: 1,
+            initialView: ViewMode[viewMode],
+            googleCalendarApiKey: import.meta.env.VITE_API_GOOGLE,
+            events: {
+                // googleCalendarId: data.googleid,
+                googleCalendarId: import.meta.env
+                    .VITE_CALENDAR_GOOGLE_SAMPLE_TOKEN,
+            },
+            height: '100%',
+            expandRows: true,
+            eventColor: 'var(--ui-kit-btn-secondary-border-color-default)',
+            eventTextColor: 'var(--color-bg-default)',
+            buttonText: {
+                today: 'сегодня',
+            },
+        });
+        calendar.render();
+    }
 
     return (
         <Suspense
@@ -62,7 +74,7 @@ export const MyCalendar: React.FC<CalendarProps> = ({
                 </div>
             }
         >
-            {API_ID ? (
+            {isSuccess || true ? (
                 <div
                     className={[styles.calendar, classes].join(' ')}
                     ref={calendarRef}
@@ -71,11 +83,7 @@ export const MyCalendar: React.FC<CalendarProps> = ({
                 <Text
                     type={'h'}
                     size={3}
-                    classes={[
-                        styles.calendar,
-                        styles.calendarErrorId,
-                        classes,
-                    ].join(' ')}
+                    classes={[styles.calendarErrorId, classes].join(' ')}
                 >
                     Ошибка при загрузке календаря
                 </Text>

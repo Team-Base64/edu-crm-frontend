@@ -10,6 +10,7 @@ import Text from '@ui-kit/Text/Text';
 import styles from './LoginForm.module.scss';
 import { useEmptyStringValidation } from '../../hooks/validation/string.ts';
 import { useLoginMutation } from '@app/features/teacher/teacherApi';
+import { localStoragePath } from '@app/const/consts.ts';
 
 interface LoginFormProps extends UiComponentProps {}
 
@@ -44,6 +45,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
         if (!username || !password) {
             return;
         }
+
+        localStorage.setItem(localStoragePath.login, username);
 
         login({
             payload: {
