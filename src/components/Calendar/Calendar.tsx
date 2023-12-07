@@ -30,8 +30,7 @@ export const MyCalendar: React.FC<CalendarProps> = ({
 
     const calendarRef = useRef<HTMLDivElement>(null);
 
-    // useEffect(() => {
-    if (calendarRef.current && (isSuccess || true)) {
+    if (calendarRef.current && isSuccess) {
         const shadowBase = document.createElement('div');
         const shadowInner = document.createElement('main');
         const shadowElement = shadowBase.attachShadow({
@@ -50,9 +49,9 @@ export const MyCalendar: React.FC<CalendarProps> = ({
             initialView: ViewMode[viewMode],
             googleCalendarApiKey: import.meta.env.VITE_API_GOOGLE,
             events: {
-                // googleCalendarId: data.googleid,
-                googleCalendarId: import.meta.env
-                    .VITE_CALENDAR_GOOGLE_SAMPLE_TOKEN,
+                googleCalendarId: data.googleid,
+                // googleCalendarId: import.meta.env
+                //     .VITE_CALENDAR_GOOGLE_SAMPLE_TOKEN,
             },
             height: '100%',
             expandRows: true,
@@ -74,7 +73,7 @@ export const MyCalendar: React.FC<CalendarProps> = ({
                 </div>
             }
         >
-            {isSuccess || true ? (
+            {isSuccess ? (
                 <div
                     className={[styles.calendar, classes].join(' ')}
                     ref={calendarRef}
