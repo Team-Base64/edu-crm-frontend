@@ -1,0 +1,15 @@
+.ul {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-right: 16px;
+
+    &::-webkit-scrollbar {
+        width: 8px;
+        background-color: inherit;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 8px;
+        background-color: lightgray;
+    }
+}

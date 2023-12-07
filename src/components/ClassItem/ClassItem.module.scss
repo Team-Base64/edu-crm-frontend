@@ -1,0 +1,27 @@
+.card {
+  grid-template-columns: minmax(100px, 1fr) minmax(auto, 1fr) max-content;
+  background-color: var(--color-accent-super-light);
+  padding-right: 8px;
+}
+
+.content {
+  grid-column: 1;
+}
+
+.wrapper {
+  min-width: 100px;
+  overflow: hidden;
+}
+
+.text {
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.btn {
+  grid-column: 3;
+  &-icon {
+    fill: var(--color-accent-default);
+  }
+}

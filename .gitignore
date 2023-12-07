@@ -5,3 +5,5 @@ dist
 .vscode
 .idea
 .vs
+
+mockServiceWorker.js

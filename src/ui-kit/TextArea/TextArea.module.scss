@@ -1,0 +1,77 @@
+@use '../functions' as *;
+// TODO
+$padding-tb: 16px;
+$padding-rl: 8px;
+$scrollbar-width: 8px;
+
+.textarea-label {
+  margin: var(--space-default);
+}
+
+.textarea {
+  width: 100%;
+  font-family: getVar(font, type, default);
+
+  padding: $padding-tb $padding-rl;
+  resize: none;
+
+  line-height: 1;
+
+  &::-webkit-scrollbar {
+    background-color: rgba(0, 0, 0, 0);
+    width: $scrollbar-width;
+    height: $scrollbar-width;
+  }
+
+  &::-webkit-scrollbar-button {
+    height: 16px;
+    width: 16px;
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  &::-webkit-scrollbar-thumb{
+    background-color: lightgray;
+    border-radius: 4px;
+  }
+
+  &-border-thin {
+    $border-width: getVar(border, width, thin);
+    border: $border-width solid getVar(input, outline, color);
+    border-radius: getVar(border, radius, large);
+  }
+
+  &-border-default {
+    $border-width: getVar(border, width, default);
+    border: $border-width solid getVar(input, outline, color);
+    border-radius: getVar(border, radius, large);
+  }
+
+  &-border-thick {
+    $border-width: getVar(border, width, bold);
+    border: $border-width solid getVar(input, outline, color);
+    border-radius: getVar(border, radius, large);
+  }
+
+  &:hover {
+    background-color: getVar(input, bg, hover);
+    border-color: getVar(input, outline, color, hover);
+  }
+
+  &:disabled {
+    background-color: getVar(input, bg, disabled);
+    outline-color: getVar(input, outline, color, disabled);
+  }
+
+  &:disabled .title {
+    color: getVar(input, text, color, disabled);
+  }
+
+  &:disabled .error-hint {
+    display: none;
+  }
+
+  &:has(.input:focus-visible) {
+    background-color: getVar(input, bg, focus);
+    outline-color: getVar(input, outline, color, focus);
+  }
+}

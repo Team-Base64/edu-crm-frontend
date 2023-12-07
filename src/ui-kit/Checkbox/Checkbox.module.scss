@@ -1,0 +1,89 @@
+@use "../functions" as *;
+
+@mixin tick($color) {
+    $img: url('\
+    data:image/svg+xml;utf8,\
+    <svg viewBox="2 2 20 20" xmlns="http://www.w3.org/2000/svg"> \
+    <path \
+    d="M10 15.172L19.192 5.979L20.607 7.393L10 18L3.636 11.636L5.05 10.222L10 15.172Z" \
+    fill="black" \
+    /> \
+    </svg>');
+
+    background-color: $color; 
+
+    -webkit-mask-image: $img;
+    mask-image: $img;
+}
+
+.checkbox {
+    &.m {
+        --s: #{getVar(checkbox, size, m)};
+        --tick-ratio: #{getVar(checkbox, tick, ratio, m)};
+        --border-width: #{getVar(checkbox, border, width, m)};
+        --border-radius: #{getVar(checkbox, border, radius, m)};
+    }
+
+    &.l {
+        --s: #{getVar(checkbox, size, l)};
+        --tick-ratio: #{getVar(checkbox, tick, ratio, l)};
+        --border-width: #{getVar(checkbox, border, width, l)};
+        --border-radius: #{getVar(checkbox, border, radius, l)};
+    }
+
+    &.s {
+        --s: #{getVar(checkbox, size, s)};
+        --tick-ratio: #{getVar(checkbox, tick, ratio, s)};
+        --border-width: #{getVar(checkbox, border, width, s)};
+        --border-radius: #{getVar(checkbox, border, radius, s)};
+    }
+
+    &.primary {
+        --bg: #{getVar(checkbox, bg, primary)};
+        --bg-checked: #{getVar(checkbox, bg, checked, primary)};
+        --tick-color: #{getVar(checkbox, tick, color, primary)};
+        --border-color: #{getVar(checkbox, border, color, primary)};
+    }
+
+    &.secondary {
+        --bg: #{getVar(checkbox, bg, secondary)};
+        --bg-checked: #{getVar(checkbox, bg, checked, secondary)};
+        --tick-color: #{getVar(checkbox, tick, color, secondary)};
+        --border-color: #{getVar(checkbox, border, color, secondary)};
+    }
+
+    display: block;
+    cursor: pointer;
+    position: relative;
+
+    background-color: var(--bg);
+
+    height: var(--s);
+    width: var(--s);
+
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--border-radius);
+
+    flex-shrink: 0;
+    flex-grow: 0;
+
+    &:checked {
+        background-color: var(--bg-checked);
+    }
+
+    &:checked::after {
+        position: absolute;
+        display: block;
+
+        width: calc(var(--tick-ratio) * 100%);
+        height: calc(var(--tick-ratio) * 100%);
+
+        bottom: 0;
+        // bottom: calc((1 - var(--tick-ratio)) * 100% / 2);
+        left: calc((1 - var(--tick-ratio)) * 100% / 2);
+
+
+        content: "";
+        @include tick(var(--tick-color));
+    }
+}

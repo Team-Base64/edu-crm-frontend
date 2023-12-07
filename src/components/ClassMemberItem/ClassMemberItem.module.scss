@@ -1,0 +1,36 @@
+.card {
+    padding: 8px 16px;
+    border-radius: 8px;
+    background-color: var(--color-accent-super-light);
+    justify-content: space-between;
+
+    & .wrapper {
+        min-width: 0;
+    }
+
+    & .avatar {
+        flex-grow: 0;
+        flex-shrink: 0;
+    }
+
+    & .text {
+        text-wrap: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+
+        &.name {
+            color: black;
+        }
+
+        &.role {
+            color: gray
+        }
+    }
+
+
+    & .btn {
+        & .icon {
+            fill: orange;
+        }
+    }
+}

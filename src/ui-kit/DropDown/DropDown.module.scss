@@ -1,0 +1,43 @@
+@use '../functions' as *;
+
+.drop-down {
+  position: relative;
+  font-family: getVar(font, type, default);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-smaller);
+
+  &::before,
+  &::after {
+    --size-of-arrow-in-dropdown: 6px;
+    content: "";
+    position: absolute;
+    pointer-events: none;
+  }
+
+  &::after {
+    border-left: var(--size-of-arrow-in-dropdown) solid transparent;
+    border-right: var(--size-of-arrow-in-dropdown) solid transparent;
+    border-top: var(--size-of-arrow-in-dropdown) solid var(--color-text-default);
+    top: 65%;
+    left: calc(100% - 2 * var(--space-default));
+  }
+
+  &--label {
+  }
+
+  &--data-list {
+    border: var(--ui-kit-border-width-default) solid var(--ui-kit-input-outline-color);
+    border-radius: var(--ui-kit-border-radius-large);
+    padding: calc(2 * var(--ui-kit-border-width-default) + var(--ui-kit-padding-t-b-medium)) var(--space-default);
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    display: inline-block;
+    width: 100%;
+  }
+
+  &--option {
+    color: var(--color-text-default);
+  }
+}

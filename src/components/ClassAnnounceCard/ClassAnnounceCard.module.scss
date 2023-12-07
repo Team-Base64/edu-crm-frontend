@@ -1,0 +1,30 @@
+.card {
+}
+
+.header {
+    justify-content: space-between;
+    border-bottom: 2px solid var(--color-bg-default);
+    padding-bottom: 4px;
+    align-items: center;
+
+    & .info {
+        align-items: center;
+        & .date {
+            color: gray;
+        }
+    }
+}
+
+.content {
+    position: relative;
+    & .text {
+        text-align:justify;
+    }
+
+    & .attaches {
+        display: grid;
+        background-color: inherit;
+        width: 100%;
+        grid-template-columns: repeat(auto-fit, minmax(25%, 1fr));
+    }
+}

@@ -1,0 +1,16 @@
+$padding-tb: 8px;
+
+.calendar-page {
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: calc(100vh - 2 * $padding-tb);;
+
+  &--calendar {
+    grid-column: 1 / 6;
+    grid-row: 1;
+  }
+
+  &--controls {
+    grid-column: 6 / 9;
+    grid-row: 1;
+  }
+}

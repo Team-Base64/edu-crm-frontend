@@ -1,0 +1,37 @@
+$padding-tb: 8px;
+$padding-rl: 16px; // TODO
+$gap: 16px;
+
+.main-layout {
+    display: flex;
+    align-items: stretch;
+    flex-grow: 1;
+
+    gap: $gap;
+
+    padding: 0 $padding-rl;
+
+    overflow-x: hidden;
+
+    nav {
+        position: sticky;
+        top: 0;
+        padding: $padding-tb 0;
+        height: 100vh;
+    }
+
+    main {
+        padding: $padding-tb 0;
+        //display: flex;
+        //overflow-x: hidden;
+        width: 100%;
+        flex-grow: 1;
+        max-height: 100vh;
+        overflow-y: scroll;
+        position: relative;
+
+        &::-webkit-scrollbar{
+            display: none;
+        }
+    }
+}

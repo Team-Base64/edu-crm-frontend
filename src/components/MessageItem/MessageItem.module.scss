@@ -1,0 +1,74 @@
+@use "../../ui-kit/functions" as *;
+
+$border-radius: var(--border-radius-default);
+
+%polygon {
+  position: absolute;
+  width: calc(2 * $border-radius);
+  height: calc(2 * $border-radius);
+  clip-path: polygon(0% 0%, 50% 0, 100% 100%, 0% 100%);
+  z-index: 0;
+}
+
+.message-item {
+  position: relative;
+  align-items: flex-end;
+  margin: 8px 16px;
+
+  &.mine {
+    & .polygon {
+     @extend %polygon;
+      bottom: 0;
+      right: calc(0px - $border-radius);
+      background-color: var(--color-accent-light);
+    }
+  }
+
+  &:not(.mine) .polygon {
+    @extend %polygon;
+    bottom: 0;
+    left: calc(0px - $border-radius);
+    transform: scale(-1, 1);
+    background-color: var(--color-bg-default);
+  }
+
+  &.mine {
+    flex-direction: row-reverse;
+  }
+
+  &-author {
+    &__avatar {}
+  }
+
+  &-content {
+    display: grid;
+    grid-template-rows: 1fr min-content;
+    grid-template-columns: 1fr min-content;
+    align-items: end;
+    word-break: break-word;
+
+    background-color: var(--color-bg-default);
+    padding: 16px 16px;
+    border-radius: var(--border-radius-default);
+
+    &.mine {
+      background-color: var(--color-accent-light);
+    }
+
+    &__text {
+      grid-column: 1 / 3;
+      grid-row: 1 / 2;
+    }
+
+    &__time {
+      grid-column: 2;
+      grid-row: 2;
+      word-break: normal;
+    }
+  }
+}
+
+.linkAttachment {
+  cursor: pointer;
+  color: cornflowerblue;
+}

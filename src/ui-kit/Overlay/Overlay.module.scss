@@ -1,0 +1,75 @@
+$duration: 0.5s;
+
+.overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+
+  width: 100vw;
+  height: 100vh;
+
+  align-items: center;
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  background-color: rgba(0, 0, 0, 0.7);
+
+  & .close-button {
+    position: fixed;
+    top: 0;
+    right: 0;
+    &__icon {
+      fill: orange;
+    }
+  }
+
+  & .content {
+    padding: 20px 10px;
+
+  }
+
+  &.opened {
+    opacity: 1;
+  }
+
+  &.closed {
+    opacity: 0;
+    display: none;
+  }
+
+  &.opening {
+    animation: fadeIn $duration;
+  }
+
+  &.closing {
+    animation: fadeOut $duration;
+  }
+}
+
+.noscroll {
+  overflow: hidden;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+

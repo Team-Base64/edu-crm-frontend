@@ -1,0 +1,44 @@
+.li {
+    display: flex;
+    align-self: stretch;
+
+    &:has(.active) {
+        margin-left: -2px; // IMPORTANT!!! 
+        border-left: 2px solid orange; 
+    }
+}
+
+.a {
+    display: flex;
+    flex: 0 0 100%;
+
+}
+
+.button {
+    flex-direction: column;
+    flex-shrink: 0;
+    flex-grow: 1;
+    width: max-content;
+
+    & .icon,
+    .title {
+        color: black;
+        fill: black;
+    }
+
+    &:hover {
+        background: none !important;
+
+        & .icon,
+        .title {
+            color: gray;
+            fill: gray;
+        }
+    }
+    &:hover.dangerous {
+        & .icon, .title {
+            fill: red;
+            color: red;
+        }
+    }
+}

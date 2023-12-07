@@ -36,7 +36,16 @@
     "tsdoc/syntax": "warn",
     "valid-jsdoc": "off",
     "max-len": "off",
-    "react/no-children-prop": "off"
+    "react/no-children-prop": "off",
+    "@typescript-eslint/ban-types": [
+      "error",
+      {
+        "extendDefaults": true,
+        "types": {
+          "{}": false
+        }
+      }
+    ]
   },
   "settings": {
     "react": {

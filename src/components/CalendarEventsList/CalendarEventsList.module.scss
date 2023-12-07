@@ -1,0 +1,9 @@
+@use '../../styles/mixins' as mixins;
+
+.calendar-events-list {
+  overflow-y: scroll;
+  word-break: break-all;
+  gap: var(--space-big);
+
+  @include mixins.default-scrollbar-style;
+}

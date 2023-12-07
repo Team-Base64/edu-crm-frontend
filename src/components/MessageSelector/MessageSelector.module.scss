@@ -1,0 +1,12 @@
+@use '../../styles/mixins' as mixins;
+.message-selector {
+  padding: 16px 0;
+
+  &--dialogs {
+    @include mixins.default-scrollbar-style;
+    //@include mixins.scrollbar-no-width;
+    //all: inherit;
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+}

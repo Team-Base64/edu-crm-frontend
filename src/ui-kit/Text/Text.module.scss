@@ -1,0 +1,38 @@
+@use '../functions' as *;
+
+.text {
+  font-family: getVar(font, type, default);
+}
+
+// h1 - h6
+@for $i from 1 through 6 {
+  $tag: h#{$i};
+  .#{$tag} {
+    font-size: getVar(font, size, $tag);
+  }
+}
+
+.p {
+  font-size: getVar(font, size, p);
+}
+
+
+.p2 {
+  font-size: getVar(font, size, p2);
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.regular {
+  font-weight: 400;
+}
+
+.default-color {
+  color: var(--color-text-default);
+}
+
+.light-color {
+  color: var(--color-text-light);
+}

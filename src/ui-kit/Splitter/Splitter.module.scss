@@ -1,0 +1,26 @@
+@use '../functions' as *;
+
+.splitter {
+  background-color: var(--color-bg-dark-light);
+  width: 100%;
+
+  %--thin {
+    height: getVar(splitter, thinkness, small);
+  }
+
+  %--default {
+    height: getVar(splitter, thinkness, default);
+  }
+
+  %--thick {
+    height: getVar(splitter, thinkness, large);
+  }
+
+  &--vertical {
+
+  }
+
+  &--horizontal {
+    transform: rotate(90deg);
+  }
+}

@@ -1,4 +1,6 @@
 .app {
-  &__primary { background-color: white; };
-  background-color: slategray;
+    $max-width: 1920px;
+    max-width: $max-width;
+    //display:  flex;
+    flex-grow: 1;
 }
