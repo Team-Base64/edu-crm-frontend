@@ -26,7 +26,8 @@ export const MyCalendar: React.FC<CalendarProps> = ({
     viewMode,
     iframeRef,
 }) => {
-    const { data, isSuccess } = useGetCalendarIDQuery(null);
+    const { data } = useGetCalendarIDQuery(null);
+    const isSuccess = true;
 
     const calendarRef = useRef<HTMLDivElement>(null);
 
@@ -49,9 +50,9 @@ export const MyCalendar: React.FC<CalendarProps> = ({
             initialView: ViewMode[viewMode],
             googleCalendarApiKey: import.meta.env.VITE_API_GOOGLE,
             events: {
-                googleCalendarId: data.googleid,
-                // googleCalendarId: import.meta.env
-                //     .VITE_CALENDAR_GOOGLE_SAMPLE_TOKEN,
+                // googleCalendarId: data.googleid,
+                googleCalendarId: import.meta.env
+                    .VITE_CALENDAR_GOOGLE_SAMPLE_TOKEN,
             },
             height: '100%',
             expandRows: true,
@@ -59,7 +60,9 @@ export const MyCalendar: React.FC<CalendarProps> = ({
             eventTextColor: 'var(--color-bg-default)',
             buttonText: {
                 today: 'сегодня',
+                allDay: 'весь день',
             },
+            slotDuration: '02:00',
         });
         calendar.render();
     }
