@@ -1,9 +1,16 @@
+@use '../../ui-kit/functions' as *;
+
 .calendar {
   width: 100%;
   height: 100%;
   border-radius: var(--border-radius-default);
   background-color: var(--color-bg-light);
   padding: var(--space-big);
+
+  /* calendar styling */
+  --fc-button-bg-color: var(--ui-kit-avatar-border-color);
+  --fc-button-border-color: var(--ui-kit-avatar-border-color);
+  font-family: getVar(font, type, default);
 
   &-error-id {
     margin: auto;

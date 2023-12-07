@@ -9,6 +9,7 @@ import Container from '@ui-kit/Container/Container';
 import Text from '@ui-kit/Text/Text';
 import styles from './LoginForm.module.scss';
 import { useLoginMutation } from '@app/features/teacher/teacherApi';
+import { localStoragePath } from '@app/const/consts.ts';
 import Spinner from '@ui-kit/Spinner/Spinner.tsx';
 import Hint from '@ui-kit/Hint/Hint.tsx';
 import useForm from '@ui-kit/_hooks/useForm';
@@ -46,6 +47,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
         if (!isValid) {
             return;
         }
+
+        localStorage.setItem(localStoragePath.login, username);
 
         setLock(true);
 
