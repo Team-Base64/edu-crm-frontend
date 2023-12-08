@@ -2,7 +2,7 @@ import React, { Suspense, useRef } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import styles from './Calendar.module.scss';
 import Spinner from '@ui-kit/Spinner/Spinner.tsx';
-// import { useGetCalendarIDQuery } from '@app/features/calendar/calendarSlice.ts';
+import { useGetCalendarIDQuery } from '@app/features/calendar/calendarSlice.ts';
 import Text from '@ui-kit/Text/Text.tsx';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -26,8 +26,7 @@ export const MyCalendar: React.FC<CalendarProps> = ({
     viewMode,
     // iframeRef,
 }) => {
-    // const { data } = useGetCalendarIDQuery(null);
-    const isSuccess = true;
+    const { data, isSuccess } = useGetCalendarIDQuery(null);
 
     const calendarRef = useRef<HTMLDivElement>(null);
 
@@ -50,9 +49,9 @@ export const MyCalendar: React.FC<CalendarProps> = ({
             initialView: ViewMode[viewMode],
             googleCalendarApiKey: import.meta.env.VITE_API_GOOGLE,
             events: {
-                // googleCalendarId: data.googleid,
-                googleCalendarId: import.meta.env
-                    .VITE_CALENDAR_GOOGLE_SAMPLE_TOKEN,
+                googleCalendarId: data.googleid,
+                // googleCalendarId: import.meta.env
+                //     .VITE_CALENDAR_GOOGLE_SAMPLE_TOKEN,
             },
             height: '100%',
             expandRows: true,
@@ -60,7 +59,6 @@ export const MyCalendar: React.FC<CalendarProps> = ({
             eventTextColor: 'var(--color-bg-default)',
             buttonText: {
                 today: 'сегодня',
-                allDay: 'весь день',
             },
             slotDuration: '02:00',
         });
