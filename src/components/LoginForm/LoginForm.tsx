@@ -31,7 +31,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
             rules: {
                 noEmpty: true,
             },
-            initial: '',
+            initial: localStorage.getItem(localStoragePath.login) || '',
         },
         password: {
             rules: {
@@ -48,7 +48,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
             return;
         }
 
-        localStorage.setItem(localStoragePath.login, username);
+        localStorage.setItem(localStoragePath.login, form.login.value);
 
         setLock(true);
 
