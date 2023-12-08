@@ -65,7 +65,6 @@ export const chatSlice = appApi.injectEndpoints({
                     dispatch,
                 },
             ) {
-                console.warn('asdasd');
                 const socket = getSocket();
                 try {
                     await cacheDataLoaded;

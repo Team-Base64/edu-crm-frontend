@@ -11,6 +11,12 @@ const appApi = createApi({
     refetchOnReconnect: true,
     // refetchOnMountOrArgChange: true,
     endpoints: () => ({}),
-    tagTypes: ['getDialogs', 'getEvents'],
+    tagTypes: [
+        'getDialogs',
+        'getEvents',
+        'getClassSolutions',
+        'getHomeworkSolutions',
+        'getSolution',
+    ],
 });
 export default appApi;

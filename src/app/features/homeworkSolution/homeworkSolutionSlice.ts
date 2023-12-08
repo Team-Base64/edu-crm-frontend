@@ -1,6 +1,7 @@
 import appApi from '@app/appApi';
 import { HomeworkSolution } from '@app/features/homeworkSolution/homeworkSolutionModel';
 import { homeworkSolutionPaths } from '@app/features/homeworkSolution/homeworkSolutionPaths';
+import { getSocket } from '@app/websocket.ts';
 
 export const homeworkSolutionSlice = appApi
     .enhanceEndpoints({
@@ -18,12 +19,29 @@ export const homeworkSolutionSlice = appApi
                         method: 'GET',
                     };
                 },
-                providesTags: (res) => {
-                    if (!res) return ['Solutions'];
-                    return res.solutions.map((s) => ({
-                        type: 'Solutions',
-                        id: s.id,
-                    }));
+                providesTags: ['getClassSolutions'],
+                async onCacheEntryAdded(
+                    _,
+                    { cacheDataLoaded, cacheEntryRemoved, dispatch },
+                ) {
+                    const socket = getSocket();
+                    try {
+                        await cacheDataLoaded;
+                        socket.onmessage = (event: MessageEvent) => {
+                            const data = JSON.parse(event.data);
+                            if (data.channel === 'newsolution') {
+                                dispatch(
+                                    homeworkSolutionSlice.util.invalidateTags([
+                                        'getClassSolutions',
+                                    ]),
+                                );
+                            }
+                        };
+                    } catch {
+                        console.error('error ws api');
+                    }
+                    await cacheEntryRemoved;
+                    socket.close();
                 },
             }),
 
@@ -39,12 +57,30 @@ export const homeworkSolutionSlice = appApi
                         method: 'GET',
                     };
                 },
-                providesTags: (res) => {
-                    if (!res) return ['Solutions'];
-                    return res.solutions.map((s) => ({
-                        type: 'Solutions',
-                        id: s.id,
-                    }));
+                providesTags: ['getHomeworkSolutions'],
+                async onCacheEntryAdded(
+                    _,
+                    { cacheDataLoaded, cacheEntryRemoved, dispatch },
+                ) {
+                    const socket = getSocket();
+                    try {
+                        await cacheDataLoaded;
+
+                        socket.onmessage = (event: MessageEvent) => {
+                            const data = JSON.parse(event.data);
+                            if (data.channel === 'newsolution') {
+                                dispatch(
+                                    homeworkSolutionSlice.util.invalidateTags([
+                                        'getHomeworkSolutions',
+                                    ]),
+                                );
+                            }
+                        };
+                    } catch {
+                        console.error('error ws api');
+                    }
+                    await cacheEntryRemoved;
+                    socket.close();
                 },
             }),
 
@@ -58,14 +94,30 @@ export const homeworkSolutionSlice = appApi
                         method: 'GET',
                     };
                 },
-                providesTags: (res, _, arg) => {
-                    if (!res) return ['Solutions'];
-                    return [
-                        {
-                            type: 'Solutions',
-                            id: arg.id,
-                        },
-                    ];
+                providesTags: ['getSolution'],
+                async onCacheEntryAdded(
+                    _,
+                    { cacheDataLoaded, cacheEntryRemoved, dispatch },
+                ) {
+                    const socket = getSocket();
+                    try {
+                        await cacheDataLoaded;
+
+                        socket.onmessage = (event: MessageEvent) => {
+                            const data = JSON.parse(event.data);
+                            if (data.channel === 'newsolution') {
+                                dispatch(
+                                    homeworkSolutionSlice.util.invalidateTags([
+                                        'getSolution',
+                                    ]),
+                                );
+                            }
+                        };
+                    } catch {
+                        console.error('error ws api');
+                    }
+                    await cacheEntryRemoved;
+                    socket.close();
                 },
             }),
         }),

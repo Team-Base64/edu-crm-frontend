@@ -1,6 +1,6 @@
 import { localStoragePath } from '@app/const/consts.ts';
 
-export type Channel = 'general' | 'chat' | 'newchat';
+export type Channel = 'general' | 'chat' | 'newchat' | 'newsolution';
 
 export type messageWS = {
     channel: Channel;

@@ -127,10 +127,10 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({ id }) => {
                         classes={styles.sendMessageAreaInput}
                         spellcheck={true}
                         minRows={2}
-                        focusRows={3}
-                        maxRows={5}
-                        autoResize
-                        collapseOnBlur
+                        focusRows={2}
+                        maxRows={10}
+                        autoResize={true}
+                        collapseOnBlur={true}
                         onChange={handleMessageChange}
                         onKeydownCallback={handleMessageSend}
                         textareaRef={textAreaRef}
@@ -141,7 +141,7 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({ id }) => {
 
                     <Button
                         onClick={handleMessageSend}
-                        // type={'link'}
+                        type={'link'}
                         disabled={!isValid || disabled || lock}
                     >
                         {lock ? (
