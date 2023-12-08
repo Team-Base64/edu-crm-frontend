@@ -24,7 +24,7 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
 }) => {
     const [lock, setLock] = useState<boolean>(false);
     const formRef = useRef<HTMLFormElement>(null);
-    const [submit, _] = useCreateAnnouncementMutation();
+    const [submit] = useCreateAnnouncementMutation();
     const [hint, toggleHint] = useState<boolean>(disabled);
     const { attaches, setAttaches, attachesSendPromise } =
         useSendAttaches('chat');

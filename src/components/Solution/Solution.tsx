@@ -101,13 +101,14 @@ const Solution: React.FC<SolutionProps> = ({ id, classes }) => {
                             }
                         />
                         {data.solution.files.length ? (
-                            data.solution.files.map((file) => (
+                            data.solution.files.map((file, index) => (
                                 <Attachment
                                     classes={styles.attach}
                                     allowOpen={() => handleAttachClick(file)}
                                     file={file}
                                     onRemoveClick={noop}
                                     isStatic={true}
+                                    key={file + index}
                                 />
                             ))
                         ) : (

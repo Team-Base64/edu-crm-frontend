@@ -35,7 +35,7 @@ export const AttachFile: React.FC<AttachFileProps> = ({
     useEffect(() => {
         setLock(files.length >= maxFilesToAttach);
         setHint(files.length >= maxFilesToAttach);
-    }, [files, setLock]);
+    }, [files, maxFilesToAttach, setLock]);
 
     return (
         <>

@@ -44,7 +44,7 @@ const SendMessageArea: React.FC<SendMessageAreaProps> = ({ id }) => {
 
     useEffect(() => {
         localStorage.setItem(`${localStoragePath.chatArea}/${id}`, message);
-    }, [message]);
+    }, [id, message]);
 
     const handleMessageChange: ChangeEventHandler<HTMLTextAreaElement> = (
         e,
