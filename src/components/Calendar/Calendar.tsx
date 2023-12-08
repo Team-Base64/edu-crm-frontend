@@ -2,7 +2,7 @@ import React, { Suspense, useRef } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import styles from './Calendar.module.scss';
 import Spinner from '@ui-kit/Spinner/Spinner.tsx';
-import { useGetCalendarIDQuery } from '@app/features/calendar/calendarSlice.ts';
+// import { useGetCalendarIDQuery } from '@app/features/calendar/calendarSlice.ts';
 import Text from '@ui-kit/Text/Text.tsx';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -24,9 +24,9 @@ type viewModeType = keyof typeof ViewMode;
 export const MyCalendar: React.FC<CalendarProps> = ({
     classes,
     viewMode,
-    iframeRef,
+    // iframeRef,
 }) => {
-    const { data } = useGetCalendarIDQuery(null);
+    // const { data } = useGetCalendarIDQuery(null);
     const isSuccess = true;
 
     const calendarRef = useRef<HTMLDivElement>(null);
