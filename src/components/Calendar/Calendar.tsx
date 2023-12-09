@@ -2,7 +2,10 @@ import React, { Suspense, useEffect, useRef } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import styles from './Calendar.module.scss';
 import Spinner from '@ui-kit/Spinner/Spinner.tsx';
-import { useGetCalendarIDQuery, useGetEventsQuery } from '@app/features/calendar/calendarSlice.ts';
+import {
+    useGetCalendarIDQuery,
+    useGetEventsQuery,
+} from '@app/features/calendar/calendarSlice.ts';
 import Text from '@ui-kit/Text/Text.tsx';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -30,7 +33,8 @@ export const MyCalendar: React.FC<CalendarProps> = ({
     // iframeRef,
 }) => {
     const { data, isSuccess } = useGetCalendarIDQuery(null);
-    const { data: backendEvents, isSuccess: backendEventsLoaded } = useGetEventsQuery(null);
+    const { data: backendEvents, isSuccess: backendEventsLoaded } =
+        useGetEventsQuery(null);
 
     const calendarRef = useRef<HTMLDivElement>(null);
 
@@ -57,7 +61,8 @@ export const MyCalendar: React.FC<CalendarProps> = ({
                     // Показать все
                     if (!classID) return;
 
-                    const backendMappedEvent = backendEvents.calendarEvents[arg.event.id];
+                    const backendMappedEvent =
+                        backendEvents.calendarEvents[arg.event.id];
 
                     // Спрятать если для другого класса
                     if (backendMappedEvent?.classid !== classID) {
@@ -67,9 +72,9 @@ export const MyCalendar: React.FC<CalendarProps> = ({
                     console.log('VISIBLE ', arg.event.title);
                 },
                 events: {
-                    // googleCalendarId: data.googleid,
-                    googleCalendarId: import.meta.env
-                        .VITE_CALENDAR_GOOGLE_SAMPLE_TOKEN,
+                    googleCalendarId: data.googleid,
+                    // googleCalendarId: import.meta.env
+                    // .VITE_CALENDAR_GOOGLE_SAMPLE_TOKEN,
                 },
                 height: '100%',
                 expandRows: true,
@@ -81,16 +86,14 @@ export const MyCalendar: React.FC<CalendarProps> = ({
                 slotDuration: '02:00',
             });
             calendar.render();
-
         }
     }, [classID, isSuccess, backendEventsLoaded]);
-
 
     return (
         <Suspense
             fallback={
                 <div className={[styles.calendar, classes].join(' ')}>
-                    { }
+                    {}
                     <Spinner></Spinner>
                 </div>
             }

@@ -7,7 +7,7 @@ import { CalendarEventsList } from '@components/CalendarEventsList/CalendarEvent
 
 interface CalendarControlsProps extends UiComponentProps {
     iframeRef: React.RefObject<HTMLIFrameElement>;
-    classID ?: number;
+    classID?: number;
 }
 
 export const CalendarControls: React.FC<CalendarControlsProps> = ({
@@ -22,7 +22,10 @@ export const CalendarControls: React.FC<CalendarControlsProps> = ({
             direction={'vertical'}
         >
             <CalendarAddEvent iframeRef={iframeRef} />
-            <CalendarEventsList iframeRef={iframeRef}  classID={classID}/>
+            <CalendarEventsList
+                iframeRef={iframeRef}
+                classID={classID}
+            />
         </Container>
     );
 };

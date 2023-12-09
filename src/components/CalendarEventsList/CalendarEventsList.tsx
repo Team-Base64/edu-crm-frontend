@@ -28,29 +28,36 @@ export const CalendarEventsList: React.FC<CalendarEventsListProps> = ({
             classes={styles.calendarEventsList}
         >
             <ShowQueryState status={status} />
-            {isSuccess && (
+            {isSuccess &&
                 // Да-да
                 (() => {
                     const eventCards: JSX.Element[] = [];
-                    Object
-                        .values(data.calendarEvents)
-                        .forEach((eventData, index) => {
-                            if (classID === undefined || (classID === eventData.classid)) {
+                    Object.values(data.calendarEvents).forEach(
+                        (eventData, index) => {
+                            if (
+                                classID === undefined ||
+                                classID === eventData.classid
+                            ) {
                                 eventCards.push(
                                     <CalendarEvent
                                         eventData={eventData}
                                         key={`${eventData.id}-${eventData.classid}-${index}`}
-                                        onDeleteClick={() => deleteEvent({ id: eventData.id })}
+                                        onDeleteClick={() =>
+                                            deleteEvent({ id: eventData.id })
+                                        }
                                         iframeRef={iframeRef}
-                                    />
+                                    />,
                                 );
                             }
-                        });
+                        },
+                    );
 
-                    return eventCards.length ? eventCards : <EmptyItem text='Нет запланированных занятий' />
-                })()
-
-            )}
+                    return eventCards.length ? (
+                        eventCards
+                    ) : (
+                        <EmptyItem text="Нет запланированных занятий" />
+                    );
+                })()}
         </Container>
     );
 };
