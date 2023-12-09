@@ -5,6 +5,7 @@ import {
 } from '@app/features/dialog/dialogModel';
 import { dialogPaths } from '@app/features/dialog/dialogPaths';
 import { userAvatarPlaceholder } from '@app/const/consts.ts';
+import appPaths from '@app/appPaths.ts';
 
 export const dialogSlice = appApi.injectEndpoints({
     endpoints: (build) => ({
@@ -29,7 +30,30 @@ export const dialogSlice = appApi.injectEndpoints({
                 return { dialogs: newDialogs };
             },
         }),
+        setIsReadDialog: build.query<unknown, { chatID: number }>({
+            query: (dialogData) => {
+                return {
+                    url: `${appPaths.basePath}${dialogPaths.setReadDialog}${dialogData.chatID}`,
+                    method: 'POST',
+                };
+            },
+            async onQueryStarted(dialogData, { queryFulfilled, dispatch }) {
+                await queryFulfilled;
+                dispatch(
+                    dialogSlice.util.updateQueryData(
+                        'getDialogs',
+                        null,
+                        (draftDialogs) => {
+                            draftDialogs.dialogs[dialogData.chatID] = {
+                                ...draftDialogs.dialogs[dialogData.chatID],
+                                isread: true,
+                            };
+                        },
+                    ),
+                );
+            },
+        }),
     }),
 });
 
-export const { useGetDialogsQuery } = dialogSlice;
+export const { useGetDialogsQuery, useSetIsReadDialogQuery } = dialogSlice;
