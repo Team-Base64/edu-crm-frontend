@@ -72,7 +72,10 @@ export const chatSlice = appApi.injectEndpoints({
                     socket.onmessage = (event: MessageEvent) => {
                         const data = JSON.parse(event.data);
 
-                        if (data.channel === channel) {
+                        if (
+                            data.channel === channel ||
+                            data.channel === 'newchat'
+                        ) {
                             updateCachedData((draft) => {
                                 draft.messages[data.chatID] = [
                                     ...(draft.messages[data.chatID] ?? []),
