@@ -1,8 +1,8 @@
-import React, { Suspense, useRef } from 'react';
+import React, { Suspense, useEffect, useRef } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import styles from './Calendar.module.scss';
 import Spinner from '@ui-kit/Spinner/Spinner.tsx';
-import { useGetCalendarIDQuery } from '@app/features/calendar/calendarSlice.ts';
+import { useGetCalendarIDQuery, useGetEventsQuery } from '@app/features/calendar/calendarSlice.ts';
 import Text from '@ui-kit/Text/Text.tsx';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -10,6 +10,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import { Calendar } from '@fullcalendar/core';
 
 interface CalendarProps extends UiComponentProps {
+    classID?: number;
     viewMode: viewModeType;
     iframeRef: React.RefObject<HTMLIFrameElement>;
 }
@@ -17,6 +18,7 @@ interface CalendarProps extends UiComponentProps {
 const ViewMode = {
     week: 'timeGridWeek',
     month: 'dayGridMonth',
+    weekNoTime: 'dayGridWeek',
 };
 
 type viewModeType = keyof typeof ViewMode;
@@ -24,52 +26,71 @@ type viewModeType = keyof typeof ViewMode;
 export const MyCalendar: React.FC<CalendarProps> = ({
     classes,
     viewMode,
+    classID = 1,
     // iframeRef,
 }) => {
     const { data, isSuccess } = useGetCalendarIDQuery(null);
+    const { data: backendEvents, isSuccess: backendEventsLoaded } = useGetEventsQuery(null);
 
     const calendarRef = useRef<HTMLDivElement>(null);
 
-    if (calendarRef.current && isSuccess) {
-        const shadowBase = document.createElement('div');
-        const shadowInner = document.createElement('main');
-        const shadowElement = shadowBase.attachShadow({
-            mode: 'closed',
-        });
-        shadowElement.appendChild(shadowInner);
-        shadowInner.classList.add(styles.calendarShadowDom);
+    useEffect(() => {
+        if (calendarRef.current && isSuccess && backendEventsLoaded) {
+            const shadowBase = document.createElement('div');
+            const shadowInner = document.createElement('main');
+            const shadowElement = shadowBase.attachShadow({
+                mode: 'closed',
+            });
+            shadowElement.appendChild(shadowInner);
+            shadowInner.classList.add(styles.calendarShadowDom);
 
-        calendarRef.current.innerHTML = '';
-        calendarRef.current.appendChild(shadowBase);
+            calendarRef.current.innerHTML = '';
+            calendarRef.current.appendChild(shadowBase);
 
-        const calendar = new Calendar(shadowInner, {
-            plugins: [dayGridPlugin, timeGridPlugin, googleCalendarPlugin],
-            locale: 'ru',
-            firstDay: 1,
-            initialView: ViewMode[viewMode],
-            googleCalendarApiKey: import.meta.env.VITE_API_GOOGLE,
-            events: {
-                googleCalendarId: data.googleid,
-                // googleCalendarId: import.meta.env
-                //     .VITE_CALENDAR_GOOGLE_SAMPLE_TOKEN,
-            },
-            height: '100%',
-            expandRows: true,
-            eventColor: 'var(--ui-kit-btn-secondary-border-color-default)',
-            eventTextColor: 'var(--color-bg-default)',
-            buttonText: {
-                today: 'сегодня',
-            },
-            slotDuration: '02:00',
-        });
-        calendar.render();
-    }
+            const calendar = new Calendar(shadowInner, {
+                plugins: [dayGridPlugin, timeGridPlugin, googleCalendarPlugin],
+                locale: 'ru',
+                firstDay: 1,
+                initialView: ViewMode[viewMode],
+                googleCalendarApiKey: import.meta.env.VITE_API_GOOGLE,
+                eventDidMount: (arg) => {
+                    // Показать все
+                    if (!classID) return;
+
+                    const backendMappedEvent = backendEvents.calendarEvents[arg.event.id];
+
+                    // Спрятать если для другого класса
+                    if (backendMappedEvent?.classid !== classID) {
+                        arg.event.setProp('display', 'none');
+                    }
+                    // Показать если для этого класса
+                    console.log('VISIBLE ', arg.event.title);
+                },
+                events: {
+                    // googleCalendarId: data.googleid,
+                    googleCalendarId: import.meta.env
+                        .VITE_CALENDAR_GOOGLE_SAMPLE_TOKEN,
+                },
+                height: '100%',
+                expandRows: true,
+                eventColor: 'var(--ui-kit-btn-secondary-border-color-default)',
+                eventTextColor: 'var(--color-bg-default)',
+                buttonText: {
+                    today: 'сегодня',
+                },
+                slotDuration: '02:00',
+            });
+            calendar.render();
+
+        }
+    }, [classID, isSuccess, backendEventsLoaded]);
+
 
     return (
         <Suspense
             fallback={
                 <div className={[styles.calendar, classes].join(' ')}>
-                    {}
+                    { }
                     <Spinner></Spinner>
                 </div>
             }

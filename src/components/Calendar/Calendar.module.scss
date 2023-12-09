@@ -5,7 +5,8 @@
   height: 100%;
   border-radius: var(--border-radius-default);
   background-color: var(--color-bg-light);
-  padding: var(--space-big);
+  // MOVED TO PAGE STYLES padding: var(--space-big);
+  user-select: none;
 
   /* calendar styling */
   --fc-button-bg-color: var(--ui-kit-avatar-border-color);

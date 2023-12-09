@@ -8,6 +8,7 @@ import React from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styles from './ClassPage.module.scss';
 import AppRoutes from '@router/routes';
+import ClassSheduleWidget from '@components/ClassSheduleWidget/ClassSheduleWidget';
 
 const useGetClassID = () => {
     const location = useLocation();
@@ -36,6 +37,7 @@ const ClassPage: React.FC = () => {
             classes={styles.page}
         >
             <ClassHeader classId={id} />
+            <ClassSheduleWidget classID={id} />
             <Container
                 direction="horizontal"
                 gap="l"
