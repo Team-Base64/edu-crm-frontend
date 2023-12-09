@@ -8,6 +8,8 @@ import {
 } from '@app/features/chat/chatModel';
 import { chatPaths } from '@app/features/chat/chatPaths';
 import { dialogSlice } from '@app/features/dialog/dialogSlice.ts';
+import { data } from 'browserslist';
+import { stundentSlice } from '@app/features/stundent/stundentSlice.ts';
 
 export const chatSlice = appApi.injectEndpoints({
     endpoints: (build) => ({
@@ -72,10 +74,7 @@ export const chatSlice = appApi.injectEndpoints({
                     socket.onmessage = (event: MessageEvent) => {
                         const data = JSON.parse(event.data);
 
-                        if (
-                            data.channel === channel ||
-                            data.channel === 'newchat'
-                        ) {
+                        if (data.channel === channel) {
                             updateCachedData((draft) => {
                                 draft.messages[data.chatID] = [
                                     ...(draft.messages[data.chatID] ?? []),
@@ -86,6 +85,14 @@ export const chatSlice = appApi.injectEndpoints({
                         dispatch(
                             dialogSlice.util.invalidateTags(['getDialogs']),
                         );
+                        if (data.channel === 'newchat') {
+                            dispatch(
+                                stundentSlice.util.invalidateTags([
+                                    'getClassStudents',
+                                    'getStudent',
+                                ]),
+                            );
+                        }
                     };
                 } catch {
                     console.error('error ws api');

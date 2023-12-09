@@ -17,6 +17,8 @@ const appApi = createApi({
         'getClassSolutions',
         'getHomeworkSolutions',
         'getSolution',
+        'getClassStudents',
+        'getStudent',
     ],
 });
 export default appApi;

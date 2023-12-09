@@ -11,6 +11,7 @@ export const stundentSlice = appApi.injectEndpoints({
                     method: 'GET',
                 };
             },
+            providesTags: ['getStudent'],
         }),
         getClassStudents: build.query<
             { students: Student[] },
@@ -22,6 +23,7 @@ export const stundentSlice = appApi.injectEndpoints({
                     method: 'GET',
                 };
             },
+            providesTags: ['getClassStudents'],
         }),
     }),
 });
