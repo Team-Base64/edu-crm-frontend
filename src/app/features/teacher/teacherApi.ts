@@ -6,6 +6,7 @@ import {
 } from '@app/features/teacher/teacherModel';
 import { teacherPaths } from '@app/features/teacher/teacherPaths';
 import { setMe } from '@app/features/teacher/teacherSlice';
+import { getSocket } from '@app/websocket.ts';
 
 export const teacherApi = appApi.injectEndpoints({
     endpoints: (build) => ({
@@ -73,6 +74,7 @@ export const teacherApi = appApi.injectEndpoints({
                     if (meta && meta.response && meta.response.ok) {
                         dispatch(setMe(false));
                         dispatch(appApi.util.resetApiState());
+                        getSocket().close();
                     }
                 } catch (error) {
                     console.error(error);
