@@ -48,8 +48,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
             return;
         }
 
-        localStorage.setItem(localStoragePath.login, form.login.value);
-
         setLock(true);
 
         login({
