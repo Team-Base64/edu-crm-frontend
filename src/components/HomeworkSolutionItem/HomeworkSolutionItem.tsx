@@ -45,7 +45,7 @@ const HomeworkSolutionItem: React.FC<HomeworkSolutionItemProps> = ({
     let avatarSrc = '',
         name = 'Неизвестный ученик';
     if (studentData) {
-        avatarSrc = studentData.avatarSrc;
+        avatarSrc = studentData.avatar;
         name = studentData.name;
     }
 

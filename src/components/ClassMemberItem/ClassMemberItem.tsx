@@ -59,7 +59,7 @@ export const ClassMemberListItem: ListItemFC<
     Student,
     ClassMemberListItemProps
 > = ({ item, role = 'Ученик', onClick, classes, students, index }) => {
-    const { name, avatarSrc } = item;
+    const { name, avatar } = item;
 
     const navigate = useNavigate();
     const handleChatClick = () => {
@@ -82,7 +82,7 @@ export const ClassMemberListItem: ListItemFC<
             >
                 <Avatar
                     classes={styles.avatar}
-                    src={avatarSrc}
+                    src={avatar}
                     alt={name + 'avatar'}
                 />
                 <Container
