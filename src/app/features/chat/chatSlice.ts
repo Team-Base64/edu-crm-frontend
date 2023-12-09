@@ -8,7 +8,6 @@ import {
 } from '@app/features/chat/chatModel';
 import { chatPaths } from '@app/features/chat/chatPaths';
 import { dialogSlice } from '@app/features/dialog/dialogSlice.ts';
-import { data } from 'browserslist';
 import { stundentSlice } from '@app/features/stundent/stundentSlice.ts';
 
 export const chatSlice = appApi.injectEndpoints({
