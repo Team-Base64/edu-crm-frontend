@@ -25,6 +25,16 @@ export const homeworkTaskSlice = appApi
                         method: 'GET',
                     };
                 },
+                transformResponse(
+                    baseQueryReturnValue: {task : HomeworkTask},
+                    _,
+                    {id},
+                ) {
+                    baseQueryReturnValue.task.id = id;
+                    return {
+                        ...baseQueryReturnValue
+                    }
+                },
             }),
 
             createTask: build.mutation<
