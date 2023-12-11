@@ -14,7 +14,7 @@ import Spinner from '@ui-kit/Spinner/Spinner.tsx';
 import Hint from '@ui-kit/Hint/Hint.tsx';
 import useForm from '@ui-kit/_hooks/useForm';
 
-interface LoginFormProps extends UiComponentProps {}
+interface LoginFormProps extends UiComponentProps { }
 
 const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
     const navigate = useNavigate();
@@ -73,6 +73,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
             .finally(() => {
                 setLock(false);
             });
+    };
+
+    const handleRegister = () => {
+        return navigate(`/${AppRoutes.register}`);
     };
 
     return (
@@ -170,6 +174,18 @@ const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
                         </Text>
                     </Button>
                 </form>
+                <Button
+                    type="link"
+                    onClick={handleRegister}
+                >
+                    <Text
+                        type="p"
+                        size={1}
+                        weight="bold"
+                    >
+                        Ещё нет аккаунта?
+                    </Text>
+                </Button>
             </Container>
         </>
     );

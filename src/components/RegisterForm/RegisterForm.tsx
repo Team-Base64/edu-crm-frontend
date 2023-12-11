@@ -13,7 +13,7 @@ import Spinner from '@ui-kit/Spinner/Spinner.tsx';
 import Hint from '@ui-kit/Hint/Hint.tsx';
 import useForm from '@ui-kit/_hooks/useForm';
 
-interface RegisterFormProps extends UiComponentProps {}
+interface RegisterFormProps extends UiComponentProps { }
 
 const RegisterForm: React.FC<RegisterFormProps> = ({ classes }) => {
     const navigate = useNavigate();
@@ -23,6 +23,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ classes }) => {
     const fromLocation = location?.state?.from;
 
     const [lock, setLock] = useState(false);
+    const [hintText, setHintText] = useState<string>('');
 
     const [passwordVisibility, setPasswordVisibility] = useState<
         'password' | 'text'
@@ -33,7 +34,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ classes }) => {
     const [form, isValid] = useForm({
         login: {
             rules: {
-                min: 5,
+                min: 3,
                 max: 50,
                 trim: true,
             },
@@ -42,7 +43,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ classes }) => {
 
         password: {
             rules: {
-                min: 8,
+                min: 6,
                 max: 30,
                 trim: true,
             },
@@ -51,7 +52,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ classes }) => {
 
         repeatPassword: {
             rules: {
-                min: 8,
+                min: 6,
                 max: 30,
                 trim: true,
             },
@@ -84,6 +85,10 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ classes }) => {
         },
     });
 
+    const handleRegister = () => {
+        return navigate(`/${AppRoutes.login}`);
+    };
+
     const handleSubmit = () => {
         if (!isValid) {
             return;
@@ -105,10 +110,28 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ classes }) => {
             },
         })
             .then((resp: any) => {
-                if ('error' in resp && resp.error.status === 401) {
+                if ('error' in resp) {
+                    switch (resp.error.status) {
+                        case 409: {
+                            setHintText('Имя пользователя занято занят');
+                            break;
+                        }
+                        case 503: {
+                            setHintText('Регистрация на альфа-тестирование завершена');
+                            break;
+                        }
+                        case 400:
+                        case 500: {
+                            setHintText('Произошла внутренняя ошибка');
+                            break;
+                        }
+                    }
+
                     setHint(true);
+
                     return;
                 }
+
                 navigate(
                     fromLocation
                         ? fromLocation.pathname
@@ -145,7 +168,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ classes }) => {
                     <Container direction={'vertical'}>
                         <Hint
                             state={[hint, setHint]}
-                            text="Пользователь не найден"
+                            text={hintText}
                             timeoutSec={5}
                         />
                         <Input
@@ -267,6 +290,18 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ classes }) => {
                         </Text>
                     </Button>
                 </form>
+                <Button
+                        type="link"
+                        onClick={handleRegister}
+                    >
+                        <Text
+                            type="p"
+                            size={1}
+                            weight="bold"
+                        >
+                            Уже есть аккаунт?
+                        </Text>
+                    </Button>
             </Container>
         </>
     );
