@@ -61,7 +61,7 @@ export const CalendarEventForm: React.FC<CalendarEventFormProps> = ({
     const [form, isValid, clear] = useForm({
         title: {
             rules: {
-                min: 5,
+                noEmpty: true,
             },
             initial: eventData?.title || '',
         },

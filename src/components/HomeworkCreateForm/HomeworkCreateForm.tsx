@@ -35,7 +35,7 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({
     const [form, isValid, clear] = useForm({
         title: {
             rules: {
-                min: 5,
+                noEmpty: true,
                 max: 100,
                 trim: true,
             },

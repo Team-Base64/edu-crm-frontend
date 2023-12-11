@@ -26,7 +26,7 @@ const ClassCreateForm: React.FC<ClassCreateFormProps> = ({
     const [form, isValid, clear] = useForm({
         title: {
             rules: {
-                min: 5,
+                noEmpty: true,
                 max: 100,
                 trim: true,
             },
