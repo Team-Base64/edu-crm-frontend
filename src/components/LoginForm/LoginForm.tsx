@@ -14,7 +14,7 @@ import Spinner from '@ui-kit/Spinner/Spinner.tsx';
 import Hint from '@ui-kit/Hint/Hint.tsx';
 import useForm from '@ui-kit/_hooks/useForm';
 
-interface LoginFormProps extends UiComponentProps { }
+interface LoginFormProps extends UiComponentProps {}
 
 const LoginForm: React.FC<LoginFormProps> = ({ classes }) => {
     const navigate = useNavigate();

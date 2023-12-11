@@ -26,14 +26,14 @@ export const homeworkTaskSlice = appApi
                     };
                 },
                 transformResponse(
-                    baseQueryReturnValue: {task : HomeworkTask},
+                    baseQueryReturnValue: { task: HomeworkTask },
                     _,
-                    {id},
+                    { id },
                 ) {
                     baseQueryReturnValue.task.id = id;
                     return {
-                        ...baseQueryReturnValue
-                    }
+                        ...baseQueryReturnValue,
+                    };
                 },
             }),
 

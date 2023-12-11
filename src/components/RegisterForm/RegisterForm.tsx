@@ -13,7 +13,7 @@ import Spinner from '@ui-kit/Spinner/Spinner.tsx';
 import Hint from '@ui-kit/Hint/Hint.tsx';
 import useForm from '@ui-kit/_hooks/useForm';
 
-interface RegisterFormProps extends UiComponentProps { }
+interface RegisterFormProps extends UiComponentProps {}
 
 const RegisterForm: React.FC<RegisterFormProps> = ({ classes }) => {
     const navigate = useNavigate();
@@ -117,7 +117,9 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ classes }) => {
                             break;
                         }
                         case 503: {
-                            setHintText('Регистрация на альфа-тестирование завершена');
+                            setHintText(
+                                'Регистрация на альфа-тестирование завершена',
+                            );
                             break;
                         }
                         case 400:
@@ -291,17 +293,17 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ classes }) => {
                     </Button>
                 </form>
                 <Button
-                        type="link"
-                        onClick={handleRegister}
+                    type="link"
+                    onClick={handleRegister}
+                >
+                    <Text
+                        type="p"
+                        size={1}
+                        weight="bold"
                     >
-                        <Text
-                            type="p"
-                            size={1}
-                            weight="bold"
-                        >
-                            Уже есть аккаунт?
-                        </Text>
-                    </Button>
+                        Уже есть аккаунт?
+                    </Text>
+                </Button>
             </Container>
         </>
     );

@@ -10,7 +10,6 @@ const RegisterPage: React.FC = () => {
             classes={styles.page}
         >
             <RegisterForm classes={styles.form} />
-            
         </Container>
     );
 };

@@ -34,7 +34,9 @@ const MessageSelectDialogItem: React.FC<MessageSelectDialogItemProps> = ({
             }
         >
             <Avatar
-                src={data.studentAvatar?.length ? data.studentAvatar : data.cover}
+                src={
+                    data.studentAvatar?.length ? data.studentAvatar : data.cover
+                }
                 alt={`аватар диалога с ${data.studentName}`}
             ></Avatar>
             <div className={styles.messageSelectDialogItemText}>
