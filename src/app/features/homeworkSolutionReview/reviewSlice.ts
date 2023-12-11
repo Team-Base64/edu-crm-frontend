@@ -16,7 +16,7 @@ export const reviewSlice = homeworkSolutionSlice.injectEndpoints({
                 };
             },
             // TODO
-            invalidatesTags: ['getHomeworkSolutions', 'getClassSolutions'],
+            invalidatesTags: ['getHomeworkSolutions', 'getClassSolutions', 'getSolution'],
         }),
     }),
 });
