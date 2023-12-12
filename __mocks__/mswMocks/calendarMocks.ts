@@ -5,13 +5,14 @@ import { calendarPaths } from '../../src/app/features/calendar/calendarPaths.ts'
 import {
     calendarIdMock,
     getEventsFirstMockData,
+    getEventsSecondMockData,
 } from '../const/calendarConstMocks';
 
 export const calendarHandlers = [
     http.get(`${appPaths.basePath}${calendarPaths.getEvents}`, () =>
         HttpResponse.json(
             {
-                events: [getEventsFirstMockData],
+                events: [getEventsFirstMockData, getEventsSecondMockData],
             },
             {
                 status: 200,

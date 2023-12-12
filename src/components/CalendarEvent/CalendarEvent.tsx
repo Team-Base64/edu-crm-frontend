@@ -12,6 +12,10 @@ import {
     getUTCDate,
     getUTCTime,
 } from '../../utils/common/dateRepresentation.ts';
+import styles from './CalendarEvent.module.scss';
+import getDate from 'utils/common/PrettyDate/common/date.ts';
+import getTime from 'utils/common/PrettyDate/common/time.ts';
+import { getDelta } from 'utils/common/PrettyDate/common/delta.ts';
 
 interface CalendarEventProps extends UiComponentProps {
     eventData: CalendarEventType;
@@ -37,73 +41,129 @@ export const CalendarEvent: React.FC<CalendarEventProps> = ({
 
     const [isAddEventWindowShowing, setEditEventWindowShowing] =
         useState(false);
+
+    const durationDate = new Date(getDelta(eventData.startDate, eventData.endDate));
+    const duration =
+        (durationDate.getHours() < 10 ? '0' : '')
+        +
+        durationDate.getHours()
+        +
+        ':'
+        +
+        (durationDate.getMinutes() < 10 ? '0' : '')
+        +
+        durationDate.getMinutes()
+        ;
+
     return (
         <Container
             direction={'grid'}
-            layout={'sub'}
+            layout='defaultBase'
+            classes={styles.item}
         >
-            <Text
-                type={'p'}
-                size={5}
+            <Container
+                direction={'grid'}
+                classes={styles.main}
             >
-                Название: {eventData.title}
-            </Text>
-            <Text
-                type={'p'}
-                size={5}
-            >
-                Описание: {eventData.description}
-            </Text>
-            <Text
-                type={'p'}
-                size={5}
-            >
-                Дата начала:
-                {' ' +
-                    getUTCDate(new Date(eventData.startDate)) +
-                    ' ' +
-                    getUTCTime(new Date(eventData.startDate))}
-            </Text>
-            <Text
-                type={'p'}
-                size={5}
-            >
-                Дата окончания:
-                {' ' +
-                    getUTCDate(new Date(eventData.endDate)) +
-                    ' ' +
-                    getUTCTime(new Date(eventData.endDate))}
-            </Text>
-            <Button
-                type={'secondary'}
-                onClick={() => setEditEventWindowShowing(true)}
-            >
-                <Icon
-                    size={'small'}
-                    name={'pencilLine'}
-                />
                 <Text
-                    type={'p'}
-                    size={5}
+                    type='h'
+                    size={4}
+                    weight='bold'
+                    classes={styles.title}
                 >
-                    Изменить событие
+                    Название:
                 </Text>
-            </Button>
-            <Button
-                type={'link'}
-                onClick={onDelteHandle}
-            >
-                <Icon
-                    size={'small'}
-                    name={'deleteBinLine'}
-                />
                 <Text
-                    type={'p'}
-                    size={5}
+                    type='p'
+                    size={1}
+                    classes={styles.content}
                 >
-                    Удалить событие
+                    {eventData.title}
                 </Text>
-            </Button>
+                <Text
+                    type='h'
+                    size={4}
+                    weight='bold'
+                    classes={styles.title}
+                >
+                    Описание:
+                </Text>
+                <Text
+                    type='p'
+                    size={1}
+                    classes={styles.content}
+                >
+                    {eventData.description}
+                </Text>
+                <Text
+                    type='h'
+                    size={4}
+                    weight='bold'
+                    classes={styles.title}
+                >
+                    Дата начала:
+                </Text>
+                <Text
+                    type='p'
+                    size={1}
+                    classes={styles.content}
+                >
+                    {
+                        [getDate(eventData.startDate), getTime(eventData.startDate)].join(' ')
+                    }
+                </Text>
+                <Text
+                    type='h'
+                    size={4}
+                    weight='bold'
+                    classes={styles.title}
+                >
+                    Продолжительность:
+                </Text>
+                <Text
+                    type='p'
+                    size={1}
+                    classes={styles.content}
+                >
+                    {duration}
+                </Text>
+            </Container>
+            <Container
+                classes={styles.controls}
+                direction='grid'
+            >
+                <Button
+                    type={'secondary'}
+                    onClick={() => setEditEventWindowShowing(true)}
+                >
+                    <Icon
+                        size={'small'}
+                        name={'pencilLine'}
+                    />
+                    <Text
+                        type={'p'}
+                        size={1}
+                    >
+                        Изменить
+                    </Text>
+                </Button>
+                <Button
+                    type={'link'}
+                    onClick={onDelteHandle}
+                >
+                    <Icon
+                        size={'small'}
+                        name={'deleteBinLine'}
+                    />
+                    <Text
+                        type={'p'}
+                        size={1}
+
+                    >
+                        Удалить
+                    </Text>
+                </Button>
+            </Container>
             <Overlay
                 isShowing={isAddEventWindowShowing}
                 closeOverlay={() => setEditEventWindowShowing(false)}

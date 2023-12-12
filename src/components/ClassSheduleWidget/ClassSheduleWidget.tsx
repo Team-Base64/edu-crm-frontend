@@ -12,8 +12,14 @@ interface ClassSheduleWidgetProps {
 const ClassSheduleWidget: React.FC<ClassSheduleWidgetProps> = ({ classID }) => {
     const calendarRef = useRef<HTMLIFrameElement>(null);
     return (
-        <Widget title="Расписание для класса:">
-            <Container>
+        <Widget
+            title="Расписание для класса:"
+            classes={styles.widget}
+        >
+            <Container
+                classes={styles.container}
+                gap='l'
+            >
                 <MyCalendar
                     classID={classID}
                     viewMode="weekNoTime"
@@ -23,6 +29,7 @@ const ClassSheduleWidget: React.FC<ClassSheduleWidgetProps> = ({ classID }) => {
                 <CalendarControls
                     iframeRef={calendarRef}
                     classID={classID}
+                    classes={styles.controls}
                 />
             </Container>
         </Widget>

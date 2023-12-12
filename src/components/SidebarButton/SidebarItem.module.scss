@@ -3,8 +3,8 @@
     align-self: stretch;
 
     &:has(.active) {
-        margin-left: -2px; // IMPORTANT!!! 
-        border-left: 2px solid orange; 
+        margin-left: -8px; // IMPORTANT!!! 
+        border-left: 8px solid orange; 
     }
 }
 

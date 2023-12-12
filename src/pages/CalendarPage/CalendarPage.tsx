@@ -5,25 +5,28 @@ import { MyCalendar } from '@components/Calendar/Calendar.tsx';
 import { CalendarControls } from '@components/CalendarControls/CalendarControls.tsx';
 import Container from '@ui-kit/Container/Container.tsx';
 
-interface CalendarPageProps extends UiComponentProps {}
+interface CalendarPageProps extends UiComponentProps { }
 
 export const CalendarPage: React.FC<CalendarPageProps> = () => {
     const iframeRef = useRef<HTMLIFrameElement>(null);
 
     return (
         <Container
-            direction={'grid'}
-            classes={styles.calendarPage}
+            // direction={'grid'}
+            // classes={styles.calendarPage}
+            classes={styles.page}
         >
             <MyCalendar
-                classes={styles.calendarPageCalendar}
+                // classes={styles.calendarPageCalendar}
                 viewMode={'month'}
                 iframeRef={iframeRef}
-            ></MyCalendar>
+                classes={styles.calendar}
+            />
             <CalendarControls
-                classes={styles.calendarPageControls}
+                // classes={styles.calendarPageControls}
                 iframeRef={iframeRef}
-            ></CalendarControls>
+                classes={styles.controls}
+            />
         </Container>
     );
 };

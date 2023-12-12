@@ -86,12 +86,19 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
                 ref={formRef}
                 className={styles.form}
             >
+
                 <TextArea
                     classes={styles.area}
                     textareaRef={textareaRef}
                     name="announce"
                     spellcheck={true}
-                    placeholder={'Напишите что-нибудь всему классу...'}
+                    disabled={hint}
+                    placeholder={
+                        hint ?
+                            "Объявления доступны, если в классе есть ученики"
+                            :
+                            'Напишите что-нибудь всему классу...'
+                    }
                     textareaText={
                         localStorage.getItem(`${classID}/announce`) || undefined
                     }
@@ -101,10 +108,6 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
                     minRows={1}
                     focusRows={3}
                     maxRows={5}
-                />
-                <Hint
-                    text="Сообщения доступны, если в классе есть ученики"
-                    state={[hint, toggleHint]}
                 />
                 <Container
                     direction="vertical"
