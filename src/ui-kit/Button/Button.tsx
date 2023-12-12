@@ -34,7 +34,7 @@ interface ButtonProps extends UiComponentProps {
     disabled?: boolean;
     border?: BorderButtonType;
     action?: 'submit' | 'reset' | 'button';
-    id: string;
+    id?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({

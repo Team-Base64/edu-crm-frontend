@@ -29,7 +29,7 @@ $border-radius: var(--border-radius-default);
     bottom: 0;
     left: calc(0px - $border-radius);
     transform: scale(-1, 1);
-    background-color: var(--color-bg-default);
+    background-color: var(--color-bg-chat-message);
   }
 
   &.mine {
@@ -47,7 +47,7 @@ $border-radius: var(--border-radius-default);
     align-items: end;
     word-break: break-word;
 
-    background-color: var(--color-bg-default);
+    background-color: var(--color-bg-chat-message);
     padding: 16px 16px;
     border-radius: var(--border-radius-default);
 
