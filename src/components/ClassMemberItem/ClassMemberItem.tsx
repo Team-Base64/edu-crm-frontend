@@ -40,7 +40,7 @@ export const ClassMemberItem: React.FC<ClassMemberItemProps> = ({
                     onSelect={noop}
                     onDelete={noop}
                     index={0}
-                    // students={[data.student]}
+                    students={[data.student]}
                     role={role}
                     classes={classes}
                 />
@@ -52,7 +52,7 @@ export const ClassMemberItem: React.FC<ClassMemberItemProps> = ({
 interface ClassMemberListItemProps extends UiComponentProps {
     role?: string;
     // chatID?: number;
-    // students: Student[];
+    students: Student[];
 }
 
 export const ClassMemberListItem: ListItemFC<
@@ -63,71 +63,71 @@ export const ClassMemberListItem: ListItemFC<
     role = 'Ученик',
     onClick,
     classes,
-    // students,
-    //  index
+    students,
+    index
 }) => {
-    const { name, avatar, chatID } = item;
-    const navigate = useNavigate();
-    const handleChatClick = () => {
-        // if (students[index]) {
-        if (chatID) {
-            navigate(
-                // `/${AppRoutes.messenger}?${routerQueryParams.messenger.chatid}=${students[index].chatID}`,
-                `/${AppRoutes.messenger}?${routerQueryParams.messenger.chatid}=${chatID}`,
-            );
-        }
-    };
+        const { name, avatar /*, chatID*/ } = item;
+        const navigate = useNavigate();
+        const handleChatClick = () => {
+            if (students[index]?.chatID) {
+                // if (chatID) {
+                navigate(
+                    `/${AppRoutes.messenger}?${routerQueryParams.messenger.chatid}=${students[index].chatID}`,
+                    // `/${AppRoutes.messenger}?${routerQueryParams.messenger.chatid}=${chatID}`,
+                );
+            }
+        };
 
-    return (
-        <Container
-            classes={[styles.card, classes].join(' ')}
-            direction="horizontal"
-            onClick={onClick}
-        >
+        return (
             <Container
-                classes={styles.wrapper}
+                classes={[styles.card, classes].join(' ')}
                 direction="horizontal"
+                onClick={onClick}
             >
-                <Avatar
-                    classes={styles.avatar}
-                    src={avatar}
-                    alt={name + 'avatar'}
-                />
                 <Container
                     classes={styles.wrapper}
-                    direction="vertical"
+                    direction="horizontal"
                 >
-                    <Text
-                        classes={[styles.name, styles.text].join(' ')}
-                        type="h"
-                        size={5}
-                        weight="bold"
-                    >
-                        {name}
-                    </Text>
-                    <Text
-                        classes={[styles.role, styles.text].join(' ')}
-                        type="p"
-                        size={1}
-                        weight="regular"
-                    >
-                        {role}
-                    </Text>
-                </Container>
-            </Container>
-            {/* {students[index] && ( */}
-            {chatID && (
-                <Button
-                    classes={styles.btn}
-                    onClick={handleChatClick}
-                    type="link"
-                >
-                    <Icon
-                        classes={styles.icon}
-                        name="chatRightFill"
+                    <Avatar
+                        classes={styles.avatar}
+                        src={avatar}
+                        alt={name + 'avatar'}
                     />
-                </Button>
-            )}
-        </Container>
-    );
-};
+                    <Container
+                        classes={styles.wrapper}
+                        direction="vertical"
+                    >
+                        <Text
+                            classes={[styles.name, styles.text].join(' ')}
+                            type="h"
+                            size={5}
+                            weight="bold"
+                        >
+                            {name}
+                        </Text>
+                        <Text
+                            classes={[styles.role, styles.text].join(' ')}
+                            type="p"
+                            size={1}
+                            weight="regular"
+                        >
+                            {role}
+                        </Text>
+                    </Container>
+                </Container>
+                {students[index]?.chatID && (
+                    // {chatID && (
+                    <Button
+                        classes={styles.btn}
+                        onClick={handleChatClick}
+                        type="link"
+                    >
+                        <Icon
+                            classes={styles.icon}
+                            name="chatRightFill"
+                        />
+                    </Button>
+                )}
+            </Container>
+        );
+    };
