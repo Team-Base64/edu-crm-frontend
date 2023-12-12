@@ -1,56 +1,71 @@
 @use '../functions' as *;
 
 .select {
+  user-select: none;
+  position: relative;
+}
+
+.current {
   cursor: pointer;
 }
 
-.drop-down {
-  position: relative;
-  font-family: getVar(font, type, default);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-smaller);
-
-  &::before,
-  &::after {
-    --size-of-arrow-in-dropdown: 6px;
-    content: "";
-    position: absolute;
-    pointer-events: none;
-  }
-
-  &::after {
-    border-left: var(--size-of-arrow-in-dropdown) solid transparent;
-    border-right: var(--size-of-arrow-in-dropdown) solid transparent;
-    border-top: var(--size-of-arrow-in-dropdown) solid var(--color-text-default);
-    top: 65%;
-    left: calc(100% - 2 * var(--space-default));
-  }
-
-  &--label {}
-
-  &--data-list {
-    border: var(--ui-kit-border-width-default) solid var(--ui-kit-input-outline-color);
-    border-radius: var(--ui-kit-border-radius-large);
-    padding: calc(2 * var(--ui-kit-border-width-default) + var(--ui-kit-padding-t-b-medium)) var(--space-default);
-    appearance: none;
-    -webkit-appearance: none;
-    cursor: pointer;
-    display: inline-block;
-    width: 100%;
-  }
-
-  &--option {
-    color: var(--color-text-default);
-  }
-}
-
-.cont {
-  position: relative;
-}
-
 .btn {
+
+  & .icon {
+    fill: #333;
+  }
+}
+
+
+.ul {
   position: absolute;
+  top: 100%;
+  left: 0;
   right: 0;
-  pointer-events: none;
+  overflow-y: scroll;
+
+  z-index: 1000;
+  
+  $scrollbar-width: 8px;
+
+  &::-webkit-scrollbar {
+    background-color: rgba(0, 0, 0, 0);
+    width: $scrollbar-width;
+    height: $scrollbar-width;
+  }
+
+  &::-webkit-scrollbar-button {
+    height: 16px;
+    width: 16px;
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: lightgray;
+    border-radius: 4px;
+  }
+}
+
+.visible {
+  max-height: 1000px;
+  transition: max-height 0.5s ease-in;
+
+  & .container {
+    box-shadow: 0px 0px 0px 2px #333;
+    margin: 2px;
+    margin-top: 0;
+  }
+}
+
+.hidden {
+  max-height: 0;
+  transition: max-height 0.2s ease-in;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.item {
+  cursor: pointer;
 }
