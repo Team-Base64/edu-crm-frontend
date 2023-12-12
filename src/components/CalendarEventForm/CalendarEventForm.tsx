@@ -217,7 +217,9 @@ export const CalendarEventForm: React.FC<CalendarEventFormProps> = ({
                                 formatTitle={(id) => {
                                     return (
                                         classesData.classes
-                                            .filter((cl) => cl.id === id)
+                                            .filter(
+                                                (cl) => cl.id === Number(id),
+                                            )
                                             .at(0)?.title || 'Неизвестно'
                                     );
                                 }}
