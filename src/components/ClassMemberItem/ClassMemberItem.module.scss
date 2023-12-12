@@ -19,18 +19,18 @@
         overflow: hidden;
 
         &.name {
-            color: black;
+            color: var(--color-text-default);
         }
 
         &.role {
-            color: gray
+            color: var(--color-text-light);
         }
     }
 
 
     & .btn {
         & .icon {
-            fill: orange;
+            fill: var(--color-accent-default);
         }
     }
 }

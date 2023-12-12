@@ -4,10 +4,10 @@
 
 .btn {
     & .icon {
-        fill: white;
+        fill: var(--color-text-white);
     }
 
     & .text {
-        color: white;
+        color: var(--color-text-white);
     }
 }

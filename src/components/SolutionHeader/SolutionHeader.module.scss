@@ -14,11 +14,11 @@
 }
 
 .intime {
-    color: green;
+    color: var(--color-success);
 }
 
 .outtime {
-    color: red;
+    color: var(--color-fail);
 }
 
 

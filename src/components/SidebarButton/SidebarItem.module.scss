@@ -4,7 +4,7 @@
 
     &:has(.active) {
         margin-left: -8px; // IMPORTANT!!! 
-        border-left: 8px solid orange; 
+        border-left: 8px solid var(--color-accent-default); 
     }
 }
 
@@ -22,8 +22,8 @@
 
     & .icon,
     .title {
-        color: black;
-        fill: black;
+        color: var(--color-text-white);
+        fill: var(--color-text-white);
     }
 
     &:hover {
@@ -31,14 +31,14 @@
 
         & .icon,
         .title {
-            color: gray;
-            fill: gray;
+            color: var(--color-text-light);
+            fill: var(--color-text-light);
         }
     }
     &:hover.dangerous {
         & .icon, .title {
-            fill: red;
-            color: red;
+            fill: var(--color-fail);
+            color: var(--color-fail);
         }
     }
 }

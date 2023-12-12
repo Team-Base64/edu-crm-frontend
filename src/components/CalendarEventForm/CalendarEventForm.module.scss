@@ -4,18 +4,18 @@
 
 .btn {
   & .text {
-    color: white;
+    color: var(--color-text-white);
 
     &-close {
-      color: gray;
+      color: var(--color-text-light);
     }
   }
 
   & .icon {
-    fill: white;
+    fill: var(--color-text-white);
 
     &-close {
-      fill: gray;
+      fill: var(--color-text-light);
     }
   }
 }

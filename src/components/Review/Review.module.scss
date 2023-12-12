@@ -4,16 +4,16 @@
 
 .submit {
     &-text {
-        color: white;
+        color: var(--color-text-white);
     }
 
     &-icon {
-        fill: white;
+        fill: var(--color-text-white);
     }
 }
 
 .spinner {
-    fill: #333;
+    fill: var(--color-text-default);
 }
 
 .state {
@@ -21,9 +21,9 @@
 }
 
 .approved {
-    color: rgb(66, 159, 66);
+    color: var(--color-success);
 }
 
 .reject {
-    color: rgb(227, 65, 40);
+    color: var(--color-fail);
 }

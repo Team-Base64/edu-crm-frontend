@@ -33,12 +33,13 @@ const ClassHomeworksWidget: React.FC<ClassHomeworksWidgetProps> = ({
                 type="link"
                 size="s"
                 onClick={handleShowAll}
+                classes={styles.btn}
             >
                 <Text
-                    type="p"
+                    type="h"
                     weight="bold"
-                    size={2}
-                    classes={styles.btnShowAll}
+                    size={5}
+                    classes={styles.text}
                 >
                     Посмотреть все
                 </Text>

@@ -40,7 +40,7 @@ export const ClassMemberItem: React.FC<ClassMemberItemProps> = ({
                     onSelect={noop}
                     onDelete={noop}
                     index={0}
-                    // students={[data.student]}
+                    students={[data.student]}
                     role={role}
                     classes={classes}
                 />
@@ -52,28 +52,21 @@ export const ClassMemberItem: React.FC<ClassMemberItemProps> = ({
 interface ClassMemberListItemProps extends UiComponentProps {
     role?: string;
     // chatID?: number;
-    // students: Student[];
+    students: Student[];
 }
 
 export const ClassMemberListItem: ListItemFC<
     Student,
     ClassMemberListItemProps
-> = ({
-    item,
-    role = 'Ученик',
-    onClick,
-    classes,
-    // students,
-    //  index
-}) => {
-    const { name, avatar, chatID } = item;
+> = ({ item, role = 'Ученик', onClick, classes, students, index }) => {
+    const { name, avatar /*, chatID*/ } = item;
     const navigate = useNavigate();
     const handleChatClick = () => {
-        // if (students[index]) {
-        if (chatID) {
+        if (students[index]?.chatID) {
+            // if (chatID) {
             navigate(
-                // `/${AppRoutes.messenger}?${routerQueryParams.messenger.chatid}=${students[index].chatID}`,
-                `/${AppRoutes.messenger}?${routerQueryParams.messenger.chatid}=${chatID}`,
+                `/${AppRoutes.messenger}?${routerQueryParams.messenger.chatid}=${students[index].chatID}`,
+                // `/${AppRoutes.messenger}?${routerQueryParams.messenger.chatid}=${chatID}`,
             );
         }
     };
@@ -115,8 +108,8 @@ export const ClassMemberListItem: ListItemFC<
                     </Text>
                 </Container>
             </Container>
-            {/* {students[index] && ( */}
-            {chatID && (
+            {students[index]?.chatID && (
+                // {chatID && (
                 <Button
                     classes={styles.btn}
                     onClick={handleChatClick}

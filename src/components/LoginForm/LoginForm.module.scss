@@ -10,10 +10,10 @@
   width: 100%;
 
   & .spinner {
-    stroke: white;
+    stroke: var(--color-text-white);
   }
 
   & .text {
-    color: white;
+    color: var(--color-text-white);
   }
 }

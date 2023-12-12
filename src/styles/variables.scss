@@ -2,20 +2,21 @@
   // Button
   --ui-kit-btn-font-weight: 700;
 
-  --ui-kit-btn-primary-bg-default: #FF8A00;
-  --ui-kit-btn-primary-font-color: white;
-  --ui-kit-btn-primary-bg-hover: #ff9f34;
-  --ui-kit-btn-primary-border-color-focus: #b26201;
-  --ui-kit-btn-primary-bg-active: #ffaa52;
-  --ui-kit-btn-primary-bg-disabled: gray;
+  --ui-kit-btn-primary-bg-default: var(--color-accent-default);
+  --ui-kit-btn-primary-font-color: var(--color-text-white);
+  --ui-kit-btn-primary-font-color-disabled: var(--color-text-white);
+  --ui-kit-btn-primary-bg-hover: var(--color-accent-bright);// #ff9f34;
+  --ui-kit-btn-primary-border-color-focus: var(--color-accent-super-bright);
+  --ui-kit-btn-primary-bg-active: var(--color-accent-default);
+  --ui-kit-btn-primary-bg-disabled: var(--color-bg-default);
 
-  --ui-kit-btn-secondary-border-color-default: #FF8A00;
-  --ui-kit-btn-secondary-font-color: #FF8A00;
-  --ui-kit-btn-secondary-bg-hover: #ffaa52;
-  --ui-kit-btn-secondary-border-color-focus: #ff9f34;
-  --ui-kit-btn-secondary-bg-active: #f6ad63;
-  --ui-kit-btn-secondary-font-color-disabled: gray;
-  --ui-kit-btn-secondary-border-color-disabled: gray;
+  --ui-kit-btn-secondary-border-color-default: var(--color-accent-default);
+  --ui-kit-btn-secondary-font-color: var(--color-text-default);
+  --ui-kit-btn-secondary-bg-hover: color-mix(in srgb, var(--color-accent-default), transparent 80%);
+  --ui-kit-btn-secondary-border-color-focus: var(--color-accent-bright);
+  --ui-kit-btn-secondary-bg-active: inherit;
+  --ui-kit-btn-secondary-font-color-disabled: var(--color-bg-default);
+  --ui-kit-btn-secondary-border-color-disabled: var(--color-bg-default);
 
   --ui-kit-btn-outlined-border-color-default: #FF8A00;
   --ui-kit-btn-outlined-font-color: #FF8A00;
@@ -25,30 +26,30 @@
   --ui-kit-btn-outlined-font-color-disabled: gray;
   --ui-kit-btn-outlined-border-color-disabled: gray;
 
-  --ui-kit-btn-link-font-color: #FF8A00;
+  --ui-kit-btn-link-font-color: var(--color-text-light);
   --ui-kit-btn-link-bg-hover: rgba(230, 230, 230, 0.5);
-  --ui-kit-btn-link-border-color-focus: #ff9f34;
+  --ui-kit-btn-link-border-color-focus:rgba(230, 230, 230, 0.8);//  #ff9f34;
   --ui-kit-btn-link-font-color-active: #ffaa52;
-  --ui-kit-btn-link-font-color-disabled: gray;
+  --ui-kit-btn-link-font-color-disabled: var(--color-bg-default);
 
   // End button
 
   // Input
-  --ui-kit-input-bg-disabled: lightgray;
+  --ui-kit-input-bg-disabled: inherit;
   --ui-kit-input-bg-default: inherit;
   --ui-kit-input-bg-hover: inherit;
   --ui-kit-input-bg-focus: inherit;
   --ui-kit-input-bg-error: inherit;
   --ui-kit-input-bg-success: inherit;
 
-  --ui-kit-input-border-color: gray;
-  --ui-kit-input-border-color-disabled: lightgray;
-  --ui-kit-input-border-color-focus: #b26201;
-  --ui-kit-input-border-color-error: red;
-  --ui-kit-input-border-color-success: green;
-  --ui-kit-input-border-color-hover: inherit;
+  --ui-kit-input-border-color: var(--color-text-light);
+  --ui-kit-input-border-color-disabled: var(--color-bg-default);
+  --ui-kit-input-border-color-focus: var(--color-text-default);
+  --ui-kit-input-border-color-error: var(--color-fail);
+  --ui-kit-input-border-color-success: var(--color-success);
+  --ui-kit-input-border-color-hover: var(--color-text-light);
 
-  --ui-kit-input-text-color-disabled: gray;
+  --ui-kit-input-text-color-disabled: var(--color-text-light);
 
   --ui-kit-input-title-font-size-small: 20px;
   --ui-kit-input-title-font-size-medium: 24px;
@@ -63,7 +64,7 @@
   --ui-kit-input-error-hint-font-size-small: 14px;
 
   // End input
-  --ui-kit-color-error: red;
+  --ui-kit-color-error: var(--color-fail);
 
   // Splitter
 
@@ -82,7 +83,7 @@
   --ui-kit-avatar-size-small: 32px;
   --ui-kit-avatar-size-medium: 48px;
   --ui-kit-avatar-size-large: 64px;
-  --ui-kit-avatar-border-color: gray;
+  --ui-kit-avatar-border-color: inherit;
 
   // Padding
   --ui-kit-padding-t-b-small: 4px;
@@ -116,7 +117,7 @@
   --ui-kit-font-size-p: 16px;
   --ui-kit-font-size-p2: 12px;
 
-  --ui-kit-font-type-default: 'Roboto', sans-serif;
+  --ui-kit-font-type-default: var(--font-default);
 
   // Checkbox
 
@@ -140,19 +141,23 @@
   /* colors */
 
   // accent
-  --color-accent-bright: #FF8A00;
-  --color-accent-default: #FDAD01;
+  --color-accent-dark: #27252fee;
+  --color-accent-super-bright: #FF8A00;
+  --color-accent-bright: #ff9f34;// #FF8A00;
+  --color-accent-default: #ffaa45;
   --color-accent-light: #FFEECB;
   --color-accent-super-light: #fef7e7;
 
   // background
-  --color-bg-bright: rgba(255, 242, 229, 0.25);
-  --color-bg-default: #f1f1f1;
+  --color-bg-default: #dbdbdb;
   --color-bg-light: rgba(253, 253, 253, 1.0);
+  --color-bg-bright: rgba(255, 242, 229, 0.25);
   --color-bg-dark-light: rgb(248, 248, 248);
   //--color-bg-dark-light: rgba(244, 244, 244, 0.5);
 
   // text
+  --font-default: 'Roboto', sans-serif;
+  --color-text-white: white;
   --color-text-default: #333;
   --color-text-light: #888;
 
