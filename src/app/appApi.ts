@@ -19,6 +19,7 @@ const appApi = createApi({
         'getSolution',
         'getClassStudents',
         'getStudent',
+        'getCalendarID',
     ],
 });
 export default appApi;

@@ -109,6 +109,7 @@ const Solution: React.FC<SolutionProps> = ({ id, classes }) => {
                                     onRemoveClick={noop}
                                     isStatic={true}
                                     key={file + index}
+                                    index={index}
                                 />
                             ))
                         ) : (

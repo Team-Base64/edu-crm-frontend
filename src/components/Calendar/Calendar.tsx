@@ -15,7 +15,6 @@ import { Calendar } from '@fullcalendar/core';
 interface CalendarProps extends UiComponentProps {
     classID?: number;
     viewMode: viewModeType;
-    iframeRef: React.RefObject<HTMLIFrameElement>;
 }
 
 const ViewMode = {
@@ -30,7 +29,6 @@ export const MyCalendar: React.FC<CalendarProps> = ({
     classes,
     viewMode,
     classID = 1,
-    // iframeRef,
 }) => {
     const { data, isSuccess } = useGetCalendarIDQuery(null);
     const { data: backendEvents, isSuccess: backendEventsLoaded } =
@@ -68,13 +66,11 @@ export const MyCalendar: React.FC<CalendarProps> = ({
                     if (backendMappedEvent?.classid !== classID) {
                         arg.event.setProp('display', 'none');
                     }
-                    // Показать если для этого класса
-                    console.log('VISIBLE ', arg.event.title);
                 },
                 events: {
                     googleCalendarId: data.googleid,
                     // googleCalendarId: import.meta.env
-                    // .VITE_CALENDAR_GOOGLE_SAMPLE_TOKEN,
+                    //     .VITE_CALENDAR_GOOGLE_SAMPLE_TOKEN,
                 },
                 height: '100%',
                 expandRows: true,
@@ -83,11 +79,19 @@ export const MyCalendar: React.FC<CalendarProps> = ({
                 buttonText: {
                     today: 'сегодня',
                 },
-                slotDuration: '02:00',
+                // slotDuration: '02:00',
             });
             calendar.render();
+            // calendar.refetchEvents();
         }
-    }, [classID, isSuccess, backendEventsLoaded]);
+    }, [
+        classID,
+        isSuccess,
+        backendEventsLoaded,
+        viewMode,
+        data?.googleid,
+        backendEvents?.calendarEvents,
+    ]);
 
     return (
         <Suspense

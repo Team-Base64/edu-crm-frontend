@@ -20,7 +20,7 @@ export const calendarSlice = appApi.injectEndpoints({
                     body: eventData,
                 };
             },
-            invalidatesTags: ['getEvents'],
+            invalidatesTags: ['getEvents', 'getCalendarID'],
         }),
         editEvent: build.mutation<unknown, CalendarCreateEventType>({
             query: (eventData) => {
@@ -30,7 +30,7 @@ export const calendarSlice = appApi.injectEndpoints({
                     body: eventData,
                 };
             },
-            invalidatesTags: ['getEvents'],
+            invalidatesTags: ['getEvents', 'getCalendarID'],
         }),
         getEvents: build.query<
             { calendarEvents: CalendarEventSelectByIDType },
@@ -70,7 +70,7 @@ export const calendarSlice = appApi.injectEndpoints({
                     body: deleteEventData,
                 };
             },
-            invalidatesTags: ['getEvents'],
+            invalidatesTags: ['getEvents', 'getCalendarID'],
         }),
         getCalendarID: build.query<calendarGetID, unknown>({
             query: () => {
@@ -79,6 +79,7 @@ export const calendarSlice = appApi.injectEndpoints({
                     method: 'GET',
                 };
             },
+            providesTags: ['getCalendarID'],
         }),
     }),
 });

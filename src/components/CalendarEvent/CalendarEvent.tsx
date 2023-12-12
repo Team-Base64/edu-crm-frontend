@@ -16,18 +16,13 @@ import { getDelta } from 'utils/common/PrettyDate/common/delta.ts';
 interface CalendarEventProps extends UiComponentProps {
     eventData: CalendarEventType;
     onDeleteClick: () => void;
-    iframeRef: React.RefObject<HTMLIFrameElement>;
 }
 
 export const CalendarEvent: React.FC<CalendarEventProps> = ({
     eventData,
     onDeleteClick,
-    iframeRef,
 }) => {
     const handleOverlayClose = () => {
-        if (iframeRef.current) {
-            iframeRef.current.src += '';
-        }
         setEditEventWindowShowing(false);
     };
     const onDelteHandle = () => {

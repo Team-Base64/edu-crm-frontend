@@ -9,18 +9,11 @@ import { CalendarEventForm } from '@components/CalendarEventForm/CalendarEventFo
 import { useAddEventMutation } from '@app/features/calendar/calendarSlice.ts';
 import Icon from '@ui-kit/Icon/Icon';
 
-interface CalendarAddEventProps extends UiComponentProps {
-    iframeRef: React.RefObject<HTMLIFrameElement>;
-}
-export const CalendarAddEvent: React.FC<CalendarAddEventProps> = ({
-    iframeRef,
-}) => {
+interface CalendarAddEventProps extends UiComponentProps {}
+export const CalendarAddEvent: React.FC<CalendarAddEventProps> = ({}) => {
     const [isAddEventWindowShowing, setAddEventWindowShowing] = useState(false);
 
     const handleOverlayClose = () => {
-        if (iframeRef.current) {
-            iframeRef.current.src += '';
-        }
         setAddEventWindowShowing(false);
     };
 
