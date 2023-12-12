@@ -82,7 +82,7 @@ export const DropDown: React.FC<DropDownProps> = ({
                     </li>
                 );
             }),
-        [values, setCurrent, setShowList],
+        [values, setCurrent, setShowList, key, formatTitle],
     );
 
     return (
