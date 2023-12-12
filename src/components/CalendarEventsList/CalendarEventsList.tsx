@@ -11,12 +11,10 @@ import ShowQueryState from '@components/ShowQueryState/ShowQueryState';
 import EmptyItem from '@components/EmptyItem/EmptyItem';
 
 interface CalendarEventsListProps extends UiComponentProps {
-    iframeRef: React.RefObject<HTMLIFrameElement>;
     classID?: number;
 }
 
 export const CalendarEventsList: React.FC<CalendarEventsListProps> = ({
-    iframeRef,
     classID,
 }) => {
     const { data, isSuccess, ...status } = useGetEventsQuery(null);
@@ -45,7 +43,6 @@ export const CalendarEventsList: React.FC<CalendarEventsListProps> = ({
                                         onDeleteClick={() =>
                                             deleteEvent({ id: eventData.id })
                                         }
-                                        iframeRef={iframeRef}
                                     />,
                                 );
                             }
