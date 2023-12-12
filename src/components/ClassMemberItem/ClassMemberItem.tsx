@@ -58,76 +58,69 @@ interface ClassMemberListItemProps extends UiComponentProps {
 export const ClassMemberListItem: ListItemFC<
     Student,
     ClassMemberListItemProps
-> = ({
-    item,
-    role = 'Ученик',
-    onClick,
-    classes,
-    students,
-    index
-}) => {
-        const { name, avatar /*, chatID*/ } = item;
-        const navigate = useNavigate();
-        const handleChatClick = () => {
-            if (students[index]?.chatID) {
-                // if (chatID) {
-                navigate(
-                    `/${AppRoutes.messenger}?${routerQueryParams.messenger.chatid}=${students[index].chatID}`,
-                    // `/${AppRoutes.messenger}?${routerQueryParams.messenger.chatid}=${chatID}`,
-                );
-            }
-        };
+> = ({ item, role = 'Ученик', onClick, classes, students, index }) => {
+    const { name, avatar /*, chatID*/ } = item;
+    const navigate = useNavigate();
+    const handleChatClick = () => {
+        if (students[index]?.chatID) {
+            // if (chatID) {
+            navigate(
+                `/${AppRoutes.messenger}?${routerQueryParams.messenger.chatid}=${students[index].chatID}`,
+                // `/${AppRoutes.messenger}?${routerQueryParams.messenger.chatid}=${chatID}`,
+            );
+        }
+    };
 
-        return (
+    return (
+        <Container
+            classes={[styles.card, classes].join(' ')}
+            direction="horizontal"
+            onClick={onClick}
+        >
             <Container
-                classes={[styles.card, classes].join(' ')}
+                classes={styles.wrapper}
                 direction="horizontal"
-                onClick={onClick}
             >
+                <Avatar
+                    classes={styles.avatar}
+                    src={avatar}
+                    alt={name + 'avatar'}
+                />
                 <Container
                     classes={styles.wrapper}
-                    direction="horizontal"
+                    direction="vertical"
                 >
-                    <Avatar
-                        classes={styles.avatar}
-                        src={avatar}
-                        alt={name + 'avatar'}
-                    />
-                    <Container
-                        classes={styles.wrapper}
-                        direction="vertical"
+                    <Text
+                        classes={[styles.name, styles.text].join(' ')}
+                        type="h"
+                        size={5}
+                        weight="bold"
                     >
-                        <Text
-                            classes={[styles.name, styles.text].join(' ')}
-                            type="h"
-                            size={5}
-                            weight="bold"
-                        >
-                            {name}
-                        </Text>
-                        <Text
-                            classes={[styles.role, styles.text].join(' ')}
-                            type="p"
-                            size={1}
-                            weight="regular"
-                        >
-                            {role}
-                        </Text>
-                    </Container>
+                        {name}
+                    </Text>
+                    <Text
+                        classes={[styles.role, styles.text].join(' ')}
+                        type="p"
+                        size={1}
+                        weight="regular"
+                    >
+                        {role}
+                    </Text>
                 </Container>
-                {students[index]?.chatID && (
-                    // {chatID && (
-                    <Button
-                        classes={styles.btn}
-                        onClick={handleChatClick}
-                        type="link"
-                    >
-                        <Icon
-                            classes={styles.icon}
-                            name="chatRightFill"
-                        />
-                    </Button>
-                )}
             </Container>
-        );
-    };
+            {students[index]?.chatID && (
+                // {chatID && (
+                <Button
+                    classes={styles.btn}
+                    onClick={handleChatClick}
+                    type="link"
+                >
+                    <Icon
+                        classes={styles.icon}
+                        name="chatRightFill"
+                    />
+                </Button>
+            )}
+        </Container>
+    );
+};

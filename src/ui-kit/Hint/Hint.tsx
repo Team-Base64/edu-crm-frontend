@@ -41,7 +41,7 @@ const Hint: React.FC<HintProps> = ({
                 <Container
                     layout="defaultBase"
                     classes={[styles.hint, classes].join(' ')}
-                    direction='grid'
+                    direction="grid"
                 >
                     <Icon
                         name="infoCircle"

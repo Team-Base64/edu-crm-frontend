@@ -1,6 +1,6 @@
 import React from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
-import styles from './CalendarControls.module.scss';
+// import styles from './CalendarControls.module.scss';
 import Container from '@ui-kit/Container/Container.tsx';
 import { CalendarAddEvent } from '@components/CalendatAddEvent/CalendatAddEvent.tsx';
 import { CalendarEventsList } from '@components/CalendarEventsList/CalendarEventsList.tsx';
