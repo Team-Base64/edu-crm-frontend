@@ -1,6 +1,8 @@
-.btn-show-all {
-    font-size: 16px;
-    color: gray !important;
+.btn {
+    & .text {
+        font-size: 16px;
+        color: var(--color-text-light);
+    }
 }
 
 .fullPage {

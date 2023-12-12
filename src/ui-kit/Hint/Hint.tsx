@@ -41,6 +41,7 @@ const Hint: React.FC<HintProps> = ({
                 <Container
                     layout="defaultBase"
                     classes={[styles.hint, classes].join(' ')}
+                    direction='grid'
                 >
                     <Icon
                         name="infoCircle"
@@ -49,7 +50,7 @@ const Hint: React.FC<HintProps> = ({
                     />
                     <Text
                         type="p"
-                        size={2}
+                        size={1}
                         classes={styles.hintText}
                     >
                         {text}

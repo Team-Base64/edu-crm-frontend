@@ -28,14 +28,14 @@ const HomeworkSolutionWidget: React.FC<HomeworkSolutionWidgetProps> = ({
             <Button
                 type="link"
                 size="s"
-                classes={styles.btnShowAll}
+                classes={styles.btn}
                 onClick={handleShowAll}
             >
                 <Text
                     type="p"
                     weight="bold"
                     size={1}
-                    classes={styles.btnShowAll}
+                    classes={styles.text}
                 >
                     Посмотреть все
                 </Text>

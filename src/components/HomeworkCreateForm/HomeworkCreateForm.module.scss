@@ -4,15 +4,15 @@
 
 .submit {
     &-text {
-        color: white;
+        color: var(--color-text-white);
     }
 
     &-icon {
-        fill: white;
+        fill: var(--color-text-white);
     }
 
-    & .spinner{
-        stroke: white;
+    & .spinner {
+        stroke: var(--color-text-white);
     }
 }
 

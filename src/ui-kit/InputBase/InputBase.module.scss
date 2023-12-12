@@ -30,7 +30,6 @@
         background-color: getVar(input, bg, default);
 
         &:hover {
-
             background-color: getVar(input, bg, hover);
             border-color: getVar(input, border, color, hover);
         }
@@ -41,7 +40,7 @@
         }
     }
 
-    &:has(.input:focus-visible) {
+    &:has(.input:focus-visible:focus) {
         background-color: getVar(input, bg, focus);
         border-color: getVar(input, border, color, focus);
     }

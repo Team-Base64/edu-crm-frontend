@@ -33,6 +33,8 @@
 
     &:disabled {
       background-color: getVar(btn, primary, bg, disabled);
+      color: getVar(btn, primary, font, color, disabled);
+      fill: getVar(btn, primary, font, color, disabled);
     }
   }
 
