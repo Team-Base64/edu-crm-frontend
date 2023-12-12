@@ -79,7 +79,7 @@ export const MyCalendar: React.FC<CalendarProps> = ({
                 buttonText: {
                     today: 'сегодня',
                 },
-                slotDuration: '02:00',
+                // slotDuration: '02:00',
             });
             calendar.render();
             // calendar.refetchEvents();
