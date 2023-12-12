@@ -7,7 +7,6 @@ import styles from './ClassAnnounceCreateField.module.scss';
 import { useCreateAnnouncementMutation } from '@app/features/announcement/announcementSlice';
 import Button from '@ui-kit/Button/Button';
 import Spinner from '@ui-kit/Spinner/Spinner';
-import Hint from '@ui-kit/Hint/Hint';
 import { AttachFile } from '@ui-kit/AttachFile/AttachFile';
 import { AttachmentsList } from '@ui-kit/AttachmentsList/AttachmentsList';
 import useSendAttaches from 'hooks/useSendAttaches';
@@ -25,7 +24,7 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
     const [lock, setLock] = useState<boolean>(false);
     const formRef = useRef<HTMLFormElement>(null);
     const [submit] = useCreateAnnouncementMutation();
-    const [hint, toggleHint] = useState<boolean>(disabled);
+    const [hint, _] = useState<boolean>(disabled);
     const { attaches, setAttaches, attachesSendPromise } =
         useSendAttaches('chat');
 
@@ -86,7 +85,6 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
                 ref={formRef}
                 className={styles.form}
             >
-
                 <TextArea
                     classes={styles.area}
                     textareaRef={textareaRef}
@@ -94,10 +92,9 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
                     spellcheck={true}
                     disabled={hint}
                     placeholder={
-                        hint ?
-                            "Объявления доступны, если в классе есть ученики"
-                            :
-                            'Напишите что-нибудь всему классу...'
+                        hint
+                            ? 'Объявления доступны, если в классе есть ученики'
+                            : 'Напишите что-нибудь всему классу...'
                     }
                     textareaText={
                         localStorage.getItem(`${classID}/announce`) || undefined

@@ -8,10 +8,6 @@ import Icon from '@ui-kit/Icon/Icon';
 import { CalendarEventForm } from '@components/CalendarEventForm/CalendarEventForm.tsx';
 import { useEditEventMutation } from '@app/features/calendar/calendarSlice.ts';
 import Overlay from '@ui-kit/Overlay/Overlay.tsx';
-import {
-    getUTCDate,
-    getUTCTime,
-} from '../../utils/common/dateRepresentation.ts';
 import styles from './CalendarEvent.module.scss';
 import getDate from 'utils/common/PrettyDate/common/date.ts';
 import getTime from 'utils/common/PrettyDate/common/time.ts';
@@ -42,23 +38,19 @@ export const CalendarEvent: React.FC<CalendarEventProps> = ({
     const [isAddEventWindowShowing, setEditEventWindowShowing] =
         useState(false);
 
-    const durationDate = new Date(getDelta(eventData.startDate, eventData.endDate));
+    const durationDate = new Date(
+        getDelta(eventData.startDate, eventData.endDate),
+    );
     const duration =
-        (durationDate.getHours() < 10 ? '0' : '')
-        +
-        durationDate.getHours()
-        +
-        ':'
-        +
-        (durationDate.getMinutes() < 10 ? '0' : '')
-        +
-        durationDate.getMinutes()
-        ;
-
+        (durationDate.getHours() < 10 ? '0' : '') +
+        durationDate.getHours() +
+        ':' +
+        (durationDate.getMinutes() < 10 ? '0' : '') +
+        durationDate.getMinutes();
     return (
         <Container
             direction={'grid'}
-            layout='defaultBase'
+            layout="defaultBase"
             classes={styles.item}
         >
             <Container
@@ -66,62 +58,63 @@ export const CalendarEvent: React.FC<CalendarEventProps> = ({
                 classes={styles.main}
             >
                 <Text
-                    type='h'
+                    type="h"
                     size={4}
-                    weight='bold'
+                    weight="bold"
                     classes={styles.title}
                 >
                     Название:
                 </Text>
                 <Text
-                    type='p'
+                    type="p"
                     size={1}
                     classes={styles.content}
                 >
                     {eventData.title}
                 </Text>
                 <Text
-                    type='h'
+                    type="h"
                     size={4}
-                    weight='bold'
+                    weight="bold"
                     classes={styles.title}
                 >
                     Описание:
                 </Text>
                 <Text
-                    type='p'
+                    type="p"
                     size={1}
                     classes={styles.content}
                 >
                     {eventData.description}
                 </Text>
                 <Text
-                    type='h'
+                    type="h"
                     size={4}
-                    weight='bold'
+                    weight="bold"
                     classes={styles.title}
                 >
                     Дата начала:
                 </Text>
                 <Text
-                    type='p'
+                    type="p"
                     size={1}
                     classes={styles.content}
                 >
-                    {
-                        [getDate(eventData.startDate), getTime(eventData.startDate)].join(' ')
-                    }
+                    {[
+                        getDate(eventData.startDate),
+                        getTime(eventData.startDate),
+                    ].join(' ')}
                 </Text>
                 <Text
-                    type='h'
+                    type="h"
                     size={4}
-                    weight='bold'
+                    weight="bold"
                     classes={styles.title}
                 >
                     Продолжительность:
                 </Text>
                 <Text
-                    type='p'
+                    type="p"
                     size={1}
                     classes={styles.content}
                 >
@@ -130,7 +123,7 @@ export const CalendarEvent: React.FC<CalendarEventProps> = ({
             </Container>
             <Container
                 classes={styles.controls}
-                direction='grid'
+                direction="grid"
             >
                 <Button
                     type={'secondary'}
@@ -158,7 +151,6 @@ export const CalendarEvent: React.FC<CalendarEventProps> = ({
                     <Text
                         type={'p'}
                         size={1}
-
                     >
                         Удалить
                     </Text>

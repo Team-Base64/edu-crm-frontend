@@ -18,7 +18,7 @@ const ClassSheduleWidget: React.FC<ClassSheduleWidgetProps> = ({ classID }) => {
         >
             <Container
                 classes={styles.container}
-                gap='l'
+                gap="l"
             >
                 <MyCalendar
                     classID={classID}
