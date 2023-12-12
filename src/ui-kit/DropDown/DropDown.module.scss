@@ -27,8 +27,7 @@
     left: calc(100% - 2 * var(--space-default));
   }
 
-  &--label {
-  }
+  &--label {}
 
   &--data-list {
     border: var(--ui-kit-border-width-default) solid var(--ui-kit-input-outline-color);
@@ -44,4 +43,14 @@
   &--option {
     color: var(--color-text-default);
   }
+}
+
+.cont {
+  position: relative;
+}
+
+.btn {
+  position: absolute;
+  right: 0;
+  pointer-events: none;
 }

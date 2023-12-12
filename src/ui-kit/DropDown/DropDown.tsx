@@ -51,11 +51,12 @@ export const DropDown: React.FC<DropDownProps> = ({
     return (
         <InputBase
             {...rest}
-            classes={[styles.select, classes].join(' ')}
+            classes={[styles.select, classes, styles.cont].join(' ')}
             button={
                 <Button
                     type="link"
                     disabled={disabled}
+                    classes={styles.btn}
                 >
                     <Icon name="arrowDown" />
                 </Button>
@@ -63,7 +64,7 @@ export const DropDown: React.FC<DropDownProps> = ({
         >
             <select
                 name={name}
-                className={basestyles.input}
+                className={[basestyles.input, styles.sel].join(' ')}
                 onChange={onChange}
                 defaultValue={initialOption}
                 disabled={disabled}
