@@ -12,12 +12,14 @@ interface MessageSelectDialogItemProps extends UiComponentProps {
     data: dialogSelectType;
     selectDialog: () => void;
     isSelected: boolean;
+    id: string;
 }
 
 const MessageSelectDialogItem: React.FC<MessageSelectDialogItemProps> = ({
     data,
     selectDialog,
     isSelected,
+    id,
 }) => {
     useSetIsReadDialogQuery(data, { skip: !(isSelected && !data.isread) });
 
@@ -32,6 +34,7 @@ const MessageSelectDialogItem: React.FC<MessageSelectDialogItemProps> = ({
                     ? styles.messageSelectDialogItemSelected
                     : styles.messageSelectDialogItem
             }
+            id={id}
         >
             <Avatar
                 src={
