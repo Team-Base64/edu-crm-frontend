@@ -33,15 +33,17 @@ export const CalendarEvent: React.FC<CalendarEventProps> = ({
     const [isAddEventWindowShowing, setEditEventWindowShowing] =
         useState(false);
 
-    const durationDate = new Date(
-        getDelta(eventData.startDate, eventData.endDate),
-    );
-    const duration =
-        (durationDate.getHours() < 10 ? '0' : '') +
-        durationDate.getHours() +
+    const deltaMin = getDelta(eventData.endDate, eventData.startDate) / (1000 * 60);
+    const M = deltaMin % 60;
+    const H = Math.floor(deltaMin / 60);
+
+    const duration: string =
+        (H < 10 ? '0' : '') +
+        H.toString() +
         ':' +
-        (durationDate.getMinutes() < 10 ? '0' : '') +
-        durationDate.getMinutes();
+        (M < 10 ? '0' : '') +
+        M;
+        
     return (
         <Container
             direction={'grid'}

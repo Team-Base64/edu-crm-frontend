@@ -28,7 +28,7 @@ type viewModeType = keyof typeof ViewMode;
 export const MyCalendar: React.FC<CalendarProps> = ({
     classes,
     viewMode,
-    classID = 1,
+    classID,
 }) => {
     const { data, isSuccess } = useGetCalendarIDQuery(null);
     const { data: backendEvents, isSuccess: backendEventsLoaded } =
