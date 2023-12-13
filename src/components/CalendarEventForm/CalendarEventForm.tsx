@@ -207,7 +207,8 @@ export const CalendarEventForm: React.FC<CalendarEventFormProps> = ({
                                     type: 'h',
                                     size: 4,
                                 }}
-                                initial={form.duration.value}
+                                // initial={form.duration.value}
+                                value={form.duration.value}
                                 onChange={form.duration.changeMiddleware()}
                                 errors={form.duration.errors}
                             />
@@ -230,7 +231,8 @@ export const CalendarEventForm: React.FC<CalendarEventFormProps> = ({
                                 }}
                                 onChange={form.classID.changeMiddleware()}
                                 errors={form.classID.errors}
-                                initial={form.classID.value}
+                                value={form.classID.value}
+                                // initial={form.classID.value}
                             />
                         </Container>
                         <Container>

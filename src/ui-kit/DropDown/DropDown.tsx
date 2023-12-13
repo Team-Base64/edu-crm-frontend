@@ -10,7 +10,8 @@ import Container from '@ui-kit/Container/Container';
 interface DropDownProps extends Omit<InputBaseProps, 'button'> {
     values: (number | string)[];
     placeholder?: number | string;
-    initial?: number | string;
+    // initial?: number | string;
+    value?: number | string;
     name?: string;
     formatTitle?: (value: number | string) => number | string;
     disabled?: boolean;
@@ -20,7 +21,8 @@ interface DropDownProps extends Omit<InputBaseProps, 'button'> {
 export const DropDown: React.FC<DropDownProps> = ({
     formatTitle,
     values,
-    initial,
+    value,
+    // initial,
     placeholder = 'Выберите значение',
     disabled = false,
     classes,
@@ -31,19 +33,19 @@ export const DropDown: React.FC<DropDownProps> = ({
     const [showList, setShowList] = useState<boolean>(false);
     const key = useId();
     const fakeInput = useRef<HTMLInputElement>(null);
-    const [current, setCurrent] = useState<{ value: string; title: string }>(
-        initial
-            ? {
-                  value: initial.toString(),
-                  title: formatTitle
-                      ? formatTitle(initial).toString()
-                      : placeholder.toString(),
-              }
-            : {
-                  value: 'initial',
-                  title: placeholder.toString(),
-              },
-    );
+    //  const [current, setCurrent] = useState<{ value: string; title: string }>(
+    const current = value
+        ? {
+              value: value.toString(),
+              title: formatTitle
+                  ? formatTitle(value).toString()
+                  : placeholder.toString(),
+          }
+        : {
+              value: 'initial',
+              title: placeholder.toString(),
+          };
+    // );
 
     const options = useMemo(
         () =>
@@ -55,11 +57,13 @@ export const DropDown: React.FC<DropDownProps> = ({
                         key={`${key}-${value}`}
                         value={value}
                         onClick={() => {
-                            setCurrent({
-                                value: value.toString(),
-                                title: title.toString(),
-                            });
+                            // setCurrent({
+                            //     value: value.toString(),
+                            //     title: title.toString(),
+                            // });
                             setShowList(false);
+
+                            console.log('CLICK');
 
                             if (!fakeInput.current) return;
 
@@ -82,7 +86,7 @@ export const DropDown: React.FC<DropDownProps> = ({
                     </li>
                 );
             }),
-        [values, setCurrent, setShowList, key, formatTitle],
+        [values, /*setCurrent, */ setShowList, key, formatTitle],
     );
 
     return (

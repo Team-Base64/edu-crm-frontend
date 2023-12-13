@@ -23,6 +23,11 @@ export const validator = (value: string, rules: Rule): string[] => {
     if (rules.trim) value = value.trim();
 
     if (rules.date) {
+        try {
+            new Date(Date.parse(value)).toISOString();
+        } catch {
+            errors.push('Неверная дата');
+        }
         if (rules.date.minISO && value < rules.date.minISO) {
             errors.push(
                 `Минимальное значение: ${getDate(rules.date.minISO)} ${getTime(
