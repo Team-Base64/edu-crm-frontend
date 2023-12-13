@@ -5,7 +5,10 @@ import styles from './LoginPage.module.scss';
 
 const LoginPage: React.FC = () => {
     return (
-        <Container classes={styles.page}>
+        <Container
+            classes={styles.page}
+            direction="vertical"
+        >
             <LoginForm classes={styles.form} />
         </Container>
     );

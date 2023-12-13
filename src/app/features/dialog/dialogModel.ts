@@ -4,6 +4,7 @@ export type dialogSelectType = {
     chatID: number;
     studentName: string;
     cover: string;
+    studentAvatar: string;
     isread: boolean;
     text: string;
     date: string;

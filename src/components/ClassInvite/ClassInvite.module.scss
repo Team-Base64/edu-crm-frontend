@@ -17,7 +17,7 @@
     }
 
     & .icon {
-        fill: #333;
+        fill: var(--color-text-default);
     }
 
     & .nav {
@@ -65,9 +65,9 @@
 .tutorBtn {
     position: relative;
     &-icon {
-        fill: white;
+        fill: var(--color-text-white);
     }
     &-text {
-        color: white;
+        color: var(--color-text-white);;
     }
 }

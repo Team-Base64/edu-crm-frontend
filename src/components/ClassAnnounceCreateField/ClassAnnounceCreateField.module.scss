@@ -29,10 +29,9 @@
 }
 
 .spinner {
-    fill: gray;
-    stroke: gray;
+    stroke: var(--color-text-default);
 }
 
 .btnIconDisabled {
-    fill: lightgray;
+    fill: var(--color-text-light);
 }

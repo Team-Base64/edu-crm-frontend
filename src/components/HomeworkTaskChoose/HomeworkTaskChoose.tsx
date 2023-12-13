@@ -153,13 +153,11 @@ const HomeworkTaskChoose = React.forwardRef<
                             button={
                                 <Icon
                                     name="close"
-                                    onClick={() => {
-                                        if (!searchRef.current) return;
-                                        searchRef.current.value = '';
-                                    }}
+                                    onClick={() => setQuery('')}
                                 />
                             }
                             onChange={(e) => setQuery(e.target.value)}
+                            value={query}
                         />
                         <Button
                             disabled={lock}

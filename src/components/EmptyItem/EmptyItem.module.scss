@@ -4,11 +4,11 @@
 }
 
 .spinner {
-  stroke: #333;
+  stroke: var(--color-text-default);
 }
 
 .icon {
-  fill: #333;
+  fill:  var(--color-text-default);
 }
 
 .start {

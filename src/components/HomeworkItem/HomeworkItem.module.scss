@@ -15,11 +15,11 @@
         text-overflow: ellipsis;
 
         &.title {
-            color: black;
+            color: var(--color-text-default);
         }
 
         &.description {
-            color: gray
+            color: var(--color-text-light);
         }
     }
 
@@ -28,18 +28,18 @@
         margin: auto 0;
 
         &.notPass {
-            color: red;
+            color: var(--color-fail);
         }
 
         &.pass {
-            color: green;
+            color: var(--color-success);
         }
     }
 
 
     & .btn {
         & .icon {
-            fill: orange;
+            fill: var(--color-accent-default);;
         }
     }
 }

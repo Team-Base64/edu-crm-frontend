@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import Container from '@ui-kit/Container/Container.tsx';
 import MessageSelectDialogItem from '@components/MessageSelectDioalogItem/MessageSelectDialogItem.tsx';
@@ -14,6 +14,8 @@ interface MessageSelectorProps extends UiComponentProps {
     useQueryParams: [URLSearchParams, SetURLSearchParams];
 }
 
+const messageSelectorIDBase = 'dialog-chat--';
+
 const MessageSelector: React.FC<MessageSelectorProps> = ({
     useQueryParams,
     classes,
@@ -26,6 +28,17 @@ const MessageSelector: React.FC<MessageSelectorProps> = ({
         (
             searchParams.get(routerQueryParams.messenger.search) ?? ''
         ).toLowerCase();
+
+    useEffect(() => {
+        if (!getSearchParam()) {
+            const element = document.getElementById(
+                messageSelectorIDBase + '0',
+            );
+            if (element) {
+                element.click();
+            }
+        }
+    }, []);
 
     const dialogList = Object.values(data?.dialogs ?? {})
         .sort((a, b) =>
@@ -40,7 +53,7 @@ const MessageSelector: React.FC<MessageSelectorProps> = ({
                         .includes(getSearchParam())) ||
                 dialog.text.toLowerCase().includes(getSearchParam()),
         )
-        .map((dialog) => {
+        .map((dialog, index) => {
             return (
                 <MessageSelectDialogItem
                     data={dialog}
@@ -58,6 +71,7 @@ const MessageSelector: React.FC<MessageSelectorProps> = ({
                         searchParams.get(routerQueryParams.messenger.chatid) ==
                         dialog.chatID
                     }
+                    id={`${messageSelectorIDBase}${index}`}
                 ></MessageSelectDialogItem>
             );
         });

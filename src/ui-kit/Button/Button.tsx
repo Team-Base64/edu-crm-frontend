@@ -13,9 +13,10 @@ export type ButtonSize = keyof typeof btnSize;
 
 const btnType = {
     primary: styles.primary,
-    secondary: styles.secondary,
+    outlined: styles.outlined,
     link: styles.link,
     static: styles.static,
+    secondary: styles.secondary,
 };
 type ButtonType = keyof typeof btnType;
 
@@ -33,6 +34,7 @@ interface ButtonProps extends UiComponentProps {
     disabled?: boolean;
     border?: BorderButtonType;
     action?: 'submit' | 'reset' | 'button';
+    id?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -44,6 +46,7 @@ const Button: React.FC<ButtonProps> = ({
     border = 'm',
     disabled = false,
     action = 'submit',
+    id,
 }) => {
     return (
         <button
@@ -57,6 +60,7 @@ const Button: React.FC<ButtonProps> = ({
             ].join(' ')}
             disabled={disabled}
             type={action}
+            id={id}
         >
             {children}
         </button>

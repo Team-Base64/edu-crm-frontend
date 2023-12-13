@@ -6,18 +6,23 @@ import styles from './MessageSelectDialogItem.module.scss';
 import Avatar from '@ui-kit/Avatar/Avatar.tsx';
 import { getDialogDate } from '../../utils/common/dateRepresentation.ts';
 import { dialogSelectType } from '@app/features/dialog/dialogModel';
+import { useSetIsReadDialogQuery } from '@app/features/dialog/dialogSlice.ts';
 
 interface MessageSelectDialogItemProps extends UiComponentProps {
     data: dialogSelectType;
     selectDialog: () => void;
     isSelected: boolean;
+    id: string;
 }
 
 const MessageSelectDialogItem: React.FC<MessageSelectDialogItemProps> = ({
     data,
     selectDialog,
     isSelected,
+    id,
 }) => {
+    useSetIsReadDialogQuery(data, { skip: !(isSelected && !data.isread) });
+
     return (
         <Button
             type={'static'}
@@ -29,9 +34,12 @@ const MessageSelectDialogItem: React.FC<MessageSelectDialogItemProps> = ({
                     ? styles.messageSelectDialogItemSelected
                     : styles.messageSelectDialogItem
             }
+            id={id}
         >
             <Avatar
-                src={data.cover}
+                src={
+                    data.studentAvatar?.length ? data.studentAvatar : data.cover
+                }
                 alt={`аватар диалога с ${data.studentName}`}
             ></Avatar>
             <div className={styles.messageSelectDialogItemText}>
@@ -58,6 +66,14 @@ const MessageSelectDialogItem: React.FC<MessageSelectDialogItemProps> = ({
                 >
                     {getDialogDate(data.date)}
                 </Text>
+                <div
+                    className={[
+                        styles.messageSelectDialogItemTextIsRead,
+                        data.isread
+                            ? ''
+                            : styles.messageSelectDialogItemTextIsReadFalse,
+                    ].join(' ')}
+                ></div>
             </div>
         </Button>
     );

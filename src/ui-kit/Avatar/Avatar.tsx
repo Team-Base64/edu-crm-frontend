@@ -23,7 +23,7 @@ const Avatar: React.FC<AvatarProps> = ({
     onClick,
     classes,
 }) => {
-    src = 'https://educrm.us.to/filestorage/mock-avatar.png';
+    const mock = 'https://educrm.us.to/filestorage/mock-avatar.png';
     return (
         <div
             onClick={onClick}
@@ -31,7 +31,7 @@ const Avatar: React.FC<AvatarProps> = ({
         >
             <Image
                 classes={styles.avatar__image}
-                src={src}
+                src={src && src.length ? src : mock}
                 alt={alt}
             />
         </div>

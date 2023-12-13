@@ -59,13 +59,14 @@ export const ClassMemberListItem: ListItemFC<
     Student,
     ClassMemberListItemProps
 > = ({ item, role = 'Ученик', onClick, classes, students, index }) => {
-    const { name, avatarSrc } = item;
-
+    const { name, avatar /*, chatID*/ } = item;
     const navigate = useNavigate();
     const handleChatClick = () => {
-        if (students[index]) {
+        if (students[index]?.chatID) {
+            // if (chatID) {
             navigate(
                 `/${AppRoutes.messenger}?${routerQueryParams.messenger.chatid}=${students[index].chatID}`,
+                // `/${AppRoutes.messenger}?${routerQueryParams.messenger.chatid}=${chatID}`,
             );
         }
     };
@@ -82,7 +83,7 @@ export const ClassMemberListItem: ListItemFC<
             >
                 <Avatar
                     classes={styles.avatar}
-                    src={avatarSrc}
+                    src={avatar}
                     alt={name + 'avatar'}
                 />
                 <Container
@@ -107,7 +108,8 @@ export const ClassMemberListItem: ListItemFC<
                     </Text>
                 </Container>
             </Container>
-            {students[index] && (
+            {students[index]?.chatID && (
+                // {chatID && (
                 <Button
                     classes={styles.btn}
                     onClick={handleChatClick}

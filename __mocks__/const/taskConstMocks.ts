@@ -6,14 +6,16 @@ export const tasksMock: HomeworkTask[] = [
     {
         id: 0,
         description: 'Mock task bla bla bla 0',
-        attach: attach,
+        attaches: [attach],
     },
     {
         id: 1,
         description: 'Mock task bla bla bla 1',
+        attaches: [],
     },
     {
         id: 2,
         description: 'Mock task bla bla bla 2',
+        attaches: [],
     },
 ];

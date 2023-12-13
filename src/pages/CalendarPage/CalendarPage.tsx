@@ -1,29 +1,28 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
 import styles from './CalendarPage.module.scss';
-import { Calendar } from '@components/Calendar/Calendar.tsx';
+import { MyCalendar } from '@components/Calendar/Calendar.tsx';
 import { CalendarControls } from '@components/CalendarControls/CalendarControls.tsx';
 import Container from '@ui-kit/Container/Container.tsx';
 
 interface CalendarPageProps extends UiComponentProps {}
 
 export const CalendarPage: React.FC<CalendarPageProps> = () => {
-    const iframeRef = useRef<HTMLIFrameElement>(null);
-
     return (
         <Container
-            direction={'grid'}
-            classes={styles.calendarPage}
+            // direction={'grid'}
+            // classes={styles.calendarPage}
+            classes={styles.page}
         >
-            <Calendar
-                classes={styles.calendarPageCalendar}
-                mode={'MONTH'}
-                iframeRef={iframeRef}
-            ></Calendar>
+            <MyCalendar
+                // classes={styles.calendarPageCalendar}
+                viewMode={'month'}
+                classes={styles.calendar}
+            />
             <CalendarControls
-                classes={styles.calendarPageControls}
-                iframeRef={iframeRef}
-            ></CalendarControls>
+                // classes={styles.calendarPageControls}
+                classes={styles.controls}
+            />
         </Container>
     );
 };

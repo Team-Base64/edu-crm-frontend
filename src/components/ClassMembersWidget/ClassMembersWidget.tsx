@@ -28,14 +28,14 @@ const ClassMembersWidget: React.FC<ClassMembersWidgetProps> = ({
             <Button
                 type="link"
                 size="s"
-                classes={styles.btnShowAll}
+                classes={styles.btn}
                 onClick={handleShowAll}
             >
                 <Text
-                    type="p"
+                    type="h"
                     weight="bold"
-                    size={2}
-                    classes={styles.btnShowAll}
+                    size={5}
+                    classes={styles.text}
                 >
                     Посмотреть всех
                 </Text>

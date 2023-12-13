@@ -35,6 +35,7 @@ export const AttachmentsList: React.FC<ChatAttachmentsListProps> = ({
                 key={index + new Date().getUTCSeconds()}
                 file={file}
                 isStatic={isStaticAttachments}
+                index={index}
             ></Attachment>
         );
     });

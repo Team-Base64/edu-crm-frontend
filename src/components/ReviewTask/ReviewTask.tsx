@@ -8,9 +8,10 @@ import React, { useRef } from 'react';
 import styles from './ReviewTask.module.scss';
 import Text from '@ui-kit/Text/Text';
 import { commentStorePath } from './utils';
-import { Attachment } from '@ui-kit/Attachment/Attachment';
 import { noop } from '@app/const/consts';
 import ShowQueryState from '@components/ShowQueryState/ShowQueryState';
+import HomeworkTaskItem from '@components/HomeworkTaskItem/HomeworkTaskItem';
+import { objToItem } from '@ui-kit/List/helpers';
 
 interface ReviewTaskProps {
     title?: string;
@@ -60,30 +61,13 @@ const ReviewTask: React.FC<ReviewTaskProps> = ({ taskID, title }) => {
             <ShowQueryState status={status} />
             {isSuccess && (
                 <>
-                    <Container direction="vertical">
-                        <Text
-                            type="h"
-                            size={4}
-                            weight="bold"
-                            classes={styles.title}
-                        >
-                            {title ? title : `Задача id${taskID}`}
-                        </Text>
-                        <Text
-                            type="p"
-                            size={1}
-                            classes={styles.description}
-                        >
-                            {data.task.description}
-                        </Text>
-                        {data.task.attach && data.task.attach.length && (
-                            <Attachment
-                                file={data.task.attach}
-                                onRemoveClick={noop}
-                                isStatic={true}
-                            />
-                        )}
-                    </Container>
+                    <HomeworkTaskItem
+                        item={objToItem(data.task)}
+                        index={-1}
+                        onDelete={noop}
+                        onSelect={noop}
+                        title={title}
+                    />
                     <Container
                         direction="horizontal"
                         classes={styles.review}

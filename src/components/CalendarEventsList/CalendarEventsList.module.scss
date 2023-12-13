@@ -4,6 +4,7 @@
   overflow-y: scroll;
   word-break: break-all;
   gap: var(--space-big);
-
+  padding-right: 16px;
+  
   @include mixins.default-scrollbar-style;
 }

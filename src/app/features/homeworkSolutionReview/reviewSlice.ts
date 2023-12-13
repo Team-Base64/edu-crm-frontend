@@ -15,9 +15,12 @@ export const reviewSlice = homeworkSolutionSlice.injectEndpoints({
                     body: JSON.stringify(payload),
                 };
             },
-            invalidatesTags: (_, __, arg) => {
-                return [{ type: 'Solutions', id: arg.solutionID }];
-            },
+            // TODO
+            invalidatesTags: [
+                'getHomeworkSolutions',
+                'getClassSolutions',
+                'getSolution',
+            ],
         }),
     }),
 });

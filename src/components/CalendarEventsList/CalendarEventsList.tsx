@@ -6,36 +6,55 @@ import {
     useGetEventsQuery,
 } from '@app/features/calendar/calendarSlice.ts';
 import { CalendarEvent } from '@components/CalendarEvent/CalendarEvent.tsx';
-import { CalendarEventType } from '@app/features/calendar/calendarModel.ts';
 import styles from './CalendarEventsList.module.scss';
+import ShowQueryState from '@components/ShowQueryState/ShowQueryState';
+import EmptyItem from '@components/EmptyItem/EmptyItem';
 
 interface CalendarEventsListProps extends UiComponentProps {
-    iframeRef: React.RefObject<HTMLIFrameElement>;
+    classID?: number;
 }
 
 export const CalendarEventsList: React.FC<CalendarEventsListProps> = ({
-    iframeRef,
+    classID,
 }) => {
-    const { data } = useGetEventsQuery(null);
+    const { data, isSuccess, ...status } = useGetEventsQuery(null);
     const [deleteEvent] = useDeleteEventMutation();
-
-    const calendarEvents = Object.values(data?.calendarEvents ?? {}).map(
-        (eventData: CalendarEventType, index: number) => (
-            <CalendarEvent
-                eventData={eventData}
-                key={`${eventData.id}-${eventData.classid}-${index}`}
-                onDeleteClick={() => deleteEvent({ id: eventData.id })}
-                iframeRef={iframeRef}
-            ></CalendarEvent>
-        ),
-    );
 
     return (
         <Container
             direction={'vertical'}
             classes={styles.calendarEventsList}
         >
-            {calendarEvents}
+            <ShowQueryState status={status} />
+            {isSuccess &&
+                // Да-да
+                (() => {
+                    const eventCards: JSX.Element[] = [];
+                    Object.values(data.calendarEvents).forEach(
+                        (eventData, index) => {
+                            if (
+                                classID === undefined ||
+                                classID === eventData.classid
+                            ) {
+                                eventCards.push(
+                                    <CalendarEvent
+                                        eventData={eventData}
+                                        key={`${eventData.id}-${eventData.classid}-${index}`}
+                                        onDeleteClick={() =>
+                                            deleteEvent({ id: eventData.id })
+                                        }
+                                    />,
+                                );
+                            }
+                        },
+                    );
+
+                    return eventCards.length ? (
+                        eventCards
+                    ) : (
+                        <EmptyItem text="Нет запланированных занятий" />
+                    );
+                })()}
         </Container>
     );
 };

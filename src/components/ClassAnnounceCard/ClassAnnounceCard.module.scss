@@ -1,5 +1,4 @@
-.card {
-}
+.card {}
 
 .header {
     justify-content: space-between;
@@ -9,16 +8,19 @@
 
     & .info {
         align-items: center;
+
         & .date {
-            color: gray;
+            color: var(--color-bg-default);
         }
     }
 }
 
 .content {
     position: relative;
+
     & .text {
-        text-align:justify;
+        text-align: justify;
+        color: var(--color-text-default);
     }
 
     & .attaches {

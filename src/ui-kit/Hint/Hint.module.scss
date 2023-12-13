@@ -3,17 +3,17 @@
     align-items: center;
     padding: 4px 12px;
     transition: all .2s linear;
-    justify-content: space-between;
+    grid-template-columns: max-content auto max-content;
 
     &-text {
-        color: #333;
+        color: var(--color-text-default);
     }
 
     &-icon {
-        fill: #333;
+        fill: var(--color-text-default);
     }
 
     &-close {
-        fill: gray;
+        fill: var(--color-text-light);
     }
 }

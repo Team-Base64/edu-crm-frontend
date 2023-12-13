@@ -12,14 +12,14 @@
     align-items: center;
 
     & .add {
-        background-color: rgba(0, 157, 0, 0.42);
+        background-color: var(--color-success); // rgba(0, 157, 0, 0.42);
 
         & .icon {
-            fill: white;
+            fill: var(--color-text-white);
         }
 
         & .text {
-            color: white;
+            color: var(--color-text-white);
         }
     }
 }

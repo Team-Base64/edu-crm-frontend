@@ -8,6 +8,7 @@ import {
 } from '@app/features/chat/chatModel';
 import { chatPaths } from '@app/features/chat/chatPaths';
 import { dialogSlice } from '@app/features/dialog/dialogSlice.ts';
+import { stundentSlice } from '@app/features/stundent/stundentSlice.ts';
 
 export const chatSlice = appApi.injectEndpoints({
     endpoints: (build) => ({
@@ -65,7 +66,6 @@ export const chatSlice = appApi.injectEndpoints({
                     dispatch,
                 },
             ) {
-                console.warn('asdasd');
                 const socket = getSocket();
                 try {
                     await cacheDataLoaded;
@@ -84,6 +84,14 @@ export const chatSlice = appApi.injectEndpoints({
                         dispatch(
                             dialogSlice.util.invalidateTags(['getDialogs']),
                         );
+                        if (data.channel === 'newchat') {
+                            dispatch(
+                                stundentSlice.util.invalidateTags([
+                                    'getClassStudents',
+                                    'getStudent',
+                                ]),
+                            );
+                        }
                     };
                 } catch {
                     console.error('error ws api');

@@ -36,7 +36,6 @@ const HomeworkSolutionItem: React.FC<HomeworkSolutionItemProps> = ({
     if (homeworkData) {
         title = homeworkData.title;
         deadline_time = homeworkData.deadlineTime;
-        deadline_time = homeworkData.deadlineTime;
     }
 
     const studentResponse = useGetStudentQuery({ id: studentID });
@@ -45,14 +44,14 @@ const HomeworkSolutionItem: React.FC<HomeworkSolutionItemProps> = ({
     let avatarSrc = '',
         name = 'Неизвестный ученик';
     if (studentData) {
-        avatarSrc = studentData.avatarSrc;
+        avatarSrc = studentData.avatar;
         name = studentData.name;
     }
 
     let stateClassName = styles.notPass;
 
     if (createTime && deadline_time) {
-        if (getDelta(deadline_time, createTime) < 0) {
+        if (getDelta(createTime, deadline_time) < 0) {
             stateClassName = styles.pass;
         } else {
             stateClassName = styles.passDelay;

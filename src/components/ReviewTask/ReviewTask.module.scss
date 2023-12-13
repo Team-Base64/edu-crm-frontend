@@ -15,11 +15,11 @@
     text-wrap: nowrap;
     justify-content: start;
     &-text {
-        color: #333;
+        color: var(--color-text-default);
     }
 
     &-icon {
-        fill: #333;
+        fill: var(--color-text-default);
     }
 }
 

@@ -36,6 +36,6 @@ export const SearchDialogList: React.FC<SearchDialogListProps> = ({
             placeholder={'Поиск'}
             onChange={onInputChangeHandler}
             value={getParam()}
-        ></Input>
+        />
     );
 };

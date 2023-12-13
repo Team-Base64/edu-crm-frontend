@@ -23,6 +23,13 @@ export const chatHandlers = [
         ),
     ),
 
+    http.post(`${appPaths.basePath}${appPaths.setReadDialog}:id`, () =>
+        HttpResponse.json(
+            {},
+            { status: 200, headers: { ...defaultHeadersMock } },
+        ),
+    ),
+
     http.post(`${appPaths.basePath}attach?type=chat`, () =>
         HttpResponse.json(
             { file: man_photo_src },

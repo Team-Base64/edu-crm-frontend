@@ -7,7 +7,6 @@ import styles from './ClassAnnounceCreateField.module.scss';
 import { useCreateAnnouncementMutation } from '@app/features/announcement/announcementSlice';
 import Button from '@ui-kit/Button/Button';
 import Spinner from '@ui-kit/Spinner/Spinner';
-import Hint from '@ui-kit/Hint/Hint';
 import { AttachFile } from '@ui-kit/AttachFile/AttachFile';
 import { AttachmentsList } from '@ui-kit/AttachmentsList/AttachmentsList';
 import useSendAttaches from 'hooks/useSendAttaches';
@@ -24,8 +23,8 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
 }) => {
     const [lock, setLock] = useState<boolean>(false);
     const formRef = useRef<HTMLFormElement>(null);
-    const [submit, _] = useCreateAnnouncementMutation();
-    const [hint, toggleHint] = useState<boolean>(disabled);
+    const [submit] = useCreateAnnouncementMutation();
+    const [hint, _] = useState<boolean>(disabled);
     const { attaches, setAttaches, attachesSendPromise } =
         useSendAttaches('chat');
 
@@ -91,7 +90,12 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
                     textareaRef={textareaRef}
                     name="announce"
                     spellcheck={true}
-                    placeholder={'Напишите что-нибудь всему классу...'}
+                    disabled={hint}
+                    placeholder={
+                        hint
+                            ? 'Объявления доступны, если в классе есть ученики'
+                            : 'Напишите что-нибудь всему классу...'
+                    }
                     textareaText={
                         localStorage.getItem(`${classID}/announce`) || undefined
                     }
@@ -101,10 +105,6 @@ const ClassAnnounceCreateField: React.FC<ClassAnnounceCreateFieldProps> = ({
                     minRows={1}
                     focusRows={3}
                     maxRows={5}
-                />
-                <Hint
-                    text="Сообщения доступны, если в классе есть ученики"
-                    state={[hint, toggleHint]}
                 />
                 <Container
                     direction="vertical"

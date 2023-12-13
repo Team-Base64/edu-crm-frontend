@@ -1,6 +1,6 @@
 import React from 'react';
 import { UiComponentProps } from '@ui-kit/interfaces.ts';
-import Input, { InputErrorType } from '@ui-kit/Input/Input.tsx';
+import Input from '@ui-kit/Input/Input.tsx';
 import {
     dateInput,
     getInputDateRepresentation,
@@ -14,7 +14,6 @@ interface DatePickerProps extends UiComponentProps {
         setDate: React.Dispatch<React.SetStateAction<dateInput>>;
     };
     label: string;
-    error: InputErrorType;
     onChangeDate: (date: dateInput) => void;
 }
 
@@ -22,7 +21,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     useDate,
     classes,
     label,
-    error,
     onChangeDate,
 }) => {
     return (
@@ -40,7 +38,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({
             defaultValue={getInputDateRepresentation(useDate.date)}
             classes={classes}
             label={{ text: label, type: 'h', size: 5 }}
-            error={error}
         ></Input>
     );
 };

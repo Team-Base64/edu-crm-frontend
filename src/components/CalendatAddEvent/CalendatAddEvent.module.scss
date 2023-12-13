@@ -1,9 +1,9 @@
 .btn {
     & .text {
-        color: white;
+        color: var(--color-text-white);
     }
 
     & .icon {
-        fill: white;
+        fill: var(--color-text-white);
     }
 }

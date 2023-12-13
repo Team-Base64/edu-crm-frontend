@@ -8,7 +8,7 @@
     flex-direction: column;
     align-items: flex-start;
     &-text {
-        color: #333;
+        color: var(--color-text-default);
     }
 }
 

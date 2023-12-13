@@ -15,6 +15,7 @@ interface ChatAttachmentProps extends UiComponentProps {
     onRemoveClick: () => void;
     file: File | string;
     isStatic?: boolean;
+    index: number;
 }
 
 export const Attachment: React.FC<ChatAttachmentProps> = ({
@@ -23,6 +24,7 @@ export const Attachment: React.FC<ChatAttachmentProps> = ({
     file,
     isStatic = false,
     classes,
+    index,
 }) => {
     const handleRemoveClick = () => {
         onRemoveClick();
@@ -44,7 +46,7 @@ export const Attachment: React.FC<ChatAttachmentProps> = ({
             return file.name;
         }
         if (typeof file === 'string') {
-            return file.split('/').at(-1);
+            return `file-${index}`;
         }
         return '';
     };

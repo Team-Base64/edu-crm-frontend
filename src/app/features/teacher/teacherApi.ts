@@ -6,6 +6,8 @@ import {
 } from '@app/features/teacher/teacherModel';
 import { teacherPaths } from '@app/features/teacher/teacherPaths';
 import { setMe } from '@app/features/teacher/teacherSlice';
+import { getSocket } from '@app/websocket.ts';
+import { localStoragePath } from '@app/const/consts.ts';
 
 export const teacherApi = appApi.injectEndpoints({
     endpoints: (build) => ({
@@ -44,11 +46,15 @@ export const teacherApi = appApi.injectEndpoints({
                 };
             },
 
-            async onQueryStarted(_, { dispatch, queryFulfilled }) {
+            async onQueryStarted({ payload }, { dispatch, queryFulfilled }) {
                 try {
                     const { meta } = await queryFulfilled;
                     if (meta && meta.response && meta.response.ok) {
                         dispatch(setMe(true));
+                        localStorage.setItem(
+                            localStoragePath.login,
+                            payload.login,
+                        );
                     } else {
                         dispatch(setMe(false));
                     }
@@ -72,6 +78,8 @@ export const teacherApi = appApi.injectEndpoints({
                     console.log(meta);
                     if (meta && meta.response && meta.response.ok) {
                         dispatch(setMe(false));
+                        dispatch(appApi.util.resetApiState());
+                        getSocket().close();
                     }
                 } catch (error) {
                     console.error(error);
@@ -91,11 +99,15 @@ export const teacherApi = appApi.injectEndpoints({
                 };
             },
 
-            async onQueryStarted(_, { dispatch, queryFulfilled }) {
+            async onQueryStarted({ payload }, { dispatch, queryFulfilled }) {
                 try {
                     const { meta } = await queryFulfilled;
                     if (meta && meta.response && meta.response.ok) {
                         dispatch(setMe(true));
+                        localStorage.setItem(
+                            localStoragePath.login,
+                            payload.login,
+                        );
                     } else {
                         dispatch(setMe(false));
                     }

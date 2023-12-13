@@ -1,10 +1,10 @@
 export type HomeworkTask = {
     id: number;
     description: string;
-    attach?: string;
+    attaches: string[];
 };
 
 export type HomeworkTaskCreatePayload = {
     description: string;
-    attach?: string;
+    attaches: string[];
 };
