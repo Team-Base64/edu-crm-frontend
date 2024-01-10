@@ -1,7 +1,7 @@
-import React from 'react';
-import { UiComponentProps, UiComponentPropsMap } from '@ui-kit/interfaces';
-import styles from './Avatar.module.scss';
 import Image from '@ui-kit/Image/Image';
+import { UiComponentProps, UiComponentPropsMap } from '@ui-kit/interfaces';
+import React from 'react';
+import styles from './Avatar.module.scss';
 
 const avatarSizes: UiComponentPropsMap = {
     small: styles.small,
@@ -23,7 +23,7 @@ const Avatar: React.FC<AvatarProps> = ({
     onClick,
     classes,
 }) => {
-    const mock = 'https://educrm.us.to/filestorage/mock-avatar.png';
+    const mock = 'https://edu-crm.ru/filestorage/mock-avatar.png';
     return (
         <div
             onClick={onClick}
