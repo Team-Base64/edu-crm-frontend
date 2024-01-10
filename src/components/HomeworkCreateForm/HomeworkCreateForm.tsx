@@ -1,21 +1,21 @@
-import React, { useRef, useState } from 'react';
-import { UiComponentProps } from '@ui-kit/interfaces';
-import Container from '@ui-kit/Container/Container';
-import Input from '@ui-kit/Input/Input';
-import TextArea from '@ui-kit/TextArea/TextArea';
-import Button from '@ui-kit/Button/Button';
-import Icon from '@ui-kit/Icon/Icon';
-import styles from './HomeworkCreateForm.module.scss';
-import Text from '@ui-kit/Text/Text';
 import { useCreateHomeworkMutation } from '@app/features/homework/homeworkSlice';
 import { HomeworkTask } from '@app/features/homeworkTask/homeworkTaskModel';
-import { useListItems } from '@ui-kit/List/hooks';
 import HomeworkTaskChoose, {
     HomeworkTaskChooseRef,
 } from '@components/HomeworkTaskChoose/HomeworkTaskChoose';
-import { dateToLocalISO } from 'utils/common/PrettyDate/common/iso';
+import Button from '@ui-kit/Button/Button';
+import Container from '@ui-kit/Container/Container';
+import Icon from '@ui-kit/Icon/Icon';
+import Input from '@ui-kit/Input/Input';
+import { useListItems } from '@ui-kit/List/hooks';
 import Spinner from '@ui-kit/Spinner/Spinner';
+import Text from '@ui-kit/Text/Text';
+import TextArea from '@ui-kit/TextArea/TextArea';
 import useForm from '@ui-kit/_hooks/useForm';
+import { UiComponentProps } from '@ui-kit/interfaces';
+import React, { useRef, useState } from 'react';
+import { dateToLocalISO } from 'utils/common/PrettyDate/common/iso';
+import styles from './HomeworkCreateForm.module.scss';
 
 interface HomeworkCreateFormProps extends UiComponentProps {
     onSubmitSuccess?: () => void;
@@ -31,6 +31,9 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({
 
     const [lock, setLock] = useState<boolean>(false);
     const [createHW] = useCreateHomeworkMutation();
+
+    const minDate = new Date();
+    minDate.setHours(minDate.getHours() + 1);
 
     const [form, isValid, clear] = useForm({
         title: {
@@ -48,10 +51,10 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({
         deadline: {
             rules: {
                 date: {
-                    minISO: dateToLocalISO(new Date()).slice(0, -13),
+                    minISO: dateToLocalISO(minDate).slice(0, -13),
                 },
             },
-            initial: dateToLocalISO(new Date()).slice(0, -13),
+            initial: dateToLocalISO(minDate).slice(0, -13),
         },
     });
 
@@ -68,9 +71,10 @@ const HomeworkCreateForm: React.FC<HomeworkCreateFormProps> = ({
         createHW({
             payload: {
                 classID: Number(classId),
-                deadlineTime: dateToLocalISO(
-                    new Date(Date.parse(form.deadline.value)),
-                ),
+                // deadlineTime: dateToLocalISO(
+                //     new Date(Date.parse(form.deadline.value)),
+                // ),
+                deadlineTime: new Date(Date.parse(form.deadline.value)).toISOString(),
                 title: form.title.value,
                 description: form.description.value,
                 tasks: choosenTasks.map((t) => t.id),
