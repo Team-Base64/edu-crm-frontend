@@ -71,8 +71,8 @@ export const MyCalendar: React.FC<CalendarProps> = ({
                 },
                 events: {
                     // googleCalendarId: data.googleid,
-                    googleCalendarId: import.meta.env
-                        .VITE_CALENDAR_GOOGLE_SAMPLE_TOKEN,
+                    googleCalendarId:
+                        '611a7b115cb31d14e41c9909e07db425548dd3b5fa76a145f3c93ae7410bc142@group.calendar.google.com',
                 },
                 height: '100%',
                 expandRows: true,
