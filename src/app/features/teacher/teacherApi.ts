@@ -28,8 +28,7 @@ export const teacherApi = appApi.injectEndpoints({
                         dispatch(setMe(false));
                     }
                 } catch (error) {
-                    console.error(error);
-                    dispatch(setMe(true));
+                    dispatch(setMe(false));
                 }
             },
         }),
