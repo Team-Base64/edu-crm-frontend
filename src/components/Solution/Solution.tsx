@@ -97,7 +97,7 @@ const Solution: React.FC<SolutionProps> = ({ id, classes }) => {
                         <Hint
                             state={hintState}
                             text={
-                                'Чтобы посмотреть нажмите на вложение, чтобы развернуть нажмите дважды'
+                                'Чтобы посмотреть, нажмите на вложение. Чтобы развернуть, нажмите дважды'
                             }
                         />
                         {data.solution.files.length ? (
