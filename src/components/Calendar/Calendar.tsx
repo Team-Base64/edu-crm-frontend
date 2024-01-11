@@ -62,7 +62,7 @@ export const MyCalendar: React.FC<CalendarProps> = ({
                     if (!classID) return;
 
                     const backendMappedEvent =
-                        backendEvents.calendarEvents[arg.event.id];
+                        backendEvents?.calendarEvents[arg.event.id];
 
                     // Спрятать если для другого класса
                     if (backendMappedEvent?.classid !== classID) {
