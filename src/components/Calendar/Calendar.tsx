@@ -30,9 +30,11 @@ export const MyCalendar: React.FC<CalendarProps> = ({
     viewMode,
     classID,
 }) => {
-    const { data, isSuccess } = useGetCalendarIDQuery(null);
-    const { data: backendEvents, isSuccess: backendEventsLoaded } =
+    let { data, isSuccess } = useGetCalendarIDQuery(null);
+    let { data: backendEvents, isSuccess: backendEventsLoaded } =
         useGetEventsQuery(null);
+    isSuccess = true;
+    backendEventsLoaded = true;
 
     const calendarRef = useRef<HTMLDivElement>(null);
 
@@ -68,9 +70,9 @@ export const MyCalendar: React.FC<CalendarProps> = ({
                     }
                 },
                 events: {
-                    googleCalendarId: data.googleid,
-                    // googleCalendarId: import.meta.env
-                    //     .VITE_CALENDAR_GOOGLE_SAMPLE_TOKEN,
+                    // googleCalendarId: data.googleid,
+                    googleCalendarId: import.meta.env
+                        .VITE_CALENDAR_GOOGLE_SAMPLE_TOKEN,
                 },
                 height: '100%',
                 expandRows: true,
