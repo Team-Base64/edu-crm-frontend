@@ -30,11 +30,9 @@ export const MyCalendar: React.FC<CalendarProps> = ({
     viewMode,
     classID,
 }) => {
-    let { data, isSuccess } = useGetCalendarIDQuery(null);
-    let { data: backendEvents, isSuccess: backendEventsLoaded } =
+    const { data, isSuccess } = useGetCalendarIDQuery(null);
+    const { data: backendEvents, isSuccess: backendEventsLoaded } =
         useGetEventsQuery(null);
-    isSuccess = true;
-    backendEventsLoaded = true;
 
     const calendarRef = useRef<HTMLDivElement>(null);
 
@@ -62,7 +60,7 @@ export const MyCalendar: React.FC<CalendarProps> = ({
                     if (!classID) return;
 
                     const backendMappedEvent =
-                        backendEvents?.calendarEvents[arg.event.id];
+                        backendEvents.calendarEvents[arg.event.id];
 
                     // Спрятать если для другого класса
                     if (backendMappedEvent?.classid !== classID) {
@@ -70,9 +68,9 @@ export const MyCalendar: React.FC<CalendarProps> = ({
                     }
                 },
                 events: {
-                    // googleCalendarId: data.googleid,
-                    googleCalendarId:
-                        '611a7b115cb31d14e41c9909e07db425548dd3b5fa76a145f3c93ae7410bc142@group.calendar.google.com',
+                    googleCalendarId: data.googleid,
+                    // googleCalendarId: import.meta.env
+                    //     .VITE_CALENDAR_GOOGLE_SAMPLE_TOKEN,
                 },
                 height: '100%',
                 expandRows: true,
@@ -84,7 +82,7 @@ export const MyCalendar: React.FC<CalendarProps> = ({
                 // slotDuration: '02:00',
             });
             calendar.render();
-            // calendar.refetchEvents();
+            calendar.refetchEvents();
         }
     }, [
         classID,
