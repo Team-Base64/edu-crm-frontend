@@ -1,0 +1,21 @@
+.component {
+  width: 80vw;
+}
+
+.btn {
+  & .text {
+    color: var(--color-text-white);
+
+    &-close {
+      color: var(--color-text-light);
+    }
+  }
+
+  & .icon {
+    fill: var(--color-text-white);
+
+    &-close {
+      fill: var(--color-text-light);
+    }
+  }
+}

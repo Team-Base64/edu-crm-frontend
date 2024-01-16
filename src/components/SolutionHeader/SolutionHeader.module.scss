@@ -1,0 +1,32 @@
+.widget {
+    width: 100%;
+}
+
+.content {
+    width: 100%;
+    &-title {
+        width: 25%;
+    }
+
+    &-item {
+        width: 75%;
+    }
+}
+
+.intime {
+    color: var(--color-success);
+}
+
+.outtime {
+    color: var(--color-fail);
+}
+
+
+.author {
+    align-items: start;
+    
+    &-item {
+        padding: 0;
+        background: none;
+    }
+}

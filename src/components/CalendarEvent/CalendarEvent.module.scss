@@ -1,0 +1,20 @@
+.item {
+    background-color: var(--color-accent-super-light);
+    min-width: max-content;
+}
+
+.main {
+    grid-template-columns: minmax(auto, max-content) minmax(auto, 250px);
+}
+
+.title {
+    grid-column: 1;
+}
+
+.content {
+    grid-column: 2;
+}
+
+.controls {
+    grid-template-columns: 1fr 1fr;
+}

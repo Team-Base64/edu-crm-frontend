@@ -1,0 +1,37 @@
+.card {
+    align-items: center;
+
+    & .form {
+        all: unset;
+        display: flex;
+        position: relative;
+        width: 100%;
+
+        & .nav {
+            width: min-content;
+        }
+
+        & .area {
+            width: 100%;
+
+            & textarea {
+                min-height: 100%;
+            }
+        }
+    }
+
+    & .attaches {
+        width: 100%;
+        display: grid;
+        background-color: inherit;
+        grid-template-columns: repeat(auto-fit, minmax(25%, 1fr));
+    }
+}
+
+.spinner {
+    stroke: var(--color-text-default);
+}
+
+.btnIconDisabled {
+    fill: var(--color-text-light);
+}

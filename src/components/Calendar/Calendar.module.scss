@@ -1,0 +1,27 @@
+@use '../../ui-kit/functions' as *;
+
+.calendar {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--border-radius-default);
+  background-color: var(--color-bg-light);
+  // MOVED TO PAGE STYLES padding: var(--space-big);
+  user-select: none;
+
+  /* calendar styling */
+  --fc-button-bg-color: var(--ui-kit-avatar-border-color);
+  --fc-button-border-color: var(--ui-kit-avatar-border-color);
+  font-family: getVar(font, type, default);
+
+  &-error-id {
+    margin: auto;
+  }
+}
+
+
+.calentarStyle {
+  padding: 16px;
+  & .st-dtitle {
+    background-color: var(--color-accent-super-light);
+  }
+}

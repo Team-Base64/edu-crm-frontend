@@ -1,0 +1,25 @@
+.widget {
+    grid-template-columns: 1fr 1fr;
+}
+
+.content {
+    overflow: hidden;
+    max-height: inherit;
+    position: relative;
+}
+
+.nav {
+    align-items: center;
+
+    & .add {
+        background-color: var(--color-success); // rgba(0, 157, 0, 0.42);
+
+        & .icon {
+            fill: var(--color-text-white);
+        }
+
+        & .text {
+            color: var(--color-text-white);
+        }
+    }
+}

@@ -1,0 +1,13 @@
+.btn {
+    &-spinner {
+        stroke: var(--color-text-white);
+    }
+
+    &-icon {
+        fill: var(--color-text-white);
+    }
+
+    &-text {
+        color: var(--color-text-white);
+    }
+}

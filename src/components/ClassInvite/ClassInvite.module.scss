@@ -1,0 +1,73 @@
+.widget {
+    background-color: var(--color-accent-super-light);
+    min-width: 240px;
+}
+
+.content {
+    position: relative;
+    padding: 8px 2px 8px 16px;
+    align-items: center;
+    min-width: 180px;
+    overflow: hidden;
+    justify-content: space-between;
+
+    & .btn {
+        padding: 12px;
+        height: 100%;
+    }
+
+    & .icon {
+        fill: var(--color-text-default);
+    }
+
+    & .nav {
+        align-items: center;
+        gap: 0;
+    }
+
+    & .token {
+        text-overflow: ellipsis;
+        text-wrap: nowrap;
+        overflow: hidden;
+    }
+}
+
+.guide {
+    width: 80vw;
+
+    & .container {
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    & .text {
+        text-wrap: wrap;
+    }
+
+    & .step {
+        background-color: var(--color-accent-super-light);
+    }
+
+    & .link {
+        cursor: pointer;
+    }
+}
+
+.hint {
+    position: absolute;
+    top: -0.5%;
+    left: -0.5%;
+    height: 101%;
+    width: 101%;
+    border-radius: inherit;
+}
+
+.tutorBtn {
+    position: relative;
+    &-icon {
+        fill: var(--color-text-white);
+    }
+    &-text {
+        color: var(--color-text-white);;
+    }
+}

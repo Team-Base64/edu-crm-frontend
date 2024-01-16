@@ -1,0 +1,15 @@
+.input {
+  display: none;
+}
+
+.btn {
+  fill: var(--color-text-default);
+
+  &:disabled {
+    fill: lightgray;
+  }
+}
+
+.hint {
+  position: absolute;
+}

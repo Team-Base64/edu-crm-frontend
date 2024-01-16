@@ -1,0 +1,9 @@
+.btn {
+    & .text {
+        color: var(--color-text-light);
+    }
+}
+
+.fullPage {
+    width: 70vw;
+}

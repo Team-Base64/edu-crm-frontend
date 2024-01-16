@@ -1,0 +1,39 @@
+@use '../functions' as *;
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  $outline-width: getVar(border, width, default);
+  outline: $outline-width solid getVar(avatar, border, color);
+  outline-offset: calc(0px - $outline-width);
+  border-radius: 50%;
+  flex-shrink: 0;
+
+  &.small {
+    width: getVar(avatar, size, small);
+    height: getVar(avatar, size, small);
+  }
+
+  &.medium {
+    width: getVar(avatar, size, medium);
+    height: getVar(avatar, size, medium);
+  }
+
+  &.large {
+    width: getVar(avatar, size, large);
+    height: getVar(avatar, size, large);
+  }
+
+  & img {
+    object-fit: cover;
+  }
+
+  &__image {
+    height: 100%;
+    width: 100%;
+  }
+}

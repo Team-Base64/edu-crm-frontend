@@ -1,0 +1,9 @@
+.btn {
+    & .text {
+        color: var(--color-text-white);
+    }
+
+    & .icon {
+        fill: var(--color-text-white);
+    }
+}

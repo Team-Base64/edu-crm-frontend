@@ -1,0 +1,19 @@
+.btn {
+    & .text {
+        color: var(--color-text-light);
+    }
+}
+
+.btn-create {
+    &-icon {
+        fill: var(--color-text-white);
+    }
+
+    &-text {
+        color: var(--color-text-white);
+    }
+}
+
+.fullPage {
+    width: 70vw;
+}

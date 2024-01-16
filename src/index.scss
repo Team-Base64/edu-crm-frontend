@@ -1,0 +1,19 @@
+@use 'styles/variables';
+
+body *:not(svg path) {
+  all: unset;
+  box-sizing: border-box;
+}
+// div table thead tr tbody th colgroup a td
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-bg-default);
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+}

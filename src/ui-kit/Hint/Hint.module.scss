@@ -1,0 +1,19 @@
+.hint {
+    background-color: var(--color-bg-default);
+    align-items: center;
+    padding: 4px 12px;
+    transition: all .2s linear;
+    grid-template-columns: max-content auto max-content;
+
+    &-text {
+        color: var(--color-text-default);
+    }
+
+    &-icon {
+        fill: var(--color-text-default);
+    }
+
+    &-close {
+        fill: var(--color-text-light);
+    }
+}

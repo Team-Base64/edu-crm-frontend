@@ -1,0 +1,185 @@
+:root {
+  // Button
+  --ui-kit-btn-font-weight: 700;
+
+  --ui-kit-btn-primary-bg-default: var(--color-accent-default);
+  --ui-kit-btn-primary-font-color: var(--color-text-white);
+  --ui-kit-btn-primary-font-color-disabled: var(--color-text-white);
+  --ui-kit-btn-primary-bg-hover: var(--color-accent-bright);// #ff9f34;
+  --ui-kit-btn-primary-border-color-focus: var(--color-accent-super-bright);
+  --ui-kit-btn-primary-bg-active: var(--color-accent-default);
+  --ui-kit-btn-primary-bg-disabled: var(--color-bg-default);
+
+  --ui-kit-btn-secondary-border-color-default: var(--color-accent-default);
+  --ui-kit-btn-secondary-font-color: var(--color-text-default);
+  --ui-kit-btn-secondary-bg-hover: color-mix(in srgb, var(--color-accent-default), transparent 80%);
+  --ui-kit-btn-secondary-border-color-focus: var(--color-accent-bright);
+  --ui-kit-btn-secondary-bg-active: inherit;
+  --ui-kit-btn-secondary-font-color-disabled: var(--color-bg-default);
+  --ui-kit-btn-secondary-border-color-disabled: var(--color-bg-default);
+
+  --ui-kit-btn-outlined-border-color-default: #FF8A00;
+  --ui-kit-btn-outlined-font-color: #FF8A00;
+  --ui-kit-btn-outlined-bg-hover: #ffaa52;
+  --ui-kit-btn-outlined-border-color-focus: #ff9f34;
+  --ui-kit-btn-outlined-bg-active: #f6ad63;
+  --ui-kit-btn-outlined-font-color-disabled: gray;
+  --ui-kit-btn-outlined-border-color-disabled: gray;
+
+  --ui-kit-btn-link-font-color: var(--color-text-light);
+  --ui-kit-btn-link-bg-hover: rgba(230, 230, 230, 0.5);
+  --ui-kit-btn-link-border-color-focus:rgba(230, 230, 230, 0.8);//  #ff9f34;
+  --ui-kit-btn-link-font-color-active: #ffaa52;
+  --ui-kit-btn-link-font-color-disabled: var(--color-bg-default);
+
+  // End button
+
+  // Input
+  --ui-kit-input-bg-disabled: inherit;
+  --ui-kit-input-bg-default: inherit;
+  --ui-kit-input-bg-hover: inherit;
+  --ui-kit-input-bg-focus: inherit;
+  --ui-kit-input-bg-error: inherit;
+  --ui-kit-input-bg-success: inherit;
+
+  --ui-kit-input-border-color: var(--color-text-light);
+  --ui-kit-input-border-color-disabled: var(--color-bg-default);
+  --ui-kit-input-border-color-focus: var(--color-text-default);
+  --ui-kit-input-border-color-error: var(--color-fail);
+  --ui-kit-input-border-color-success: var(--color-success);
+  --ui-kit-input-border-color-hover: var(--color-text-light);
+
+  --ui-kit-input-text-color-disabled: var(--color-text-light);
+
+  --ui-kit-input-title-font-size-small: 20px;
+  --ui-kit-input-title-font-size-medium: 24px;
+  --ui-kit-input-title-font-size-large: 28px;
+
+  --ui-kit-input-font-size-large: 24px;
+  --ui-kit-input-font-size-medium: 20px;
+  --ui-kit-input-font-size-small: 16px;
+
+  --ui-kit-input-error-hint-font-size-large: 20px;
+  --ui-kit-input-error-hint-font-size-medium: 16px;
+  --ui-kit-input-error-hint-font-size-small: 14px;
+
+  // End input
+  --ui-kit-color-error: var(--color-fail);
+
+  // Splitter
+
+  --ui-kit-splitter-thinkness-small: 0.5px;
+  --ui-kit-splitter-thinkness-default: 1px;
+  --ui-kit-splitter-thinkness-large: 2px;
+
+  // End splitter
+
+  // Icon
+  --ui-kit-icon-size-small: 16px;
+  --ui-kit-icon-size-medium: 20px;
+  --ui-kit-icon-size-large: 24px;
+
+  // Avatar
+  --ui-kit-avatar-size-small: 32px;
+  --ui-kit-avatar-size-medium: 48px;
+  --ui-kit-avatar-size-large: 64px;
+  --ui-kit-avatar-border-color: inherit;
+
+  // Padding
+  --ui-kit-padding-t-b-small: 4px;
+  --ui-kit-padding-l-r-small: 8px;
+  --ui-kit-padding-t-b-medium: 8px;
+  --ui-kit-padding-l-r-medium: 16px;
+  --ui-kit-padding-t-b-large: 16px;
+  --ui-kit-padding-l-r-large: 32px;
+
+  // Gap
+  --ui-kit-gap-small: 4px;
+  --ui-kit-gap-medium: 8px;
+  --ui-kit-gap-large: 16px;
+
+  // Border
+  --ui-kit-border-width-bold: 4px;
+  --ui-kit-border-width-default: 2px;
+  --ui-kit-border-width-thin: 1px;
+
+  --ui-kit-border-radius-small: 8px;
+  --ui-kit-border-radius-medium: 12px;
+  --ui-kit-border-radius-large: 16px;
+
+  // Font
+  --ui-kit-font-size-h1: 64px;
+  --ui-kit-font-size-h2: 48px;
+  --ui-kit-font-size-h3: 32px;
+  --ui-kit-font-size-h4: 20px;
+  --ui-kit-font-size-h5: 16px;
+  --ui-kit-font-size-h6: 12px;
+  --ui-kit-font-size-p: 16px;
+  --ui-kit-font-size-p2: 12px;
+
+  --ui-kit-font-type-default: var(--font-default);
+
+  // Checkbox
+
+  --ui-kit-checkbox-size-s: 16px;
+  --ui-kit-checkbox-border-width-s: 2px;
+  --ui-kit-checkbox-border-radius-s: 4px;
+  --ui-kit-checkbox-tick-ratio-s: 1.2;
+  --ui-kit-checkbox-size-m: 20px;
+  --ui-kit-checkbox-border-width-m: 2px;
+  --ui-kit-checkbox-border-radius-m: 4px;
+  --ui-kit-checkbox-tick-ratio-m: 1.2;
+  --ui-kit-checkbox-size-l: 24px;
+  --ui-kit-checkbox-border-width-l: 2px;
+  --ui-kit-checkbox-border-radius-l: 8px;
+  --ui-kit-checkbox-tick-ratio-l: 1.2;
+  --ui-kit-checkbox-tick-color-primary: var(--color-accent-bright);
+  --ui-kit-checkbox-border-color-primary: gray;
+  --ui-kit-checkbox-bg-primary: var(--color-bg-light);
+  --ui-kit-checkbox-bg-checked-primary: var(--color-bg-light);
+
+  /* colors */
+
+  // accent
+  --color-accent-dark: #27252fee;
+  --color-accent-super-bright: #FF8A00;
+  --color-accent-bright: #ff9f34;// #FF8A00;
+  --color-accent-default: #ffaa45;
+  --color-accent-light: #FFEECB;
+  --color-accent-super-light: #fef7e7;
+
+  // background
+  --color-bg-default: #dbdbdb;
+  --color-bg-light: rgba(253, 253, 253, 1.0);
+  --color-bg-bright: rgba(255, 242, 229, 0.25);
+  --color-bg-dark-light: rgb(248, 248, 248);
+  --color-bg-chat-message: #f1f1f1;
+
+  // text
+  --font-default: 'Roboto', sans-serif;
+  --color-text-white: #fafafa;
+  --color-text-default: #333;
+  --color-text-light: #888;
+
+  // result colors
+  --color-success: #68B684;
+  --color-fail: rgba(214, 46, 46, 0.75);
+
+  /* hover */
+  --color-hover: rgba(230, 230, 230, 0.5);;
+
+  /* shadows */
+
+  /* border-radius */
+  --border-radius-default: 16px;
+  --border-radius-inner: 8px;
+
+  /* space? */
+  --space-tiny: 2px;
+  --space-small: 4px;
+  --space-smaller: 8px;
+  --space-default: 16px;
+  --space-bigger: 24px;
+  --space-big: 32px;
+  --space-huge: 64px;
+}

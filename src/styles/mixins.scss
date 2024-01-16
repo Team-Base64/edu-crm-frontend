@@ -1,0 +1,19 @@
+@mixin default-scrollbar-style {
+  scrollbar-width: thin;
+  scrollbar-gutter: stable both-edges;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-text-light);
+    border-radius: var(--border-radius-default);
+  }
+}
+
+@mixin scrollbar-no-width {
+  &::-webkit-scrollbar {
+    margin: -4px;
+  }
+}

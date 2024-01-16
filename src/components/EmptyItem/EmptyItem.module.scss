@@ -1,0 +1,24 @@
+.item {
+  align-items: center;
+  background-color: var(--color-accent-super-light);
+}
+
+.spinner {
+  stroke: var(--color-text-default);
+}
+
+.icon {
+  fill:  var(--color-text-default);
+}
+
+.start {
+  justify-content: flex-start;
+}
+
+.end {
+  justify-content: flex-end;
+}
+
+.center {
+  justify-content: center;
+}

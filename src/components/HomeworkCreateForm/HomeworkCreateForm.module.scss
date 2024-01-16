@@ -1,0 +1,27 @@
+.widget {
+    width: 80vw;
+}
+
+.submit {
+    &-text {
+        color: var(--color-text-white);
+    }
+
+    &-icon {
+        fill: var(--color-text-white);
+    }
+
+    & .spinner {
+        stroke: var(--color-text-white);
+    }
+}
+
+.content {
+    gap: 16px;
+    margin: 16px 0 32px 0;
+}
+
+.tasks {
+    max-height: 500px;
+    min-height: max-content;
+}

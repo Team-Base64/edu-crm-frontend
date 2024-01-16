@@ -1,0 +1,29 @@
+.header{
+    align-self: center;
+}
+
+.submit {
+    &-text {
+        color: var(--color-text-white);
+    }
+
+    &-icon {
+        fill: var(--color-text-white);
+    }
+}
+
+.spinner {
+    fill: var(--color-text-default);
+}
+
+.state {
+    align-items: center;
+}
+
+.approved {
+    color: var(--color-success);
+}
+
+.reject {
+    color: var(--color-fail);
+}

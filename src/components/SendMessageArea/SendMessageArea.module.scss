@@ -1,0 +1,22 @@
+@use "../../ui-kit/functions" as *;
+@use '../../styles/mixins' as mixins;
+
+.form {
+  display: flex;
+  // gap: var(--space-default);
+  align-items: flex-end;
+  flex-grow: 1;
+}
+
+.send-message-area {
+  @include mixins.default-scrollbar-style;
+
+  &--button {
+    height: 24px;
+    fill: var(--color-text-default);
+  }
+
+  &--input {
+    width: 100%;
+  }
+}

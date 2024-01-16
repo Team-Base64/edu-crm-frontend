@@ -1,0 +1,50 @@
+@use '../functions' as *;
+
+.container {
+
+  &.vertical {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &.horizontal {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &.grid {
+    display: grid;
+  }
+
+  &--gap {
+    &-small {
+      gap: getVar(gap, small);
+    }
+
+    &-medium {
+      gap: getVar(gap, medium);
+
+    }
+
+    &-large {
+      gap: getVar(gap, large);
+    }
+  }
+
+  &--layout {
+    &-base {
+      background-color: var(--color-bg-light);
+      border-radius: var(--border-radius-default);
+
+      &--default {
+        @extend .container--layout-base;
+        padding: getVar(padding, t, b, large) getVar(padding, l, r, large);
+      }
+    }
+
+    &-sub {
+      background-color: var(--color-bg-bright);
+      border-radius: var(--border-radius-default);
+    }
+  }
+}

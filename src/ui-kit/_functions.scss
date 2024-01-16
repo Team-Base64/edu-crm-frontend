@@ -1,0 +1,16 @@
+@use "sass:map";
+$vars: ();
+
+@function getVar($parts...) {
+  $prefix: --ui-kit;
+  $resultCssVar: $prefix;
+
+  @each $part in $parts {
+    $resultCssVar: $resultCssVar + '-' + $part;
+  }
+
+  $vars: map.set($vars, $resultCssVar, none) !global;
+
+  @return var($resultCssVar);
+}
+

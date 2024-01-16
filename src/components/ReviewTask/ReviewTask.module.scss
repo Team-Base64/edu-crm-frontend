@@ -1,0 +1,33 @@
+.item {
+    background-color: var(--color-accent-super-light);
+}
+
+.review {
+    width: 100%;
+}
+
+.templates {
+    align-items: center;
+}
+
+.btn {
+    width: 100%;
+    text-wrap: nowrap;
+    justify-content: start;
+    &-text {
+        color: var(--color-text-default);
+    }
+
+    &-icon {
+        fill: var(--color-text-default);
+    }
+}
+
+.area {
+    width: 100%;
+
+    &>textarea {
+        display: flex;
+        flex-grow: 1;
+    }
+}
