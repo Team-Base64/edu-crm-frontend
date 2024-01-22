@@ -8,7 +8,7 @@
 
 `npm start` - Запуск в Production режиме
 
-`npm run link[:fix]` - Запуск ESLint
+`npm run lint[:fix]` - Запуск ESLint
 
 `npm run start:mock` - Запуск в Debug режиме
 > `npm run init:msw` - Создание Mock Service Worker для локальной отладки без бэкэнда \
