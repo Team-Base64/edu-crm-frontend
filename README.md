@@ -2,7 +2,7 @@
 
 Основной интерфейс взаимодействия с сервисом со стороны преподавателя. Включает в себя функционал создания классов, домашних работ, задач (для составления домашних работ), проверки решений от ученика, создания событий в календаре, агрегации сообщений от учеников из ВК и Телеграм.
 
-![Дизайн прототипа в Figma](https://www.figma.com/file/sYWJPNGU1cwaTyXqrHD3eB/Edu-CRM-design?type=design&node-id=1%3A8&mode=design&t=KLBxUxyKEynH3sju-1)
+[Дизайн прототипа в Figma](https://www.figma.com/file/sYWJPNGU1cwaTyXqrHD3eB/Edu-CRM-design?type=design&node-id=1%3A8&mode=design&t=KLBxUxyKEynH3sju-1)
 
 ### Основные команды
 
