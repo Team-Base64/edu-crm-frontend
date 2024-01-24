@@ -1,10 +1,10 @@
-import React, { memo } from 'react';
-import { UiComponentProps } from '@ui-kit/interfaces';
-import Container from '@ui-kit/Container/Container';
-import styles from './MessageItem.module.scss';
-import Text from '@ui-kit/Text/Text.tsx';
-import { getUTCTime } from '../../utils/common/dateRepresentation.ts';
 import { AttachmentsList } from '@ui-kit/AttachmentsList/AttachmentsList.tsx';
+import Container from '@ui-kit/Container/Container';
+import Text from '@ui-kit/Text/Text.tsx';
+import { UiComponentProps } from '@ui-kit/interfaces';
+import React, { memo } from 'react';
+import getTime from 'utils/common/PrettyDate/common/time.ts';
+import styles from './MessageItem.module.scss';
 
 interface MessageItemProps extends UiComponentProps {
     id?: number;
@@ -48,7 +48,7 @@ const MessageItem: React.FC<MessageItemProps> = memo(function MessageItem({
                     classes={styles.messageItemContent__time}
                     color={'light'}
                 >
-                    {getUTCTime(time)}
+                    {getTime(time)}
                 </Text>
             </Container>
             <div className={styles.polygon}></div>
