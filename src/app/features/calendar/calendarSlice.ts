@@ -1,5 +1,5 @@
 import appApi from '@app/appApi';
-import { calendarPaths } from '@app/features/calendar/calendarPaths.ts';
+import appPaths from '@app/appPaths';
 import {
     CalendarCreateEventType,
     CalendarEventDeleteType,
@@ -7,8 +7,7 @@ import {
     CalendarEventType,
     calendarGetID,
 } from '@app/features/calendar/calendarModel.ts';
-import appPaths from '@app/appPaths';
-import { valueAsPayloadTimezoneOffset } from '../../../utils/common/dateRepresentation.ts';
+import { calendarPaths } from '@app/features/calendar/calendarPaths.ts';
 
 export const calendarSlice = appApi.injectEndpoints({
     endpoints: (build) => ({
@@ -33,7 +32,7 @@ export const calendarSlice = appApi.injectEndpoints({
             invalidatesTags: ['getEvents', 'getCalendarID'],
         }),
         getEvents: build.query<
-            { calendarEvents: CalendarEventSelectByIDType },
+            { calendarEvents: CalendarEventSelectByIDType; },
             unknown
         >({
             query: () => {
@@ -44,18 +43,14 @@ export const calendarSlice = appApi.injectEndpoints({
             },
             providesTags: ['getEvents'],
 
-            transformResponse(calendarEvents: { events: CalendarEventType[] }) {
+            transformResponse(calendarEvents: { events: CalendarEventType[]; }) {
                 const newDialogs: CalendarEventSelectByIDType = {};
 
                 calendarEvents.events.forEach((event) => {
                     newDialogs[event.id] = {
                         ...event,
-                        startDate: valueAsPayloadTimezoneOffset(
-                            event.startDate,
-                        ).toISOString(),
-                        endDate: valueAsPayloadTimezoneOffset(
-                            event.endDate,
-                        ).toISOString(),
+                        startDate: event.startDate,
+                        endDate: event.endDate,
                     };
                 });
 
